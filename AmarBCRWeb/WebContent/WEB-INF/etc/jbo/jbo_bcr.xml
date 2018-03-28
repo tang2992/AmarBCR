@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="GB18030"?>
+
+<jbo>
+  <package name="jbo.bcr">
+    <class name="BCR_GUARANTEECHANGE" label="担保业务标识变更记录信息" keyAttributes="FinanceCode,GBusinessNo,NEWGBusinessNo,UpdateDate">
+      <attributes>
+        <attribute name="FinanceCode" label="担保机构代码" type="STRING" length="11" />
+        <attribute name="GBusinessNo" label="原担保业务编号" type="STRING" length="60" />
+        <attribute name="NEWGBusinessNo" label="变更后的担保业务编号" type="STRING" length="60" />
+        <attribute name="UpdateDate" label="数据报告日期" type="STRING" length="10" />
+		<attribute name="Incrementflag" label="信息操作类型" type="STRING" length="1"/>
+        <attribute name="Modflag" label="修改标志" type="STRING" length="1"/>
+        <attribute name="Tracenumber" label="错误跟踪号" type="STRING" length="20"/>
+        <attribute name="Recordflag" label="记录标志" type="STRING" length="20"/>
+        <attribute name="Sessionid" label="上报状态" type="STRING" length="10"/>
+        <attribute name="Errorcode" label="错误代码" type="STRING" length="80"/>
+      </attributes>
+      <manager>
+        <managerProperties>
+          <property name="createKey" value="true" />
+          <property name="table" value="BCR_GUARANTEECHANGE" />
+        </managerProperties>
+      </manager>
+   </class>
+    <class name="BCR_GUARANTEEDELETE" label="担保业务删除请求记录信息" keyAttributes="FinanceCode,GBusinessNo,DeleteTypes,UpdateDate">
+      <attributes>
+        <attribute name="FinanceCode" label="担保机构代码" type="STRING" length="11" />
+        <attribute name="GBusinessNo" label="担保业务编号" type="STRING" length="60" />
+        <attribute name="DeleteTypes" label="删除类型" type="STRING" length="1" />
+        <attribute name="UpdateDate" label="数据报告日期" type="STRING" length="10" />
+        <attribute name="Incrementflag" label="信息操作类型" type="STRING" length="1"/>
+        <attribute name="Modflag" label="修改标志" type="STRING" length="1"/>
+        <attribute name="Tracenumber" label="错误跟踪号" type="STRING" length="20"/>
+        <attribute name="Recordflag" label="记录标志" type="STRING" length="20"/>
+        <attribute name="Sessionid" label="上报状态" type="STRING" length="10"/>
+        <attribute name="Errorcode" label="错误代码" type="STRING" length="80"/>
+      </attributes>
+      <manager>
+        <managerProperties>
+          <property name="createKey" value="true" />
+          <property name="table" value="BCR_GUARANTEEDELETE" />
+        </managerProperties>
+      </manager>
+    </class>
+    <class name="BCR_ERRHISTORY" label="BCR_ERRHISTORY" keyAttributes="SERIALNO">
+      <attributes>
+        <attribute name="Serialno" label="流水号" type="INTEGER" length="22"/>
+        <attribute name="Recordtype" label="记录类型" type="STRING" length="2"/>
+        <attribute name="Recordkey" label="记录主键" type="STRING" length="120"/>
+        <attribute name="Messagetype" label="信息类型" type="STRING" length="2"/>
+        <attribute name="Errcode" label="错误代码" type="STRING" length="10"/>
+        <attribute name="Errmsg" label="错误信息" type="STRING" length="800"/>
+        <attribute name="Errfield" label="错误字段" type="STRING" length="20"/>
+        <attribute name="Financeid" label="金融机构代码" type="STRING" length="11"/>
+        <attribute name="Mainbusinessno" label="主业务号" type="STRING" length="60"/>
+        <attribute name="Occurdate" label="发生日期" type="STRING" length="10"/>
+        <attribute name="Customerid" label="客户编号" type="STRING" length="40"/>
+        <attribute name="GContractNo" label="担保业务号" type="STRING" length="16"/>
+        <attribute name="Errtablename" label="错误表名" type="STRING" length="16"/>
+        <attribute name="Errtablekey" label="错误表主键" type="STRING" length="16"/>
+      </attributes>
+      <manager>
+        <managerProperties>
+          <property name="table" value="BCR_ERRHISTORY"/>
+          <property name="createKey" value="false"/>
+          <property name="attributeMap" value=""/>
+        </managerProperties>
+      </manager>
+    </class>    
+ 	<class name="BCR_CODEMAP" label="代码映射表" keyAttributes="COLNAME,CTCODE,PBCODE">
+      <attributes>
+        <attribute name="Colname" label="人行标识符" type="STRING" length="4"/>
+        <attribute name="Ctcode" label="系统代码" type="STRING" length="20"/>
+        <attribute name="Pbcode" label="人行代码" type="STRING" length="20"/>
+        <attribute name="Note" label="备注" type="STRING" length="200"/>
+      </attributes>
+      <manager>
+        <managerProperties>
+          <property name="table" value="BCR_CODEMAP"/>
+          <property name="createKey" value="false"/>
+          <property name="attributeMap" value=""/>
+        </managerProperties>
+      </manager>
+    </class>
+    
+    <class name="BCR_UNREPORTBUSINESSNO" label="无需上报数据表" keyAttributes="MAINBUSINESSNO">
+      <attributes>
+        <attribute name="MAINBUSINESSNO" label="业务号" type="STRING" length="60"/>
+        <attribute name="Note" label="备注" type="STRING" length="60"/>
+        <attribute name="InputDate" label="录入日期" type="STRING" length="10"/>
+      </attributes>
+      <manager>
+        <managerProperties>
+          <property name="table" value="BCR_UNREPORTBUSINESSNO"/>
+          <property name="createKey" value="false"/>
+          <property name="attributeMap" value=""/>
+        </managerProperties>
+      </manager>
+    </class>
+  </package>
+</jbo>

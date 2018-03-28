@@ -1,0 +1,35 @@
+body {
+	background: #cdcdcd;
+}
+#TopTitle {
+	color: #525252;
+}
+.right_menu a {
+	width: 33px;
+	*+width: 49px;
+	padding-left: 16px;
+	height: 21px;
+	line-height: 21px;
+	margin: 0 5px;
+}
+.right_menu a, .right_menu a:hover, .right_menu a:active, .right_menu a:link, .right_menu a:visited {
+	color: #525252;
+}
+.right_menu a.refresh {
+	background: url(../images/Styleimg/icon_refresh.gif) no-repeat;
+}
+.right_menu a:hover.refresh {
+	background: url(../images/Styleimg/icon_refresh_hover.gif) no-repeat;
+}
+.right_menu a:active.refresh {
+	background: url(../images/Styleimg/icon_refresh_down.gif) no-repeat;
+}
+.right_menu a.close {
+	background: url(../images/Styleimg/icon_close.gif) no-repeat;
+}
+.right_menu a:hover.close {
+	background: url(../images/Styleimg/icon_close_hover.gif) no-repeat;
+}
+.right_menu a:active.close {
+	background: url(../images/Styleimg/icon_close_down.gif) no-repeat;
+}

@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="GB18030"?>
+
+<jbo>
+  <package name="jbo.bcr">
+    <class name="INIT_GUARANTEEINFO" label="担保业务基础信息（初始化）" keyAttributes="GBusinessNo">
+      <attributes>
+        <attribute name="GBusinessNo" label="担保业务编号" type="STRING" length="60" />
+        <attribute name="GContractNo" label="担保合同号码" type="STRING" length="60" />
+        <attribute name="OrgId" label="担保机构代码" type="STRING" length="11" />
+        <attribute name="InsuredType" label="被担保人类型" type="STRING" length="10" />
+        <attribute name="InsuredName" label="被担保人名称" type="STRING" length="80" />
+        <attribute name="CertType" label="被担保人证件类型" type="STRING" length="10" />
+        <attribute name="CertId" label="被担保人证件号码" type="STRING" length="20" />
+        <attribute name="GatherDate" label="数据报告日期" type="STRING" length="24" />
+        <attribute name="Attribute1" label="预留字段" type="STRING" length="60" />
+        <attribute name="UpdateDate" label="数据更新日期" type="STRING" length="24" />
+        <attribute name="Inputorg" label="登记部门" type="STRING" length="32"/>
+        <attribute name="Inputuser" label="登记用户" type="STRING" length="32"/>
+        <attribute name="Inputtime" label="登记时间" type="STRING" length="24"/>
+        <attribute name="Updateorg" label="更新部门" type="STRING" length="32"/>
+        <attribute name="Updateuser" label="更新用户" type="STRING" length="32"/>
+        <attribute name="Updatetime" label="更新时间" type="STRING" length="24"/>
+      </attributes>
+      <manager>
+        <managerProperties>
+          <property name="createKey" value="true" />
+          <property name="table" value="INIT_GUARANTEEINFO" />
+        </managerProperties>
+      </manager>
+   </class>
+    <class name="INIT_GUARANTEECONT" label="担保合同信息（初始化）" keyAttributes="GBusinessNo">
+      <attributes>
+        <attribute name="GBusinessNo" label="担保业务编号" type="STRING" length="60" />
+        <attribute name="BusinessType" label="担保业务种类" type="STRING" length="10" />
+        <attribute name="GuarantyType" label="担保方式" type="STRING" length="10" />
+        <attribute name="GuarantySum" label="担保金额" type="DOUBLE" length="24" scale="6"/>
+        <attribute name="GStartDate" label="担保起始日期" type="STRING" length="24" />
+        <attribute name="GEndDate" label="担保到期日期" type="STRING" length="24" />
+        <attribute name="DepositScale" label="存出保证金比例" type="INTEGER" length="3" />
+        <attribute name="CounterType" label="反担保方式" type="STRING" length="10" />
+        <attribute name="Compensation" label="约定再担保补偿比例" type="INTEGER" length="3" />
+        <attribute name="Rate" label="费率" type="STRING" length="10" />
+        <attribute name="AnnualRate" label="年化费率" type="STRING" length="10" />
+        <attribute name="Attribute1" label="预留字段" type="STRING" length="60" />
+        <attribute name="UpdateDate" label="数据更新日期" type="STRING" length="24" />
+        <attribute name="Inputorg" label="登记部门" type="STRING" length="32"/>
+        <attribute name="Inputuser" label="登记用户" type="STRING" length="32"/>
+        <attribute name="Inputtime" label="登记时间" type="STRING" length="24"/>
+        <attribute name="Updateorg" label="更新部门" type="STRING" length="32"/>
+        <attribute name="Updateuser" label="更新用户" type="STRING" length="32"/>
+        <attribute name="Updatetime" label="更新时间" type="STRING" length="24"/>
+      </attributes>
+      <manager>
+        <managerProperties>
+          <property name="createKey" value="true" />
+          <property name="table" value="INIT_GUARANTEECONT" />
+        </managerProperties>
+      </manager>
+    </class>
+    
+    <class name="INIT_INSUREDS" label="被担保人信息（初始化）" keyAttributes="GBusinessNo,CertType,CertId">
+      <attributes>
+        <attribute name="GBusinessNo" label="担保业务编号" type="STRING" length="60" />
+        <attribute name="InsuredType" label="被担保人类型" type="STRING" length="10" />
+        <attribute name="InsuredName" label="被担保人名称" type="STRING" length="80" />
+        <attribute name="CertType" label="被担保人证件类型" type="STRING" length="10" />
+        <attribute name="CertId" label="被担保人证件号码" type="STRING" length="20" />
+        <attribute name="InsuredState" label="状态位" type="STRING" length="5" />
+        <attribute name="UpdateDate" label="数据更新日期" type="STRING" length="24" />
+        <attribute name="Inputorg" label="登记部门" type="STRING" length="32"/>
+        <attribute name="Inputuser" label="登记用户" type="STRING" length="32"/>
+        <attribute name="Inputtime" label="登记时间" type="STRING" length="24"/>
+        <attribute name="Updateorg" label="更新部门" type="STRING" length="32"/>
+        <attribute name="Updateuser" label="更新用户" type="STRING" length="32"/>
+        <attribute name="Updatetime" label="更新时间" type="STRING" length="24"/>
+      </attributes>
+      <manager>
+        <managerProperties>
+          <property name="createKey" value="true" />
+          <property name="table" value="INIT_INSUREDS" />
+        </managerProperties>
+      </manager>
+    </class>
+      
+    <class name="INIT_CREDITORINFO" label="债权人及主合同信息（初始化）" keyAttributes="GBusinessNo,GContractNo,CreditorType,CertType,CertId">
+      <attributes>
+        <attribute name="GBusinessNo" label="担保合同编号" type="STRING" length="60" />
+        <attribute name="GContractNo" label="主合同编号" type="STRING" length="60" />
+        <attribute name="CreditorType" label="债权人类型" type="STRING" length="10" />
+        <attribute name="CreditorName" label="债权人名称" type="STRING" length="60" />
+        <attribute name="CertType" label="债权人证件类型" type="STRING" length="10" />
+        <attribute name="CertId" label="债权人证件号码" type="STRING" length="20" />
+        <attribute name="Way" label="投向" type="STRING" length="10" />
+        <attribute name="ContractFlag" label="状态位" type="STRING" length="5" />
+        <attribute name="UpdateDate" label="数据更新日期" type="STRING" length="24" />
+        <attribute name="Inputorg" label="登记部门" type="STRING" length="32"/>
+        <attribute name="Inputuser" label="登记用户" type="STRING" length="32"/>
+        <attribute name="Inputtime" label="登记时间" type="STRING" length="24"/>
+        <attribute name="Updateorg" label="更新部门" type="STRING" length="32"/>
+        <attribute name="Updateuser" label="更新用户" type="STRING" length="32"/>
+        <attribute name="Updatetime" label="更新时间" type="STRING" length="24"/>
+      </attributes>
+      <manager>
+        <managerProperties>
+          <property name="createKey" value="true" />
+          <property name="table" value="INIT_CREDITORINFO" />
+        </managerProperties>
+      </manager>
+    </class>  
+    
+    <class name="INIT_COUNTERGUARANTOR" label="反担保人信息（初始化）" keyAttributes="GBusinessNo,CounterGType,CertType,CertId">
+      <attributes>
+        <attribute name="GBusinessNo" label="担保业务编号" type="STRING" length="60" />
+        <attribute name="CounterGType" label="反担保人类型" type="STRING" length="10" />
+        <attribute name="CounterGName" label="反担保人名称" type="STRING" length="80" />
+        <attribute name="CertType" label="反担保人证件类型" type="STRING" length="10" />
+        <attribute name="CertId" label="反担保人证件号码" type="STRING" length="20" />
+        <attribute name="CounterGSum" label="反担保责任金额" type="DOUBLE" length="24" scale="6" />
+        <attribute name="CounterGFlag" label="状态位" type="STRING" length="5" />
+        <attribute name="UpdateDate" label="数据更新日期" type="STRING" length="24" />
+        <attribute name="Inputorg" label="登记部门" type="STRING" length="32"/>
+        <attribute name="Inputuser" label="登记用户" type="STRING" length="32"/>
+        <attribute name="Inputtime" label="登记时间" type="STRING" length="24"/>
+        <attribute name="Updateorg" label="更新部门" type="STRING" length="32"/>
+        <attribute name="Updateuser" label="更新用户" type="STRING" length="32"/>
+        <attribute name="Updatetime" label="更新时间" type="STRING" length="24"/>
+      </attributes>
+      <manager>
+        <managerProperties>
+          <property name="createKey" value="true" />
+          <property name="table" value="INIT_COUNTERGUARANTOR" />
+        </managerProperties>
+      </manager>
+    </class> 
+    
+    <class name="INIT_GUARANTEEDUTY" label="实际在保（代偿）责任信息（初始化）" keyAttributes="GBusinessNo">
+      <attributes>
+        <attribute name="GBusinessNo" label="担保合同号码" type="STRING" length="60" />
+        <attribute name="GContractFlag" label="担保合同状态" type="STRING" length="5" />
+        <attribute name="GContractEndDate" label="担保责任解除日期" type="STRING" length="24" />
+        <attribute name="GContractBalance" label="在保余额" type="DOUBLE" length="24" scale="6"/>
+        <attribute name="BalanceChangeDate" label="余额变化日期" type="STRING" length="24" />
+        <attribute name="UpdateDate" label="数据更新日期" type="STRING" length="24" />
+        <attribute name="Inputorg" label="登记部门" type="STRING" length="32"/>
+        <attribute name="Inputuser" label="登记用户" type="STRING" length="32"/>
+        <attribute name="Inputtime" label="登记时间" type="STRING" length="24"/>
+        <attribute name="Updateorg" label="更新部门" type="STRING" length="32"/>
+        <attribute name="Updateuser" label="更新用户" type="STRING" length="32"/>
+        <attribute name="Updatetime" label="更新时间" type="STRING" length="24"/>
+      </attributes>
+      <manager>
+        <managerProperties>
+          <property name="createKey" value="true" />
+          <property name="table" value="INIT_GUARANTEEDUTY" />
+        </managerProperties>
+      </manager>
+    </class>  
+   
+    <class name="INIT_COMPENSATORYINFO" label="代偿概况信息（初始化）" keyAttributes="GBusinessNo">
+      <attributes>
+        <attribute name="GBusinessNo" label="担保合同号码" type="STRING" length="60" />
+        <attribute name="BillingDate" label="记账日期" type="STRING" length="24" />
+        <attribute name="RecoveryFlag" label="继续追偿标志" type="STRING" length="5" />
+        <attribute name="LastCDate" label="最近一次代偿日期" type="STRING" length="24" />
+        <attribute name="CSum" label="累计代偿金额" type="DOUBLE" length="24" scale="6"/>
+        <attribute name="OwnCSum" label="本机构承担代偿金额" type="DOUBLE" length="24" scale="6"/>
+        <attribute name="LastRecoveryDate" label="最近一次追偿日期" type="STRING" length="24" />
+        <attribute name="CBalance" label="代偿余额" type="DOUBLE" length="24" scale="6"/>
+        <attribute name="OwnCBalance" label="本机构承担代偿余额" type="DOUBLE" length="24" scale="6"/>
+        <attribute name="RecoverySum" label="累计追偿金额" type="DOUBLE" length="24" scale="6"/>
+        <attribute name="LossSum" label="累计损失金额" type="DOUBLE" length="24" scale="6"/>
+        <attribute name="Attribute1" label="预留字段" type="STRING" length="60" />
+        <attribute name="UpdateDate" label="数据更新日期" type="STRING" length="24" />
+        <attribute name="Inputorg" label="登记部门" type="STRING" length="32"/>
+        <attribute name="Inputuser" label="登记用户" type="STRING" length="32"/>
+        <attribute name="Inputtime" label="登记时间" type="STRING" length="24"/>
+        <attribute name="Updateorg" label="更新部门" type="STRING" length="32"/>
+        <attribute name="Updateuser" label="更新用户" type="STRING" length="32"/>
+        <attribute name="Updatetime" label="更新时间" type="STRING" length="24"/>
+      </attributes>
+      <manager>
+        <managerProperties>
+          <property name="createKey" value="true" />
+          <property name="table" value="INIT_COMPENSATORYINFO" />
+        </managerProperties>
+      </manager>
+    </class>   
+   
+    <class name="INIT_COMPENSATORYDETAIL" label="代偿明细信息（初始化）" keyAttributes="GBusinessNo">
+      <attributes>
+        <attribute name="GBusinessNo" label="担保合同号码" type="STRING" length="60" />
+        <attribute name="CompensatorDate" label="代偿日期" type="STRING" length="24" />
+        <attribute name="CompensatorySum" label="代偿金额" type="DOUBLE" length="24" scale="6"/>
+        <attribute name="UpdateDate" label="数据更新日期" type="STRING" length="24" />
+        <attribute name="Inputorg" label="登记部门" type="STRING" length="32"/>
+        <attribute name="Inputuser" label="登记用户" type="STRING" length="32"/>
+        <attribute name="Inputtime" label="登记时间" type="STRING" length="24"/>
+        <attribute name="Updateorg" label="更新部门" type="STRING" length="32"/>
+        <attribute name="Updateuser" label="更新用户" type="STRING" length="32"/>
+        <attribute name="Updatetime" label="更新时间" type="STRING" length="24"/>
+      </attributes>
+      <manager>
+        <managerProperties>
+          <property name="createKey" value="true" />
+          <property name="table" value="INIT_COMPENSATORYDETAIL" />
+        </managerProperties>
+      </manager>
+    </class>
+    
+    <class name="INIT_RECOVERYDETAIL" label="追偿明细信息（初始化）" keyAttributes="GBusinessNo">
+      <attributes>
+        <attribute name="GBusinessNo" label="担保合同号码" type="STRING" length="60" />
+        <attribute name="RecoveryDate" label="追偿日期" type="STRING" length="10" />
+        <attribute name="RecoverySum" label="追偿金额" type="DOUBLE" length="24" scale="6"/>
+        <attribute name="UpdateDate" label="数据更新日期" type="STRING" length="24" />
+        <attribute name="Inputorg" label="登记部门" type="STRING" length="32"/>
+        <attribute name="Inputuser" label="登记用户" type="STRING" length="32"/>
+        <attribute name="Inputtime" label="登记时间" type="STRING" length="24"/>
+        <attribute name="Updateorg" label="更新部门" type="STRING" length="32"/>
+        <attribute name="Updateuser" label="更新用户" type="STRING" length="32"/>
+        <attribute name="Updatetime" label="更新时间" type="STRING" length="24"/>
+      </attributes>
+      <manager>
+        <managerProperties>
+          <property name="createKey" value="true" />
+          <property name="table" value="INIT_RECOVERYDETAIL" />
+        </managerProperties>
+      </manager>
+    </class>
+   
+    <class name="INIT_PREMIUMINFO" label="保费缴纳概况信息（初始化）" keyAttributes="GBusinessNo">
+      <attributes>
+        <attribute name="GBusinessNo" label="担保合同号码" type="STRING" length="60" />
+        <attribute name="PayType" label="缴费类别" type="STRING" length="10" />
+        <attribute name="BillingDate" label="记账日期" type="STRING" length="24" />
+        <attribute name="PremiumSum" label="金额" type="DOUBLE" length="24" scale="6"/>
+        <attribute name="PremiumMode" label="缴纳方式" type="STRING" length="5" />
+        <attribute name="PremiumFrequency" label="缴纳频率" type="STRING" length="5" />
+        <attribute name="ChargingStartDate" label="计费起始日期" type="STRING" length="24" />
+        <attribute name="PremiumState" label="保费缴纳状态" type="STRING" length="5" />
+        <attribute name="ChargingEndDate" label="缴纳结束日期" type="STRING" length="24" />
+        <attribute name="PremiumBalance" label="余额" type="DOUBLE" length="24" scale="6"/>
+        <attribute name="UnpaidSum" label="累计欠缴金额" type="DOUBLE" length="24" scale="6"/>
+        <attribute name="Attribute1" label="预留字段" type="STRING" length="60" />
+        <attribute name="UpdateDate" label="数据更新日期" type="STRING" length="24" />
+        <attribute name="Inputorg" label="登记部门" type="STRING" length="32"/>
+        <attribute name="Inputuser" label="登记用户" type="STRING" length="32"/>
+        <attribute name="Inputtime" label="登记时间" type="STRING" length="24"/>
+        <attribute name="Updateorg" label="更新部门" type="STRING" length="32"/>
+        <attribute name="Updateuser" label="更新用户" type="STRING" length="32"/>
+        <attribute name="Updatetime" label="更新时间" type="STRING" length="24"/>
+      </attributes>
+      <manager>
+        <managerProperties>
+          <property name="createKey" value="true" />
+          <property name="table" value="INIT_PREMIUMINFO" />
+        </managerProperties>
+      </manager>
+    </class>
+    
+    <class name="INIT_PREMIUMDETAIL" label="保费缴纳明细信息（初始化）" keyAttributes="GBusinessNo">
+      <attributes>
+        <attribute name="GBusinessNo" label="担保合同号码" type="STRING" length="60" />
+        <attribute name="PayableDate" label="应缴日期" type="STRING" length="24" />
+        <attribute name="PayableSum" label="应缴金额" type="DOUBLE" length="24" scale="6"/>
+        <attribute name="PaidDate" label="实缴日期" type="STRING" length="24" />
+        <attribute name="UnpaidSum" label="欠缴金额" type="DOUBLE" length="24" scale="6"/>
+        <attribute name="PeriodPremiumState" label="本期保费缴纳状态" type="STRING" length="5" />
+        <attribute name="Attribute1" label="预留字段" type="STRING" length="60" />
+        <attribute name="UpdateDate" label="数据更新日期" type="STRING" length="24" />
+        <attribute name="Inputorg" label="登记部门" type="STRING" length="32"/>
+        <attribute name="Inputuser" label="登记用户" type="STRING" length="32"/>
+        <attribute name="Inputtime" label="登记时间" type="STRING" length="24"/>
+        <attribute name="Updateorg" label="更新部门" type="STRING" length="32"/>
+        <attribute name="Updateuser" label="更新用户" type="STRING" length="32"/>
+        <attribute name="Updatetime" label="更新时间" type="STRING" length="24"/>
+      </attributes>
+      <manager>
+        <managerProperties>
+          <property name="createKey" value="true" />
+          <property name="table" value="INIT_PREMIUMDETAIL" />
+        </managerProperties>
+      </manager>
+    </class>
+
+  </package>
+</jbo>

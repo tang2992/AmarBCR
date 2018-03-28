@@ -1,0 +1,132 @@
+<?xml version='1.0' encoding='GB2312'?>
+<Domain name="Query">
+	<Querys>
+		<Query caption="企业信息查询" name="EntCustomerQuery">
+			<RelatedDataObjects>
+				<RelatedDataObject caption="客户基本信息" dataObjectName="CUSTOMER_INFO" joinType="" name="CI"></RelatedDataObject>
+				<RelatedDataObject caption="企业详细信息" dataObjectName="ENT_INFO" joinType="" name="EI"></RelatedDataObject>
+			</RelatedDataObjects>
+
+			<JoinClauses>
+				<JoinClause desColumnName="CustomerID" desRelatedDataObjectName="CI" operator="=" srcColumnName="CustomerID" srcRelatedDataObjectName="EI"></JoinClause>
+				<JoinClause  operator="exists(select CustomerID from CUSTOMER_BELONG where CustomerID=CI.CustomerID and OrgID in #ManageOrgID) " srcColumnName="" srcRelatedDataObjectName=""></JoinClause>
+			</JoinClauses>
+
+			<ConditionMaps>
+				<ConditionMap caption="客户基本信息" defaultColspan="2" defaultColspanForLongType="4" defaultPosition="FREE" totalColumns="4">
+					<ConditionColumns>
+						<ConditionColumn colspan="" columnName="*" exceptcolumnName="" position="" relatedDataObject="CI"></ConditionColumn>
+					</ConditionColumns>
+				</ConditionMap>
+			
+				<ConditionMap caption="企业信息条件输入" defaultColspan="2" defaultColspanForLongType="4" defaultPosition="FREE" totalColumns="4">
+					<ConditionColumns>
+						<ConditionColumn colspan="" columnName="*" exceptcolumnName="" position="" relatedDataObject="EI"></ConditionColumn>
+					</ConditionColumns>
+				</ConditionMap>
+			</ConditionMaps>
+
+			<AvailableGroupColumns>*</AvailableGroupColumns>
+			<AvailableSummaryColumns>EI.RegisterCapital|CI.CustomerName|EI.PaiclUpCapital</AvailableSummaryColumns>
+			<AvailableDisplayColumns>*</AvailableDisplayColumns>
+		
+			<DisAvailableGroupColumns></DisAvailableGroupColumns>
+			<DisAvailableSummaryColumns></DisAvailableSummaryColumns>
+			<DisAvailableDisplayColumns></DisAvailableDisplayColumns>
+
+			<Schemes>
+				<Scheme caption="默认" name="default">
+					<DisplayColumns></DisplayColumns>
+					<GroupColumns></GroupColumns>
+					<SummaryColumns></SummaryColumns>
+					<OrderColumns></OrderColumns>
+				</Scheme>
+			</Schemes>
+		</Query>
+  
+		<Query caption="个人客户查询" name="IndCustomerQuery">
+			<RelatedDataObjects>
+				<RelatedDataObject caption="客户基本信息" dataObjectName="CUSTOMER_INFO" joinType="" name="CI"></RelatedDataObject>
+				<RelatedDataObject caption="个人信息表" dataObjectName="IND_INFO" joinType="" name="II"></RelatedDataObject>
+			</RelatedDataObjects>
+
+			<JoinClauses>
+				<JoinClause desColumnName="CustomerID" desRelatedDataObjectName="CI" operator="=" srcColumnName="CustomerID" srcRelatedDataObjectName="II"></JoinClause>
+				<JoinClause  operator="exists(select CustomerID from CUSTOMER_BELONG where CustomerID=CI.CustomerID and OrgID in #ManageOrgID) " srcColumnName="" srcRelatedDataObjectName=""></JoinClause>
+			</JoinClauses>
+
+			<ConditionMaps>
+				<ConditionMap caption="客户基本信息" defaultColspan="2" defaultColspanForLongType="4" defaultPosition="FREE" totalColumns="4">
+					<ConditionColumns>
+						<ConditionColumn colspan="" columnName="*" exceptcolumnName="" position="" relatedDataObject="CI"></ConditionColumn>
+					</ConditionColumns>
+				</ConditionMap>
+				<ConditionMap caption="个人信息条件输入" defaultColspan="2" defaultColspanForLongType="4" defaultPosition="FREE" totalColumns="4">
+					<ConditionColumns>
+						<ConditionColumn colspan="" columnName="*" exceptcolumnName="" position="" relatedDataObject="II"></ConditionColumn>
+					</ConditionColumns>
+				</ConditionMap>
+			</ConditionMaps>
+	
+			<AvailableGroupColumns>*</AvailableGroupColumns>
+			<AvailableSummaryColumns>II.YearIncome|II.FamilyMonthIncome</AvailableSummaryColumns>
+			<AvailableDisplayColumns>*</AvailableDisplayColumns>
+		
+			<DisAvailableGroupColumns></DisAvailableGroupColumns>
+			<DisAvailableSummaryColumns></DisAvailableSummaryColumns>
+			<DisAvailableDisplayColumns></DisAvailableDisplayColumns>
+
+			<Schemes>
+				<Scheme caption="默认" name="default">
+					<DisplayColumns></DisplayColumns>
+					<GroupColumns></GroupColumns>
+					<SummaryColumns></SummaryColumns>
+					<OrderColumns></OrderColumns>
+				</Scheme>
+			</Schemes>
+		</Query>
+
+		<!--法律事务台帐信息查询-->
+		<Query caption="法律事务台帐查询" name="LawBookQuery">
+			<RelatedDataObjects>
+				<RelatedDataObject caption="法律案件台帐信息" dataObjectName="LAWCASE_BOOK" joinType="" name="LB"></RelatedDataObject>
+				<RelatedDataObject caption="法律案件基本信息" dataObjectName="LAWCASE_INFO" joinType="" name="LI"></RelatedDataObject>
+			</RelatedDataObjects>
+ 	
+			<JoinClauses>
+				<JoinClause desColumnName="ObjectType" desRelatedDataObjectName="LB" operator="'LawcaseInfo'=" ></JoinClause>
+				<JoinClause desColumnName="ObjectNo" desRelatedDataObjectName="LB" operator="=" srcColumnName="SerialNo" srcRelatedDataObjectName="LI"></JoinClause>
+				<JoinClause  operator="in #ManageOrgID" srcColumnName="ManageOrgID" srcRelatedDataObjectName="LI"></JoinClause>
+			</JoinClauses>
+	
+			<ConditionMaps>
+				<ConditionMap caption="法律案件信息条件输入" defaultColspan="2" defaultColspanForLongType="4" defaultPosition="FREE" totalColumns="4">
+					<ConditionColumns>
+						<ConditionColumn colspan="" columnName="*" exceptcolumnName="" position="" relatedDataObject="LI"></ConditionColumn>
+					</ConditionColumns>
+				</ConditionMap>
+				<ConditionMap caption="法律案件台帐信息条件输入" defaultColspan="2" defaultColspanForLongType="4" defaultPosition="FREE" totalColumns="4">
+					<ConditionColumns>
+						<ConditionColumn colspan="" columnName="*" exceptcolumnName="" position="" relatedDataObject="LB"></ConditionColumn>
+					</ConditionColumns>
+				</ConditionMap>
+			</ConditionMaps>
+			<AvailableGroupColumns>LB.BookType|LB.AppDate</AvailableGroupColumns>
+			<AvailableSummaryColumns>LB.ApplySum</AvailableSummaryColumns>
+			<AvailableDisplayColumns>*</AvailableDisplayColumns>
+
+			<DisAvailableGroupColumns></DisAvailableGroupColumns>
+			<DisAvailableSummaryColumns></DisAvailableSummaryColumns>
+			<DisAvailableDisplayColumns></DisAvailableDisplayColumns>
+  
+			<Schemes>
+				<Scheme caption="默认" name="default">
+					<DisplayColumns>LB.BookType|LB.AppDate|LB.ApplySum</DisplayColumns>
+					<GroupColumns>LB.BookType</GroupColumns>
+					<SummaryColumns>LB.ApplySum</SummaryColumns>
+					<OrderColumns></OrderColumns>
+				</Scheme>
+			</Schemes>
+		</Query>
+	</Querys>
+</Domain>

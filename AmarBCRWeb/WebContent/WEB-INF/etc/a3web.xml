@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="GB2312"?>
+<Domain ConfigurationVersion="1.0.0.0" Name="am@rBank">
+	<ImagePath>/Frame/page/resources/images</ImagePath>
+
+	<DataSource>ecr</DataSource>
+	<DataSource_Report>als_rpt</DataSource_Report>
+	
+	<!--TranDebugMode Remark 0:不输出Sql运行信息,1:输出Sql运行信息 -->
+	<TranDebugMode>1</TranDebugMode>
+	<!--StatementMode Remark 查询SQL游标模式 0:Statement,1: prepareStatement -->
+	<StatementMode>1</StatementMode>
+	<!--DBChange Remark 1:GBK->ISO8859_1,2:NoChange,3:ISO8859_1->GBK -->
+	<DBChange>2</DBChange>
+
+	<AmarDWChange>1</AmarDWChange>
+	<AmarDWMaxRows>1000000</AmarDWMaxRows>
+	<AmarDWDefPageSize>20</AmarDWDefPageSize>
+	<AmarDWTransMode>1</AmarDWTransMode>
+	<!--AmarDWDebugMode Remark 0:不输出DataWindow保存信息,1:输出DataWindow保存信息 -->
+	<AmarDWDebugMode>1</AmarDWDebugMode>
+
+	<!--Development Remark Development：开发模式；Production：产品模式;Demonstration:演示模式 -->
+	<RunMode>Development</RunMode>
+	<!--FileSaveMode Remark Table：存放在数据库；Disk：存放在文件服务器 -->
+	<FileSaveMode>Disk</FileSaveMode>
+	<!--为满足程序和文档分开的需要，下面指定的文档保存、下载路径一般都为绝对路径-->
+	<!--FileSavePath Remark 文件保存路径 在FileSaveMode为Disk指定，如果指定目录不存在则保存在WEB-INF的Upload下 -->
+	<FileSavePath>/tmp/ecr/Upload</FileSavePath>
+	
+	<!--WorkDocSavePath Remark 格式化文档保存路径，如果指定目录不存在则保存在WEB-INF的WorkDoc下 -->
+	<WorkDocSavePath>/home/amarsoft/ecr/WorkDoc</WorkDocSavePath>
+	<!--WorkDocSaveMode Remark Table：存放在数据库；Disk：存放在文件服务器 -->
+	<WorkDocSaveMode>Disk</WorkDocSaveMode>
+	<!--WorkDocOfflineSavePath Remark 离线格式化报告存储位置 -->
+	<WorkDocOfflineSavePath>/home/amarsoft/ecr/offlineworkdoc</WorkDocOfflineSavePath>
+
+	<!--DWDownloadFilePath 表示DataWindow下载的文件存放的服务器位置，必须以/表示目录分割符 -->
+	<DWDownloadFilePath>/tmp/DownLoad</DWDownloadFilePath>
+	<!--DWTmpPath 表示DataWindow临时的文件存放的服务器位置，必须以/表示目录分割符 -->
+	<DWTmpPath>/tmp/DW</DWTmpPath>
+	<!--FileNameType Remark SRC:上传原始名称 MD5:生成MD5加密文件名 -->
+	<FileNameType>SRC</FileNameType>
+	<!-- OW列表模糊查询 -->
+	<ListFuzzyQuery>true</ListFuzzyQuery>
+
+	<ProductID>ECR_WEB</ProductID>
+	<ProductName>企业征信管理系统</ProductName>
+	<ProductVersion>2.2</ProductVersion>
+	<ImplementationID>ECRWeb22</ImplementationID>
+	<ImplementationName>ECRWeb22</ImplementationName>
+	<ImplementationVersion>3.0</ImplementationVersion>
+	<BankName>XX商业银行</BankName>
+	
+	<!-- =========================================业务配置 - begin======================================= -->
+	<!--根据ApporveNeed的配置判断是否登记最终审批意见：true-登记最终审批意见，false-不登记最终审批 意见 -->
+	<ApproveNeed>true</ApproveNeed>
+	
+	<!--ClassifyObjectType Remark BusinessDueBill:五级分类按借据,BusinessContract:五级分类按合同 -->
+	<ClassifyObjectType>BusinessDueBill</ClassifyObjectType>
+	<!-- =========================================业务配置 - end ========================================= -->
+</Domain>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="GB18030"?>
+<jbo>
+	<managers>
+		<manager id="dataGridImport" managerClass="com.amarsoft.proj.nbcb.dataimport.DataGridExcelImportManager">
+			<describe>DataGrid格式的Excel数据导入</describe>
+			<managerProperties>
+				<property name="database" value="als" />
+			</managerProperties>
+		</manager>
+		<manager id="MineImport" managerClass="com.amarsoft.app.als.dataimport.xlsimport.MineImportManager">
+			<describe>自定义类数据格式导入</describe>
+				<managerProperties>
+					<property name="database" value="als" />
+				</managerProperties>
+		</manager>
+	</managers>
+	<package name="jbo.imports.excel"> 
+		<class name="test" label="导入测试" keyAttributes="CUSTOMERNAME,INPUTDATE">
+	      <attributes>
+		        <attribute name="CUSTOMERNAME" label="客户名称" type="STRING" length="40" >
+		        	<extendProperties>
+								<property name="excelCol" value="A" />
+					</extendProperties>
+		        </attribute>
+		        <attribute name="CERTID" label="证件编号" type="STRING" length="80" >
+		        	<extendProperties>
+								<property name="excelCol" value="B" />
+					</extendProperties>
+		        </attribute> 
+	      </attributes>
+		      <manager id="MineImport">
+		         <managerProperties>
+			        	 <property name="table" value="CDS_INFO" />
+				         <property name="startAddress" value="A2" />
+						 <property name="createKey" value="true" />
+						  <property name="importClass" value="com.amarsoft.app.als.dataimport.bill.TestReader"/>
+			        </managerProperties>
+		      </manager> 
+		</class>
+   <class name="BUSINESS_PAYPLAN" label="还款计划导入" keyAttributes="SERIALNO,TERM">
+      <attributes>
+        <attribute name="SERIALNO" label="流水号" type="STRING" length="16" />
+        <attribute name="TERM" label="期次" type="INT" length="10" >
+        	<extendProperties>
+					<property name="excelCol" value="A" />
+			</extendProperties>
+        </attribute>
+        <attribute name="RETURNDATE" label="还款日期" type="STRING" length="10" >
+	        <extendProperties>
+							<property name="excelCol" value="B" />
+			</extendProperties>
+		</attribute>
+         <attribute name="RETURNCORP" label="还款本金" type="DOUBLE" length="24" scale="6" >
+        	<extendProperties>
+						<property name="excelCol" value="C" />
+			</extendProperties>
+        </attribute>
+        <attribute name="RETURNINT" label="还款利息" type="DOUBLE" length="24" scale="6" >
+        	<extendProperties>
+						<property name="excelCol" value="D" />
+			</extendProperties>
+        </attribute>
+      </attributes>
+      <manager id="MineImport">
+        <managerProperties>
+          <property name="createKey" value="true" />
+          <property name="table" value="BUSINESS_PAYPLAN" />
+          <property name="startAddress" value="A3" />
+		  <property name="finishAddress" value="D10000" />
+		  <property name="importClass" value="com.amarsoft.app.als.dataimport.payplan.BusinessPayPlanExcelImport"/>
+		   <property name="excelPath" value="/AppConfig/FileImport/doc/BusinessPayPlan.xls" />
+        </managerProperties>
+      </manager>
+    </class>
+     <class name="BCR_UNREPORTBUSINESSNO" label="无需上报数据" keyAttributes="MAINBUSINESSNO">
+      <attributes>
+        <attribute name="MAINBUSINESSNO" label="担保合同编号" type="STRING" length="60" >
+        	<extendProperties>
+					<property name="excelCol" value="A" />
+			</extendProperties>
+        </attribute>
+        <attribute name="NOTE" label="备注" type="STRING" length="60" >
+	        <extendProperties>
+							<property name="excelCol" value="B" />
+			</extendProperties>
+		</attribute>
+      </attributes>
+      <manager id="MineImport">
+        <managerProperties>
+          <property name="createKey" value="false" />
+          <property name="table" value="BCR_UNREPORTBUSINESSNO" />
+          <property name="startAddress" value="A3" />
+		  <property name="finishAddress" value="D10000" />
+		  <property name="importClass" value="com.amarsoft.app.als.dataimport.xlsimport.BusinessUnReportExcelImport"/>
+		   <property name="excelPath" value="/AppConfig/FileImport/doc/BusinessUnReport.xls" />
+        </managerProperties>
+      </manager>
+    </class>
+	</package>
+</jbo>   

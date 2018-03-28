@@ -1,0 +1,90 @@
+.tabs_content{
+	border-color: #fff;
+	}
+.tabs ul li.handle span.tab_inactive_left{
+	background-image: url(../images/tabs_inactive.png);
+	background-color: #DCDCDC;
+	border-color: #08367a;
+	border:none;
+}
+.tabs ul li.handle span.tab_inactive_center{
+	background-image: url(../images/tabs_inactive.png);
+	background-color: #DCDCDC;
+	border-color: #08367a;
+	border:none;
+	padding-left: 25px;
+}
+.tabs ul li.handle span.tab_inactive_control{
+	background-image: url(../images/tabs_inactive.png);
+	background-color: #DCDCDC;
+	border-color: #08367a;
+	border:none;
+}
+.tabs ul li.handle span.tab_inactive_right{
+	background-image: url(../images/tabs_inactive.png);
+	background-color: #DCDCDC;
+	border-color: #08367a;
+	border:none;
+}
+.tabs ul li.handle span a {
+	color: #204179;
+}
+.tabs ul li.handle .tab_active_center a{color:#000;}
+/********* 婵犵鎷峰锟�*******/
+.tabs ul li.handle span.tab_active_left{
+	border-color: #08367a;
+	background-image: url(../images/tabs_active.png);
+	/*background-color: #eee5ff;*/
+	border:none;
+}
+.tabs ul li.handle span.tab_active_center{
+	border-color: #08367a;
+	background-image: url(../images/tabs_active.png);
+	/*background-color: #eee5ff;*/
+	color:#000;
+	border:none;
+	padding-left: 25px;
+}
+.tabs ul li.handle span.tab_active_control{
+	border-color: #08367a;
+	/* background-image: url(../images/tabs_active.png);
+	background-color: #eee5ff; */
+	right:0;
+	color:#fff;
+	border:none;
+}
+.tabs ul li.handle span.tab_active_right{
+	border-color: #08367a;
+	background-image: url(../images/tabs_active.png);
+	/*background-color: #eee5ff;*/
+	border:none;
+}
+/********* 濮捬呭У閻栵絿绮旂拠鎻掑汲 ********/
+.tabs ul li.handle span.tab_over_left{
+	border-color: #08367a;
+	background-image: url(../images/tabs_hover.png);
+	background-color: #DCDCDC;
+	border:none;
+}
+.tabs ul li.handle span.tab_over_center{
+	border-color: #08367a;
+	background-image: url(../images/tabs_hover.png);
+	background-color: #DCDCDC;
+	border:none;
+	padding-left: 25px;
+}
+.tabs ul li.handle span.tab_over_control{
+	border-color: #08367a;
+	background-image: url(../images/tabs_hover.png);
+	background-color: #DCDCDC;
+	border:none;
+}
+.tabs ul li.handle span.tab_over_right{
+	border-color: #08367a;
+	background-image: url(../images/tabs_hover.png);
+	background-color: #DCDCDC;
+	border:none;
+}
+.tabs ul li.handle span{
+	height:22px;
+}

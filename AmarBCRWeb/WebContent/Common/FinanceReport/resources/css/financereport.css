@@ -1,0 +1,17 @@
+.thisinput {border-style:none;border-width:thin;border-color:#e9e9e9}
+.thistable {  border: solid; border-width: 0px 0px 1px 1px; border-color: #000000 black #000000 #000000}
+.thistd {  border-color: #000000; border-style: solid; border-top-width: 1px; border-right-width: 1px; border-bottom-width: 0px; border-left-width: 0px}
+.thisinputnumber {border-style:none;border-width:thin;border-color:#e9e9e9;text-align:right;}
+.FSPage{background-color:#DCDCDC;background-image:url(../resources/images/GridBG_everbright.gif);margin-top:0px;margin-left:0px;margin-bottom:0px;margin-right:0px;}
+.FSTable{}
+.FSHeaderTR{text-align:left;}
+.FSHeaderTDText{background-color:#CCC8EB;background-image:url(../resources/images/FSHeaderBG.gif);height:24px;color:black;padding-left:2px;}
+.FSTR{}
+.FSTD{}
+.FSInput1{border-style:none;border-color:#e9e9e9;background-color:#F6F5FA;}
+.FSInput2{border-style:none;border-color:#e9e9e9;background-color:#EDEBF6;}
+.FSInputNumber1{border-style:none;border-color:#e9e9e9;text-align:right;background-color:#F6F5FA;}
+.FSInputNumber2{border-style:none;border-color:#e9e9e9;text-align:right;background-color:#EDEBF6;}
+.FSInputNote1{border-style:none;border-color:#e9e9e9;color:red;text-align:right;background-color:#F6F5FA;}
+.FSInputNote2{border-style:none;border-color:#e9e9e9;color:red;text-align:right;background-color:#EDEBF6;}
+.FSHighLightInput{border-style:none;border-color:#DCDCDC;text-align:right;background-color:#DCDCDC;}

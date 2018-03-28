@@ -1,0 +1,15 @@
+.title {
+	height: 27px;
+	line-height: 27px;
+}
+#Border {
+	width: 5px;
+}
+#Border span {
+	display: none;
+}
+#FirstFrame, #SecondFrame {
+	border-style: solid;
+	border-color: #ECECEC #AAAAAA #AAAAAA #ECECEC;
+	border-width:1px;
+}

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+  <!-- BCR DATABASE -->
+  <Resource name="jdbc/ecr" auth="Container" type="javax.sql.DataSource"
+	   maxActive="100" maxIdle="30" maxWait="10000"
+	   username="bcr" password="bcr" driverClassName="oracle.jdbc.driver.OracleDriver"
+	   url="jdbc:oracle:thin:@localhost:1521:orcl" />
+</Context>
+

@@ -1,0 +1,129 @@
+.mytop {
+	background: url(../images/main_menu_bg.jpg) right;
+	border-color: #09377b;
+	height:76px;
+	border:none;
+}
+.bank_menus a, .bank_menus a:active, .bank_menus a:visited {
+	color: #8c8c8c;
+	margin-left: 5px;
+	display: inline-block;
+	height: 21px;
+	line-height: 21px;
+	outline: none;
+}
+.bank_menus a:hover {
+	color: #6382bc;
+	text-decoration: none;
+}
+.bank_menus a.assign {
+	background-image: url(../images/assign.gif);
+}
+.bank_menus a.bug {
+	background-image: url(../images/bug.gif);
+}
+.bank_menus a.help {
+	background-image: url(../images/help.gif);
+}
+.bank_menus a.home {
+	background-image: url(../images/Styleimg/icon_home.gif);
+	width: 29px;
+	*+width: 49px;
+	padding-left: 20px;
+	color: #525252;
+}
+.bank_menus a:hover.home {
+	background-image: url(../images/Styleimg/icon_home_hover.gif);
+}
+.bank_menus a:active.home {
+	background-image: url(../images/Styleimg/icon_home_down.gif);
+}
+.bank_menus a.signout {
+	background-image: url(../images/Styleimg/icon_signout.gif);
+	width: 50px;
+	*+width: 70px;
+	padding-left: 20px;
+	color: #525252;
+}
+.bank_menus a:hover.signout {
+	background-image: url(../images/Styleimg/icon_signout_hover.gif);
+}
+.bank_menus a:active.signout {
+	background-image: url(../images/Styleimg/icon_signout_down.gif);
+}
+.bank_menus a.skin {
+	background-image: url(../images/Styleimg/icon_skin.gif);
+	width: 29px;
+	*+width: 49px;
+	padding-left: 20px;
+	color: #525252;
+}
+.bank_menus a:hover.skin {
+	background-image: url(../images/Styleimg/icon_skin_hover.gif);
+}
+.bank_menus a.user {
+	background-image: url(../images/Styleimg/icon_user.gif);
+	width: 50px;
+	*+width: 70px;
+	padding-left: 20px;
+	color: #525252;
+}
+.bank_menus a:hover.user {
+	background-image: url(../images/Styleimg/icon_user_hover.gif);
+}
+.bank_menus a.systems {
+	display: none;
+}
+.bank_menus a.mail {
+	background-image: url(../images/mail.gif);
+}
+.bank_menus a.reclaim {
+	background-image: url(../images/reclaim.gif);
+}
+.bank_menus a.tools {
+	background-image: url(../images/tools.gif);
+}
+.menu_bar li a, .menu_bar li a:active, .menu_bar li a:visited {
+	color: #fffbf0;
+}
+.menu_bar li a:hover {
+	color: #000;
+}
+.menu_bar li li a, .menu_bar li li a:link {
+	color: #000;
+}
+.menu_sys {
+	background-image: url(../images/menu_nvgbg_left.gif);
+}
+.menu_sys table {
+	background-image: url(../images/menu_nvgbg.gif);
+}
+.sys_menu_href {
+	background-image: url(../images/menu_nvgbg_home.gif);
+}
+.skin_bar {
+	border-color: #8b47fc;
+}
+.menu_bar ul {
+	
+}
+.menu_bar li li {
+	background: url(../images/menu.gif) repeat-y #f0f0f0;
+}
+.menu_bar li a:hover {
+	background: url(../images/menu_onebg.gif) repeat-x bottom;
+}
+.menu_bar li li a:hover {
+
+}
+.slidedown {
+	display: none; position:absolute; background: #eee;
+	border: 1px solid #555; border-top: none;
+	top: 57px; z-index: 999;
+}
+#otherskin {
+	left: 132px;
+}
+#userinfo {
+	left: 186px;
+}
