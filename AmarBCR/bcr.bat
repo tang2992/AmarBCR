@@ -1,3 +1,4 @@
+cd /d F:\workspace\AmarBCR
 @echo off
 rem setup classpath
 echo set _CP=%%_CP%%;%%1> cp.bat

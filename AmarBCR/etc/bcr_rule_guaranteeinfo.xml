@@ -37,7 +37,7 @@
 		<rulelist>
 		<!--担保业务信息报文规则 -->
 		
-			<!-- 基础段数据项报文规则 -->
+			基础段数据项报文规则
 			<rule name="rule81-01" messageType="81" errorCode="1015" recordType="811" segmentFlag="B" checkType="NA" Level="4" checkedFieldName="FinanceId"	errorMsg="基础段：管理行代码(金融机构代码)不能为空" >
 			</rule>
 			<rule name="rule81-02" messageType="81" errorCode="1000" recordType="811" segmentFlag="B" checkType="FI" Level="4" checkedFieldName="FinanceId"	errorMsg="基础段：管理行代码(金融机构代码)不符合人行规范" >

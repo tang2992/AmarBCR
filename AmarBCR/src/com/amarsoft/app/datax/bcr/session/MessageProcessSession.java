@@ -67,7 +67,7 @@ public abstract class MessageProcessSession
     try {
       this.messageSet.parse(this.provider);
     } catch (BCRException e) {
-      this.logger.error(e);
+      this.logger.debug(e);
       return false;
     }
     return true;

@@ -5,7 +5,7 @@
 	<!-- 将批删报文生成任务和正常报文生成任务统一放在report当中，不再加以区分 -->
 	<SystemProperties>
 		<!-- 企业征信主目录 -->
-		<Property name="BCR_HOME" value="F:/workspace/SVN/AmarBCR" />
+		<Property name="BCR_HOME" value="." />
 		<Property name="APP_HOME" value="{$ARE.BCR_HOME}" />
 		<!-- 下面的属性是程序启动任务属性，用于确定使用哪个任务文件 -->
 		<Property name="initTaskFile" value="{$ARE.BCR_HOME}/etc/bcr_task_init.xml" />

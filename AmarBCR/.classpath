@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
 	<classpathentry kind="lib" path="lib/activation.jar"/>
 	<classpathentry kind="lib" path="lib/ApacheConfiguration.jar"/>
 	<classpathentry kind="lib" path="lib/are-1.0b92-rc2_g.jar"/>
@@ -14,14 +15,14 @@
 	<classpathentry kind="lib" path="lib/ecr-22-b01_g.jar"/>
 	<classpathentry kind="lib" path="lib/ecr-22-b01.jar"/>
 	<classpathentry kind="lib" path="lib/eft.jar"/>
+	<classpathentry kind="lib" path="lib/eft.jar.bak"/>
 	<classpathentry kind="lib" path="lib/foundation.jar"/>
 	<classpathentry kind="lib" path="lib/jdom.jar"/>
 	<classpathentry kind="lib" path="lib/jep-2.3.0.jar"/>
 	<classpathentry kind="lib" path="lib/log4j-1.2.8.jar"/>
+	<classpathentry kind="lib" path="lib/ojdbc14_g.jar"/>
 	<classpathentry kind="lib" path="lib/task-1.5beata_g.jar"/>
 	<classpathentry kind="lib" path="lib/xerces-2.4.0.jar"/>
 	<classpathentry kind="lib" path="lib/xmlParserAPIs.jar"/>
-	<classpathentry kind="lib" path="lib/ojdbc14_g.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk1.7.0_17"/>
-	<classpathentry kind="output" path="classes"/>
+	<classpathentry kind="output" path="bin"/>
 </classpath>
