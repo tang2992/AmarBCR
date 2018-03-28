@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!-- 任务定义文件,每个任务有一个文件构成，任务构造器可以根据此文件构造一个任务出来 -->
+
+<task parallelRun="false" traceOn="true" >
+	<name>ecr_task_init</name>
+	<describe>企业征信任务初始化</describe>
+	<extendProperties>
+		<property name="property1-name" value="property1-name" />
+	</extendProperties>
+	<targets>
+		<target enabled="true">
+			<name>main_flow</name>
+			<describe>准备初始化信贷数据</describe>
+			<extendProperties>
+				<property name="bufferSize" value="0" />
+				<property name="database" value="ecr" />
+				<property name="batchUpdateNumber" value="1" />
+				<property name="runFlag" value="2" />
+				<property name="codeRunFlag" value="1" />
+			</extendProperties>
+			<executeUnits>
+				<executeUnit>
+					<name>ImportHistory</name>
+					<describe>回推贷款历史数据</describe>
+					<executeClass>com.amarsoft.app.datax.ecr.prepare.dataimport.ImportHistory</executeClass>
+					<extendProperties>
+						<!--ExecuteDate为回推依据日期，必须和借据和流水的取数日期一致 -->
+						<property name="ExecuteDate" value="2005/11/25"/>
+						<property name="sourceData" 
+							value="datasource:db:loan:select BD.CustomerID as CustomerID,
+										BD.RelativeSerialNo2 as RelativeSerialNo1,
+										BD.SerialNo as RelativeSerialNo2,
+										BD.ManageOrgID as FinanceID,
+										BW.OccurDate as OccurDate,
+										BD.PutoutDate as ActualPutoutDate,
+										BW.ActualCreditSum as ReturnSum
+										from BUSINESS_DUEBILL BD,BUSINESS_WASTEBOOK BW
+										where BD.SerialNo=BW.RelativeSerialNo
+										and BD.BusinessType like '101%'
+										and BD.Balance > 0
+
+										and BW.OccurDate &lt;= '2005/11/25'
+										order by OccurDate desc, ReturnSum 
+									" />
+						<property name="insertDuebill" value="INSERT INTO ECR_DUEBILL_HIS
+										select '%ExecuteDate%',
+										BD.SerialNo as SerialNo,
+										BD.BusinessSum as BusinessSum,
+										BD.Balance as Balance,
+										BD.Balance as Balance,
+										BD.PutoutDate as PutOutDate,
+										BD.CustomerID as CustomerID,
+										BD.RelativeSerialNo2 as RelativeSerialNo1,
+										BD.ManageOrgID as FinanceID,'0','2','1'
+										from BUSINESS_DUEBILL BD,BUSINESS_CONTRACT BC
+										where BD.RelativeSerialNo2=BC.SerialNo
+
+										and BD.BusinessType like '101%'
+										and BD.Balance > 0" />
+					</extendProperties>
+				</executeUnit>
+				<executeUnit>
+					<name>ImportFHistory</name>
+					<describe>回推贸易融资历史数据</describe>
+					<executeClass>com.amarsoft.app.datax.ecr.prepare.dataimport.ImportFHistory</executeClass>
+					<extendProperties>
+						<!--ExecuteDate为回推依据日期，必须和借据和流水的取数日期一致 -->
+						<property name="ExecuteDate" value="2005/11/25"/>
+						<property name="sourceData" 
+							value="datasource:db:loan:select BD.CustomerID as CustomerID,
+										BD.RelativeSerialNo2 as RelativeSerialNo1,
+										BD.SerialNo as RelativeSerialNo2,
+										BD.ManageOrgID as FinanceID,
+										BW.OccurDate as OccurDate,
+										BD.PutoutDate as ActualPutoutDate,
+										BW.ActualCreditSum as ReturnSum
+										from BUSINESS_DUEBILL BD,BUSINESS_WASTEBOOK BW
+										where BD.SerialNo=BW.RelativeSerialNo
+										and BD.BusinessType like '105%'
+										and BD.Balance > 0
+
+										and BW.OccurDate &lt;= '2005/11/25'
+										order by OccurDate desc, ReturnSum 
+									" />
+						<property name="insertDuebill" value="INSERT INTO ECR_FDUEBILL_HIS
+										select '%ExecuteDate%',
+										BD.SerialNo as SerialNo,
+										BD.BusinessSum as BusinessSum,
+										BD.Balance as Balance,
+										BD.Balance as Balance,
+										BD.PutoutDate as PutOutDate,
+										BD.CustomerID as CustomerID,
+										BD.RelativeSerialNo2 as RelativeSerialNo1,
+										BD.ManageOrgID as FinanceID,'0','2','1'
+										from BUSINESS_DUEBILL BD,BUSINESS_CONTRACT BC
+										where BD.RelativeSerialNo2=BC.SerialNo
+										and BD.BusinessType like '105%'
+										and BD.Balance > 0" />
+					</extendProperties>
+				</executeUnit>
+				<executeUnit>
+					<name>FillReturn</name>
+					<describe>根据余额变动补充贷款流水</describe>
+					<executeClass>com.amarsoft.app.datax.ecr.prepare.dataimport.FillReturn</executeClass>
+					<extendProperties>
+						<property name="Init" value="1" />
+						<property name="CODE_TABLE_ReturnMode" value="datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='7545'" />
+						<property name="CODE_TABLE_FinanceID" value="datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='6501'" />
+					</extendProperties>
+				</executeUnit>
+				<executeUnit>
+					<name>FillFReturn</name>
+					<describe>根据余额变动补充贸易融资流水</describe>
+					<executeClass>com.amarsoft.app.datax.ecr.prepare.dataimport.FillFReturn</executeClass>
+					<extendProperties>
+						<property name="Init" value="1" />
+						<property name="CODE_TABLE_ReturnMode" value="datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='7545'" />
+						<property name="CODE_TABLE_FinanceID" value="datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='6501'" />
+					</extendProperties>
+				</executeUnit>
+			</executeUnits>
+			
+			<routeTable>
+				<route unit="ImportHistory"				executeStatus="unexecute"				nextUnit="ImportHistory"/>
+				<route unit="ImportHistory"				executeStatus="successful"				nextUnit="FillReturn"/>
+				<route unit="FillReturn"				executeStatus="successful"				nextUnit="ImportFHistory"/> 
+				<route unit="ImportFHistory"			executeStatus="successful"				nextUnit="FillFReturn"/>
+			</routeTable>
+		</target>
+	</targets>
+</task>

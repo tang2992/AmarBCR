@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!-- 本任务定义数据校验迁移模块，从基础数据表迁移可以接受的记录到待上报池中 -->
+
+<task name="BCRDataTransfer" describe="待上报数据迁移" parallelRun="false" traceOn="true">
+	<listeners>
+		<!--ECRTaskListener仅配置了前三类监听，建议使用unitEvent或targetEvent级的监听。
+			taskEvent级监听基本无效，routeEvent级监听未做任何操作，仅供扩展使用。-->
+		<listener listenerClass="com.amarsoft.app.datax.bcr.common.BCRTaskListener" enabled="true">
+			<extendProperties>
+				<property name="taskEventEnabled" value="false" />
+				<property name="targetEventEnabled" value="false" />
+				<property name="unitEventEnabled" value="true" />
+				<property name="routeEventEnabled" value="false" />
+				<property name="database" value="bcr"/>
+			</extendProperties>
+		</listener>
+	</listeners>
+	<targets>
+		<target name="BCRDataTransfer" describe="基础数据迁移" enabled="true">
+			<executeUnits>
+			 
+				<!-- 设置迁移过滤器。迁移过滤器设置在表BCR_TRANSFERFILTER中，包括3个核心字段：
+					* MainbusinessNo，要过滤的业务号, 担保业务信息为GBusinessNo
+					* RecordScope，该业务作用的记录范围。形式如：1,2,3-7,8这样的一个字符串,特别的可以用A表示全部记录，G担保业务记录
+					* FilterCause，过滤器起因，支持几种类型：D-删除记录停报，E-校验错误，F-反馈错误，H-历史年数据，J-担保变更，O-其他原因。机构基本信息、机构家族成员信息的过滤把校验/删除停报/反馈放在一起考虑，设置为O
+				 -->
+				<executeUnit name="SetTransferFilter" describe="设置迁移过滤器" executeClass="com.amarsoft.task.units.dpx.SQLProcess" allowManualExecute="true" >
+					<extendProperties>
+						<property name="unit.onErrorAction" value="rollback_break"/>
+						<property name="unit.logLevel" value="debug"/>
+						<property name="unit.script" value="
+							{#准备工作}
+							connect to bcr;&#xA;
+							set autocommit false;&#xA;
+							delete from BCR_TRANSFERFILTER where FilterCause &lt;>'T' ;&#xA;
+							
+							{#待上报的担保业务信息批量删除的记录, 校验出错的担保业务信息记录, 反馈错误的担保业务信息记录, 设置RecordScope}
+							insert into BCR_TRANSFERFILTER(MainBusinessNo,RecordScope,FilterCause,Note) 
+							select distinct GBusinessNo,'G','D','Guarantee Filter' from BCR_GUARANTEEDELETE
+							    where SessionID &lt;&gt;'8888888888' 
+							union 
+							select distinct GBusinessNo,'G','O','Guarantee Filter' from BCR_GUARANTEECHANGE
+							    where SessionID &lt;&gt;'8888888888' 
+							union 
+							select distinct MainBusinessNo,'G','E','Guarantee Filter'  from BCR_ERRHISTORY  where RECORDTYPE in ('811','821','831') 
+							union 
+							select distinct MainBusinessNo,'G','F','Guarantee Filter'  from BCR_FEEDBACK where RECORDTYPE in ('811','821','831') ;&#xA;
+							
+							{#不需要上报的数据更新为手工终结}
+							Update BCR_GUARANTEEINFO t set t.incrementflag='6' where exists (select 1 from bcr_unreportbusinessno a where t.gbusinessno=a.mainbusinessno);&#xA;
+							Update BCR_GUARANTEECONT t set t.incrementflag='6' where exists (select 1 from bcr_unreportbusinessno a where t.gbusinessno=a.mainbusinessno);&#xA;
+							Update BCR_INSUREDS t set t.incrementflag='6' where exists (select 1 from bcr_unreportbusinessno a where t.gbusinessno=a.mainbusinessno);&#xA;
+							Update BCR_CREDITORINFO t set t.incrementflag='6' where exists (select 1 from bcr_unreportbusinessno a where t.gbusinessno=a.mainbusinessno);&#xA;
+							Update BCR_COUNTERGUARANTOR t set t.incrementflag='6' where exists (select 1 from bcr_unreportbusinessno a where t.gbusinessno=a.mainbusinessno);&#xA;
+							Update BCR_GUARANTEEDUTY t set t.incrementflag='6' where exists (select 1 from bcr_unreportbusinessno a where t.gbusinessno=a.mainbusinessno);&#xA;
+							Update BCR_COMPENSATORYINFO t set t.incrementflag='6' where exists (select 1 from bcr_unreportbusinessno a where t.gbusinessno=a.mainbusinessno);&#xA;
+							Update BCR_COMPENSATORYDETAIL t set t.incrementflag='6' where exists (select 1 from bcr_unreportbusinessno a where t.gbusinessno=a.mainbusinessno);&#xA;
+							Update BCR_RECOVERYDETAIL t set t.incrementflag='6' where exists (select 1 from bcr_unreportbusinessno a where t.gbusinessno=a.mainbusinessno);&#xA;
+							Update BCR_PREMIUMINFO t set t.incrementflag='6' where exists (select 1 from bcr_unreportbusinessno a where t.gbusinessno=a.mainbusinessno);&#xA;
+							Update BCR_PREMIUMDETAIL t set t.incrementflag='6' where exists (select 1 from bcr_unreportbusinessno a where t.gbusinessno=a.mainbusinessno);&#xA;
+							
+							commit;&#xA;
+							disconnect;"
+						/>
+					</extendProperties>
+				</executeUnit>	
+			
+				<!-- 报文数据迁移单元用于把正确的业务信息记录转移到待上报池中，使用的主要是TransferSession。迁移过程收到ECR_TRANSFERFILTER影响
+					* messageConfigFile-报文的配置文件，可以选择是客户、业务和不良信贷资产三种
+				-->
+				<executeUnit name="TransferGuaranteeRecord" describe="迁移新增/变更的业务记录" executeClass="com.amarsoft.app.datax.bcr.session.TransferUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="com.amarsoft.app.datax.bcr.session.TransferSession.messageConfigFile" 
+							value="{$ARE.BCR_HOME}/etc/bcr_message_guaranteeinfo.xml" />
+					</extendProperties>
+				</executeUnit>
+				
+			 <!--本单元的作用是将已经结清的数据的incrementflag置为6,这样数据发生变化之后征信将不再上报任何的变更。
+			     此单元应谨慎使用。如之前上报的数据质量较差，设置此单元之后，修改了数据也不会产生任何变更。
+			     最好是在上线稳定之后方使用此单元。
+			 -->
+			 <executeUnit name="updateClosedData" describe="设置数据结清标志" executeClass="com.amarsoft.task.units.dpx.SQLProcess" allowManualExecute="true" >
+					<extendProperties>
+						<property name="unit.onErrorAction" value="rollback_break"/>
+						<property name="unit.logLevel" value="debug"/>
+						<property name="unit.script" value="
+							{#准备工作}
+							connect to bcr;&#xA;
+							set autocommit false;&#xA;
+							update BCR_GUARANTEEDUTY set incrementflag='6' where incrementflag='8' and GCONTRACTFLAG='1';&#xA;
+							update BCR_GUARANTEEINFO set incrementflag='6' where exists(select 1 from BCR_GUARANTEEDUTY where BCR_GUARANTEEDUTY.gbusinessno= BCR_GUARANTEEINFO.gbusinessno and incrementflag='8' and   gcontractflag='1');&#xA;
+							update BCR_GUARANTEECONT set incrementflag='6' where exists(select 1 from BCR_GUARANTEEDUTY where BCR_GUARANTEEDUTY.gbusinessno= BCR_GUARANTEECONT.gbusinessno and incrementflag='8' and   gcontractflag='1');&#xA;
+							update BCR_INSUREDS set incrementflag='6' where exists(select 1 from BCR_GUARANTEEDUTY where BCR_GUARANTEEDUTY.gbusinessno= BCR_INSUREDS.gbusinessno and incrementflag='8' and   gcontractflag='1');&#xA;
+							update BCR_CREDITORINFO set incrementflag='6' where exists(select 1 from BCR_GUARANTEEDUTY where BCR_GUARANTEEDUTY.gbusinessno= BCR_CREDITORINFO.gbusinessno and incrementflag='8' and   gcontractflag='1');&#xA;
+							update BCR_COUNTERGUARANTOR set incrementflag='6' where exists(select 1 from BCR_GUARANTEEDUTY where BCR_GUARANTEEDUTY.gbusinessno= BCR_COUNTERGUARANTOR.gbusinessno and incrementflag='8' and   gcontractflag='1');&#xA;
+							update BCR_COMPENSATORYINFO set incrementflag='6' where exists(select 1 from BCR_GUARANTEEDUTY where BCR_GUARANTEEDUTY.gbusinessno= BCR_COMPENSATORYINFO.gbusinessno and incrementflag='8' and   gcontractflag='1');&#xA;
+							update BCR_COMPENSATORYDETAIL set incrementflag='6' where exists(select 1 from BCR_GUARANTEEDUTY where BCR_GUARANTEEDUTY.gbusinessno= BCR_COMPENSATORYDETAIL.gbusinessno and incrementflag='8' and   gcontractflag='1');&#xA;
+							update BCR_RECOVERYDETAIL set incrementflag='6' where exists(select 1 from BCR_GUARANTEEDUTY where BCR_GUARANTEEDUTY.gbusinessno= BCR_RECOVERYDETAIL.gbusinessno and incrementflag='8' and   gcontractflag='1');&#xA;
+							update BCR_PREMIUMINFO set incrementflag='6' where exists(select 1 from BCR_GUARANTEEDUTY where BCR_GUARANTEEDUTY.gbusinessno= BCR_PREMIUMINFO.gbusinessno and incrementflag='8' and   gcontractflag='1');&#xA;
+							update BCR_PREMIUMDETAIL set incrementflag='6' where exists(select 1 from BCR_GUARANTEEDUTY where BCR_GUARANTEEDUTY.gbusinessno= BCR_PREMIUMDETAIL.gbusinessno and incrementflag='8' and   gcontractflag='1');&#xA;
+							commit;&#xA;
+							disconnect;"
+						/>
+					</extendProperties>
+				</executeUnit>
+			 
+			 
+			</executeUnits>
+			<routeTable>
+				<route unit="SetTransferFilter"		executeStatus="unexecute"	nextUnit="SetTransferFilter"/>
+				<route unit="SetTransferFilter"		executeStatus="successful"	nextUnit="TransferGuaranteeRecord"/> 
+				<!--<route unit="TransferGuaranteeRecord"		executeStatus="successful"	nextUnit="updateClosedData"/>-->
+			</routeTable>
+		</target>
+	
+	</targets>
+</task>

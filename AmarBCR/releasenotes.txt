@@ -1,0 +1,400 @@
+内容提要
+o 系统要求
+o 注意事项
+o 变更历史
+
+o. 系统要求
+--运行环境：JDK1.4.2+、ARE 1.0b88-m1+
+--数据库，Oracle 8+/DB2 8+/Informix 7+/Sql Server 7+
+
+o. 注意事项
+--平台兼容性，Windows,Linux,Unix,JDK1.4.2_12,ARE 1.0b88-m1+
+
+o. 变更历史
+2006/06/02，2.0
+1、重新整理了整体的划分，整程序从外部分为report,prepare,feedback三个部分
+2、ECR_Task.xml-->ECR_Report_Task.xml
+3、ECR_Back.xml-->ECR_Report_Task_FeedBack.xml
+4、程序入口把FeedBack.bat/sh改为feedback.bat/sh
+5、增report.bat/sh 用于运行上报报文的程序
+6、ecr.bat/sh变为总的入口程序，调用参数使用新的参数格式：are=etc/ecr_are.xml task=report。缺省使用report
+7、贷款卡下载报文文件重命名为：ECR_Message_LoanCardReauire.xml，ECR_Message_LoanCardReauire_Result.xml
+8、业务删除报文文件重命名为：ECR_Message_BusinessDelete.xml，ECR_Message_BusinessDelete_Result.xml
+9、反馈报文命名为ECR_Message_FeedBack.xml
+10、资本构成段的增量和记录操作类型的改进，应对第一次报客户的时候没有报高管导致新增高管的时候出现类型不对
+11、变更段纠正，纠错变更段的生成方法
+12、引入对项目组自行开发模块的标准支持模式，定义自定义程序所在的位置，加入对自定义程序的路径支持，提供样板程序代码。
+
+2006/06/08
+1、解决信贷系统和征信系统数据字符集不一致问题
+2、修正过滤非法字符不完整，未能去处\r的问题
+3、文档包中遗漏了实施手册
+4、feedback.bat和sh的内容参数有误
+
+2006/06/19
+1、增加生成报文enc后的自动zip功能
+2、修正资本构成信息的金融机构变更问题，保持和主客户变更的在一致性
+3、修正财务报表的部分隐患
+4、ecr_change表增加changeType为关键字
+
+3.0版本说明
+o. 系统要求
+--运行环境：JDK1.4.2_12+、ARE 0.1.2、AmarTask 1.0
+--数据库，Oracle 8+/DB2 8+/Informix 7+/Sql Server 7+
+
+o. 注意事项
+--平台兼容性，Windows,Linux,Unix,JDK1.4.2_12,ARE 0.1.2、AmarTask 1.0
+
+o. 变更历史
+2007/05/28，3.0 beta1
+1、树立多数锯池的程序模式；
+2、发布基本可以使用的版本；
+3、稳定数据结构
+
+2007/06/22,3.0 beta2
+1、升级到新的are0.1.2和task1.0，更改程序主题架构
+2、纠正配置文件中的若干错误
+3、统一使用ecr.bat和ecrw.bat做为程序入口
+4、纠正资本构成中的错误
+5、解决金融机构循环变更的问题
+
+2007/07/01,3.0 beta3
+1、同一Session和Unit的继承实现关系
+2、同一类的命名方法，同一数据处理逻辑
+3、底层增加了关于数据前一拦截处理机制，可以支持多种模式的拦截
+4、解决Oracle下面反馈和增量标志处理不正确的问题
+5、数据迁移、数据教研和反馈处理的配置文件做了进一步更新，按照新的task模式处理
+6、发布标准的数据库setup类。
+
+2007/07/06,3.0 beta4
+1、严格按照规范，上报报文支持删除和修改类型的记录
+2、批量删除和贷款卡查询上报方向报文完成测试
+3、纠正数据迁移filter的设置错误，增加批量删除停报标准配置方法
+4、纠正校验Handler中关联错误计数不对问题
+5、增加单笔删除业务后台统一入口调用方法
+6、增加修正记录后台统一入口方法
+7、增加表HIS_BATCHDELTE和HIS_LOANCARD
+
+2007/07/17,3.0 m1
+1、批量删除实现删除后自动进行生成传真和删除数据
+2、增加底层支持类DeletedBusiness表示批量删除的业务，可以实现删除数据功能
+3、增加单笔删除类RecordDelete用于删除单笔业务，可保证必要的删除校验关系：
+a.一笔当前只能有一个发生日期可以删除
+b.一笔业务删除总是从最后的发生日期开始
+c.信贷业务当有后期发生的担保时不能进行删除
+d.贷款和贸易融资业务保证不能删除整个业务最后日期之后的。
+4、prepare配置模板中有三个错误：
+a、高管字段convertor不对改为：com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider.columnConvertors
+b、法人家庭成员关联企业的convertor不对。应为：com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider.columnConvertors
+c、贸易融资展期。有一个多余的convertor定义
+
+m2
+1、增加可用余额计算时循环贷款的处理。
+2、解决校验中贸易融资校验获取字段不对的问题。
+3、纠正由于RecordFlag使用不当可能引起漏报问题。
+4、ECR_ERRHISTORY和ECR_FEEDBACK增加LoanCardNo和CustomerId，并重新整理字段
+5、RecordDBReflector增加了获取当前记录贷款卡字段、记录名称的方法
+6、Record增加获取贷款卡的方法
+7、报文配置中加入了获取记录Brief描述的定义
+8、ECR_CUSTOMERSTOCK,ECR_CUSTOMERINVEST,ECR_CUSTOMERKEEPER,ECR_CUSTOMERCAPI,ECR_CUSTOMERFAMILY增加ModFlag,TraceNumber,RecordFlag,ErrorCode字段
+9、HIS_CUSTOMERSTOCK,HIS_CUSTOMERINVEST,HIS_CUSTOMERKEEPER,HIS_CUSTOMERCAPI,HIS_CUSTOMERFAMILY增加ModFlag,TraceNumber,RecordFlag,ErrorCode字段
+10、资本构成段增加主附表关联时的SessionID，保证多期次段落不会重复
+11、增加了CustomerRecord类用户获取一个客户的全部记录
+12、增加了CustomerStore类用于完成CustomerId和LoanCardNo之间的一对一映射
+13、增加一个GISerialNoHandler替代原来的GINumberHandler用于适应多个抵押、质押合同的情况（已经上线的请不要替换）
+14、RecordDBReflector.getDBReflector(Record rec)更名为getReflector(Record rec)
+15、报文生成程序检查不到数据会返回warning的信息，导致后续单元无法执行，修改task_report.xml增加路由
+16、反馈报文中有多个错误代码的时候会解析错误
+17、增加FeedbackTools类处理反馈你记录，设置反馈记录修改完成等功能
+18、纠正金融机构多次变更时未能正确截取的bug
+
+m3
+1.修正了批量删除部分业务未删除担保信息及删除担保时业务类型出错等问题。
+2.修正了解析反馈报文时出现的tracenumber中存在空格字符的问题.
+3.对反馈报文中出现重复的errorcode，程序不再重复记录，而是只记录一次。
+4.增加了财务报表的数据迁移、报文生成等功能，配以在AmarWeb平台的补录功能，可以实现财务报表信息的上报。
+5.财务报表的表结构有所修改，将表名中的"P"去掉，代以标准的"ECR_"和"HIS_"开头，并每张表增加了CustomerName这个字段。
+6.针对web平台的展现，对ecr_metadata.xml进行修改。
+V3正式版本
+1.针对DB2版本将贷款还款次数，贸易融资还款次数，承兑汇票保证金比例，保函保证金比例，信用证保证金比例，抵押物顺序号，质押物顺序号的数据类型升级为Int型。
+2.对财务报表的处理做了灵活的组合处理，轻松实现财务报表上报。
+3.对校验规则rule11-33修正，拆分4016的校验规则。
+4.改进批量删除反馈结果处理。
+5.反馈过滤支持对无反馈批量删除数据的过滤。
+6.增加自动解密反馈报文功能。
+
+2008.04.15 
+1.ecr_errhistory中增加字段OccurDate,alter table ecr_errhistory add occurdate varchar(10);
+  在校验错误写错误表时把记录的业务发生日期置上，这样方便区分没有修改的历史错误
+
+2008.05.14 
+增加了cob的数据记录加载前过滤机制，在Provider的地方加入了where条件用于过滤部分数据，满足从数据库中抽取特定记录的要求，也可以部分提供性能
+
+2008.10.09 3.1beta1
+1、修正GINumberHandler，使用标准的GISerialnoHandler同样的处理机制
+2、增加数据质量核对相关支持程序
+3、更新ECRDataSourceProvider，支持直接在程序里面设置担保标志
+
+2008.11.27 3.1rc1
+1、更新are到0.2
+2、更新task到1.1
+3、废除jdom，所有xml应用改为are.util.xml
+4、纠正CustomerRecords的SQLFilter错误
+
+2008.12.25 3.1rc2
+1、更新task到1205版本，解决输入property的错误
+2、取担保标志的地方加入业务类型的限制，避免不同业务品种主业号相同的问题（宁夏暴露）
+3、修正还款修正单元中修正的合同号不对的问题
+
+2009.04.08 3.1b04
+1、修正批量删除反馈解析问题
+2、修正生LFFixReturnUnit关于中轧差数据太小时循环的问题
+
+2009.04.22 3.1b05
+1、修正批量删除之后自动删除反馈表
+2、修正ALS5版本程序中抽取财务信息的sql错误
+
+2009.11.8 3.6beta1
+1、informix版本的建表语句中HIS_FINANCEBS、HIS_FINANCEPS、HIS_FINANCECF的主键字段是sessionid而不是session.
+2、增加程序自动控制(贷款种类和可用余额)。
+3、建表语句ecr_customerkeeper和his_customerkeeper的主键增加keeperType
+4、相应的部署手册、数据库结构文档、标准配置手册的发布。
+
+2009.12.30 3.6beta2
+1、后台程序中增加了贸易融资可用余额。贸易融资可用余额应是更新字段。
+2、配置文件中暂时去掉新会计准则财务报表的配置,增加了保证金担保作为保证来报送。
+3、批量删除欠息业务时不再只根据贷款卡编码来删除。
+
+2010.04.29 3.6.1
+1、批量删除传真文件格式的修改，在ARE变量中增加deleteNumber来控制删除记录条数。
+2、对贷款卡编码校验错误，客户概况记录与担保合同记录（单指担保人贷款卡编码错误）删除，其它信息记录的担保人贷款卡编码统一清空。
+3、UpdateDB时如果记录的增量标志为新增或变更，则日期不做改动。
+4、增加财务报表的校验规则和reverseCheck属性的使用。
+5、4002解析错误时能定位到哪个数据项报错。ErrorCode自此之后为8位来表示一个错误。前4位是字段标识符，后4位是错误代码。
+6、增加数据统计功能。记录在ECR_REPORTSTATUS中。
+7、保函、垫款、信用证的余额变化日期为真正的余额变化日期。
+8、自此版本之后,企业征信程序中包含数据核对程序。
+9、财务报表的上报模式修改为只需要期末一期数据即可。
+
+2010.09.28 3.7beta1
+1、区分村镇银行版和商行版，村镇银行版本在各业务副表中添加FinanceID字段，用于生成不同法人机构的报文。包括正常、批量删除报文等。                                                        
+2、根据ALS6.5.1提供的贷款卡变更表实现贷款卡变更，删除原业务后重新上报。                                                     
+3、CustomerID填充，部分解决一卡多户问题，反馈无法解决。        
+4、报文中包含顺序号的业务（如展期、还款、抵押品），根据顺序号进行排序，方便查看。
+
+2011.02.25 3.7bata1
+1、修改财务报表校验时，合计项计算的程序，以前程序只考虑到全部为+的情况，现在加入了计算运算符为-和首位为负数的情况。
+
+2012.09.06 4.0beta1 人行企业征信规范2.1
+1、添加两套新财务报表(2007新会计准则+事业单位财报)的生成逻辑及反馈解析逻辑的支持
+2、添加对三类自然人担保的生成逻辑及反馈解析逻辑的支持
+3、根据2.1规范增删改相应的校验规则
+4、prepare单元使用ECRUpdateHandler替换所有FIDChangeHandler类以便解除金融机构循环变更的控制
+5、结合web平台，添加担保解除的两种方法：主业务解除、最高额担保解除，feedback兼容此类业务解析
+6、调整抵质押物序号类型（用"N"变更为"AN"）生成方法并兼容历史序号的上报。
+7、调整贷款投向、行政区划为2011版新规范
+8、证件类型添加【a、组织机构代码证】，【b、营业执照】，【 c、贷款卡 】三类
+9、加入simplelog.properties日志类型
+10、添加批量监听类
+11、更改生成批量删除报文时吞掉异常的问题，以便支持监听。
+12、添加对村镇银行客户信息多法人支持
+13、更新资本构成增量标志类SyncCapiIncrementflag,解决资本构成段循环上报及ECR_CUSTOMERCAPI、ECR_CUSTOMERINVEST 、ECR_CUSTOMERKEEPER 、ECR_CUSTOMERFAMILY四张表存在incrementflag in('1','2','3')的业务而未迁移问题
+
+2013.04.26 4.0beta3
+1、修改客户信息校验从业人数必须大于0的校验规则配置错误，dataEndValue="1"修改为dataStartValue="1"
+2、修改客户信息校验出资方贷款卡编码组织机构代码,登记注册号不能同时为空的校验规则，用amarecr_3.7beta1_20100928.zip版本的规则替换
+3、修改客户信息校验对外投资的贷款卡和组织机构代码不能同时为空的校验规则，用amarecr_3.7beta1_20100928.zip版本的规则替换
+4、修改com.amarsoft.app.datax.ecr.validate.validator.DataEqualChecker类，将DataEqualChecker中返回值value1 == value2校验相等改为Math.abs(value1-value2)<=1
+5、修改ecr_rule_businessinfo.xml中对自然人担保校验中segmentFlag值，与ecr_message_businessinfo.xml中自然人担保segmentFlag值保持一致。
+6、修改com.amarsoft.app.datax.ecr.bizcollect.TransferFilter类，增加对新规范增加的几种报文的的信息记录级别32、33、34、43、44、45、46、47的校验错误拦截
+7、自然人担保信息中的证件号码身份证需由15位转18位，在ecr_metadata.xml中表ecr_assurecont,ecr_guarantycont,ecr_impawncont中字段CertID增加isCertNo限制
+8、抵质押合同序列号可以包含字母，去掉ecr_rule_businessinfo.xml中rule19-14和rule19-18这两条校验规则
+9、修改身份证中如果有字母，系统直接报错的bug。在com.amarsoft.app.datax.ecr.validate.validator.PersonIDChecker类增加对身份证非数字的判断
+10、添加针对不同数据抵质押序号中大小写字母排序计算逻辑不同的功能，可以通过配置选择不同的字母排序逻辑，目前支持ORACLE、DB2、MSSQL
+
+2013.05.29
+1、增加不良信贷资产处置信息报文：
+	a、修改不良信贷资产处置信息报文配置文件ecr_message_assetssaving.xml
+	b、增加不良信贷资产处置信息校验配置文件ecr_rule_assetssaving.xml
+	c、修改ecr_task_prepare.xml，增加'不良信贷资产处置信息'抽取单元
+	d、修改ecr_task_report.xml，增加'不良信贷资产处置信息'报文生成单元
+	e、修改ecr_task_transfer.xml，增加'不良信贷资产处置信息'迁移单元
+	f、修改ecr_metadata.xml，增加'不良信贷资产处置信息'数据配置
+	g、修改ecr_task_validate.xml，增加'不良信贷资产处置信息'校验单元
+	h、增加MBRAssetsProtectStripping.java类，修改SimpleECRProvider.java、SimpleHISProvider.java、TransferFilter.java、RecordDBReflector.java
+		DBMessageBodyReader.java、MessageConstants.java、DBErrorRecord.java，增加对不良信贷资产处置报文的支持
+	i、修改initCodeMap.sql，按规范修改'7639-主要资产处置方式'
+	j、修改crebas_db2_his.sql、crebas_db2.sql、crebas_inf_his.sql、crebas_inf.sql、crebas_ora_his.sql、crebas_ora.sql，增加不良信贷资产处置表
+2、修改ecr_rule_customerinfo.xml：
+	rule02-16校验字段ILoanCardNo为LoanCardNo
+	rule02-22校验字段由ILoanCardNo改为LoanCardNo
+3、修改ecr_rule_businessinfo.xml，增加自然人担保证件号码校验，同时修改rule19-54中segmentflag为I
+4、修改dic.xml，按规范修改7639-主要资产处置方式代码对照
+
+2013.06.03
+1、修改com.amarsoft.app.datax.ecr.bizcollect.TransferFilter将recordFilter定义更改为TreeSet[52]，支持51-不良信贷资产处置信息
+
+2013.08.13 4.1b01beta1  人行企业征信规范2.2(增加机构基本信息报文和机构家族成员信息报文)
+1、添加或修改相关配置文件以及sql
+	a、添加这两个报文的采集报文配置文件ecr_message_organizationinfo.xml、删除报文的配置文件ecr_message_organizationdelete.xml、
+			反馈报文的配置文件ecr_message_organizationfeedback.xml
+	b、添加这两个报文的校验配置文件ecr_rule_organizationinfo.xml
+	c、修改ecr_task_prepare.xml，增加target--'机构信息抽取'
+	d、修改ecr_task_validate.xml，增加unit--'机构数据校验'
+	e、修改ecr_task_transfer.xml，增加unit--'迁移新增/变更的机构信息记录'，修改unit--'设置迁移过滤器'，设置机构基本信息的RecordScope为O，
+		设置家族成员的信息的RecordScope为F，设置与之前不同的RecordScope的目的是单独对机构信息的处理，不影响之前的代码逻辑
+	f、修改ecr_task_report.xml，增加target--'机构信息正常报文', 增加target--'机构信息重报报文'
+	g、修改ecr_task_feedback.xml，增加target--'机构信息反馈报文处理'
+	h、修改ecr_metadata.xml，增加机构相关表
+	i、修改dic.xml，根据规范2.2添加新的代码对照
+	j、修改initCodeMap.sql、修改建库脚本增加机构信息删除和家庭成员删除两张表以及机构信息8张ecr和8his表
+2、添加或修改的java类
+	a、添加com.amarsoft.app.datax.ecr.bizcollect.mbr.MBROrganizationBaseinfo.java用于机构基本信息的报文体填充
+	b、添加com.amarsoft.app.datax.ecr.bizcollect.mbr.MBROrganizationFamilyMember.java用于机构家族成员信息的报文体填充
+	c、添加com.amarsoft.app.datax.ecr.bizmanage.MBROrganizationDelete.java用于机构信息删除报文体的填充
+	d、添加com.amarsoft.app.datax.ecr.bizmanage.MBRFamilyMemberDelete.java用于机构家族成员删除报文体的填充
+	e、添加com.amarsoft.app.datax.ecr.bizmanage.OrganBatchDeleteFax.java用于机构信息删除时传真文件的生成
+	f、修改com.amarsoft.app.datax.ecr.message.AbstractProvider.java，由于机构信息的报文头字段的ID及字段的长度有变化、报文尾的字段ID有变化、报文文件的长度有变化，做相应处理
+	g、修改com.amarsoft.app.datax.ecr.bizcollect.ExportFileHandler.java，不输出机构信息中设置的虚拟字段，机构信息报文文件名长度与以往不同在设置sessionId时进行相应的处理，
+		机构信息中取发生日期时、机构信息批删取UpdateDate时，进行相应的处理
+	h、修改com.amarsoft.app.datax.ecr.bizcollect.RecordCountHandler.java，机构信息的报文尾中的'记录数'ID为2202，进行相应处理
+	i、修改com.amarsoft.app.datax.ecr.bizcollect.SimpleECRProvider.java，在方法getMessageBodyReader中添加获得机构基本信息报文和机构家族成员信息报文的数据读取器
+	j、修改com.amarsoft.app.datax.ecr.bizcollect.SimpleHISProvider.java，在方法getMessageBodyReader中添加获得机构基本信息报文、机构家族成员信息报文、机构基本信息删除报文、机构家族成员信息删除报文的数据读取器
+	k、修改com.amarsoft.app.datax.ecr.bizcollect.TransferFilter.java，不改变之前的逻辑，添加部分代码对机构信息的过滤进行单独处理
+	l、修改com.amarsoft.app.datax.ecr.bizcollect.TransferHandler.java，规范2.2机构信息中的字段ID有变化，对此进行相应处理
+	m、修改com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.java，机构基本信息中的贷款卡可以做更新
+	n、添加com.amarsoft.app.datax.ecr.prepare.postprocess.SyncOrganIncrementflag.java，如果机构基本信息的其他段的incrementFlag变为2，则同步更新其基础段的incrementFlag为2，
+		当有股东(关联企业)发生变化，则同步更新此机构的所有股东(关联企业)的incrementFlag为2
+		(目的是为了满足规范2.2要求：某个数据项发生变化时，报送包含相应数据项的段，对于股东/关联企业，只要有一个改变则报送全部的股东/关联企业)
+	o、修改com.amarsoft.app.datax.ecr.validate.DBErrorRecord.java，机构信息中相关字段的ID发生变化，做相应修改
+	p、增加机构采集和删除的反馈处理功能单元
+	      1)增加com.amarsoft.app.datax.ecr.session.OrganizationFeedbackUnit.java
+	      2)增加com.amarsoft.app.datax.ecr.session.OrganizationFeedbackSession.java
+	      3)增加com.amarsoft.app.datax.ecr.bizmanage.OrganizationFeedbackFileProvider.java
+	      4)增加com.amarsoft.app.datax.ecr.bizmanage.OrganizationFeedbackHandler.java
+	      5)增加com.amarsoft.app.datax.ecr.bizmanage.OrganizationFeedbackRecord.java
+	      6)增加com.amarsoft.app.datax.ecr.bizmanage.MBROrganizationFeedback.java
+	      7)增加com.amarsoft.app.datax.ecr.common.OrganizationStore.java
+	      8)修改com.amarsoft.app.datax.ecr.common.ErrorMessage.java增加新的错误代码，并且调整代码从小到大排序
+	q、修改com.amarsoft.app.datax.ecr.common.RecordDBReflector.java增加机构相关业务表的反射，对主键为UpdateDate作主键时特殊处理date类型，对于家庭成员采集和删除反馈，特殊处理CIFCustomerId获取
+	r、修改com.amarsoft.app.datax.ecr.message.MessageConstants.java
+	       1)解决与规范的冲突，批量信贷业务数据删除结果文件 类型 由 32 变为 35
+	       2)增加3种报文文件类型，6种报文类型，8种记录类型 常量
+     s、修改com.amarsoft.app.datax.ecr.validate.validator.PersonIDChecker.java，规范2.2中存在字段长度定义大于实际数据长度的情况，填充Record后，字段值右边有空格，因此校验时在此添加trim()
+     t、修改com.amarsoft.app.datax.ecr.validate.validator.DICChecker.java，规范2.2中存在字段长度定义大于实际数据长度的情况，填充Record后，字段值右边有空格，因此校验时在此添加trim()
+ 3、其他说明
+     a、增加文件夹feedback/organfeedback该文件夹用于放置机构反馈文件，并且该文件夹下增加donotdelete.txt文件
+     b、特别说明：2.2规范反馈报文头中“2305-出错报文名”字段定义长度为30，实际应该为37，程序设计和实现按37长度处理，该字段之后字段位置顺次后延
+	 c、 村镇版没做任何变动，此次升级没做需求  
+	 d、 为了方便学习和实施，将4.0的部分文档也保留在改版本里
+2013.09.06 4.1b02beta1
+1.ecr_message_loancardinquire_result.xml中批删结果文件类型改为35
+2.调整升级脚本
+
+2013.10.30 4.1b03beta2 
+1、增加2.2规范对应村镇银行版本
+	a、村镇银行金融机构代码列表 属性由target级别变为 ARE级别:村镇版are.xml，VillagebatchDeleteUnit.java和VillageReportUnit.java作相应调整
+	b、村镇版ecr_task_report.xml/ecr_task_batchdel.xml增加机构信息采集和删除报文生成单元
+	c、增加com.amarsoft.app.datax.ecr.session.VillageOrganDeleteUnit.java循环生成机构删除报文
+2、调整配置文件和脚本
+    a、ecr_rule_businessinfo.xml 调整rule12-21
+    b、ecr_rule_businessinfo.xml 取消rule31-20和rule31-221
+    c、ecr_task_batchdel.xml调整单元路由
+    d、ecr_task_report.xml 去掉贷款卡查询相关单元
+    e、ecr_update_for4.0文件下的oracle和db2脚本中去掉drop语句，避免错删已存在表
+3、修正因股票、资本信息变更但业务发生日期和客户基本信息不一致导致的客户基础信息循环报送问题(for2.1及之前规范)
+	a、com.amarsoft.app.datax.ecr.prepare.postprocess.SyncStockIncrementflag.java保证客户基本信息的增量标志和业务发生日期同变更的股票信息一致
+	b、com.amarsoft.app.datax.ecr.prepare.postprocess.SyncCapiIncrementflag.java保证客户基本信息的增量标志和业务发生日期同变更的资本信息一致
+4、数据校验时，datalist里表达式的计算采用精确数计算，避免因精确度问题不能通过数据相等比较校验，如财务报表rule03-14：
+    a、com.amarsoft.app.datax.ecr.common.Calculator.java 表达式改用精确数运算。
+5、修复web平台文件下载bug
+6、(根据人行2.2规范最新解释)借款人信息报文文件结构调整，删除借款人基本信息报文、资本构成报文：
+   a、ecr_task_prepare.xml删除借款人基本信息报文、资本构成报文相关抽取和后处理单元
+   b、ecr_message_customerinfo.xml删除借款人基本信息报文、资本构成报文结构定义
+   c、ecr_rule_customerinfo.xml删除借款人基本信息报文、资本构成报文相关校验规则
+7、(根据人行2.2规范最新解释)机构信息反馈报文的报文头中的“原上报报文名”数据项长度确定为30：
+   a、ecr_message_organizationfeedback.xml反馈报文头定义中相关字段start、end位置修改
+8、抽取抵押和质押时根据押品编号排序，以便最高额担保对不同业务作担保时，自动生成的抵质押物排序号一致：
+   a、ecr_task_prepare.xml抵押和质押抽取SQL增加order by GI.GuarantyID
+9、调整表结构：
+   a、机构重要股东表 主键调整为 CIFCustomerID,StockHolderType,StockHolderName
+   b、机构主要关联企业表 主键调整为 CIFCustomerID,RelationShip,RelativeEntName
+10、财务报表取数的客户存在判断和客户贷款卡同步，由ecr_customerinfo改为ECR_ORGANINFO
+   a、com.amarsoft.app.datax.ecr.finrpt.AbstractReportProvider
+   b、com.amarsoft.app.datax.ecr.prepare.postprocess.SyncCustomerInfo
+11、关联企业表、股东表主键变更为 客户号+关系类型+企业/股东姓名
+
+2013.12.12 4.1b06beta3 2.2规范人行调整内容变更
+1.一、(2.2规范）笫17页,“表8机构状态段数据项”中“基本户状态”增加代码“4-待审核”;第29页“B.1代码型数据项字典表”中“基本户状态”增加代码“4-待审核”;笫42页,“ 出错信息错误编码”中“1028” 的错误描述改为“当客户类型为基本户且基本户状态不为“待审核”时,开户核准号未填写;当客户类型为信贷户时,贷款卡编码未填写。”。
+     五、(2.2规范）笫40页,“关联类型”代码表中,代码“25(符合《企业会计制度》第147条规定的其他联企业)” 改为“24” 。
+涉及改动为代码和校验规则：
+  a、initCodeMap.sql和initMap.sql两类脚本(共5个)中更改三处：9042增加代码，9029代码修改，1028错误提示更改；web平台脚本InitData.sql更改
+  b、dic.xml中基本户状态(9042)增加代码，关联类型(9049)代码修改
+  c、ecr_rule_organizationinfo.xml修改规则rule31-12
+  d、com.amarsoft.app.datax.ecr.common.ErrorMessage修改1028错误提示信息
+2.人行规范调整如下：
+     二、(2.2规范)笫19页,“表11重要股东段数据项”中的“股东名称”长度调整为80;笫20页,“表12主要关联企业段数据项”中的“关联企业名称”长度为80。
+     三、(2.2规范)笫22页,“表17 机构信息删除报文记录数据项”中“客户号”前增加“信息类别”;笫23页,“表18 家族成员信息删除报文记录数据项”中“主要关系人证件类型”前增加“信息类别”(段标B)。   
+     四、(2.2规范)笫24页,“表20 反馈报文头数据项”中“出错报文名”的长度改为“37” 。
+涉及message定义和报文处理改动以及表结构更改：
+  a、ecr_message_organizationdelete.xml、ecr_message_organizationfeedback.xml、ecr_message_organizationinfo.xml
+  b、建表sql脚本修改
+  c、com.amarsoft.app.datax.ecr.bizmanage.MBROrganizationFeedback
+  d、ecr_metadata.xml
+2013.12.16 4.1b06beta3
+1.修复2.1规范关于校验规则的调整
+  a、com.amarsoft.app.datax.ecr.common.ErrorMessage 补充2.1规范的修改
+  b、更新ECR_ERRMAP初始化脚本
+  c、9041代码修正
+2.修正SQL脚本，SQL脚本在oracle10g、11g和db2v10.1下验证通过，命令行下可执行
+3.修复只有非基础段变化时，非基础段不能随基础段迁移的bug
+  a、修改com.amarsoft.app.datax.ecr.prepare.postprocess.SyncOrganIncrementflag，同时更新incrementflag和occurdate
+  
+2014/01/16 4.1b07beta4
+1.根据人行最新预处理程序，完善校验规则和提示。
+2.修正若干bug。
+3.借款人报文结构定义保留概况信息和资本构成。
+
+2014/05/29 4.1b08rc1
+1.根据人行联测要求，尽量保证业务发生日期取真实发生日期，而不是跑批日期；报送存量或者漏报补报时尽量回推出贷款状态
+  a、ecr_task_prepare.xml occurdate尽量取业务更新日期
+  b、ecr_task_transfer.xml 添加数据回推单元
+  c、com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler 如果当前记录的业务发生日期大于/等于上次业务发生日期，则置为实际的业务发生日期；否则默认以ARE设定日期作为业务发生日期
+2.修正几个校验规则
+3.ARE更新至are-b92-rc2,修复了(char)字段因为空格代码转换不了的问题
+4.财务报表细分类型映射错误修正
+  a、com.amarsoft.app.datax.ecr.finrpt.ALSReportLoader 01-2 合并 02-1 本部
+5.修正抵押物“评估日期”在报文生成时变为空的问题
+  a、com.amarsoft.app.datax.ecr.bizcollect.mbr.MBRGuarantyInfo 评估日期值填充时，改为setDate()
+6.由核心和信贷依次导入机构信息时，采用mybank.ECRUpdateHandlerExt计算客户类型。
+
+2015/10/13 ECR22_b01
+1.修正机构校验错误信息定位不准的问题：
+  ecr_errhistory表增加errtablename 和errtablekey 字段，储存错误表名和主键信息，便于校验错误维护时准确定位。
+  com.amarsoft.app.datax.ecr.validate.DBErrorRecord 插入错误信息时writeError获取错误表名和主键信息
+  新增机构表名/主键/段标映射类：com.amarsoft.app.datax.ecr.validate.ValidateHelp 
+  
+2.机构股东信息采用单独的Handle类，避免“股权转让”等情况下发生持股比例之和大于100的错误
+3.增加jbo_ecr.xml,增加jbo的配置文件
+4.增加分机构生成核对报文、批删报文
+5.修正机构信息报文头联系人、联系人未实现多法人：
+增加contact_info表，机构联系信息，录入金融机构的联系人、联系电话
+修正com.amarsoft.app.datax.ecr.session.VillageReportUnit,增加session中填充ContactPerson、ContactPhone
+com.amarsoft.app.datax.ecr.session.ReportSession，增加provider中填充ContactPerson、ContactPhone
+com.amarsoft.app.datax.ecr.session.MessageProcessSession，增加ContactPerson、ContactPhone
+com.amarsoft.app.datax.ecr.message.AbstractProvider，增加ContactPerson、ContactPhone
+6.增加ecr_codemap的映射关系：
+数据项7533-贷款性质增加了“4-信托贷款”，“5-资金来源于中央及地方政府的委托贷款”，“6-资金来源于企事业单位的委托贷款”，“7-资金来源于个人的委托贷款”，同时将“2-委托贷款”调整为“2-资金来源于金融机构的委托贷款”。
+数据项5511-证件类型增加了“A-香港身份证”，“B-澳门身份证”，“C-台湾身份证”。
+校验规则中数据项“9231=9208+9220+9229”调整为“9231=9208+9220+9229+9230”
+7.package com.amarsoft.app.datax.ecr.common下的CustomerStore类中查询客户名称和贷款卡号的sql，操作表还是ECR_CUSTOMERINFO应该改为ECR_ORGANINFO。
+8.叙做金额应大于0的校验规则错误。校验规则rule12-21中的dataEndValue应修改为dataStartValue
+9.增加黑白名单控制，ecr_task_transfer.xml中清空ECR_TRANSFERFILTER表时，不删除黑名单数据
+10.增加的自然人担保的核对信息功能
+在 ecr_task_prepare_datacheck.xml抽取自然人担保信息，同时增加表BANK_CUSTOMERINFO1抽取自然人担保的客户信息
+在 ecr_task_export_datacheck.xml增加更新自然人担保信息，增加ECR_ALSDATACHECK1信息
+11.ecr_task_prepare.xml中的ECRUpdateHandler替换为FIDChangeHandler,可实现金融机构代码变更上报账户标志变更信息
+...
+  
+  
+  

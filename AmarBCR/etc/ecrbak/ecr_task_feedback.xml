@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!-- 任务定义文件,每个任务有一个文件构成，任务构造器可以根据此文件构造一个任务出来 -->
+
+<task name="BackMessageProcess" describe="反馈报文处理" parallelRun="false" traceOn="true" >
+	<listeners>
+		<!--ECRTaskListener仅配置了前三类监听，建议使用unitEvent或targetEvent级的监听。
+			taskEvent级监听基本无效，routeEvent级监听未做任何操作，仅供扩展使用。-->
+		<listener listenerClass="com.amarsoft.app.datax.ecr.common.ECRTaskListener" enabled="true">
+			<extendProperties>
+				<property name="taskEventEnabled" value="false" />
+				<property name="targetEventEnabled" value="false" />
+				<property name="unitEventEnabled" value="true" />
+				<property name="routeEventEnabled" value="false" />
+				<property name="database" value="ecr"/>
+			</extendProperties>
+		</listener>
+	</listeners>
+	<targets>
+		<target name="BusinessFeedback" describe="数据采集反馈处理" enabled="true">
+			<executeUnits>		
+				<!-- 数据集采反馈处理 -->		
+				<executeUnit name="BusinessResult" describe="数据采集反馈处理" executeClass="com.amarsoft.app.datax.ecr.session.FeedbackUnit" allowManualExecute="true">
+					<extendProperties>
+						<!-- 反馈报文数据文件的目录 -->
+						<property name="unit.backMessageDataFolder" value="{$ARE.ECR_HOME}/feedback/reportfeedback"/>
+						<!-- 反馈报文类型可以有三种:
+							50-上报反馈报文
+							22-贷款卡下载结果
+							35-批量删除报文反馈
+						-->
+						<property name="com.amarsoft.app.datax.ecr.session.FeedbackSession.messageSetType" value="50" />
+						<!-- 反馈报文配置文件 -->
+						<property name="com.amarsoft.app.datax.ecr.session.FeedbackSession.messageConfigFile" value="{$ARE.ECR_HOME}/etc/ecr_message_feedback.xml" />
+						<property name="com.amarsoft.app.datax.ecr.session.FeedbackSession.cryptConfigFile" value="{$ARE.ECR_HOME}/etc/Crypt.xml" />
+						<property name="com.amarsoft.app.datax.ecr.session.FeedbackSession.cryptKeyFile" value="{$ARE.ECR_HOME}/etc/public.key" />		
+						<!-- 此反馈报文所对应的可能的原始报文列表 -->
+						<property name="com.amarsoft.app.datax.ecr.session.FeedbackSession.originalMessageList" 
+							value="{{$ARE.ECR_HOME}/etc/ecr_message_customerinfo.xml}
+								{{$ARE.ECR_HOME}/etc/ecr_message_businessinfo.xml}
+								{{$ARE.ECR_HOME}/etc/ecr_message_assetssaving.xml}" 
+						/>
+					</extendProperties>
+				</executeUnit>
+			</executeUnits>	
+			<routeTable>
+				<route unit="BusinessResult"		executeStatus="unexecute"	nextUnit="BusinessResult"/>
+			</routeTable>
+		</target>
+		
+		<target name="BatchDeleteFeedback" describe="业务批删反馈报文处理" enabled="true">
+			<executeUnits>		
+				<!-- 批量删除结果处理 -->
+				<executeUnit name="BatchDeleteResult" describe="业务批删反馈报文处理" executeClass="com.amarsoft.app.datax.ecr.session.FeedBatchDeleteUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.backMessageDataFolder" value="{$ARE.ECR_HOME}/feedback/deleteresult"/>
+						<property name="com.amarsoft.app.datax.ecr.session.FeedBatchDeleteSession.messageSetType" value="35" />
+						<property name="com.amarsoft.app.datax.ecr.session.FeedBatchDeleteSession.messageConfigFile" value="{$ARE.ECR_HOME}/etc/ecr_message_batchdelete_result.xml" />
+						<property name="com.amarsoft.app.datax.ecr.session.FeedBatchDeleteSession.cryptConfigFile" value="{$ARE.ECR_HOME}/etc/Crypt.xml" />
+						<property name="com.amarsoft.app.datax.ecr.session.FeedBatchDeleteSession.cryptKeyFile" value="{$ARE.ECR_HOME}/etc/public.key" />		
+					</extendProperties>
+				</executeUnit>
+			</executeUnits>
+			
+			<routeTable>
+				<route unit="BatchDeleteResult"		executeStatus="unexecute"	nextUnit="BatchDeleteResult"/>
+			</routeTable>
+		</target>
+		
+		<target name="OrganizationFeedback" describe="机构信息(采集和批删)反馈报文处理" enabled="true">
+			<executeUnits>		
+				<!-- 批量删除结果处理 -->
+				<executeUnit name="OrganizationResult" describe="机构信息(采集和批删)反馈报文处理" executeClass="com.amarsoft.app.datax.ecr.session.OrganizationFeedbackUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.backMessageDataFolder" value="{$ARE.ECR_HOME}/feedback/organfeedback"/>
+						<property name="com.amarsoft.app.datax.ecr.session.OrganizationFeedbackSession.messageSetType" value="36" />
+						<property name="com.amarsoft.app.datax.ecr.session.OrganizationFeedbackSession.messageConfigFile" value="{$ARE.ECR_HOME}/etc/ecr_message_organizationfeedback.xml" />
+						<property name="com.amarsoft.app.datax.ecr.session.OrganizationFeedbackSession.cryptConfigFile" value="{$ARE.ECR_HOME}/etc/Crypt.xml" />
+						<property name="com.amarsoft.app.datax.ecr.session.OrganizationFeedbackSession.cryptKeyFile" value="{$ARE.ECR_HOME}/etc/public.key" />
+						<property name="com.amarsoft.app.datax.ecr.session.OrganizationFeedbackSession.originalMessageList" 
+							value="{{$ARE.ECR_HOME}/etc/ecr_message_organizationinfo.xml}
+								{{$ARE.ECR_HOME}/etc/ecr_message_organizationdelete.xml}" 
+						/>
+					</extendProperties>
+				</executeUnit>
+			</executeUnits>
+			
+			<routeTable>
+				<route unit="OrganizationResult"		executeStatus="unexecute"	nextUnit="OrganizationResult"/>
+			</routeTable>
+		</target>
+		
+	</targets>
+</task>
+			
+			

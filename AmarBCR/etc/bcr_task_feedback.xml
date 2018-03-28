@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!-- 任务定义文件,每个任务有一个文件构成，任务构造器可以根据此文件构造一个任务出来 -->
+
+<task name="BackMessageProcess" describe="反馈报文处理" parallelRun="false" traceOn="true" >
+	<listeners>
+		<!--ECRTaskListener仅配置了前三类监听，建议使用unitEvent或targetEvent级的监听。
+			taskEvent级监听基本无效，routeEvent级监听未做任何操作，仅供扩展使用。-->
+		<listener listenerClass="com.amarsoft.app.datax.bcr.common.BCRTaskListener" enabled="true">
+			<extendProperties>
+				<property name="taskEventEnabled" value="false" />
+				<property name="targetEventEnabled" value="false" />
+				<property name="unitEventEnabled" value="true" />
+				<property name="routeEventEnabled" value="false" />
+				<property name="database" value="bcr"/>
+			</extendProperties>
+		</listener>
+	</listeners>
+	<targets>
+		
+		<target name="GuaranteeInfoFeedback" describe="担保业务信息反馈报文处理" enabled="true">
+			<executeUnits>		
+				<!-- 批量删除结果处理 -->
+				<executeUnit name="GuaranteeInfoResult" describe="担保业务信息反馈报文处理" executeClass="com.amarsoft.app.datax.bcr.session.GuaranteeFeedbackUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.backMessageDataFolder" value="{$ARE.BCR_HOME}/feedback/guaranteefeedback"/>
+						<property name="com.amarsoft.app.datax.bcr.session.GuaranteeFeedbackSession.messageSetType" value="1567" />
+						<property name="com.amarsoft.app.datax.bcr.session.GuaranteeFeedbackSession.messageConfigFile" value="{$ARE.BCR_HOME}/etc/bcr_message_guaranteefeedback.xml" />
+						<property name="com.amarsoft.app.datax.bcr.session.GuaranteeFeedbackSession.cryptConfigFile" value="{$ARE.BCR_HOME}/etc/Crypt.xml" />
+						<property name="com.amarsoft.app.datax.bcr.session.GuaranteeFeedbackSession.cryptKeyFile" value="{$ARE.BCR_HOME}/etc/public.key" />
+						<property name="com.amarsoft.app.datax.bcr.session.GuaranteeFeedbackSession.originalMessageList" 
+							value="{{$ARE.BCR_HOME}/etc/bcr_message_guaranteedelete.xml}
+								{{$ARE.BCR_HOME}/etc/bcr_message_guaranteechange.xml}
+								{{$ARE.BCR_HOME}/etc/bcr_message_guaranteeinfo.xml}" />
+					</extendProperties>
+				</executeUnit>
+			</executeUnits>
+			
+			<routeTable>
+				<route unit="GuaranteeInfoResult"		executeStatus="unexecute"	nextUnit="GuaranteeInfoResult"/>
+			</routeTable>
+		</target>
+		
+	</targets>
+</task>
+			
+			

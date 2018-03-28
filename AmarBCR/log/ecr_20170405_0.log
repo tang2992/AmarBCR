@@ -1,0 +1,1202 @@
+2017-04-05 10:45:22.426 CST com.amarsoft.are.ARE com.amarsoft.app.datax.ecr.AmarECR.main() [INFO] 自动计算后businessOccurDate：2017/04/04
+2017-04-05 10:45:22.439 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.taskStart().233 [INFO] 进入 Task=BCRDataValidate[原始数据校验]
+2017-04-05 10:45:22.454 CST com.amarsoft.are.ARE com.amarsoft.are.sql.PooledConnectionFactory.addDataSource().136 [INFO] org.apache.commons.dbcp.datasources.SharedPoolDataSource@47df280b
+2017-04-05 10:45:22.455 CST com.amarsoft.are.ARE com.amarsoft.are.sql.PooledConnectionFactory.addDataSource().136 [INFO] org.apache.commons.dbcp.datasources.SharedPoolDataSource@6acd5f8b
+2017-04-05 10:45:22.702 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.listenerDBInit().73 [INFO] target 开始启动
+2017-04-05 10:45:22.702 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] BCRDataValidate[原始数据校验] start! Task user: root(root)
+2017-04-05 10:45:22.702 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] BCRDataValidate[融资性担保业务数据校验] start! Task user: root(root)
+2017-04-05 10:45:22.703 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.targetStart().262 [INFO] 进入 Target=BCRDataValidate[融资性担保业务数据校验]
+2017-04-05 10:45:22.703 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] GuaranteeDataValidate[业务数据校验] start! Task user: root(root)
+2017-04-05 10:45:22.703 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitStart().288 [INFO] 进入 Unit=GuaranteeDataValidate[业务数据校验]
+2017-04-05 10:45:22.748 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().91 [INFO] 初始化报文处理过程[1111111111]......
+2017-04-05 10:45:23.001 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().93 [INFO] 初始化报文处理过程完成！
+2017-04-05 10:45:23.001 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().101 [INFO] 检查报文处理过程条件[1111111111]......
+2017-04-05 10:45:23.001 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().103 [INFO] 处理条件就绪！
+2017-04-05 10:45:23.002 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().111 [INFO] 执行处理报文处理过程[1111111111]......
+2017-04-05 10:45:24.194 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().113 [INFO] 执行报文处理过程完成！
+2017-04-05 10:45:24.195 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.ValidateSession.postProcess().84 [INFO] 共校验记录数：41, 其中正确记录：0, 检验到错误数：41, 错误关联记录：0
+2017-04-05 10:45:24.195 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSessionUnit.execute().49 [INFO] 运行处理过程1111111111成功！
+2017-04-05 10:45:24.198 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.run().111 [INFO] ExecuteUnit[GuaranteeDataValidate]OK[单元名称[GuaranteeDataValidate]单元执行状态[1]单元执行时间[1.478]秒开始时间[2017/04/05 10:45:22:718]结束时间[2017/04/05 10:45:24:196]]
+2017-04-05 10:45:24.198 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitExit().301 [INFO] 退出 Unit=GuaranteeDataValidate[业务数据校验]
+2017-04-05 10:45:24.205 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.runAfter().228 [INFO] isInsert:true,inputDate:2017/04/04,serialNO:1,TaskCode:BCRDataValidate,startTime:2017/04/05 10:45:22,endTime:2017/04/05 10:45:24,unitCode:GuaranteeDataValidate,unitDisc:业务数据校验,timeDis:0:00:02
+2017-04-05 10:45:24.206 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] GDataChengeValidate[变更记录校验] start! Task user: root(root)
+2017-04-05 10:45:24.207 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitStart().288 [INFO] 进入 Unit=GDataChengeValidate[变更记录校验]
+2017-04-05 10:45:24.213 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().91 [INFO] 初始化报文处理过程[1111111111]......
+2017-04-05 10:45:24.223 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().93 [INFO] 初始化报文处理过程完成！
+2017-04-05 10:45:24.224 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().101 [INFO] 检查报文处理过程条件[1111111111]......
+2017-04-05 10:45:24.224 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().103 [INFO] 处理条件就绪！
+2017-04-05 10:45:24.224 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().111 [INFO] 执行处理报文处理过程[1111111111]......
+2017-04-05 10:45:24.234 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().113 [INFO] 执行报文处理过程完成！
+2017-04-05 10:45:24.235 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.ValidateSession.postProcess().84 [INFO] 共校验记录数：0, 其中正确记录：0, 检验到错误数：0, 错误关联记录：0
+2017-04-05 10:45:24.236 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSessionUnit.execute().49 [INFO] 运行处理过程1111111111成功！
+2017-04-05 10:45:24.236 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.run().111 [INFO] ExecuteUnit[GDataChengeValidate]OK[单元名称[GDataChengeValidate]单元执行状态[1]单元执行时间[0.028]秒开始时间[2017/04/05 10:45:24:208]结束时间[2017/04/05 10:45:24:236]]
+2017-04-05 10:45:24.237 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitExit().301 [INFO] 退出 Unit=GDataChengeValidate[变更记录校验]
+2017-04-05 10:45:24.245 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.runAfter().228 [INFO] isInsert:true,inputDate:2017/04/04,serialNO:2,TaskCode:BCRDataValidate,startTime:2017/04/05 10:45:24,endTime:2017/04/05 10:45:24,unitCode:GDataChengeValidate,unitDisc:变更记录校验,timeDis:0:00:00
+2017-04-05 10:45:24.245 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] GDataDeleteValidate[删除记录校验] start! Task user: root(root)
+2017-04-05 10:45:24.246 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitStart().288 [INFO] 进入 Unit=GDataDeleteValidate[删除记录校验]
+2017-04-05 10:45:24.252 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().91 [INFO] 初始化报文处理过程[1111111111]......
+2017-04-05 10:45:24.263 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().93 [INFO] 初始化报文处理过程完成！
+2017-04-05 10:45:24.263 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().101 [INFO] 检查报文处理过程条件[1111111111]......
+2017-04-05 10:45:24.264 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().103 [INFO] 处理条件就绪！
+2017-04-05 10:45:24.264 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().111 [INFO] 执行处理报文处理过程[1111111111]......
+2017-04-05 10:45:24.309 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().113 [INFO] 执行报文处理过程完成！
+2017-04-05 10:45:24.310 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.ValidateSession.postProcess().84 [INFO] 共校验记录数：0, 其中正确记录：0, 检验到错误数：0, 错误关联记录：0
+2017-04-05 10:45:24.310 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSessionUnit.execute().49 [INFO] 运行处理过程1111111111成功！
+2017-04-05 10:45:24.311 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.run().111 [INFO] ExecuteUnit[GDataDeleteValidate]OK[单元名称[GDataDeleteValidate]单元执行状态[1]单元执行时间[0.064]秒开始时间[2017/04/05 10:45:24:247]结束时间[2017/04/05 10:45:24:311]]
+2017-04-05 10:45:24.312 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitExit().301 [INFO] 退出 Unit=GDataDeleteValidate[删除记录校验]
+2017-04-05 10:45:24.319 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.runAfter().228 [INFO] isInsert:true,inputDate:2017/04/04,serialNO:3,TaskCode:BCRDataValidate,startTime:2017/04/05 10:45:24,endTime:2017/04/05 10:45:24,unitCode:GDataDeleteValidate,unitDisc:删除记录校验,timeDis:0:00:00
+2017-04-05 10:45:24.319 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.targetExit().275 [INFO] 退出 Target=BCRDataValidate[融资性担保业务数据校验]
+2017-04-05 10:45:24.320 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.taskExit().247 [INFO] 退出 Task=BCRDataValidate[原始数据校验]
+2017-04-05 10:45:24.321 CST com.amarsoft.are.ARE com.amarsoft.task.TaskRunner.runCli().135 [INFO] 任务运行完成！
+2017-04-05 10:49:13.380 CST com.amarsoft.are.ARE com.amarsoft.app.datax.ecr.AmarECR.main() [INFO] 自动计算后businessOccurDate：2017/04/04
+2017-04-05 10:49:13.393 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.taskStart().233 [INFO] 进入 Task=BCRDataValidate[原始数据校验]
+2017-04-05 10:49:13.408 CST com.amarsoft.are.ARE com.amarsoft.are.sql.PooledConnectionFactory.addDataSource().136 [INFO] org.apache.commons.dbcp.datasources.SharedPoolDataSource@47df280b
+2017-04-05 10:49:13.409 CST com.amarsoft.are.ARE com.amarsoft.are.sql.PooledConnectionFactory.addDataSource().136 [INFO] org.apache.commons.dbcp.datasources.SharedPoolDataSource@6acd5f8b
+2017-04-05 10:49:13.644 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.listenerDBInit().73 [INFO] target 开始启动
+2017-04-05 10:49:13.645 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] BCRDataValidate[原始数据校验] start! Task user: root(root)
+2017-04-05 10:49:13.645 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] BCRDataValidate[融资性担保业务数据校验] start! Task user: root(root)
+2017-04-05 10:49:13.645 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.targetStart().262 [INFO] 进入 Target=BCRDataValidate[融资性担保业务数据校验]
+2017-04-05 10:49:13.646 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] GuaranteeDataValidate[业务数据校验] start! Task user: root(root)
+2017-04-05 10:49:13.646 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitStart().288 [INFO] 进入 Unit=GuaranteeDataValidate[业务数据校验]
+2017-04-05 10:49:13.689 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().91 [INFO] 初始化报文处理过程[1111111111]......
+2017-04-05 10:49:13.941 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().93 [INFO] 初始化报文处理过程完成！
+2017-04-05 10:49:13.941 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().101 [INFO] 检查报文处理过程条件[1111111111]......
+2017-04-05 10:49:13.942 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().103 [INFO] 处理条件就绪！
+2017-04-05 10:49:13.942 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().111 [INFO] 执行处理报文处理过程[1111111111]......
+2017-04-05 10:49:15.149 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().113 [INFO] 执行报文处理过程完成！
+2017-04-05 10:49:15.150 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.ValidateSession.postProcess().84 [INFO] 共校验记录数：41, 其中正确记录：0, 检验到错误数：41, 错误关联记录：0
+2017-04-05 10:49:15.150 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSessionUnit.execute().49 [INFO] 运行处理过程1111111111成功！
+2017-04-05 10:49:15.153 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.run().111 [INFO] ExecuteUnit[GuaranteeDataValidate]OK[单元名称[GuaranteeDataValidate]单元执行状态[1]单元执行时间[1.491]秒开始时间[2017/04/05 10:49:13:660]结束时间[2017/04/05 10:49:15:151]]
+2017-04-05 10:49:15.153 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitExit().301 [INFO] 退出 Unit=GuaranteeDataValidate[业务数据校验]
+2017-04-05 10:49:15.160 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.runAfter().228 [INFO] isInsert:false,inputDate:2017/04/04,serialNO:1,TaskCode:BCRDataValidate,startTime:2017/04/05 10:49:13,endTime:2017/04/05 10:49:15,unitCode:GuaranteeDataValidate,unitDisc:业务数据校验,timeDis:0:00:02
+2017-04-05 10:49:15.161 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] GDataChengeValidate[变更记录校验] start! Task user: root(root)
+2017-04-05 10:49:15.162 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitStart().288 [INFO] 进入 Unit=GDataChengeValidate[变更记录校验]
+2017-04-05 10:49:15.169 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().91 [INFO] 初始化报文处理过程[1111111111]......
+2017-04-05 10:49:15.179 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().93 [INFO] 初始化报文处理过程完成！
+2017-04-05 10:49:15.180 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().101 [INFO] 检查报文处理过程条件[1111111111]......
+2017-04-05 10:49:15.180 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().103 [INFO] 处理条件就绪！
+2017-04-05 10:49:15.180 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().111 [INFO] 执行处理报文处理过程[1111111111]......
+2017-04-05 10:49:15.186 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().113 [INFO] 执行报文处理过程完成！
+2017-04-05 10:49:15.186 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.ValidateSession.postProcess().84 [INFO] 共校验记录数：0, 其中正确记录：0, 检验到错误数：0, 错误关联记录：0
+2017-04-05 10:49:15.186 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSessionUnit.execute().49 [INFO] 运行处理过程1111111111成功！
+2017-04-05 10:49:15.187 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.run().111 [INFO] ExecuteUnit[GDataChengeValidate]OK[单元名称[GDataChengeValidate]单元执行状态[1]单元执行时间[0.024]秒开始时间[2017/04/05 10:49:15:163]结束时间[2017/04/05 10:49:15:187]]
+2017-04-05 10:49:15.187 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitExit().301 [INFO] 退出 Unit=GDataChengeValidate[变更记录校验]
+2017-04-05 10:49:15.194 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.runAfter().228 [INFO] isInsert:false,inputDate:2017/04/04,serialNO:2,TaskCode:BCRDataValidate,startTime:2017/04/05 10:49:15,endTime:2017/04/05 10:49:15,unitCode:GDataChengeValidate,unitDisc:变更记录校验,timeDis:0:00:00
+2017-04-05 10:49:15.194 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] GDataDeleteValidate[删除记录校验] start! Task user: root(root)
+2017-04-05 10:49:15.194 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitStart().288 [INFO] 进入 Unit=GDataDeleteValidate[删除记录校验]
+2017-04-05 10:49:15.201 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().91 [INFO] 初始化报文处理过程[1111111111]......
+2017-04-05 10:49:15.213 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().93 [INFO] 初始化报文处理过程完成！
+2017-04-05 10:49:15.213 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().101 [INFO] 检查报文处理过程条件[1111111111]......
+2017-04-05 10:49:15.213 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().103 [INFO] 处理条件就绪！
+2017-04-05 10:49:15.213 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().111 [INFO] 执行处理报文处理过程[1111111111]......
+2017-04-05 10:49:15.275 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().116 [ERROR] 执行报文处理过程失败！
+2017-04-05 10:49:15.275 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSessionUnit.execute().43 [FATAL] 运行处理过程1111111111失败 <com.amarsoft.app.datax.bcr.BCRException: 执行报文处理过程失败！>com.amarsoft.app.datax.bcr.BCRException: 执行报文处理过程失败！
+	at com.amarsoft.app.datax.bcr.session.MessageProcessSession.start(MessageProcessSession.java:117)
+	at com.amarsoft.app.datax.bcr.session.MessageProcessSessionUnit.execute(MessageProcessSessionUnit.java:41)
+	at com.amarsoft.task.ExecuteUnit.run(ExecuteUnit.java:109)
+	at com.amarsoft.task.Target.runSerial(Target.java:153)
+	at com.amarsoft.task.Target.run(Target.java:89)
+	at com.amarsoft.task.Task.runSerial(Task.java:144)
+	at com.amarsoft.task.Task.start(Task.java:63)
+	at com.amarsoft.task.Task.start(Task.java:41)
+	at com.amarsoft.task.TaskRunner.runCli(TaskRunner.java:134)
+	at com.amarsoft.task.TaskRunner.runCli(TaskRunner.java:124)
+	at com.amarsoft.app.datax.ecr.AmarECR.main(Unknown Source)
+com.amarsoft.app.datax.bcr.BCRException: 执行报文处理过程失败！
+	at com.amarsoft.app.datax.bcr.session.MessageProcessSession.start(MessageProcessSession.java:117)
+	at com.amarsoft.app.datax.bcr.session.MessageProcessSessionUnit.execute(MessageProcessSessionUnit.java:41)
+	at com.amarsoft.task.ExecuteUnit.run(ExecuteUnit.java:109)
+	at com.amarsoft.task.Target.runSerial(Target.java:153)
+	at com.amarsoft.task.Target.run(Target.java:89)
+	at com.amarsoft.task.Task.runSerial(Task.java:144)
+	at com.amarsoft.task.Task.start(Task.java:63)
+	at com.amarsoft.task.Task.start(Task.java:41)
+	at com.amarsoft.task.TaskRunner.runCli(TaskRunner.java:134)
+	at com.amarsoft.task.TaskRunner.runCli(TaskRunner.java:124)
+	at com.amarsoft.app.datax.ecr.AmarECR.main(Unknown Source)
+
+2017-04-05 10:49:15.276 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.run().111 [INFO] ExecuteUnit[GDataDeleteValidate]OK[单元名称[GDataDeleteValidate]单元执行状态[2]单元执行时间[0.08]秒开始时间[2017/04/05 10:49:15:196]结束时间[2017/04/05 10:49:15:276]]
+2017-04-05 10:49:15.276 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitExit().301 [INFO] 退出 Unit=GDataDeleteValidate[删除记录校验]
+2017-04-05 10:49:15.279 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.runAfter().228 [INFO] isInsert:false,inputDate:2017/04/04,serialNO:3,TaskCode:BCRDataValidate,startTime:2017/04/05 10:49:15,endTime:2017/04/05 10:49:15,unitCode:GDataDeleteValidate,unitDisc:删除记录校验,timeDis:0:00:00
+2017-04-05 10:49:15.280 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.targetExit().275 [INFO] 退出 Target=BCRDataValidate[融资性担保业务数据校验]
+2017-04-05 10:49:15.280 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.taskExit().247 [INFO] 退出 Task=BCRDataValidate[原始数据校验]
+2017-04-05 10:49:15.280 CST com.amarsoft.are.ARE com.amarsoft.task.TaskRunner.runCli().135 [INFO] 任务运行完成！
+2017-04-05 10:49:23.540 CST com.amarsoft.are.ARE com.amarsoft.app.datax.ecr.AmarECR.main() [INFO] 自动计算后businessOccurDate：2017/04/04
+2017-04-05 10:49:23.554 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.taskStart().233 [INFO] 进入 Task=BCRDataTransfer[待上报数据迁移]
+2017-04-05 10:49:23.569 CST com.amarsoft.are.ARE com.amarsoft.are.sql.PooledConnectionFactory.addDataSource().136 [INFO] org.apache.commons.dbcp.datasources.SharedPoolDataSource@6acd5f8b
+2017-04-05 10:49:23.570 CST com.amarsoft.are.ARE com.amarsoft.are.sql.PooledConnectionFactory.addDataSource().136 [INFO] org.apache.commons.dbcp.datasources.SharedPoolDataSource@2f3adc56
+2017-04-05 10:49:23.833 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.listenerDBInit().73 [INFO] target 开始启动
+2017-04-05 10:49:23.833 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] BCRDataTransfer[待上报数据迁移] start! Task user: root(root)
+2017-04-05 10:49:23.833 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] BCRDataTransfer[基础数据迁移] start! Task user: root(root)
+2017-04-05 10:49:23.834 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.targetStart().262 [INFO] 进入 Target=BCRDataTransfer[基础数据迁移]
+2017-04-05 10:49:23.834 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] SetTransferFilter[设置迁移过滤器] start! Task user: root(root)
+2017-04-05 10:49:23.834 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitStart().288 [INFO] 进入 Unit=SetTransferFilter[设置迁移过滤器]
+2017-04-05 10:49:23.927 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.run().111 [INFO] ExecuteUnit[SetTransferFilter]OK[单元名称[SetTransferFilter]单元执行状态[1]单元执行时间[0.076]秒开始时间[2017/04/05 10:49:23:849]结束时间[2017/04/05 10:49:23:925]]
+2017-04-05 10:49:23.928 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitExit().301 [INFO] 退出 Unit=SetTransferFilter[设置迁移过滤器]
+2017-04-05 10:49:23.937 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.runAfter().228 [INFO] isInsert:true,inputDate:2017/04/04,serialNO:4,TaskCode:BCRDataTransfer,startTime:2017/04/05 10:49:23,endTime:2017/04/05 10:49:23,unitCode:SetTransferFilter,unitDisc:设置迁移过滤器,timeDis:0:00:00
+2017-04-05 10:49:23.938 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] TransferGuaranteeRecord[迁移新增/变更的业务记录] start! Task user: root(root)
+2017-04-05 10:49:23.939 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitStart().288 [INFO] 进入 Unit=TransferGuaranteeRecord[迁移新增/变更的业务记录]
+2017-04-05 10:49:23.978 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().91 [INFO] 初始化报文处理过程[1111111111]......
+2017-04-05 10:49:23.981 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().93 [INFO] 初始化报文处理过程完成！
+2017-04-05 10:49:23.981 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().101 [INFO] 检查报文处理过程条件[1111111111]......
+2017-04-05 10:49:23.981 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().103 [INFO] 处理条件就绪！
+2017-04-05 10:49:23.982 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().111 [INFO] 执行处理报文处理过程[1111111111]......
+2017-04-05 10:49:24.364 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().113 [INFO] 执行报文处理过程完成！
+2017-04-05 10:49:24.365 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.TransferSession.postProcess().38 [INFO] 共处理记录数：41, 其中成功迁移：0, 被过滤器拒绝：41
+2017-04-05 10:49:24.366 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSessionUnit.execute().49 [INFO] 运行处理过程1111111111成功！
+2017-04-05 10:49:24.366 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.run().111 [INFO] ExecuteUnit[TransferGuaranteeRecord]OK[单元名称[TransferGuaranteeRecord]单元执行状态[1]单元执行时间[0.426]秒开始时间[2017/04/05 10:49:23:940]结束时间[2017/04/05 10:49:24:366]]
+2017-04-05 10:49:24.367 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitExit().301 [INFO] 退出 Unit=TransferGuaranteeRecord[迁移新增/变更的业务记录]
+2017-04-05 10:49:24.375 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.runAfter().228 [INFO] isInsert:true,inputDate:2017/04/04,serialNO:5,TaskCode:BCRDataTransfer,startTime:2017/04/05 10:49:23,endTime:2017/04/05 10:49:24,unitCode:TransferGuaranteeRecord,unitDisc:迁移新增/变更的业务记录,timeDis:0:00:01
+2017-04-05 10:49:24.376 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.targetExit().275 [INFO] 退出 Target=BCRDataTransfer[基础数据迁移]
+2017-04-05 10:49:24.376 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.taskExit().247 [INFO] 退出 Task=BCRDataTransfer[待上报数据迁移]
+2017-04-05 10:49:24.377 CST com.amarsoft.are.ARE com.amarsoft.task.TaskRunner.runCli().135 [INFO] 任务运行完成！
+2017-04-05 10:49:29.159 CST com.amarsoft.are.ARE com.amarsoft.app.datax.ecr.AmarECR.main() [INFO] 自动计算后businessOccurDate：2017/04/04
+2017-04-05 10:49:29.176 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.taskStart().233 [INFO] 进入 Task=BCRDataBatchdel[担保业务报文生成任务]
+2017-04-05 10:49:29.193 CST com.amarsoft.are.ARE com.amarsoft.are.sql.PooledConnectionFactory.addDataSource().136 [INFO] org.apache.commons.dbcp.datasources.SharedPoolDataSource@47df280b
+2017-04-05 10:49:29.194 CST com.amarsoft.are.ARE com.amarsoft.are.sql.PooledConnectionFactory.addDataSource().136 [INFO] org.apache.commons.dbcp.datasources.SharedPoolDataSource@6acd5f8b
+2017-04-05 10:49:29.437 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.listenerDBInit().73 [INFO] target 开始启动
+2017-04-05 10:49:29.437 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.targetStart().262 [INFO] 进入 Target=GuaranteeDeleteMessage[担保业务删除报文生成]
+2017-04-05 10:49:29.438 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitStart().288 [INFO] 进入 Unit=DeleteGuaranteeMessage[担保业务信息删除报文生成]
+2017-04-05 10:49:29.556 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().91 [INFO] 初始化报文处理过程[1704050001]......
+2017-04-05 10:49:29.558 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().93 [INFO] 初始化报文处理过程完成！
+2017-04-05 10:49:29.559 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().101 [INFO] 检查报文处理过程条件[1704050001]......
+2017-04-05 10:49:29.562 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.ReportSession.ready().411 [INFO] 检查到待上报记录条数: 0
+2017-04-05 10:49:29.563 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().106 [WARN] 处理条件不成熟！
+2017-04-05 10:49:29.563 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.ReportSession.postProcess().276 [WARN] 报文文件未能正确生成,不能进行后续处理! 
+2017-04-05 10:49:29.563 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit.execute().116 [INFO] 运行处理过程1704050001条件不具备！
+2017-04-05 10:49:29.564 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.run().111 [INFO] ExecuteUnit[DeleteGuaranteeMessage]OK[单元名称[DeleteGuaranteeMessage]单元执行状态[1]单元执行时间[0.111]秒开始时间[2017/04/05 10:49:29:452]结束时间[2017/04/05 10:49:29:563]]
+2017-04-05 10:49:29.564 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitExit().301 [INFO] 退出 Unit=DeleteGuaranteeMessage[担保业务信息删除报文生成]
+2017-04-05 10:49:29.571 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.runAfter().228 [INFO] isInsert:true,inputDate:2017/04/04,serialNO:6,TaskCode:BCRDataBatchdel,startTime:2017/04/05 10:49:29,endTime:2017/04/05 10:49:29,unitCode:DeleteGuaranteeMessage,unitDisc:担保业务信息删除报文生成,timeDis:0:00:00
+2017-04-05 10:49:29.572 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.targetExit().275 [INFO] 退出 Target=GuaranteeDeleteMessage[担保业务删除报文生成]
+2017-04-05 10:49:29.573 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.taskExit().247 [INFO] 退出 Task=BCRDataBatchdel[担保业务报文生成任务]
+2017-04-05 10:49:29.573 CST com.amarsoft.are.ARE com.amarsoft.task.TaskRunner.runCli().135 [INFO] 任务运行完成！
+2017-04-05 10:52:36.586 CST com.amarsoft.are.ARE com.amarsoft.app.datax.ecr.AmarECR.main() [INFO] 自动计算后businessOccurDate：2017/04/04
+2017-04-05 10:52:36.599 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.taskStart().233 [INFO] 进入 Task=BCRDataBatchdel[担保业务报文生成任务]
+2017-04-05 10:52:36.615 CST com.amarsoft.are.ARE com.amarsoft.are.sql.PooledConnectionFactory.addDataSource().136 [INFO] org.apache.commons.dbcp.datasources.SharedPoolDataSource@47df280b
+2017-04-05 10:52:36.615 CST com.amarsoft.are.ARE com.amarsoft.are.sql.PooledConnectionFactory.addDataSource().136 [INFO] org.apache.commons.dbcp.datasources.SharedPoolDataSource@6acd5f8b
+2017-04-05 10:52:36.863 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.listenerDBInit().73 [INFO] target 开始启动
+2017-04-05 10:52:36.864 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.targetStart().262 [INFO] 进入 Target=GuaranteeDeleteMessage[担保业务删除报文生成]
+2017-04-05 10:52:36.864 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitStart().288 [INFO] 进入 Unit=DeleteGuaranteeMessage[担保业务信息删除报文生成]
+2017-04-05 10:52:36.975 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().91 [INFO] 初始化报文处理过程[1704050001]......
+2017-04-05 10:52:36.977 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().93 [INFO] 初始化报文处理过程完成！
+2017-04-05 10:52:36.977 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().101 [INFO] 检查报文处理过程条件[1704050001]......
+2017-04-05 10:52:36.980 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.ReportSession.ready().411 [INFO] 检查到待上报记录条数: 0
+2017-04-05 10:52:36.980 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().106 [WARN] 处理条件不成熟！
+2017-04-05 10:52:36.980 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.ReportSession.postProcess().276 [WARN] 报文文件未能正确生成,不能进行后续处理! 
+2017-04-05 10:52:36.980 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit.execute().116 [INFO] 运行处理过程1704050001条件不具备！
+2017-04-05 10:52:36.981 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.run().111 [INFO] ExecuteUnit[DeleteGuaranteeMessage]OK[单元名称[DeleteGuaranteeMessage]单元执行状态[1]单元执行时间[0.101]秒开始时间[2017/04/05 10:52:36:879]结束时间[2017/04/05 10:52:36:980]]
+2017-04-05 10:52:36.982 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitExit().301 [INFO] 退出 Unit=DeleteGuaranteeMessage[担保业务信息删除报文生成]
+2017-04-05 10:52:36.986 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.runAfter().228 [INFO] isInsert:false,inputDate:2017/04/04,serialNO:6,TaskCode:BCRDataBatchdel,startTime:2017/04/05 10:52:36,endTime:2017/04/05 10:52:36,unitCode:DeleteGuaranteeMessage,unitDisc:担保业务信息删除报文生成,timeDis:0:00:00
+2017-04-05 10:52:36.986 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.targetExit().275 [INFO] 退出 Target=GuaranteeDeleteMessage[担保业务删除报文生成]
+2017-04-05 10:52:36.986 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.taskExit().247 [INFO] 退出 Task=BCRDataBatchdel[担保业务报文生成任务]
+2017-04-05 10:52:36.987 CST com.amarsoft.are.ARE com.amarsoft.task.TaskRunner.runCli().135 [INFO] 任务运行完成！
+2017-04-05 10:55:11.606 CST com.amarsoft.are.ARE com.amarsoft.app.datax.ecr.AmarECR.main() [INFO] 自动计算后businessOccurDate：2017/04/04
+2017-04-05 10:55:11.619 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.taskStart().233 [INFO] 进入 Task=BCRDataBatchdel[担保业务报文生成任务]
+2017-04-05 10:55:11.634 CST com.amarsoft.are.ARE com.amarsoft.are.sql.PooledConnectionFactory.addDataSource().136 [INFO] org.apache.commons.dbcp.datasources.SharedPoolDataSource@47df280b
+2017-04-05 10:55:11.635 CST com.amarsoft.are.ARE com.amarsoft.are.sql.PooledConnectionFactory.addDataSource().136 [INFO] org.apache.commons.dbcp.datasources.SharedPoolDataSource@6acd5f8b
+2017-04-05 10:55:11.635 CST com.amarsoft.are.ARE com.amarsoft.are.sql.DBConnectionFactory.getFactory().52 [DEBUG] AREService DBCONNECTION initialiezed!
+2017-04-05 10:55:11.926 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.listenerDBInit().73 [INFO] target 开始启动
+2017-04-05 10:55:11.926 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().120 [TRACE] BCRDataBatchdel[担保业务报文生成任务] start! Task user: root(root)
+2017-04-05 10:55:11.926 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().120 [TRACE] GuaranteeDeleteMessage[担保业务删除报文生成] start! Task user: root(root)
+2017-04-05 10:55:11.927 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.targetStart().262 [INFO] 进入 Target=GuaranteeDeleteMessage[担保业务删除报文生成]
+2017-04-05 10:55:11.927 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().120 [TRACE] DeleteGuaranteeMessage[担保业务信息删除报文生成] start! Task user: root(root)
+2017-04-05 10:55:11.927 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitStart().288 [INFO] 进入 Unit=DeleteGuaranteeMessage[担保业务信息删除报文生成]
+2017-04-05 10:55:11.942 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().171 [TRACE] TaskVar replace start...
+2017-04-05 10:55:11.942 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.autoEcrypt old value : true
+2017-04-05 10:55:11.943 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.autoEcrypt new value : true
+2017-04-05 10:55:11.943 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.multiOrg old value : false
+2017-04-05 10:55:11.943 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.multiOrg new value : false
+2017-04-05 10:55:11.944 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.cryptConfigFile old value : ./etc/Crypt.xml
+2017-04-05 10:55:11.944 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.cryptConfigFile new value : ./etc/Crypt.xml
+2017-04-05 10:55:11.945 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.exportFolder old value : ./export/
+2017-04-05 10:55:11.945 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.exportFolder new value : ./export/
+2017-04-05 10:55:11.945 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.cryptKeyFile old value : ./etc/public.key
+2017-04-05 10:55:11.946 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.cryptKeyFile new value : ./etc/public.key
+2017-04-05 10:55:11.946 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.autoCompress old value : true
+2017-04-05 10:55:11.946 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.autoCompress new value : true
+2017-04-05 10:55:11.947 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.messageConfigFile old value : ./etc/bcr_message_guaranteedelete.xml
+2017-04-05 10:55:11.947 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.messageConfigFile new value : ./etc/bcr_message_guaranteedelete.xml
+2017-04-05 10:55:11.947 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.retryMessage old value : true
+2017-04-05 10:55:11.948 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.retryMessage new value : true
+2017-04-05 10:55:11.948 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] unit.faxProposer old value : 安硕小子
+2017-04-05 10:55:11.948 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] unit.faxProposer new value : 安硕小子
+2017-04-05 10:55:11.949 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] unit.faxBankName old value : 安硕商业银行
+2017-04-05 10:55:11.949 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] unit.faxBankName new value : 安硕商业银行
+2017-04-05 10:55:11.949 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] unit.faxContact old value : 000-12345678
+2017-04-05 10:55:11.949 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] unit.faxContact new value : 000-12345678
+2017-04-05 10:55:11.950 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.run().108 [DEBUG] ExecuteUnit[DeleteGuaranteeMessage] Starting ...
+2017-04-05 10:55:12.055 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().91 [INFO] 初始化报文处理过程[1704050001]......
+2017-04-05 10:55:12.058 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().93 [INFO] 初始化报文处理过程完成！
+2017-04-05 10:55:12.058 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().101 [INFO] 检查报文处理过程条件[1704050001]......
+2017-04-05 10:55:12.059 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] MessageSet Start: GuaranteeDatadel/担保业务删除报文文件[110004580T011016170405171000100]
+2017-04-05 10:55:12.059 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] Message Start : delGuaranteeData/担保业务信息删除报文
+2017-04-05 10:55:12.060 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] Header: Head/
+[Segment MessageHead-->HeadFlag=A|Version=1.0|FinanceCode=4580T011016|CreatedTime=20170405105505|MsgType=83|ReserveField=]
+2017-04-05 10:55:12.060 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.DBMessageBodyReader.executeQuery().56 [DEBUG] select * from BCR_GUARANTEEDELETE where (SessionID='1111111111') and (Incrementflag='1' or Incrementflag='2' or Incrementflag='3' or Incrementflag='4') and (ModFlag='1') and (RecordFlag='40')
+2017-04-05 10:55:12.062 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] Footer: tail/
+[Segment TailSegment-->TailFlag=Z|RecordNum=0000000000]
+2017-04-05 10:55:12.062 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] Message End : delGuaranteeData[Total Parsed Record : 0]
+2017-04-05 10:55:12.063 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] MessageSet End: GuaranteeDatadel/担保业务删除报文文件
+2017-04-05 10:55:12.063 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.ReportSession.ready().411 [INFO] 检查到待上报记录条数: 0
+2017-04-05 10:55:12.063 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().106 [WARN] 处理条件不成熟！
+2017-04-05 10:55:12.063 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.ReportSession.postProcess().276 [WARN] 报文文件未能正确生成,不能进行后续处理! 
+2017-04-05 10:55:12.064 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit.execute().116 [INFO] 运行处理过程1704050001条件不具备！
+2017-04-05 10:55:12.065 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.run().111 [INFO] ExecuteUnit[DeleteGuaranteeMessage]OK[单元名称[DeleteGuaranteeMessage]单元执行状态[1]单元执行时间[0.115]秒开始时间[2017/04/05 10:55:11:949]结束时间[2017/04/05 10:55:12:064]]
+2017-04-05 10:55:12.065 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitExit().301 [INFO] 退出 Unit=DeleteGuaranteeMessage[担保业务信息删除报文生成]
+2017-04-05 10:55:12.067 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.runAfter().228 [INFO] isInsert:false,inputDate:2017/04/04,serialNO:6,TaskCode:BCRDataBatchdel,startTime:2017/04/05 10:55:11,endTime:2017/04/05 10:55:12,unitCode:DeleteGuaranteeMessage,unitDisc:担保业务信息删除报文生成,timeDis:0:00:01
+2017-04-05 10:55:12.068 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.targetExit().275 [INFO] 退出 Target=GuaranteeDeleteMessage[担保业务删除报文生成]
+2017-04-05 10:55:12.068 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.taskExit().247 [INFO] 退出 Task=BCRDataBatchdel[担保业务报文生成任务]
+2017-04-05 10:55:12.068 CST com.amarsoft.are.ARE com.amarsoft.task.TaskRunner.runCli().135 [INFO] 任务运行完成！
+2017-04-05 11:09:22.039 CST com.amarsoft.are.ARE com.amarsoft.app.datax.ecr.AmarECR.main() [INFO] 自动计算后businessOccurDate：2017/04/04
+2017-04-05 11:09:22.052 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.taskStart().233 [INFO] 进入 Task=BCRDataBatchdel[担保业务报文生成任务]
+2017-04-05 11:09:22.067 CST com.amarsoft.are.ARE com.amarsoft.are.sql.PooledConnectionFactory.addDataSource().136 [INFO] org.apache.commons.dbcp.datasources.SharedPoolDataSource@47df280b
+2017-04-05 11:09:22.068 CST com.amarsoft.are.ARE com.amarsoft.are.sql.PooledConnectionFactory.addDataSource().136 [INFO] org.apache.commons.dbcp.datasources.SharedPoolDataSource@6acd5f8b
+2017-04-05 11:09:22.068 CST com.amarsoft.are.ARE com.amarsoft.are.sql.DBConnectionFactory.getFactory().52 [DEBUG] AREService DBCONNECTION initialiezed!
+2017-04-05 11:09:22.317 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.listenerDBInit().73 [INFO] target 开始启动
+2017-04-05 11:09:22.317 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().120 [TRACE] BCRDataBatchdel[担保业务报文生成任务] start! Task user: root(root)
+2017-04-05 11:09:22.318 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().120 [TRACE] GuaranteeDeleteMessage[担保业务删除报文生成] start! Task user: root(root)
+2017-04-05 11:09:22.318 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.targetStart().262 [INFO] 进入 Target=GuaranteeDeleteMessage[担保业务删除报文生成]
+2017-04-05 11:09:22.318 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().120 [TRACE] DeleteGuaranteeMessage[担保业务信息删除报文生成] start! Task user: root(root)
+2017-04-05 11:09:22.319 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitStart().288 [INFO] 进入 Unit=DeleteGuaranteeMessage[担保业务信息删除报文生成]
+2017-04-05 11:09:22.333 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().171 [TRACE] TaskVar replace start...
+2017-04-05 11:09:22.334 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.autoEcrypt old value : true
+2017-04-05 11:09:22.334 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.autoEcrypt new value : true
+2017-04-05 11:09:22.334 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.multiOrg old value : false
+2017-04-05 11:09:22.335 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.multiOrg new value : false
+2017-04-05 11:09:22.335 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.cryptConfigFile old value : ./etc/Crypt.xml
+2017-04-05 11:09:22.335 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.cryptConfigFile new value : ./etc/Crypt.xml
+2017-04-05 11:09:22.336 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.exportFolder old value : ./export/
+2017-04-05 11:09:22.336 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.exportFolder new value : ./export/
+2017-04-05 11:09:22.336 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.cryptKeyFile old value : ./etc/public.key
+2017-04-05 11:09:22.337 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.cryptKeyFile new value : ./etc/public.key
+2017-04-05 11:09:22.337 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.autoCompress old value : true
+2017-04-05 11:09:22.337 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.autoCompress new value : true
+2017-04-05 11:09:22.338 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.messageConfigFile old value : ./etc/bcr_message_guaranteedelete.xml
+2017-04-05 11:09:22.338 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.messageConfigFile new value : ./etc/bcr_message_guaranteedelete.xml
+2017-04-05 11:09:22.339 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.retryMessage old value : true
+2017-04-05 11:09:22.339 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.retryMessage new value : true
+2017-04-05 11:09:22.339 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] unit.faxProposer old value : 安硕小子
+2017-04-05 11:09:22.339 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] unit.faxProposer new value : 安硕小子
+2017-04-05 11:09:22.340 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] unit.faxBankName old value : 安硕商业银行
+2017-04-05 11:09:22.340 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] unit.faxBankName new value : 安硕商业银行
+2017-04-05 11:09:22.340 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] unit.faxContact old value : 000-12345678
+2017-04-05 11:09:22.341 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] unit.faxContact new value : 000-12345678
+2017-04-05 11:09:22.341 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.run().108 [DEBUG] ExecuteUnit[DeleteGuaranteeMessage] Starting ...
+2017-04-05 11:09:22.446 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().91 [INFO] 初始化报文处理过程[1704050001]......
+2017-04-05 11:09:22.448 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().93 [INFO] 初始化报文处理过程完成！
+2017-04-05 11:09:22.449 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().101 [INFO] 检查报文处理过程条件[1704050001]......
+2017-04-05 11:09:22.449 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] MessageSet Start: GuaranteeDatadel/担保业务删除报文文件[110004580T011016170405171000100]
+2017-04-05 11:09:22.450 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] Message Start : delGuaranteeData/担保业务信息删除报文
+2017-04-05 11:09:22.450 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] Header: Head/
+[Segment MessageHead-->HeadFlag=A|Version=1.0|FinanceCode=4580T011016|CreatedTime=20170405110905|MsgType=83|ReserveField=]
+2017-04-05 11:09:22.451 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.DBMessageBodyReader.executeQuery().56 [DEBUG] select * from BCR_GUARANTEEDELETE where (SessionID='1111111111') and (Incrementflag='1' or Incrementflag='2' or Incrementflag='3' or Incrementflag='4') and (ModFlag='1') and (RecordFlag='40')
+2017-04-05 11:09:22.462 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.bizmanage.MBRGuaranteeDelete.fillRecord().57 [DEBUG] 列名无效 <java.sql.SQLException: 列名无效>java.sql.SQLException: 列名无效
+	at oracle.jdbc.driver.DatabaseError.throwSqlException(DatabaseError.java:145)
+	at oracle.jdbc.driver.DatabaseError.throwSqlException(DatabaseError.java:190)
+	at oracle.jdbc.driver.DatabaseError.throwSqlException(DatabaseError.java:286)
+	at oracle.jdbc.driver.OracleStatement.getColumnIndex(OracleStatement.java:4023)
+	at oracle.jdbc.driver.OracleResultSetImpl.findColumn(OracleResultSetImpl.java:2647)
+	at oracle.jdbc.driver.OracleResultSet.getString(OracleResultSet.java:1515)
+	at com.amarsoft.app.datax.bcr.bizmanage.MBRGuaranteeDelete.fillRecord(MBRGuaranteeDelete.java:49)
+	at com.amarsoft.app.datax.bcr.message.MessageBodyReader.read(MessageBodyReader.java:42)
+	at com.amarsoft.app.datax.bcr.message.MessageSet.parse(MessageSet.java:126)
+	at com.amarsoft.app.datax.bcr.session.ReportSession.ready(ReportSession.java:406)
+	at com.amarsoft.app.datax.bcr.session.MessageProcessSession.start(MessageProcessSession.java:102)
+	at com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit.execute(VillageGuaranteeDeleteReportUnit.java:96)
+	at com.amarsoft.task.ExecuteUnit.run(ExecuteUnit.java:109)
+	at com.amarsoft.task.Target.runSerial(Target.java:153)
+	at com.amarsoft.task.Target.run(Target.java:89)
+	at com.amarsoft.task.Task.runSerial(Task.java:144)
+	at com.amarsoft.task.Task.start(Task.java:63)
+	at com.amarsoft.task.Task.start(Task.java:41)
+	at com.amarsoft.task.TaskRunner.runCli(TaskRunner.java:134)
+	at com.amarsoft.task.TaskRunner.runCli(TaskRunner.java:124)
+	at com.amarsoft.app.datax.ecr.AmarECR.main(Unknown Source)
+java.sql.SQLException: 列名无效
+	at oracle.jdbc.driver.DatabaseError.throwSqlException(DatabaseError.java:145)
+	at oracle.jdbc.driver.DatabaseError.throwSqlException(DatabaseError.java:190)
+	at oracle.jdbc.driver.DatabaseError.throwSqlException(DatabaseError.java:286)
+	at oracle.jdbc.driver.OracleStatement.getColumnIndex(OracleStatement.java:4023)
+	at oracle.jdbc.driver.OracleResultSetImpl.findColumn(OracleResultSetImpl.java:2647)
+	at oracle.jdbc.driver.OracleResultSet.getString(OracleResultSet.java:1515)
+	at com.amarsoft.app.datax.bcr.bizmanage.MBRGuaranteeDelete.fillRecord(MBRGuaranteeDelete.java:49)
+	at com.amarsoft.app.datax.bcr.message.MessageBodyReader.read(MessageBodyReader.java:42)
+	at com.amarsoft.app.datax.bcr.message.MessageSet.parse(MessageSet.java:126)
+	at com.amarsoft.app.datax.bcr.session.ReportSession.ready(ReportSession.java:406)
+	at com.amarsoft.app.datax.bcr.session.MessageProcessSession.start(MessageProcessSession.java:102)
+	at com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit.execute(VillageGuaranteeDeleteReportUnit.java:96)
+	at com.amarsoft.task.ExecuteUnit.run(ExecuteUnit.java:109)
+	at com.amarsoft.task.Target.runSerial(Target.java:153)
+	at com.amarsoft.task.Target.run(Target.java:89)
+	at com.amarsoft.task.Task.runSerial(Task.java:144)
+	at com.amarsoft.task.Task.start(Task.java:63)
+	at com.amarsoft.task.Task.start(Task.java:41)
+	at com.amarsoft.task.TaskRunner.runCli(TaskRunner.java:134)
+	at com.amarsoft.task.TaskRunner.runCli(TaskRunner.java:124)
+	at com.amarsoft.app.datax.ecr.AmarECR.main(Unknown Source)
+
+2017-04-05 11:09:22.463 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.ReportSession.ready().408 [ERROR] 检查上报记录出错 <com.amarsoft.app.datax.bcr.BCRException: java.sql.SQLException: 列名无效 (Caused by 列名无效)>com.amarsoft.app.datax.bcr.BCRException: java.sql.SQLException: 列名无效 (Caused by 列名无效)
+	at com.amarsoft.app.datax.bcr.bizmanage.MBRGuaranteeDelete.fillRecord(MBRGuaranteeDelete.java:58)
+	at com.amarsoft.app.datax.bcr.message.MessageBodyReader.read(MessageBodyReader.java:42)
+	at com.amarsoft.app.datax.bcr.message.MessageSet.parse(MessageSet.java:126)
+	at com.amarsoft.app.datax.bcr.session.ReportSession.ready(ReportSession.java:406)
+	at com.amarsoft.app.datax.bcr.session.MessageProcessSession.start(MessageProcessSession.java:102)
+	at com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit.execute(VillageGuaranteeDeleteReportUnit.java:96)
+	at com.amarsoft.task.ExecuteUnit.run(ExecuteUnit.java:109)
+	at com.amarsoft.task.Target.runSerial(Target.java:153)
+	at com.amarsoft.task.Target.run(Target.java:89)
+	at com.amarsoft.task.Task.runSerial(Task.java:144)
+	at com.amarsoft.task.Task.start(Task.java:63)
+	at com.amarsoft.task.Task.start(Task.java:41)
+	at com.amarsoft.task.TaskRunner.runCli(TaskRunner.java:134)
+	at com.amarsoft.task.TaskRunner.runCli(TaskRunner.java:124)
+	at com.amarsoft.app.datax.ecr.AmarECR.main(Unknown Source)
+Caused by: java.sql.SQLException: 列名无效
+	at oracle.jdbc.driver.DatabaseError.throwSqlException(DatabaseError.java:145)
+	at oracle.jdbc.driver.DatabaseError.throwSqlException(DatabaseError.java:190)
+	at oracle.jdbc.driver.DatabaseError.throwSqlException(DatabaseError.java:286)
+	at oracle.jdbc.driver.OracleStatement.getColumnIndex(OracleStatement.java:4023)
+	at oracle.jdbc.driver.OracleResultSetImpl.findColumn(OracleResultSetImpl.java:2647)
+	at oracle.jdbc.driver.OracleResultSet.getString(OracleResultSet.java:1515)
+	at com.amarsoft.app.datax.bcr.bizmanage.MBRGuaranteeDelete.fillRecord(MBRGuaranteeDelete.java:49)
+	... 14 more
+com.amarsoft.app.datax.bcr.BCRException: java.sql.SQLException: 列名无效 (Caused by 列名无效)
+	at com.amarsoft.app.datax.bcr.bizmanage.MBRGuaranteeDelete.fillRecord(MBRGuaranteeDelete.java:58)
+	at com.amarsoft.app.datax.bcr.message.MessageBodyReader.read(MessageBodyReader.java:42)
+	at com.amarsoft.app.datax.bcr.message.MessageSet.parse(MessageSet.java:126)
+	at com.amarsoft.app.datax.bcr.session.ReportSession.ready(ReportSession.java:406)
+	at com.amarsoft.app.datax.bcr.session.MessageProcessSession.start(MessageProcessSession.java:102)
+	at com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit.execute(VillageGuaranteeDeleteReportUnit.java:96)
+	at com.amarsoft.task.ExecuteUnit.run(ExecuteUnit.java:109)
+	at com.amarsoft.task.Target.runSerial(Target.java:153)
+	at com.amarsoft.task.Target.run(Target.java:89)
+	at com.amarsoft.task.Task.runSerial(Task.java:144)
+	at com.amarsoft.task.Task.start(Task.java:63)
+	at com.amarsoft.task.Task.start(Task.java:41)
+	at com.amarsoft.task.TaskRunner.runCli(TaskRunner.java:134)
+	at com.amarsoft.task.TaskRunner.runCli(TaskRunner.java:124)
+	at com.amarsoft.app.datax.ecr.AmarECR.main(Unknown Source)
+Caused by: java.sql.SQLException: 列名无效
+	at oracle.jdbc.driver.DatabaseError.throwSqlException(DatabaseError.java:145)
+	at oracle.jdbc.driver.DatabaseError.throwSqlException(DatabaseError.java:190)
+	at oracle.jdbc.driver.DatabaseError.throwSqlException(DatabaseError.java:286)
+	at oracle.jdbc.driver.OracleStatement.getColumnIndex(OracleStatement.java:4023)
+	at oracle.jdbc.driver.OracleResultSetImpl.findColumn(OracleResultSetImpl.java:2647)
+	at oracle.jdbc.driver.OracleResultSet.getString(OracleResultSet.java:1515)
+	at com.amarsoft.app.datax.bcr.bizmanage.MBRGuaranteeDelete.fillRecord(MBRGuaranteeDelete.java:49)
+	... 14 more
+
+2017-04-05 11:09:22.463 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().106 [WARN] 处理条件不成熟！
+2017-04-05 11:09:22.463 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.ReportSession.postProcess().276 [WARN] 报文文件未能正确生成,不能进行后续处理! 
+2017-04-05 11:09:22.463 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit.execute().116 [INFO] 运行处理过程1704050001条件不具备！
+2017-04-05 11:09:22.464 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.run().111 [INFO] ExecuteUnit[DeleteGuaranteeMessage]OK[单元名称[DeleteGuaranteeMessage]单元执行状态[1]单元执行时间[0.123]秒开始时间[2017/04/05 11:09:22:341]结束时间[2017/04/05 11:09:22:464]]
+2017-04-05 11:09:22.465 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitExit().301 [INFO] 退出 Unit=DeleteGuaranteeMessage[担保业务信息删除报文生成]
+2017-04-05 11:09:22.472 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.runAfter().228 [INFO] isInsert:false,inputDate:2017/04/04,serialNO:6,TaskCode:BCRDataBatchdel,startTime:2017/04/05 11:09:22,endTime:2017/04/05 11:09:22,unitCode:DeleteGuaranteeMessage,unitDisc:担保业务信息删除报文生成,timeDis:0:00:00
+2017-04-05 11:09:22.473 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.targetExit().275 [INFO] 退出 Target=GuaranteeDeleteMessage[担保业务删除报文生成]
+2017-04-05 11:09:22.473 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.taskExit().247 [INFO] 退出 Task=BCRDataBatchdel[担保业务报文生成任务]
+2017-04-05 11:09:22.474 CST com.amarsoft.are.ARE com.amarsoft.task.TaskRunner.runCli().135 [INFO] 任务运行完成！
+2017-04-05 11:13:24.381 CST com.amarsoft.are.ARE com.amarsoft.app.datax.ecr.AmarECR.main() [INFO] 自动计算后businessOccurDate：2017/04/04
+2017-04-05 11:13:24.394 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.taskStart().233 [INFO] 进入 Task=BCRDataBatchdel[担保业务报文生成任务]
+2017-04-05 11:13:24.410 CST com.amarsoft.are.ARE com.amarsoft.are.sql.PooledConnectionFactory.addDataSource().136 [INFO] org.apache.commons.dbcp.datasources.SharedPoolDataSource@78a1d1f4
+2017-04-05 11:13:24.410 CST com.amarsoft.are.ARE com.amarsoft.are.sql.PooledConnectionFactory.addDataSource().136 [INFO] org.apache.commons.dbcp.datasources.SharedPoolDataSource@bbe0f0a
+2017-04-05 11:13:24.411 CST com.amarsoft.are.ARE com.amarsoft.are.sql.DBConnectionFactory.getFactory().52 [DEBUG] AREService DBCONNECTION initialiezed!
+2017-04-05 11:13:24.715 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.listenerDBInit().73 [INFO] target 开始启动
+2017-04-05 11:13:24.715 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().120 [TRACE] BCRDataBatchdel[担保业务报文生成任务] start! Task user: root(root)
+2017-04-05 11:13:24.716 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().120 [TRACE] GuaranteeDeleteMessage[担保业务删除报文生成] start! Task user: root(root)
+2017-04-05 11:13:24.716 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.targetStart().262 [INFO] 进入 Target=GuaranteeDeleteMessage[担保业务删除报文生成]
+2017-04-05 11:13:24.716 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().120 [TRACE] DeleteGuaranteeMessage[担保业务信息删除报文生成] start! Task user: root(root)
+2017-04-05 11:13:24.717 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitStart().288 [INFO] 进入 Unit=DeleteGuaranteeMessage[担保业务信息删除报文生成]
+2017-04-05 11:13:24.731 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().171 [TRACE] TaskVar replace start...
+2017-04-05 11:13:24.732 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.autoEcrypt old value : true
+2017-04-05 11:13:24.732 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.autoEcrypt new value : true
+2017-04-05 11:13:24.732 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.multiOrg old value : false
+2017-04-05 11:13:24.733 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.multiOrg new value : false
+2017-04-05 11:13:24.733 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.cryptConfigFile old value : ./etc/Crypt.xml
+2017-04-05 11:13:24.734 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.cryptConfigFile new value : ./etc/Crypt.xml
+2017-04-05 11:13:24.734 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.exportFolder old value : ./export/
+2017-04-05 11:13:24.734 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.exportFolder new value : ./export/
+2017-04-05 11:13:24.735 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.cryptKeyFile old value : ./etc/public.key
+2017-04-05 11:13:24.735 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.cryptKeyFile new value : ./etc/public.key
+2017-04-05 11:13:24.735 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.autoCompress old value : true
+2017-04-05 11:13:24.736 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.autoCompress new value : true
+2017-04-05 11:13:24.736 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.messageConfigFile old value : ./etc/bcr_message_guaranteedelete.xml
+2017-04-05 11:13:24.736 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.messageConfigFile new value : ./etc/bcr_message_guaranteedelete.xml
+2017-04-05 11:13:24.737 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.retryMessage old value : true
+2017-04-05 11:13:24.737 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.retryMessage new value : true
+2017-04-05 11:13:24.737 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] unit.faxProposer old value : 安硕小子
+2017-04-05 11:13:24.738 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] unit.faxProposer new value : 安硕小子
+2017-04-05 11:13:24.738 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] unit.faxBankName old value : 安硕商业银行
+2017-04-05 11:13:24.738 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] unit.faxBankName new value : 安硕商业银行
+2017-04-05 11:13:24.739 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] unit.faxContact old value : 000-12345678
+2017-04-05 11:13:24.739 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] unit.faxContact new value : 000-12345678
+2017-04-05 11:13:24.739 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.run().108 [DEBUG] ExecuteUnit[DeleteGuaranteeMessage] Starting ...
+2017-04-05 11:13:24.848 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().91 [INFO] 初始化报文处理过程[1704050001]......
+2017-04-05 11:13:24.850 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().93 [INFO] 初始化报文处理过程完成！
+2017-04-05 11:13:24.850 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().101 [INFO] 检查报文处理过程条件[1704050001]......
+2017-04-05 11:13:24.851 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] MessageSet Start: GuaranteeDatadel/担保业务删除报文文件[110004580T011016170405171000100]
+2017-04-05 11:13:24.851 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] Message Start : delGuaranteeData/担保业务信息删除报文
+2017-04-05 11:13:24.852 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] Header: Head/
+[Segment MessageHead-->HeadFlag=A|Version=1.0|FinanceCode=4580T011016|CreatedTime=20170405111305|MsgType=83|ReserveField=]
+2017-04-05 11:13:24.853 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.DBMessageBodyReader.executeQuery().56 [DEBUG] select * from BCR_GUARANTEEDELETE where (SessionID='1111111111') and (Incrementflag='1' or Incrementflag='2' or Incrementflag='3' or Incrementflag='4') and (ModFlag='1') and (RecordFlag='40')
+2017-04-05 11:13:24.858 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] Record: DelGuaranteeDataRecord/担保业务删除请求记录
+RecordKey=[Lcom.amarsoft.are.dpx.recordset.Field;@5982bcde; MainBusinessNo=PA11051601931
+[Segment DelMessagesegment-->MessageType=S|FinanceCode=4580T011016|GBusinessNo=PA11051601931|DeleteType=1|UpdateDate=20170330|OccurDate=20170330]
+2017-04-05 11:13:24.858 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] Footer: tail/
+[Segment TailSegment-->TailFlag=Z|RecordNum=0000000001]
+2017-04-05 11:13:24.859 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] Message End : delGuaranteeData[Total Parsed Record : 1]
+2017-04-05 11:13:24.859 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] MessageSet End: GuaranteeDatadel/担保业务删除报文文件
+2017-04-05 11:13:24.859 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.ReportSession.ready().411 [INFO] 检查到待上报记录条数: 1
+2017-04-05 11:13:24.859 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().103 [INFO] 处理条件就绪！
+2017-04-05 11:13:24.860 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().111 [INFO] 执行处理报文处理过程[1704050001]......
+2017-04-05 11:13:24.860 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] MessageSet Start: GuaranteeDatadel/担保业务删除报文文件[110004580T011016170405171000100]
+2017-04-05 11:13:24.863 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] Message Start : delGuaranteeData/担保业务信息删除报文
+2017-04-05 11:13:24.864 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] Header: Head/
+[Segment MessageHead-->HeadFlag=A|Version=1.0|FinanceCode=4580T011016|CreatedTime=20170405111305|MsgType=83|ReserveField=]
+2017-04-05 11:13:24.903 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.DBMessageBodyReader.executeQuery().56 [DEBUG] select * from BCR_GUARANTEEDELETE where (SessionID='1111111111') and (Incrementflag='1' or Incrementflag='2' or Incrementflag='3' or Incrementflag='4') and (ModFlag='1') and (RecordFlag='40')
+2017-04-05 11:13:24.908 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] Record: DelGuaranteeDataRecord/担保业务删除请求记录
+RecordKey=[Lcom.amarsoft.are.dpx.recordset.Field;@3794d372; MainBusinessNo=PA11051601931
+[Segment DelMessagesegment-->MessageType=S|FinanceCode=4580T011016|GBusinessNo=PA11051601931|DeleteType=1|UpdateDate=20170330|OccurDate=20170330]
+2017-04-05 11:13:24.910 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.bizcollect.ExportFileHandler.prepareStatement().388 [DEBUG] Update HIS Sql: update BCR_GUARANTEEDELETE set SessionId='1704050001' where SessionID='1111111111' and UPDATEDATE=? and GBusinessNo=?
+2017-04-05 11:13:24.919 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] Footer: tail/
+[Segment TailSegment-->TailFlag=Z|RecordNum=0000000001]
+2017-04-05 11:13:24.920 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] Message End : delGuaranteeData[Total Parsed Record : 1]
+2017-04-05 11:13:24.921 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] MessageSet End: GuaranteeDatadel/担保业务删除报文文件
+2017-04-05 11:13:24.921 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().113 [INFO] 执行报文处理过程完成！
+2017-04-05 11:13:24.930 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.ReportSession.postProcess().280 [INFO] 恭喜，报文文件生成完成! 
+2017-04-05 11:13:25.307 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.ReportSession.postProcess().312 [INFO] 恭喜，生成加密文件成功! 
+2017-04-05 11:13:25.308 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.ReportSession.postProcess().326 [INFO] 恭喜，生成压缩文件成功! 
+2017-04-05 11:13:25.309 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit.execute().107 [INFO] 运行处理过程1704050001成功！
+2017-04-05 11:13:25.309 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.bizmanage.GuaranteeBatchDeleteFax.loadRecordCount().233 [TRACE] 查询担保业务信息删除数据:select 'organ' as name, count(*) as RecordCount from BCR_GUARANTEEDELETE  where sessionID='1704050001'
+2017-04-05 11:13:25.314 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.bizmanage.GuaranteeBatchDeleteFax.exportFile().62 [DEBUG] Export Fax File: ./export/110000000004580T011016170405321000100_fax.html
+2017-04-05 11:13:25.315 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit.exportFaxFile().245 [INFO] 输出批量删除申请传真文件：./export/110000000004580T011016170405321000100_fax.html
+2017-04-05 11:13:25.325 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit.deleteBusiness().204 [WARN] 删除业务数据出错！ <java.sql.SQLException: 列名无效>java.sql.SQLException: 列名无效
+	at oracle.jdbc.driver.DatabaseError.throwSqlException(DatabaseError.java:145)
+	at oracle.jdbc.driver.DatabaseError.throwSqlException(DatabaseError.java:190)
+	at oracle.jdbc.driver.DatabaseError.throwSqlException(DatabaseError.java:286)
+	at oracle.jdbc.driver.OracleStatement.getColumnIndex(OracleStatement.java:4023)
+	at oracle.jdbc.driver.OracleResultSetImpl.findColumn(OracleResultSetImpl.java:2647)
+	at oracle.jdbc.driver.OracleResultSet.getString(OracleResultSet.java:1515)
+	at com.amarsoft.are.sql.TabularReader.getString(TabularReader.java:221)
+	at com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit.deleteBusiness(VillageGuaranteeDeleteReportUnit.java:152)
+	at com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit.sessionSuccessful(VillageGuaranteeDeleteReportUnit.java:137)
+	at com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit.execute(VillageGuaranteeDeleteReportUnit.java:109)
+	at com.amarsoft.task.ExecuteUnit.run(ExecuteUnit.java:109)
+	at com.amarsoft.task.Target.runSerial(Target.java:153)
+	at com.amarsoft.task.Target.run(Target.java:89)
+	at com.amarsoft.task.Task.runSerial(Task.java:144)
+	at com.amarsoft.task.Task.start(Task.java:63)
+	at com.amarsoft.task.Task.start(Task.java:41)
+	at com.amarsoft.task.TaskRunner.runCli(TaskRunner.java:134)
+	at com.amarsoft.task.TaskRunner.runCli(TaskRunner.java:124)
+	at com.amarsoft.app.datax.ecr.AmarECR.main(Unknown Source)
+java.sql.SQLException: 列名无效
+	at oracle.jdbc.driver.DatabaseError.throwSqlException(DatabaseError.java:145)
+	at oracle.jdbc.driver.DatabaseError.throwSqlException(DatabaseError.java:190)
+	at oracle.jdbc.driver.DatabaseError.throwSqlException(DatabaseError.java:286)
+	at oracle.jdbc.driver.OracleStatement.getColumnIndex(OracleStatement.java:4023)
+	at oracle.jdbc.driver.OracleResultSetImpl.findColumn(OracleResultSetImpl.java:2647)
+	at oracle.jdbc.driver.OracleResultSet.getString(OracleResultSet.java:1515)
+	at com.amarsoft.are.sql.TabularReader.getString(TabularReader.java:221)
+	at com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit.deleteBusiness(VillageGuaranteeDeleteReportUnit.java:152)
+	at com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit.sessionSuccessful(VillageGuaranteeDeleteReportUnit.java:137)
+	at com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit.execute(VillageGuaranteeDeleteReportUnit.java:109)
+	at com.amarsoft.task.ExecuteUnit.run(ExecuteUnit.java:109)
+	at com.amarsoft.task.Target.runSerial(Target.java:153)
+	at com.amarsoft.task.Target.run(Target.java:89)
+	at com.amarsoft.task.Task.runSerial(Task.java:144)
+	at com.amarsoft.task.Task.start(Task.java:63)
+	at com.amarsoft.task.Task.start(Task.java:41)
+	at com.amarsoft.task.TaskRunner.runCli(TaskRunner.java:134)
+	at com.amarsoft.task.TaskRunner.runCli(TaskRunner.java:124)
+	at com.amarsoft.app.datax.ecr.AmarECR.main(Unknown Source)
+
+2017-04-05 11:13:25.327 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.run().111 [INFO] ExecuteUnit[DeleteGuaranteeMessage]OK[单元名称[DeleteGuaranteeMessage]单元执行状态[1]单元执行时间[0.587]秒开始时间[2017/04/05 11:13:24:739]结束时间[2017/04/05 11:13:25:326]]
+2017-04-05 11:13:25.327 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitExit().301 [INFO] 退出 Unit=DeleteGuaranteeMessage[担保业务信息删除报文生成]
+2017-04-05 11:13:25.335 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.runAfter().228 [INFO] isInsert:false,inputDate:2017/04/04,serialNO:6,TaskCode:BCRDataBatchdel,startTime:2017/04/05 11:13:24,endTime:2017/04/05 11:13:25,unitCode:DeleteGuaranteeMessage,unitDisc:担保业务信息删除报文生成,timeDis:0:00:01
+2017-04-05 11:13:25.336 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.targetExit().275 [INFO] 退出 Target=GuaranteeDeleteMessage[担保业务删除报文生成]
+2017-04-05 11:13:25.336 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.taskExit().247 [INFO] 退出 Task=BCRDataBatchdel[担保业务报文生成任务]
+2017-04-05 11:13:25.337 CST com.amarsoft.are.ARE com.amarsoft.task.TaskRunner.runCli().135 [INFO] 任务运行完成！
+2017-04-05 11:14:58.107 CST com.amarsoft.are.ARE com.amarsoft.app.datax.ecr.AmarECR.main() [INFO] 自动计算后businessOccurDate：2017/04/04
+2017-04-05 11:14:58.120 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.taskStart().233 [INFO] 进入 Task=BCRDataBatchdel[担保业务报文生成任务]
+2017-04-05 11:14:58.135 CST com.amarsoft.are.ARE com.amarsoft.are.sql.PooledConnectionFactory.addDataSource().136 [INFO] org.apache.commons.dbcp.datasources.SharedPoolDataSource@47df280b
+2017-04-05 11:14:58.136 CST com.amarsoft.are.ARE com.amarsoft.are.sql.PooledConnectionFactory.addDataSource().136 [INFO] org.apache.commons.dbcp.datasources.SharedPoolDataSource@6acd5f8b
+2017-04-05 11:14:58.136 CST com.amarsoft.are.ARE com.amarsoft.are.sql.DBConnectionFactory.getFactory().52 [DEBUG] AREService DBCONNECTION initialiezed!
+2017-04-05 11:14:58.394 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.listenerDBInit().73 [INFO] target 开始启动
+2017-04-05 11:14:58.394 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().120 [TRACE] BCRDataBatchdel[担保业务报文生成任务] start! Task user: root(root)
+2017-04-05 11:14:58.395 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().120 [TRACE] GuaranteeDeleteMessage[担保业务删除报文生成] start! Task user: root(root)
+2017-04-05 11:14:58.395 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.targetStart().262 [INFO] 进入 Target=GuaranteeDeleteMessage[担保业务删除报文生成]
+2017-04-05 11:14:58.395 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().120 [TRACE] DeleteGuaranteeMessage[担保业务信息删除报文生成] start! Task user: root(root)
+2017-04-05 11:14:58.396 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitStart().288 [INFO] 进入 Unit=DeleteGuaranteeMessage[担保业务信息删除报文生成]
+2017-04-05 11:14:58.410 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().171 [TRACE] TaskVar replace start...
+2017-04-05 11:14:58.411 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.autoEcrypt old value : true
+2017-04-05 11:14:58.411 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.autoEcrypt new value : true
+2017-04-05 11:14:58.411 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.multiOrg old value : false
+2017-04-05 11:14:58.412 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.multiOrg new value : false
+2017-04-05 11:14:58.412 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.cryptConfigFile old value : ./etc/Crypt.xml
+2017-04-05 11:14:58.412 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.cryptConfigFile new value : ./etc/Crypt.xml
+2017-04-05 11:14:58.413 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.exportFolder old value : ./export/
+2017-04-05 11:14:58.413 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.exportFolder new value : ./export/
+2017-04-05 11:14:58.413 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.cryptKeyFile old value : ./etc/public.key
+2017-04-05 11:14:58.414 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.cryptKeyFile new value : ./etc/public.key
+2017-04-05 11:14:58.414 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.autoCompress old value : true
+2017-04-05 11:14:58.414 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.autoCompress new value : true
+2017-04-05 11:14:58.415 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.messageConfigFile old value : ./etc/bcr_message_guaranteedelete.xml
+2017-04-05 11:14:58.415 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.messageConfigFile new value : ./etc/bcr_message_guaranteedelete.xml
+2017-04-05 11:14:58.416 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.retryMessage old value : true
+2017-04-05 11:14:58.416 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.retryMessage new value : true
+2017-04-05 11:14:58.416 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] unit.faxProposer old value : 安硕小子
+2017-04-05 11:14:58.416 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] unit.faxProposer new value : 安硕小子
+2017-04-05 11:14:58.417 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] unit.faxBankName old value : 安硕商业银行
+2017-04-05 11:14:58.417 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] unit.faxBankName new value : 安硕商业银行
+2017-04-05 11:14:58.417 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] unit.faxContact old value : 000-12345678
+2017-04-05 11:14:58.418 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] unit.faxContact new value : 000-12345678
+2017-04-05 11:14:58.418 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.run().108 [DEBUG] ExecuteUnit[DeleteGuaranteeMessage] Starting ...
+2017-04-05 11:14:58.524 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().91 [INFO] 初始化报文处理过程[1704050002]......
+2017-04-05 11:14:58.527 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().93 [INFO] 初始化报文处理过程完成！
+2017-04-05 11:14:58.527 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().101 [INFO] 检查报文处理过程条件[1704050002]......
+2017-04-05 11:14:58.528 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] MessageSet Start: GuaranteeDatadel/担保业务删除报文文件[110004580T011016170405171000200]
+2017-04-05 11:14:58.528 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] Message Start : delGuaranteeData/担保业务信息删除报文
+2017-04-05 11:14:58.529 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] Header: Head/
+[Segment MessageHead-->HeadFlag=A|Version=1.0|FinanceCode=4580T011016|CreatedTime=20170405111405|MsgType=83|ReserveField=]
+2017-04-05 11:14:58.530 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.DBMessageBodyReader.executeQuery().56 [DEBUG] select * from BCR_GUARANTEEDELETE where (SessionID='1111111111') and (Incrementflag='1' or Incrementflag='2' or Incrementflag='3' or Incrementflag='4') and (ModFlag='1') and (RecordFlag='40')
+2017-04-05 11:14:58.531 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] Footer: tail/
+[Segment TailSegment-->TailFlag=Z|RecordNum=0000000000]
+2017-04-05 11:14:58.532 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] Message End : delGuaranteeData[Total Parsed Record : 0]
+2017-04-05 11:14:58.532 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] MessageSet End: GuaranteeDatadel/担保业务删除报文文件
+2017-04-05 11:14:58.532 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.ReportSession.ready().411 [INFO] 检查到待上报记录条数: 0
+2017-04-05 11:14:58.532 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().106 [WARN] 处理条件不成熟！
+2017-04-05 11:14:58.533 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.ReportSession.postProcess().276 [WARN] 报文文件未能正确生成,不能进行后续处理! 
+2017-04-05 11:14:58.533 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit.execute().116 [INFO] 运行处理过程1704050002条件不具备！
+2017-04-05 11:14:58.534 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.run().111 [INFO] ExecuteUnit[DeleteGuaranteeMessage]OK[单元名称[DeleteGuaranteeMessage]单元执行状态[1]单元执行时间[0.115]秒开始时间[2017/04/05 11:14:58:418]结束时间[2017/04/05 11:14:58:533]]
+2017-04-05 11:14:58.534 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitExit().301 [INFO] 退出 Unit=DeleteGuaranteeMessage[担保业务信息删除报文生成]
+2017-04-05 11:14:58.541 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.runAfter().228 [INFO] isInsert:false,inputDate:2017/04/04,serialNO:6,TaskCode:BCRDataBatchdel,startTime:2017/04/05 11:14:58,endTime:2017/04/05 11:14:58,unitCode:DeleteGuaranteeMessage,unitDisc:担保业务信息删除报文生成,timeDis:0:00:00
+2017-04-05 11:14:58.542 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.targetExit().275 [INFO] 退出 Target=GuaranteeDeleteMessage[担保业务删除报文生成]
+2017-04-05 11:14:58.543 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.taskExit().247 [INFO] 退出 Task=BCRDataBatchdel[担保业务报文生成任务]
+2017-04-05 11:14:58.544 CST com.amarsoft.are.ARE com.amarsoft.task.TaskRunner.runCli().135 [INFO] 任务运行完成！
+2017-04-05 11:17:14.521 CST com.amarsoft.are.ARE com.amarsoft.app.datax.ecr.AmarECR.main() [INFO] 自动计算后businessOccurDate：2017/04/04
+2017-04-05 11:17:14.534 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.taskStart().233 [INFO] 进入 Task=BCRDataBatchdel[担保业务报文生成任务]
+2017-04-05 11:17:14.549 CST com.amarsoft.are.ARE com.amarsoft.are.sql.PooledConnectionFactory.addDataSource().136 [INFO] org.apache.commons.dbcp.datasources.SharedPoolDataSource@47df280b
+2017-04-05 11:17:14.550 CST com.amarsoft.are.ARE com.amarsoft.are.sql.PooledConnectionFactory.addDataSource().136 [INFO] org.apache.commons.dbcp.datasources.SharedPoolDataSource@6acd5f8b
+2017-04-05 11:17:14.550 CST com.amarsoft.are.ARE com.amarsoft.are.sql.DBConnectionFactory.getFactory().52 [DEBUG] AREService DBCONNECTION initialiezed!
+2017-04-05 11:17:14.810 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.listenerDBInit().73 [INFO] target 开始启动
+2017-04-05 11:17:14.811 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().120 [TRACE] BCRDataBatchdel[担保业务报文生成任务] start! Task user: root(root)
+2017-04-05 11:17:14.811 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().120 [TRACE] GuaranteeDeleteMessage[担保业务删除报文生成] start! Task user: root(root)
+2017-04-05 11:17:14.811 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.targetStart().262 [INFO] 进入 Target=GuaranteeDeleteMessage[担保业务删除报文生成]
+2017-04-05 11:17:14.812 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().120 [TRACE] DeleteGuaranteeMessage[担保业务信息删除报文生成] start! Task user: root(root)
+2017-04-05 11:17:14.812 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitStart().288 [INFO] 进入 Unit=DeleteGuaranteeMessage[担保业务信息删除报文生成]
+2017-04-05 11:17:14.831 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().171 [TRACE] TaskVar replace start...
+2017-04-05 11:17:14.831 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.autoEcrypt old value : true
+2017-04-05 11:17:14.832 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.autoEcrypt new value : true
+2017-04-05 11:17:14.832 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.multiOrg old value : false
+2017-04-05 11:17:14.833 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.multiOrg new value : false
+2017-04-05 11:17:14.833 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.cryptConfigFile old value : ./etc/Crypt.xml
+2017-04-05 11:17:14.834 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.cryptConfigFile new value : ./etc/Crypt.xml
+2017-04-05 11:17:14.834 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.exportFolder old value : ./export/
+2017-04-05 11:17:14.834 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.exportFolder new value : ./export/
+2017-04-05 11:17:14.835 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.cryptKeyFile old value : ./etc/public.key
+2017-04-05 11:17:14.835 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.cryptKeyFile new value : ./etc/public.key
+2017-04-05 11:17:14.836 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.autoCompress old value : true
+2017-04-05 11:17:14.836 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.autoCompress new value : true
+2017-04-05 11:17:14.837 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.messageConfigFile old value : ./etc/bcr_message_guaranteedelete.xml
+2017-04-05 11:17:14.837 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.messageConfigFile new value : ./etc/bcr_message_guaranteedelete.xml
+2017-04-05 11:17:14.838 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.retryMessage old value : true
+2017-04-05 11:17:14.838 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.retryMessage new value : true
+2017-04-05 11:17:14.838 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] unit.faxProposer old value : 安硕小子
+2017-04-05 11:17:14.839 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] unit.faxProposer new value : 安硕小子
+2017-04-05 11:17:14.839 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] unit.faxBankName old value : 安硕商业银行
+2017-04-05 11:17:14.839 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] unit.faxBankName new value : 安硕商业银行
+2017-04-05 11:17:14.840 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] unit.faxContact old value : 000-12345678
+2017-04-05 11:17:14.840 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] unit.faxContact new value : 000-12345678
+2017-04-05 11:17:14.841 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.run().108 [DEBUG] ExecuteUnit[DeleteGuaranteeMessage] Starting ...
+2017-04-05 11:17:14.949 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().91 [INFO] 初始化报文处理过程[1704050002]......
+2017-04-05 11:17:14.952 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().93 [INFO] 初始化报文处理过程完成！
+2017-04-05 11:17:14.952 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().101 [INFO] 检查报文处理过程条件[1704050002]......
+2017-04-05 11:17:14.953 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] MessageSet Start: GuaranteeDatadel/担保业务删除报文文件[110004580T011016170405171000200]
+2017-04-05 11:17:14.954 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] Message Start : delGuaranteeData/担保业务信息删除报文
+2017-04-05 11:17:14.954 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] Header: Head/
+[Segment MessageHead-->HeadFlag=A|Version=1.0|FinanceCode=4580T011016|CreatedTime=20170405111705|MsgType=83|ReserveField=]
+2017-04-05 11:17:14.955 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.DBMessageBodyReader.executeQuery().56 [DEBUG] select * from BCR_GUARANTEEDELETE where (SessionID='1111111111') and (Incrementflag='1' or Incrementflag='2' or Incrementflag='3' or Incrementflag='4') and (ModFlag='1') and (RecordFlag='40')
+2017-04-05 11:17:14.962 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] Record: DelGuaranteeDataRecord/担保业务删除请求记录
+RecordKey=[Lcom.amarsoft.are.dpx.recordset.Field;@163dc0bb; MainBusinessNo=PA11051601931
+[Segment DelMessagesegment-->MessageType=S|FinanceCode=4580T011016|GBusinessNo=PA11051601931|DeleteType=1|UpdateDate=20170330|OccurDate=20170330]
+2017-04-05 11:17:14.963 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] Footer: tail/
+[Segment TailSegment-->TailFlag=Z|RecordNum=0000000001]
+2017-04-05 11:17:14.963 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] Message End : delGuaranteeData[Total Parsed Record : 1]
+2017-04-05 11:17:14.964 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] MessageSet End: GuaranteeDatadel/担保业务删除报文文件
+2017-04-05 11:17:14.964 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.ReportSession.ready().411 [INFO] 检查到待上报记录条数: 1
+2017-04-05 11:17:14.964 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().103 [INFO] 处理条件就绪！
+2017-04-05 11:17:14.965 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().111 [INFO] 执行处理报文处理过程[1704050002]......
+2017-04-05 11:17:14.965 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] MessageSet Start: GuaranteeDatadel/担保业务删除报文文件[110004580T011016170405171000200]
+2017-04-05 11:17:14.969 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] Message Start : delGuaranteeData/担保业务信息删除报文
+2017-04-05 11:17:14.970 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] Header: Head/
+[Segment MessageHead-->HeadFlag=A|Version=1.0|FinanceCode=4580T011016|CreatedTime=20170405111705|MsgType=83|ReserveField=]
+2017-04-05 11:17:15.008 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.DBMessageBodyReader.executeQuery().56 [DEBUG] select * from BCR_GUARANTEEDELETE where (SessionID='1111111111') and (Incrementflag='1' or Incrementflag='2' or Incrementflag='3' or Incrementflag='4') and (ModFlag='1') and (RecordFlag='40')
+2017-04-05 11:17:15.013 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] Record: DelGuaranteeDataRecord/担保业务删除请求记录
+RecordKey=[Lcom.amarsoft.are.dpx.recordset.Field;@bc5fde0; MainBusinessNo=PA11051601931
+[Segment DelMessagesegment-->MessageType=S|FinanceCode=4580T011016|GBusinessNo=PA11051601931|DeleteType=1|UpdateDate=20170330|OccurDate=20170330]
+2017-04-05 11:17:15.015 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.bizcollect.ExportFileHandler.prepareStatement().388 [DEBUG] Update HIS Sql: update BCR_GUARANTEEDELETE set SessionId='1704050002' where SessionID='1111111111' and UPDATEDATE=? and GBusinessNo=?
+2017-04-05 11:17:15.024 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] Footer: tail/
+[Segment TailSegment-->TailFlag=Z|RecordNum=0000000001]
+2017-04-05 11:17:15.025 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] Message End : delGuaranteeData[Total Parsed Record : 1]
+2017-04-05 11:17:15.025 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] MessageSet End: GuaranteeDatadel/担保业务删除报文文件
+2017-04-05 11:17:15.026 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().113 [INFO] 执行报文处理过程完成！
+2017-04-05 11:17:15.035 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.ReportSession.postProcess().280 [INFO] 恭喜，报文文件生成完成! 
+2017-04-05 11:17:15.487 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.ReportSession.postProcess().312 [INFO] 恭喜，生成加密文件成功! 
+2017-04-05 11:17:15.488 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.ReportSession.postProcess().326 [INFO] 恭喜，生成压缩文件成功! 
+2017-04-05 11:17:15.488 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit.execute().107 [INFO] 运行处理过程1704050002成功！
+2017-04-05 11:17:15.489 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.bizmanage.GuaranteeBatchDeleteFax.loadRecordCount().233 [TRACE] 查询担保业务信息删除数据:select 'organ' as name, count(*) as RecordCount from BCR_GUARANTEEDELETE  where sessionID='1704050002'
+2017-04-05 11:17:15.494 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.bizmanage.GuaranteeBatchDeleteFax.exportFile().62 [DEBUG] Export Fax File: ./export/110000000004580T011016170405321000200_fax.html
+2017-04-05 11:17:15.495 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit.exportFaxFile().245 [INFO] 输出批量删除申请传真文件：./export/110000000004580T011016170405321000200_fax.html
+2017-04-05 11:17:15.508 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit.deleteBusiness().204 [WARN] 删除业务数据出错！ <java.sql.SQLException: 列名无效>java.sql.SQLException: 列名无效
+	at oracle.jdbc.driver.DatabaseError.throwSqlException(DatabaseError.java:145)
+	at oracle.jdbc.driver.DatabaseError.throwSqlException(DatabaseError.java:190)
+	at oracle.jdbc.driver.DatabaseError.throwSqlException(DatabaseError.java:286)
+	at oracle.jdbc.driver.OracleStatement.getColumnIndex(OracleStatement.java:4023)
+	at oracle.jdbc.driver.OracleResultSetImpl.findColumn(OracleResultSetImpl.java:2647)
+	at oracle.jdbc.driver.OracleResultSet.getString(OracleResultSet.java:1515)
+	at com.amarsoft.are.sql.TabularReader.getString(TabularReader.java:221)
+	at com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit.deleteBusiness(VillageGuaranteeDeleteReportUnit.java:152)
+	at com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit.sessionSuccessful(VillageGuaranteeDeleteReportUnit.java:137)
+	at com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit.execute(VillageGuaranteeDeleteReportUnit.java:109)
+	at com.amarsoft.task.ExecuteUnit.run(ExecuteUnit.java:109)
+	at com.amarsoft.task.Target.runSerial(Target.java:153)
+	at com.amarsoft.task.Target.run(Target.java:89)
+	at com.amarsoft.task.Task.runSerial(Task.java:144)
+	at com.amarsoft.task.Task.start(Task.java:63)
+	at com.amarsoft.task.Task.start(Task.java:41)
+	at com.amarsoft.task.TaskRunner.runCli(TaskRunner.java:134)
+	at com.amarsoft.task.TaskRunner.runCli(TaskRunner.java:124)
+	at com.amarsoft.app.datax.ecr.AmarECR.main(Unknown Source)
+java.sql.SQLException: 列名无效
+	at oracle.jdbc.driver.DatabaseError.throwSqlException(DatabaseError.java:145)
+	at oracle.jdbc.driver.DatabaseError.throwSqlException(DatabaseError.java:190)
+	at oracle.jdbc.driver.DatabaseError.throwSqlException(DatabaseError.java:286)
+	at oracle.jdbc.driver.OracleStatement.getColumnIndex(OracleStatement.java:4023)
+	at oracle.jdbc.driver.OracleResultSetImpl.findColumn(OracleResultSetImpl.java:2647)
+	at oracle.jdbc.driver.OracleResultSet.getString(OracleResultSet.java:1515)
+	at com.amarsoft.are.sql.TabularReader.getString(TabularReader.java:221)
+	at com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit.deleteBusiness(VillageGuaranteeDeleteReportUnit.java:152)
+	at com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit.sessionSuccessful(VillageGuaranteeDeleteReportUnit.java:137)
+	at com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit.execute(VillageGuaranteeDeleteReportUnit.java:109)
+	at com.amarsoft.task.ExecuteUnit.run(ExecuteUnit.java:109)
+	at com.amarsoft.task.Target.runSerial(Target.java:153)
+	at com.amarsoft.task.Target.run(Target.java:89)
+	at com.amarsoft.task.Task.runSerial(Task.java:144)
+	at com.amarsoft.task.Task.start(Task.java:63)
+	at com.amarsoft.task.Task.start(Task.java:41)
+	at com.amarsoft.task.TaskRunner.runCli(TaskRunner.java:134)
+	at com.amarsoft.task.TaskRunner.runCli(TaskRunner.java:124)
+	at com.amarsoft.app.datax.ecr.AmarECR.main(Unknown Source)
+
+2017-04-05 11:17:15.509 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.run().111 [INFO] ExecuteUnit[DeleteGuaranteeMessage]OK[单元名称[DeleteGuaranteeMessage]单元执行状态[1]单元执行时间[0.669]秒开始时间[2017/04/05 11:17:14:840]结束时间[2017/04/05 11:17:15:509]]
+2017-04-05 11:17:15.510 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitExit().301 [INFO] 退出 Unit=DeleteGuaranteeMessage[担保业务信息删除报文生成]
+2017-04-05 11:17:15.514 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.runAfter().228 [INFO] isInsert:false,inputDate:2017/04/04,serialNO:6,TaskCode:BCRDataBatchdel,startTime:2017/04/05 11:17:14,endTime:2017/04/05 11:17:15,unitCode:DeleteGuaranteeMessage,unitDisc:担保业务信息删除报文生成,timeDis:0:00:01
+2017-04-05 11:17:15.514 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.targetExit().275 [INFO] 退出 Target=GuaranteeDeleteMessage[担保业务删除报文生成]
+2017-04-05 11:17:15.515 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.taskExit().247 [INFO] 退出 Task=BCRDataBatchdel[担保业务报文生成任务]
+2017-04-05 11:17:15.515 CST com.amarsoft.are.ARE com.amarsoft.task.TaskRunner.runCli().135 [INFO] 任务运行完成！
+2017-04-05 11:18:27.485 CST com.amarsoft.are.ARE com.amarsoft.app.datax.ecr.AmarECR.main() [INFO] 自动计算后businessOccurDate：2017/04/04
+2017-04-05 11:18:27.498 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.taskStart().233 [INFO] 进入 Task=BCRDataBatchdel[担保业务报文生成任务]
+2017-04-05 11:18:27.513 CST com.amarsoft.are.ARE com.amarsoft.are.sql.PooledConnectionFactory.addDataSource().136 [INFO] org.apache.commons.dbcp.datasources.SharedPoolDataSource@47df280b
+2017-04-05 11:18:27.514 CST com.amarsoft.are.ARE com.amarsoft.are.sql.PooledConnectionFactory.addDataSource().136 [INFO] org.apache.commons.dbcp.datasources.SharedPoolDataSource@6acd5f8b
+2017-04-05 11:18:27.514 CST com.amarsoft.are.ARE com.amarsoft.are.sql.DBConnectionFactory.getFactory().52 [DEBUG] AREService DBCONNECTION initialiezed!
+2017-04-05 11:18:27.813 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.listenerDBInit().73 [INFO] target 开始启动
+2017-04-05 11:18:27.813 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().120 [TRACE] BCRDataBatchdel[担保业务报文生成任务] start! Task user: root(root)
+2017-04-05 11:18:27.814 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().120 [TRACE] GuaranteeDeleteMessage[担保业务删除报文生成] start! Task user: root(root)
+2017-04-05 11:18:27.814 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.targetStart().262 [INFO] 进入 Target=GuaranteeDeleteMessage[担保业务删除报文生成]
+2017-04-05 11:18:27.814 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().120 [TRACE] DeleteGuaranteeMessage[担保业务信息删除报文生成] start! Task user: root(root)
+2017-04-05 11:18:27.815 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitStart().288 [INFO] 进入 Unit=DeleteGuaranteeMessage[担保业务信息删除报文生成]
+2017-04-05 11:18:27.829 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().171 [TRACE] TaskVar replace start...
+2017-04-05 11:18:27.830 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.autoEcrypt old value : true
+2017-04-05 11:18:27.830 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.autoEcrypt new value : true
+2017-04-05 11:18:27.830 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.multiOrg old value : false
+2017-04-05 11:18:27.831 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.multiOrg new value : false
+2017-04-05 11:18:27.831 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.cryptConfigFile old value : ./etc/Crypt.xml
+2017-04-05 11:18:27.831 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.cryptConfigFile new value : ./etc/Crypt.xml
+2017-04-05 11:18:27.832 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.exportFolder old value : ./export/
+2017-04-05 11:18:27.832 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.exportFolder new value : ./export/
+2017-04-05 11:18:27.833 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.cryptKeyFile old value : ./etc/public.key
+2017-04-05 11:18:27.833 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.cryptKeyFile new value : ./etc/public.key
+2017-04-05 11:18:27.833 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.autoCompress old value : true
+2017-04-05 11:18:27.834 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.autoCompress new value : true
+2017-04-05 11:18:27.834 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.messageConfigFile old value : ./etc/bcr_message_guaranteedelete.xml
+2017-04-05 11:18:27.834 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.messageConfigFile new value : ./etc/bcr_message_guaranteedelete.xml
+2017-04-05 11:18:27.835 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.retryMessage old value : true
+2017-04-05 11:18:27.835 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.retryMessage new value : true
+2017-04-05 11:18:27.835 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] unit.faxProposer old value : 安硕小子
+2017-04-05 11:18:27.836 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] unit.faxProposer new value : 安硕小子
+2017-04-05 11:18:27.836 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] unit.faxBankName old value : 安硕商业银行
+2017-04-05 11:18:27.836 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] unit.faxBankName new value : 安硕商业银行
+2017-04-05 11:18:27.836 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] unit.faxContact old value : 000-12345678
+2017-04-05 11:18:27.837 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] unit.faxContact new value : 000-12345678
+2017-04-05 11:18:27.837 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.run().108 [DEBUG] ExecuteUnit[DeleteGuaranteeMessage] Starting ...
+2017-04-05 11:18:27.946 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().91 [INFO] 初始化报文处理过程[1704050003]......
+2017-04-05 11:18:27.948 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().93 [INFO] 初始化报文处理过程完成！
+2017-04-05 11:18:27.948 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().101 [INFO] 检查报文处理过程条件[1704050003]......
+2017-04-05 11:18:27.949 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] MessageSet Start: GuaranteeDatadel/担保业务删除报文文件[110004580T011016170405171000300]
+2017-04-05 11:18:27.949 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] Message Start : delGuaranteeData/担保业务信息删除报文
+2017-04-05 11:18:27.950 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] Header: Head/
+[Segment MessageHead-->HeadFlag=A|Version=1.0|FinanceCode=4580T011016|CreatedTime=20170405111805|MsgType=83|ReserveField=]
+2017-04-05 11:18:27.951 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.DBMessageBodyReader.executeQuery().56 [DEBUG] select * from BCR_GUARANTEEDELETE where (SessionID='1111111111') and (Incrementflag='1' or Incrementflag='2' or Incrementflag='3' or Incrementflag='4') and (ModFlag='1') and (RecordFlag='40')
+2017-04-05 11:18:27.957 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] Record: DelGuaranteeDataRecord/担保业务删除请求记录
+RecordKey=[Lcom.amarsoft.are.dpx.recordset.Field;@163dc0bb; MainBusinessNo=PA11051601931
+[Segment DelMessagesegment-->MessageType=S|FinanceCode=4580T011016|GBusinessNo=PA11051601931|DeleteType=1|UpdateDate=20170330|OccurDate=20170330]
+2017-04-05 11:18:27.957 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] Footer: tail/
+[Segment TailSegment-->TailFlag=Z|RecordNum=0000000001]
+2017-04-05 11:18:27.957 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] Message End : delGuaranteeData[Total Parsed Record : 1]
+2017-04-05 11:18:27.958 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] MessageSet End: GuaranteeDatadel/担保业务删除报文文件
+2017-04-05 11:18:27.958 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.ReportSession.ready().411 [INFO] 检查到待上报记录条数: 1
+2017-04-05 11:18:27.958 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().103 [INFO] 处理条件就绪！
+2017-04-05 11:18:27.958 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().111 [INFO] 执行处理报文处理过程[1704050003]......
+2017-04-05 11:18:27.959 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] MessageSet Start: GuaranteeDatadel/担保业务删除报文文件[110004580T011016170405171000300]
+2017-04-05 11:18:27.962 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] Message Start : delGuaranteeData/担保业务信息删除报文
+2017-04-05 11:18:27.962 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] Header: Head/
+[Segment MessageHead-->HeadFlag=A|Version=1.0|FinanceCode=4580T011016|CreatedTime=20170405111805|MsgType=83|ReserveField=]
+2017-04-05 11:18:28.006 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.DBMessageBodyReader.executeQuery().56 [DEBUG] select * from BCR_GUARANTEEDELETE where (SessionID='1111111111') and (Incrementflag='1' or Incrementflag='2' or Incrementflag='3' or Incrementflag='4') and (ModFlag='1') and (RecordFlag='40')
+2017-04-05 11:18:28.011 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] Record: DelGuaranteeDataRecord/担保业务删除请求记录
+RecordKey=[Lcom.amarsoft.are.dpx.recordset.Field;@bc5fde0; MainBusinessNo=PA11051601931
+[Segment DelMessagesegment-->MessageType=S|FinanceCode=4580T011016|GBusinessNo=PA11051601931|DeleteType=1|UpdateDate=20170330|OccurDate=20170330]
+2017-04-05 11:18:28.013 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.bizcollect.ExportFileHandler.prepareStatement().388 [DEBUG] Update HIS Sql: update BCR_GUARANTEEDELETE set SessionId='1704050003' where SessionID='1111111111' and UPDATEDATE=? and GBusinessNo=?
+2017-04-05 11:18:28.022 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] Footer: tail/
+[Segment TailSegment-->TailFlag=Z|RecordNum=0000000001]
+2017-04-05 11:18:28.023 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] Message End : delGuaranteeData[Total Parsed Record : 1]
+2017-04-05 11:18:28.024 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] MessageSet End: GuaranteeDatadel/担保业务删除报文文件
+2017-04-05 11:18:28.024 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().113 [INFO] 执行报文处理过程完成！
+2017-04-05 11:18:28.033 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.ReportSession.postProcess().280 [INFO] 恭喜，报文文件生成完成! 
+2017-04-05 11:18:28.410 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.ReportSession.postProcess().312 [INFO] 恭喜，生成加密文件成功! 
+2017-04-05 11:18:28.411 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.ReportSession.postProcess().326 [INFO] 恭喜，生成压缩文件成功! 
+2017-04-05 11:18:28.411 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit.execute().107 [INFO] 运行处理过程1704050003成功！
+2017-04-05 11:18:28.412 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.bizmanage.GuaranteeBatchDeleteFax.loadRecordCount().233 [TRACE] 查询担保业务信息删除数据:select 'organ' as name, count(*) as RecordCount from BCR_GUARANTEEDELETE  where sessionID='1704050003'
+2017-04-05 11:18:28.417 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.bizmanage.GuaranteeBatchDeleteFax.exportFile().62 [DEBUG] Export Fax File: ./export/110000000004580T011016170405321000300_fax.html
+2017-04-05 11:18:28.417 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit.exportFaxFile().245 [INFO] 输出批量删除申请传真文件：./export/110000000004580T011016170405321000300_fax.html
+2017-04-05 11:18:28.420 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit.deleteData().218 [DEBUG] Purge Sql: delete from HIS_GUARANTEECONT  where GBUSINESSNO='PA11051601931'  and OCCURDATE<='2017/03/30'
+2017-04-05 11:18:28.423 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit.deleteData().218 [DEBUG] Purge Sql: delete from HIS_INSUREDS  where GBUSINESSNO='PA11051601931'  and OCCURDATE<='2017/03/30'
+2017-04-05 11:18:28.425 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit.deleteData().218 [DEBUG] Purge Sql: delete from HIS_CREDITORINFO  where GBUSINESSNO='PA11051601931'  and OCCURDATE<='2017/03/30'
+2017-04-05 11:18:28.427 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit.deleteData().218 [DEBUG] Purge Sql: delete from HIS_COUNTERGUARANTOR  where GBUSINESSNO='PA11051601931'  and OCCURDATE<='2017/03/30'
+2017-04-05 11:18:28.428 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit.deleteData().218 [DEBUG] Purge Sql: delete from HIS_GUARANTEEDUTY  where GBUSINESSNO='PA11051601931'  and OCCURDATE<='2017/03/30'
+2017-04-05 11:18:28.430 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit.deleteData().218 [DEBUG] Purge Sql: delete from HIS_COMPENSATORYINFO  where GBUSINESSNO='PA11051601931'  and OCCURDATE<='2017/03/30'
+2017-04-05 11:18:28.432 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit.deleteData().218 [DEBUG] Purge Sql: delete from HIS_COMPENSATORYDETAIL  where GBUSINESSNO='PA11051601931'  and OCCURDATE<='2017/03/30'
+2017-04-05 11:18:28.434 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit.deleteData().218 [DEBUG] Purge Sql: delete from HIS_RECOVERYDETAIL  where GBUSINESSNO='PA11051601931'  and OCCURDATE<='2017/03/30'
+2017-04-05 11:18:28.436 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit.deleteData().218 [DEBUG] Purge Sql: delete from HIS_PREMIUMINFO  where GBUSINESSNO='PA11051601931'  and OCCURDATE<='2017/03/30'
+2017-04-05 11:18:28.439 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit.deleteData().218 [DEBUG] Purge Sql: delete from HIS_PREMIUMDETAIL  where GBUSINESSNO='PA11051601931'  and OCCURDATE<='2017/03/30'
+2017-04-05 11:18:28.441 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit.deleteData().218 [DEBUG] Purge Sql: delete from HIS_GUARANTEEINFO  where GBUSINESSNO='PA11051601931'  and OCCURDATE<='2017/03/30'
+2017-04-05 11:18:28.443 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit.deleteData().218 [DEBUG] Purge Sql: delete from BCR_GUARANTEECONT  where GBUSINESSNO='PA11051601931'  and OCCURDATE<='2017/03/30'
+2017-04-05 11:18:28.445 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit.deleteData().218 [DEBUG] Purge Sql: delete from BCR_INSUREDS  where GBUSINESSNO='PA11051601931'  and OCCURDATE<='2017/03/30'
+2017-04-05 11:18:28.448 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit.deleteData().218 [DEBUG] Purge Sql: delete from BCR_CREDITORINFO  where GBUSINESSNO='PA11051601931'  and OCCURDATE<='2017/03/30'
+2017-04-05 11:18:28.450 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit.deleteData().218 [DEBUG] Purge Sql: delete from BCR_COUNTERGUARANTOR  where GBUSINESSNO='PA11051601931'  and OCCURDATE<='2017/03/30'
+2017-04-05 11:18:28.453 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit.deleteData().218 [DEBUG] Purge Sql: delete from BCR_GUARANTEEDUTY  where GBUSINESSNO='PA11051601931'  and OCCURDATE<='2017/03/30'
+2017-04-05 11:18:28.455 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit.deleteData().218 [DEBUG] Purge Sql: delete from BCR_COMPENSATORYINFO  where GBUSINESSNO='PA11051601931'  and OCCURDATE<='2017/03/30'
+2017-04-05 11:18:28.457 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit.deleteData().218 [DEBUG] Purge Sql: delete from BCR_COMPENSATORYDETAIL  where GBUSINESSNO='PA11051601931'  and OCCURDATE<='2017/03/30'
+2017-04-05 11:18:28.459 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit.deleteData().218 [DEBUG] Purge Sql: delete from BCR_RECOVERYDETAIL  where GBUSINESSNO='PA11051601931'  and OCCURDATE<='2017/03/30'
+2017-04-05 11:18:28.461 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit.deleteData().218 [DEBUG] Purge Sql: delete from BCR_PREMIUMINFO  where GBUSINESSNO='PA11051601931'  and OCCURDATE<='2017/03/30'
+2017-04-05 11:18:28.463 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit.deleteData().218 [DEBUG] Purge Sql: delete from BCR_PREMIUMDETAIL  where GBUSINESSNO='PA11051601931'  and OCCURDATE<='2017/03/30'
+2017-04-05 11:18:28.466 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit.deleteData().218 [DEBUG] Purge Sql: delete from BCR_GUARANTEEINFO  where GBUSINESSNO='PA11051601931'  and OCCURDATE<='2017/03/30'
+2017-04-05 11:18:28.468 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit.deleteBusiness().195 [DEBUG] Purge Sql: delete from BCR_FEEDBACK where  MainBusinessNo='PA11051601931' 
+2017-04-05 11:18:28.472 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit.deleteBusiness().199 [INFO] 删除担保业务信息成功！共删除担保业务数：1,共删除实际记录数：6
+2017-04-05 11:18:28.473 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.run().111 [INFO] ExecuteUnit[DeleteGuaranteeMessage]OK[单元名称[DeleteGuaranteeMessage]单元执行状态[1]单元执行时间[0.635]秒开始时间[2017/04/05 11:18:27:837]结束时间[2017/04/05 11:18:28:472]]
+2017-04-05 11:18:28.474 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitExit().301 [INFO] 退出 Unit=DeleteGuaranteeMessage[担保业务信息删除报文生成]
+2017-04-05 11:18:28.484 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.runAfter().228 [INFO] isInsert:false,inputDate:2017/04/04,serialNO:6,TaskCode:BCRDataBatchdel,startTime:2017/04/05 11:18:27,endTime:2017/04/05 11:18:28,unitCode:DeleteGuaranteeMessage,unitDisc:担保业务信息删除报文生成,timeDis:0:00:01
+2017-04-05 11:18:28.484 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.targetExit().275 [INFO] 退出 Target=GuaranteeDeleteMessage[担保业务删除报文生成]
+2017-04-05 11:18:28.485 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.taskExit().247 [INFO] 退出 Task=BCRDataBatchdel[担保业务报文生成任务]
+2017-04-05 11:18:28.486 CST com.amarsoft.are.ARE com.amarsoft.task.TaskRunner.runCli().135 [INFO] 任务运行完成！
+2017-04-05 11:29:27.620 CST com.amarsoft.are.ARE com.amarsoft.app.datax.ecr.AmarECR.main() [INFO] 自动计算后businessOccurDate：2017/04/04
+2017-04-05 11:29:27.633 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.taskStart().233 [INFO] 进入 Task=BCRDataBatchdel[担保业务报文生成任务]
+2017-04-05 11:29:27.648 CST com.amarsoft.are.ARE com.amarsoft.are.sql.PooledConnectionFactory.addDataSource().136 [INFO] org.apache.commons.dbcp.datasources.SharedPoolDataSource@78a1d1f4
+2017-04-05 11:29:27.649 CST com.amarsoft.are.ARE com.amarsoft.are.sql.PooledConnectionFactory.addDataSource().136 [INFO] org.apache.commons.dbcp.datasources.SharedPoolDataSource@bbe0f0a
+2017-04-05 11:29:27.649 CST com.amarsoft.are.ARE com.amarsoft.are.sql.DBConnectionFactory.getFactory().52 [DEBUG] AREService DBCONNECTION initialiezed!
+2017-04-05 11:29:27.956 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.listenerDBInit().73 [INFO] target 开始启动
+2017-04-05 11:29:27.956 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().120 [TRACE] BCRDataBatchdel[担保业务报文生成任务] start! Task user: root(root)
+2017-04-05 11:29:27.957 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().120 [TRACE] GuaranteeDeleteMessage[担保业务删除报文生成] start! Task user: root(root)
+2017-04-05 11:29:27.957 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.targetStart().262 [INFO] 进入 Target=GuaranteeDeleteMessage[担保业务删除报文生成]
+2017-04-05 11:29:27.957 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().120 [TRACE] DeleteGuaranteeMessage[担保业务信息删除报文生成] start! Task user: root(root)
+2017-04-05 11:29:27.957 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitStart().288 [INFO] 进入 Unit=DeleteGuaranteeMessage[担保业务信息删除报文生成]
+2017-04-05 11:29:27.972 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().171 [TRACE] TaskVar replace start...
+2017-04-05 11:29:27.973 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.autoEcrypt old value : true
+2017-04-05 11:29:27.973 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.autoEcrypt new value : true
+2017-04-05 11:29:27.973 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.multiOrg old value : false
+2017-04-05 11:29:27.974 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.multiOrg new value : false
+2017-04-05 11:29:27.974 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.cryptConfigFile old value : ./etc/Crypt.xml
+2017-04-05 11:29:27.974 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.cryptConfigFile new value : ./etc/Crypt.xml
+2017-04-05 11:29:27.975 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.exportFolder old value : ./export/
+2017-04-05 11:29:27.975 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.exportFolder new value : ./export/
+2017-04-05 11:29:27.976 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.cryptKeyFile old value : ./etc/public.key
+2017-04-05 11:29:27.976 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.cryptKeyFile new value : ./etc/public.key
+2017-04-05 11:29:27.976 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.autoCompress old value : true
+2017-04-05 11:29:27.977 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.autoCompress new value : true
+2017-04-05 11:29:27.977 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.messageConfigFile old value : ./etc/bcr_message_guaranteedelete.xml
+2017-04-05 11:29:27.977 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.messageConfigFile new value : ./etc/bcr_message_guaranteedelete.xml
+2017-04-05 11:29:27.978 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.retryMessage old value : true
+2017-04-05 11:29:27.978 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.retryMessage new value : true
+2017-04-05 11:29:27.978 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] unit.faxProposer old value : 安硕小子
+2017-04-05 11:29:27.979 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] unit.faxProposer new value : 安硕小子
+2017-04-05 11:29:27.979 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] unit.faxBankName old value : 安硕商业银行
+2017-04-05 11:29:27.979 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] unit.faxBankName new value : 安硕商业银行
+2017-04-05 11:29:27.979 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] unit.faxContact old value : 000-12345678
+2017-04-05 11:29:27.980 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] unit.faxContact new value : 000-12345678
+2017-04-05 11:29:27.980 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.run().108 [DEBUG] ExecuteUnit[DeleteGuaranteeMessage] Starting ...
+2017-04-05 11:29:28.085 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().91 [INFO] 初始化报文处理过程[1704050004]......
+2017-04-05 11:29:28.087 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().93 [INFO] 初始化报文处理过程完成！
+2017-04-05 11:29:28.087 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().101 [INFO] 检查报文处理过程条件[1704050004]......
+2017-04-05 11:29:28.088 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] MessageSet Start: GuaranteeDatadel/担保业务删除报文文件[110004580T011016170405171000400]
+2017-04-05 11:29:28.088 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] Message Start : delGuaranteeData/担保业务信息删除报文
+2017-04-05 11:29:28.089 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] Header: Head/
+[Segment MessageHead-->HeadFlag=A|Version=1.0|FinanceCode=4580T011016|CreatedTime=20170405112905|MsgType=83|ReserveField=]
+2017-04-05 11:29:28.089 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.DBMessageBodyReader.executeQuery().56 [DEBUG] select * from BCR_GUARANTEEDELETE where (SessionID='1111111111') and (Incrementflag='1' or Incrementflag='2' or Incrementflag='3' or Incrementflag='4') and (ModFlag='1') and (RecordFlag='40')
+2017-04-05 11:29:28.095 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] Record: DelGuaranteeDataRecord/担保业务删除请求记录
+RecordKey=[Lcom.amarsoft.are.dpx.recordset.Field;@5982bcde; MainBusinessNo=PA11051201837
+[Segment DelMessagesegment-->MessageType=S|FinanceCode=4580T011016|GBusinessNo=PA11051201837|DeleteType=1|UpdateDate=20170330|OccurDate=20170330]
+2017-04-05 11:29:28.095 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] Footer: tail/
+[Segment TailSegment-->TailFlag=Z|RecordNum=0000000001]
+2017-04-05 11:29:28.096 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] Message End : delGuaranteeData[Total Parsed Record : 1]
+2017-04-05 11:29:28.096 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] MessageSet End: GuaranteeDatadel/担保业务删除报文文件
+2017-04-05 11:29:28.096 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.ReportSession.ready().411 [INFO] 检查到待上报记录条数: 1
+2017-04-05 11:29:28.096 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().103 [INFO] 处理条件就绪！
+2017-04-05 11:29:28.097 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().111 [INFO] 执行处理报文处理过程[1704050004]......
+2017-04-05 11:29:28.097 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] MessageSet Start: GuaranteeDatadel/担保业务删除报文文件[110004580T011016170405171000400]
+2017-04-05 11:29:28.100 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] Message Start : delGuaranteeData/担保业务信息删除报文
+2017-04-05 11:29:28.101 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] Header: Head/
+[Segment MessageHead-->HeadFlag=A|Version=1.0|FinanceCode=4580T011016|CreatedTime=20170405112905|MsgType=83|ReserveField=]
+2017-04-05 11:29:28.137 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.DBMessageBodyReader.executeQuery().56 [DEBUG] select * from BCR_GUARANTEEDELETE where (SessionID='1111111111') and (Incrementflag='1' or Incrementflag='2' or Incrementflag='3' or Incrementflag='4') and (ModFlag='1') and (RecordFlag='40')
+2017-04-05 11:29:28.141 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] Record: DelGuaranteeDataRecord/担保业务删除请求记录
+RecordKey=[Lcom.amarsoft.are.dpx.recordset.Field;@3794d372; MainBusinessNo=PA11051201837
+[Segment DelMessagesegment-->MessageType=S|FinanceCode=4580T011016|GBusinessNo=PA11051201837|DeleteType=1|UpdateDate=20170330|OccurDate=20170330]
+2017-04-05 11:29:28.143 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.bizcollect.ExportFileHandler.prepareStatement().388 [DEBUG] Update HIS Sql: update BCR_GUARANTEEDELETE set SessionId='1704050004' where SessionID='1111111111' and UPDATEDATE=? and GBusinessNo=?
+2017-04-05 11:29:28.152 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] Footer: tail/
+[Segment TailSegment-->TailFlag=Z|RecordNum=0000000001]
+2017-04-05 11:29:28.153 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] Message End : delGuaranteeData[Total Parsed Record : 1]
+2017-04-05 11:29:28.154 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] MessageSet End: GuaranteeDatadel/担保业务删除报文文件
+2017-04-05 11:29:28.155 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().113 [INFO] 执行报文处理过程完成！
+2017-04-05 11:29:28.164 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.ReportSession.postProcess().280 [INFO] 恭喜，报文文件生成完成! 
+2017-04-05 11:29:28.539 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.ReportSession.postProcess().312 [INFO] 恭喜，生成加密文件成功! 
+2017-04-05 11:29:28.540 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.ReportSession.postProcess().326 [INFO] 恭喜，生成压缩文件成功! 
+2017-04-05 11:29:28.540 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit.execute().107 [INFO] 运行处理过程1704050004成功！
+2017-04-05 11:29:28.541 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.bizmanage.GuaranteeBatchDeleteFax.loadRecordCount().233 [TRACE] 查询担保业务信息删除数据:select 'organ' as name, count(*) as RecordCount from BCR_GUARANTEEDELETE  where sessionID='1704050004'
+2017-04-05 11:29:28.546 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.bizmanage.GuaranteeBatchDeleteFax.exportFile().62 [DEBUG] Export Fax File: ./export/110000000004580T011016170405321000400_fax.html
+2017-04-05 11:29:28.547 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit.exportFaxFile().245 [INFO] 输出批量删除申请传真文件：./export/110000000004580T011016170405321000400_fax.html
+2017-04-05 11:29:28.548 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit.deleteData().218 [DEBUG] Purge Sql: delete from HIS_GUARANTEECONT  where GBUSINESSNO='PA11051201837'  and OCCURDATE<='2017/03/30'
+2017-04-05 11:29:28.553 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit.deleteData().218 [DEBUG] Purge Sql: delete from HIS_INSUREDS  where GBUSINESSNO='PA11051201837'  and OCCURDATE<='2017/03/30'
+2017-04-05 11:29:28.555 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit.deleteData().218 [DEBUG] Purge Sql: delete from HIS_CREDITORINFO  where GBUSINESSNO='PA11051201837'  and OCCURDATE<='2017/03/30'
+2017-04-05 11:29:28.557 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit.deleteData().218 [DEBUG] Purge Sql: delete from HIS_COUNTERGUARANTOR  where GBUSINESSNO='PA11051201837'  and OCCURDATE<='2017/03/30'
+2017-04-05 11:29:28.559 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit.deleteData().218 [DEBUG] Purge Sql: delete from HIS_GUARANTEEDUTY  where GBUSINESSNO='PA11051201837'  and OCCURDATE<='2017/03/30'
+2017-04-05 11:29:28.561 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit.deleteData().218 [DEBUG] Purge Sql: delete from HIS_COMPENSATORYINFO  where GBUSINESSNO='PA11051201837'  and OCCURDATE<='2017/03/30'
+2017-04-05 11:29:28.564 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit.deleteData().218 [DEBUG] Purge Sql: delete from HIS_COMPENSATORYDETAIL  where GBUSINESSNO='PA11051201837'  and OCCURDATE<='2017/03/30'
+2017-04-05 11:29:28.566 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit.deleteData().218 [DEBUG] Purge Sql: delete from HIS_RECOVERYDETAIL  where GBUSINESSNO='PA11051201837'  and OCCURDATE<='2017/03/30'
+2017-04-05 11:29:28.568 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit.deleteData().218 [DEBUG] Purge Sql: delete from HIS_PREMIUMINFO  where GBUSINESSNO='PA11051201837'  and OCCURDATE<='2017/03/30'
+2017-04-05 11:29:28.570 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit.deleteData().218 [DEBUG] Purge Sql: delete from HIS_PREMIUMDETAIL  where GBUSINESSNO='PA11051201837'  and OCCURDATE<='2017/03/30'
+2017-04-05 11:29:28.572 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit.deleteData().218 [DEBUG] Purge Sql: delete from HIS_GUARANTEEINFO  where GBUSINESSNO='PA11051201837'  and OCCURDATE<='2017/03/30'
+2017-04-05 11:29:28.575 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit.deleteData().218 [DEBUG] Purge Sql: delete from BCR_GUARANTEECONT  where GBUSINESSNO='PA11051201837'  and OCCURDATE<='2017/03/30'
+2017-04-05 11:29:28.577 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit.deleteData().218 [DEBUG] Purge Sql: delete from BCR_INSUREDS  where GBUSINESSNO='PA11051201837'  and OCCURDATE<='2017/03/30'
+2017-04-05 11:29:28.579 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit.deleteData().218 [DEBUG] Purge Sql: delete from BCR_CREDITORINFO  where GBUSINESSNO='PA11051201837'  and OCCURDATE<='2017/03/30'
+2017-04-05 11:29:28.582 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit.deleteData().218 [DEBUG] Purge Sql: delete from BCR_COUNTERGUARANTOR  where GBUSINESSNO='PA11051201837'  and OCCURDATE<='2017/03/30'
+2017-04-05 11:29:28.584 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit.deleteData().218 [DEBUG] Purge Sql: delete from BCR_GUARANTEEDUTY  where GBUSINESSNO='PA11051201837'  and OCCURDATE<='2017/03/30'
+2017-04-05 11:29:28.586 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit.deleteData().218 [DEBUG] Purge Sql: delete from BCR_COMPENSATORYINFO  where GBUSINESSNO='PA11051201837'  and OCCURDATE<='2017/03/30'
+2017-04-05 11:29:28.588 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit.deleteData().218 [DEBUG] Purge Sql: delete from BCR_COMPENSATORYDETAIL  where GBUSINESSNO='PA11051201837'  and OCCURDATE<='2017/03/30'
+2017-04-05 11:29:28.591 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit.deleteData().218 [DEBUG] Purge Sql: delete from BCR_RECOVERYDETAIL  where GBUSINESSNO='PA11051201837'  and OCCURDATE<='2017/03/30'
+2017-04-05 11:29:28.593 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit.deleteData().218 [DEBUG] Purge Sql: delete from BCR_PREMIUMINFO  where GBUSINESSNO='PA11051201837'  and OCCURDATE<='2017/03/30'
+2017-04-05 11:29:28.595 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit.deleteData().218 [DEBUG] Purge Sql: delete from BCR_PREMIUMDETAIL  where GBUSINESSNO='PA11051201837'  and OCCURDATE<='2017/03/30'
+2017-04-05 11:29:28.597 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit.deleteData().218 [DEBUG] Purge Sql: delete from BCR_GUARANTEEINFO  where GBUSINESSNO='PA11051201837'  and OCCURDATE<='2017/03/30'
+2017-04-05 11:29:28.599 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit.deleteBusiness().195 [DEBUG] Purge Sql: delete from BCR_FEEDBACK where  MainBusinessNo='PA11051201837' 
+2017-04-05 11:29:28.603 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit.deleteBusiness().199 [INFO] 删除担保业务信息成功！共删除担保业务数：1,共删除实际记录数：5
+2017-04-05 11:29:28.604 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.run().111 [INFO] ExecuteUnit[DeleteGuaranteeMessage]OK[单元名称[DeleteGuaranteeMessage]单元执行状态[1]单元执行时间[0.623]秒开始时间[2017/04/05 11:29:27:980]结束时间[2017/04/05 11:29:28:603]]
+2017-04-05 11:29:28.604 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitExit().301 [INFO] 退出 Unit=DeleteGuaranteeMessage[担保业务信息删除报文生成]
+2017-04-05 11:29:28.609 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.runAfter().228 [INFO] isInsert:false,inputDate:2017/04/04,serialNO:6,TaskCode:BCRDataBatchdel,startTime:2017/04/05 11:29:27,endTime:2017/04/05 11:29:28,unitCode:DeleteGuaranteeMessage,unitDisc:担保业务信息删除报文生成,timeDis:0:00:01
+2017-04-05 11:29:28.609 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.targetExit().275 [INFO] 退出 Target=GuaranteeDeleteMessage[担保业务删除报文生成]
+2017-04-05 11:29:28.610 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.taskExit().247 [INFO] 退出 Task=BCRDataBatchdel[担保业务报文生成任务]
+2017-04-05 11:29:28.610 CST com.amarsoft.are.ARE com.amarsoft.task.TaskRunner.runCli().135 [INFO] 任务运行完成！
+2017-04-05 11:32:16.996 CST com.amarsoft.are.ARE com.amarsoft.app.datax.ecr.AmarECR.main() [INFO] 自动计算后businessOccurDate：2017/04/04
+2017-04-05 11:32:17.008 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.taskStart().233 [INFO] 进入 Task=BCRDataChange[担保业务报文生成任务]
+2017-04-05 11:32:17.024 CST com.amarsoft.are.ARE com.amarsoft.are.sql.PooledConnectionFactory.addDataSource().136 [INFO] org.apache.commons.dbcp.datasources.SharedPoolDataSource@78a1d1f4
+2017-04-05 11:32:17.024 CST com.amarsoft.are.ARE com.amarsoft.are.sql.PooledConnectionFactory.addDataSource().136 [INFO] org.apache.commons.dbcp.datasources.SharedPoolDataSource@bbe0f0a
+2017-04-05 11:32:17.025 CST com.amarsoft.are.ARE com.amarsoft.are.sql.DBConnectionFactory.getFactory().52 [DEBUG] AREService DBCONNECTION initialiezed!
+2017-04-05 11:32:17.264 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.listenerDBInit().73 [INFO] target 开始启动
+2017-04-05 11:32:17.265 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().120 [TRACE] BCRDataChange[担保业务报文生成任务] start! Task user: root(root)
+2017-04-05 11:32:17.265 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().120 [TRACE] GuaranteeChangeMessage[担保业务信息变更报文] start! Task user: root(root)
+2017-04-05 11:32:17.265 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.targetStart().262 [INFO] 进入 Target=GuaranteeChangeMessage[担保业务信息变更报文]
+2017-04-05 11:32:17.266 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().120 [TRACE] ChangeGuaranteeMessage[担保业务信息变更报文] start! Task user: root(root)
+2017-04-05 11:32:17.266 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitStart().288 [INFO] 进入 Unit=ChangeGuaranteeMessage[担保业务信息变更报文]
+2017-04-05 11:32:17.281 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().171 [TRACE] TaskVar replace start...
+2017-04-05 11:32:17.281 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.autoEcrypt old value : true
+2017-04-05 11:32:17.281 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.autoEcrypt new value : true
+2017-04-05 11:32:17.282 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.multiOrg old value : false
+2017-04-05 11:32:17.282 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.multiOrg new value : false
+2017-04-05 11:32:17.282 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.cryptConfigFile old value : ./etc/Crypt.xml
+2017-04-05 11:32:17.283 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.cryptConfigFile new value : ./etc/Crypt.xml
+2017-04-05 11:32:17.283 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.exportFolder old value : ./export/
+2017-04-05 11:32:17.283 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.exportFolder new value : ./export/
+2017-04-05 11:32:17.284 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.cryptKeyFile old value : ./etc/public.key
+2017-04-05 11:32:17.284 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.cryptKeyFile new value : ./etc/public.key
+2017-04-05 11:32:17.284 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.autoCompress old value : true
+2017-04-05 11:32:17.285 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.autoCompress new value : true
+2017-04-05 11:32:17.285 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.messageSetType old value : 16
+2017-04-05 11:32:17.285 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.messageSetType new value : 16
+2017-04-05 11:32:17.286 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.messageConfigFile old value : ./etc/bcr_message_guaranteechange.xml
+2017-04-05 11:32:17.286 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.messageConfigFile new value : ./etc/bcr_message_guaranteechange.xml
+2017-04-05 11:32:17.287 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.retryMessage old value : true
+2017-04-05 11:32:17.287 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.retryMessage new value : true
+2017-04-05 11:32:17.287 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.run().108 [DEBUG] ExecuteUnit[ChangeGuaranteeMessage] Starting ...
+2017-04-05 11:32:17.348 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().91 [INFO] 初始化报文处理过程[1704050005]......
+2017-04-05 11:32:17.350 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().93 [INFO] 初始化报文处理过程完成！
+2017-04-05 11:32:17.350 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().101 [INFO] 检查报文处理过程条件[1704050005]......
+2017-04-05 11:32:17.351 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] MessageSet Start: GuaranteeDatachange/担保业务信息标识变更报文文件[110004580T011016170405161000500]
+2017-04-05 11:32:17.351 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] Message Start : changeGuaranteeData/担保业务信息标识变更报文
+2017-04-05 11:32:17.352 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] Header: Head/
+[Segment MessageHead-->HeadFlag=A|Version=1.0|FinanceCode=4580T011016|CreatedTime=20170405113205|MsgType=82|ReserveField=]
+2017-04-05 11:32:17.353 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.DBMessageBodyReader.executeQuery().56 [DEBUG] select * from BCR_GUARANTEECHANGE where (SessionID='1111111111') and (Incrementflag='1' or Incrementflag='2' or Incrementflag='3' or Incrementflag='4') and (ModFlag='1') and (RecordFlag='40')
+2017-04-05 11:32:17.356 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] Footer: tail/
+[Segment TailSegment-->TailFlag=Z|RecordNum=0000000000]
+2017-04-05 11:32:17.356 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] Message End : changeGuaranteeData[Total Parsed Record : 0]
+2017-04-05 11:32:17.357 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] MessageSet End: GuaranteeDatachange/担保业务信息标识变更报文文件
+2017-04-05 11:32:17.357 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.ReportSession.ready().411 [INFO] 检查到待上报记录条数: 0
+2017-04-05 11:32:17.357 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().106 [WARN] 处理条件不成熟！
+2017-04-05 11:32:17.358 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.ReportSession.postProcess().276 [WARN] 报文文件未能正确生成,不能进行后续处理! 
+2017-04-05 11:32:17.358 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.VillageGuaranteeChangeReportUnit.execute().79 [INFO] 运行处理过程1704050005条件不具备！
+2017-04-05 11:32:17.359 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.run().111 [INFO] ExecuteUnit[ChangeGuaranteeMessage]OK[单元名称[ChangeGuaranteeMessage]单元执行状态[1]单元执行时间[0.071]秒开始时间[2017/04/05 11:32:17:287]结束时间[2017/04/05 11:32:17:358]]
+2017-04-05 11:32:17.359 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitExit().301 [INFO] 退出 Unit=ChangeGuaranteeMessage[担保业务信息变更报文]
+2017-04-05 11:32:17.368 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.runAfter().228 [INFO] isInsert:true,inputDate:2017/04/04,serialNO:7,TaskCode:BCRDataChange,startTime:2017/04/05 11:32:17,endTime:2017/04/05 11:32:17,unitCode:ChangeGuaranteeMessage,unitDisc:担保业务信息变更报文,timeDis:0:00:00
+2017-04-05 11:32:17.369 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.targetExit().275 [INFO] 退出 Target=GuaranteeChangeMessage[担保业务信息变更报文]
+2017-04-05 11:32:17.369 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.taskExit().247 [INFO] 退出 Task=BCRDataChange[担保业务报文生成任务]
+2017-04-05 11:32:17.370 CST com.amarsoft.are.ARE com.amarsoft.task.TaskRunner.runCli().135 [INFO] 任务运行完成！
+2017-04-05 11:34:37.296 CST com.amarsoft.are.ARE com.amarsoft.app.datax.ecr.AmarECR.main() [INFO] 自动计算后businessOccurDate：2017/04/04
+2017-04-05 11:34:37.309 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.taskStart().233 [INFO] 进入 Task=BCRDataChange[担保业务报文生成任务]
+2017-04-05 11:34:37.324 CST com.amarsoft.are.ARE com.amarsoft.are.sql.PooledConnectionFactory.addDataSource().136 [INFO] org.apache.commons.dbcp.datasources.SharedPoolDataSource@78a1d1f4
+2017-04-05 11:34:37.324 CST com.amarsoft.are.ARE com.amarsoft.are.sql.PooledConnectionFactory.addDataSource().136 [INFO] org.apache.commons.dbcp.datasources.SharedPoolDataSource@bbe0f0a
+2017-04-05 11:34:37.325 CST com.amarsoft.are.ARE com.amarsoft.are.sql.DBConnectionFactory.getFactory().52 [DEBUG] AREService DBCONNECTION initialiezed!
+2017-04-05 11:34:37.613 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.listenerDBInit().73 [INFO] target 开始启动
+2017-04-05 11:34:37.613 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().120 [TRACE] BCRDataChange[担保业务报文生成任务] start! Task user: root(root)
+2017-04-05 11:34:37.614 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().120 [TRACE] GuaranteeChangeMessage[担保业务信息变更报文] start! Task user: root(root)
+2017-04-05 11:34:37.614 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.targetStart().262 [INFO] 进入 Target=GuaranteeChangeMessage[担保业务信息变更报文]
+2017-04-05 11:34:37.615 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().120 [TRACE] ChangeGuaranteeMessage[担保业务信息变更报文] start! Task user: root(root)
+2017-04-05 11:34:37.615 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitStart().288 [INFO] 进入 Unit=ChangeGuaranteeMessage[担保业务信息变更报文]
+2017-04-05 11:34:37.634 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().171 [TRACE] TaskVar replace start...
+2017-04-05 11:34:37.635 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.autoEcrypt old value : true
+2017-04-05 11:34:37.635 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.autoEcrypt new value : true
+2017-04-05 11:34:37.635 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.multiOrg old value : false
+2017-04-05 11:34:37.636 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.multiOrg new value : false
+2017-04-05 11:34:37.636 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.cryptConfigFile old value : ./etc/Crypt.xml
+2017-04-05 11:34:37.637 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.cryptConfigFile new value : ./etc/Crypt.xml
+2017-04-05 11:34:37.637 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.exportFolder old value : ./export/
+2017-04-05 11:34:37.638 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.exportFolder new value : ./export/
+2017-04-05 11:34:37.638 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.cryptKeyFile old value : ./etc/public.key
+2017-04-05 11:34:37.639 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.cryptKeyFile new value : ./etc/public.key
+2017-04-05 11:34:37.639 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.autoCompress old value : true
+2017-04-05 11:34:37.640 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.autoCompress new value : true
+2017-04-05 11:34:37.640 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.messageSetType old value : 16
+2017-04-05 11:34:37.640 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.messageSetType new value : 16
+2017-04-05 11:34:37.641 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.messageConfigFile old value : ./etc/bcr_message_guaranteechange.xml
+2017-04-05 11:34:37.641 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.messageConfigFile new value : ./etc/bcr_message_guaranteechange.xml
+2017-04-05 11:34:37.642 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.retryMessage old value : true
+2017-04-05 11:34:37.642 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.retryMessage new value : true
+2017-04-05 11:34:37.643 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.run().108 [DEBUG] ExecuteUnit[ChangeGuaranteeMessage] Starting ...
+2017-04-05 11:34:37.707 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().91 [INFO] 初始化报文处理过程[1704050005]......
+2017-04-05 11:34:37.709 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().93 [INFO] 初始化报文处理过程完成！
+2017-04-05 11:34:37.710 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().101 [INFO] 检查报文处理过程条件[1704050005]......
+2017-04-05 11:34:37.711 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] MessageSet Start: GuaranteeDatachange/担保业务信息标识变更报文文件[110004580T011016170405161000500]
+2017-04-05 11:34:37.711 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] Message Start : changeGuaranteeData/担保业务信息标识变更报文
+2017-04-05 11:34:37.712 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] Header: Head/
+[Segment MessageHead-->HeadFlag=A|Version=1.0|FinanceCode=4580T011016|CreatedTime=20170405113405|MsgType=82|ReserveField=]
+2017-04-05 11:34:37.713 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.DBMessageBodyReader.executeQuery().56 [DEBUG] select * from BCR_GUARANTEECHANGE where (SessionID='1111111111') and (Incrementflag='1' or Incrementflag='2' or Incrementflag='3' or Incrementflag='4') and (ModFlag='1') and (RecordFlag='40')
+2017-04-05 11:34:37.715 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] Footer: tail/
+[Segment TailSegment-->TailFlag=Z|RecordNum=0000000000]
+2017-04-05 11:34:37.716 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] Message End : changeGuaranteeData[Total Parsed Record : 0]
+2017-04-05 11:34:37.716 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] MessageSet End: GuaranteeDatachange/担保业务信息标识变更报文文件
+2017-04-05 11:34:37.717 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.ReportSession.ready().411 [INFO] 检查到待上报记录条数: 0
+2017-04-05 11:34:37.717 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().106 [WARN] 处理条件不成熟！
+2017-04-05 11:34:37.717 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.ReportSession.postProcess().276 [WARN] 报文文件未能正确生成,不能进行后续处理! 
+2017-04-05 11:34:37.718 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.VillageGuaranteeChangeReportUnit.execute().79 [INFO] 运行处理过程1704050005条件不具备！
+2017-04-05 11:34:37.719 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.run().111 [INFO] ExecuteUnit[ChangeGuaranteeMessage]OK[单元名称[ChangeGuaranteeMessage]单元执行状态[1]单元执行时间[0.076]秒开始时间[2017/04/05 11:34:37:642]结束时间[2017/04/05 11:34:37:718]]
+2017-04-05 11:34:37.719 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitExit().301 [INFO] 退出 Unit=ChangeGuaranteeMessage[担保业务信息变更报文]
+2017-04-05 11:34:37.723 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.runAfter().228 [INFO] isInsert:false,inputDate:2017/04/04,serialNO:7,TaskCode:BCRDataChange,startTime:2017/04/05 11:34:37,endTime:2017/04/05 11:34:37,unitCode:ChangeGuaranteeMessage,unitDisc:担保业务信息变更报文,timeDis:0:00:00
+2017-04-05 11:34:37.723 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.targetExit().275 [INFO] 退出 Target=GuaranteeChangeMessage[担保业务信息变更报文]
+2017-04-05 11:34:37.724 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.taskExit().247 [INFO] 退出 Task=BCRDataChange[担保业务报文生成任务]
+2017-04-05 11:34:37.724 CST com.amarsoft.are.ARE com.amarsoft.task.TaskRunner.runCli().135 [INFO] 任务运行完成！
+2017-04-05 11:37:20.360 CST com.amarsoft.are.ARE com.amarsoft.app.datax.ecr.AmarECR.main() [INFO] 自动计算后businessOccurDate：2017/04/04
+2017-04-05 11:37:20.372 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.taskStart().233 [INFO] 进入 Task=BCRDataChange[担保业务报文生成任务]
+2017-04-05 11:37:20.387 CST com.amarsoft.are.ARE com.amarsoft.are.sql.PooledConnectionFactory.addDataSource().136 [INFO] org.apache.commons.dbcp.datasources.SharedPoolDataSource@78a1d1f4
+2017-04-05 11:37:20.388 CST com.amarsoft.are.ARE com.amarsoft.are.sql.PooledConnectionFactory.addDataSource().136 [INFO] org.apache.commons.dbcp.datasources.SharedPoolDataSource@bbe0f0a
+2017-04-05 11:37:20.388 CST com.amarsoft.are.ARE com.amarsoft.are.sql.DBConnectionFactory.getFactory().52 [DEBUG] AREService DBCONNECTION initialiezed!
+2017-04-05 11:37:20.643 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.listenerDBInit().73 [INFO] target 开始启动
+2017-04-05 11:37:20.643 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().120 [TRACE] BCRDataChange[担保业务报文生成任务] start! Task user: root(root)
+2017-04-05 11:37:20.644 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().120 [TRACE] GuaranteeChangeMessage[担保业务信息变更报文] start! Task user: root(root)
+2017-04-05 11:37:20.644 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.targetStart().262 [INFO] 进入 Target=GuaranteeChangeMessage[担保业务信息变更报文]
+2017-04-05 11:37:20.644 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().120 [TRACE] ChangeGuaranteeMessage[担保业务信息变更报文] start! Task user: root(root)
+2017-04-05 11:37:20.645 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitStart().288 [INFO] 进入 Unit=ChangeGuaranteeMessage[担保业务信息变更报文]
+2017-04-05 11:37:20.660 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().171 [TRACE] TaskVar replace start...
+2017-04-05 11:37:20.660 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.autoEcrypt old value : true
+2017-04-05 11:37:20.660 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.autoEcrypt new value : true
+2017-04-05 11:37:20.661 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.multiOrg old value : false
+2017-04-05 11:37:20.661 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.multiOrg new value : false
+2017-04-05 11:37:20.661 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.cryptConfigFile old value : ./etc/Crypt.xml
+2017-04-05 11:37:20.662 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.cryptConfigFile new value : ./etc/Crypt.xml
+2017-04-05 11:37:20.662 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.exportFolder old value : ./export/
+2017-04-05 11:37:20.662 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.exportFolder new value : ./export/
+2017-04-05 11:37:20.663 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.cryptKeyFile old value : ./etc/public.key
+2017-04-05 11:37:20.663 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.cryptKeyFile new value : ./etc/public.key
+2017-04-05 11:37:20.663 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.autoCompress old value : true
+2017-04-05 11:37:20.664 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.autoCompress new value : true
+2017-04-05 11:37:20.664 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.messageSetType old value : 16
+2017-04-05 11:37:20.664 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.messageSetType new value : 16
+2017-04-05 11:37:20.665 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.messageConfigFile old value : ./etc/bcr_message_guaranteechange.xml
+2017-04-05 11:37:20.665 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.messageConfigFile new value : ./etc/bcr_message_guaranteechange.xml
+2017-04-05 11:37:20.665 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.retryMessage old value : true
+2017-04-05 11:37:20.666 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.retryMessage new value : true
+2017-04-05 11:37:20.666 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.run().108 [DEBUG] ExecuteUnit[ChangeGuaranteeMessage] Starting ...
+2017-04-05 11:37:20.728 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().91 [INFO] 初始化报文处理过程[1704050005]......
+2017-04-05 11:37:20.730 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().93 [INFO] 初始化报文处理过程完成！
+2017-04-05 11:37:20.730 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().101 [INFO] 检查报文处理过程条件[1704050005]......
+2017-04-05 11:37:20.731 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] MessageSet Start: GuaranteeDatachange/担保业务信息标识变更报文文件[110004580T011016170405161000500]
+2017-04-05 11:37:20.731 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] Message Start : changeGuaranteeData/担保业务信息标识变更报文
+2017-04-05 11:37:20.732 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] Header: Head/
+[Segment MessageHead-->HeadFlag=A|Version=1.0|FinanceCode=4580T011016|CreatedTime=20170405113705|MsgType=82|ReserveField=]
+2017-04-05 11:37:20.733 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.DBMessageBodyReader.executeQuery().56 [DEBUG] select * from BCR_GUARANTEECHANGE where (SessionID='1111111111') and (Incrementflag='1' or Incrementflag='2' or Incrementflag='3' or Incrementflag='4') and (ModFlag='1') and (RecordFlag='40')
+2017-04-05 11:37:20.738 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] Record: ChangeGuaranteeDataRecord/担保业务标识变更记录
+RecordKey=[Lcom.amarsoft.are.dpx.recordset.Field;@5de9ac4; MainBusinessNo=PA11051201840
+[Segment ChangeMessagesegment-->MessageType=C|FinanceCode=4580T011016|GBusinessNo=PA11051201840|NEWGBusinessNo=PA11051201840|UpdateDate=20170330|OccurDate=20170330]
+2017-04-05 11:37:20.738 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] Footer: tail/
+[Segment TailSegment-->TailFlag=Z|RecordNum=0000000001]
+2017-04-05 11:37:20.739 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] Message End : changeGuaranteeData[Total Parsed Record : 1]
+2017-04-05 11:37:20.739 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] MessageSet End: GuaranteeDatachange/担保业务信息标识变更报文文件
+2017-04-05 11:37:20.739 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.ReportSession.ready().411 [INFO] 检查到待上报记录条数: 1
+2017-04-05 11:37:20.739 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().103 [INFO] 处理条件就绪！
+2017-04-05 11:37:20.740 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().111 [INFO] 执行处理报文处理过程[1704050005]......
+2017-04-05 11:37:20.740 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] MessageSet Start: GuaranteeDatachange/担保业务信息标识变更报文文件[110004580T011016170405161000500]
+2017-04-05 11:37:20.743 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] Message Start : changeGuaranteeData/担保业务信息标识变更报文
+2017-04-05 11:37:20.743 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] Header: Head/
+[Segment MessageHead-->HeadFlag=A|Version=1.0|FinanceCode=4580T011016|CreatedTime=20170405113705|MsgType=82|ReserveField=]
+2017-04-05 11:37:20.779 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.DBMessageBodyReader.executeQuery().56 [DEBUG] select * from BCR_GUARANTEECHANGE where (SessionID='1111111111') and (Incrementflag='1' or Incrementflag='2' or Incrementflag='3' or Incrementflag='4') and (ModFlag='1') and (RecordFlag='40')
+2017-04-05 11:37:20.784 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] Record: ChangeGuaranteeDataRecord/担保业务标识变更记录
+RecordKey=[Lcom.amarsoft.are.dpx.recordset.Field;@4e513d61; MainBusinessNo=PA11051201840
+[Segment ChangeMessagesegment-->MessageType=C|FinanceCode=4580T011016|GBusinessNo=PA11051201840|NEWGBusinessNo=PA11051201840|UpdateDate=20170330|OccurDate=20170330]
+2017-04-05 11:37:20.786 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.bizcollect.ExportFileHandler.prepareStatement().388 [DEBUG] Update HIS Sql: update BCR_GUARANTEECHANGE set SessionId='1704050005' where SessionID='1111111111' and UPDATEDATE=? and GBusinessNo=?
+2017-04-05 11:37:20.795 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] Footer: tail/
+[Segment TailSegment-->TailFlag=Z|RecordNum=0000000001]
+2017-04-05 11:37:20.796 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] Message End : changeGuaranteeData[Total Parsed Record : 1]
+2017-04-05 11:37:20.797 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] MessageSet End: GuaranteeDatachange/担保业务信息标识变更报文文件
+2017-04-05 11:37:20.797 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().113 [INFO] 执行报文处理过程完成！
+2017-04-05 11:37:20.806 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.ReportSession.postProcess().280 [INFO] 恭喜，报文文件生成完成! 
+2017-04-05 11:37:21.173 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.ReportSession.postProcess().312 [INFO] 恭喜，生成加密文件成功! 
+2017-04-05 11:37:21.174 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.ReportSession.postProcess().326 [INFO] 恭喜，生成压缩文件成功! 
+2017-04-05 11:37:21.174 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.VillageGuaranteeChangeReportUnit.execute().74 [INFO] 运行处理过程1704050005成功！
+2017-04-05 11:37:21.175 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.run().111 [INFO] ExecuteUnit[ChangeGuaranteeMessage]OK[单元名称[ChangeGuaranteeMessage]单元执行状态[1]单元执行时间[0.508]秒开始时间[2017/04/05 11:37:20:666]结束时间[2017/04/05 11:37:21:174]]
+2017-04-05 11:37:21.175 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitExit().301 [INFO] 退出 Unit=ChangeGuaranteeMessage[担保业务信息变更报文]
+2017-04-05 11:37:21.183 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.runAfter().228 [INFO] isInsert:false,inputDate:2017/04/04,serialNO:7,TaskCode:BCRDataChange,startTime:2017/04/05 11:37:20,endTime:2017/04/05 11:37:21,unitCode:ChangeGuaranteeMessage,unitDisc:担保业务信息变更报文,timeDis:0:00:01
+2017-04-05 11:37:21.183 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.targetExit().275 [INFO] 退出 Target=GuaranteeChangeMessage[担保业务信息变更报文]
+2017-04-05 11:37:21.184 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.taskExit().247 [INFO] 退出 Task=BCRDataChange[担保业务报文生成任务]
+2017-04-05 11:37:21.184 CST com.amarsoft.are.ARE com.amarsoft.task.TaskRunner.runCli().135 [INFO] 任务运行完成！
+2017-04-05 11:38:07.466 CST com.amarsoft.are.ARE com.amarsoft.app.datax.ecr.AmarECR.main() [INFO] 自动计算后businessOccurDate：2017/04/04
+2017-04-05 11:38:07.478 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.taskStart().233 [INFO] 进入 Task=BCRDataChange[担保业务报文生成任务]
+2017-04-05 11:38:07.494 CST com.amarsoft.are.ARE com.amarsoft.are.sql.PooledConnectionFactory.addDataSource().136 [INFO] org.apache.commons.dbcp.datasources.SharedPoolDataSource@5b40c281
+2017-04-05 11:38:07.494 CST com.amarsoft.are.ARE com.amarsoft.are.sql.PooledConnectionFactory.addDataSource().136 [INFO] org.apache.commons.dbcp.datasources.SharedPoolDataSource@47df280b
+2017-04-05 11:38:07.495 CST com.amarsoft.are.ARE com.amarsoft.are.sql.DBConnectionFactory.getFactory().52 [DEBUG] AREService DBCONNECTION initialiezed!
+2017-04-05 11:38:07.774 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.listenerDBInit().73 [INFO] target 开始启动
+2017-04-05 11:38:07.775 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().120 [TRACE] BCRDataChange[担保业务报文生成任务] start! Task user: root(root)
+2017-04-05 11:38:07.775 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().120 [TRACE] GuaranteeChangeMessage[担保业务信息变更报文] start! Task user: root(root)
+2017-04-05 11:38:07.776 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.targetStart().262 [INFO] 进入 Target=GuaranteeChangeMessage[担保业务信息变更报文]
+2017-04-05 11:38:07.776 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().120 [TRACE] ChangeGuaranteeMessage[担保业务信息变更报文] start! Task user: root(root)
+2017-04-05 11:38:07.776 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitStart().288 [INFO] 进入 Unit=ChangeGuaranteeMessage[担保业务信息变更报文]
+2017-04-05 11:38:07.795 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().171 [TRACE] TaskVar replace start...
+2017-04-05 11:38:07.796 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.autoEcrypt old value : true
+2017-04-05 11:38:07.796 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.autoEcrypt new value : true
+2017-04-05 11:38:07.796 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.multiOrg old value : false
+2017-04-05 11:38:07.797 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.multiOrg new value : false
+2017-04-05 11:38:07.797 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.cryptConfigFile old value : ./etc/Crypt.xml
+2017-04-05 11:38:07.798 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.cryptConfigFile new value : ./etc/Crypt.xml
+2017-04-05 11:38:07.798 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.exportFolder old value : ./export/
+2017-04-05 11:38:07.799 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.exportFolder new value : ./export/
+2017-04-05 11:38:07.799 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.cryptKeyFile old value : ./etc/public.key
+2017-04-05 11:38:07.800 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.cryptKeyFile new value : ./etc/public.key
+2017-04-05 11:38:07.800 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.autoCompress old value : true
+2017-04-05 11:38:07.801 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.autoCompress new value : true
+2017-04-05 11:38:07.801 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.messageSetType old value : 16
+2017-04-05 11:38:07.801 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.messageSetType new value : 16
+2017-04-05 11:38:07.802 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.messageConfigFile old value : ./etc/bcr_message_guaranteechange.xml
+2017-04-05 11:38:07.803 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.messageConfigFile new value : ./etc/bcr_message_guaranteechange.xml
+2017-04-05 11:38:07.803 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.retryMessage old value : true
+2017-04-05 11:38:07.803 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.ReportSession.retryMessage new value : true
+2017-04-05 11:38:07.804 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.run().108 [DEBUG] ExecuteUnit[ChangeGuaranteeMessage] Starting ...
+2017-04-05 11:38:07.866 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().91 [INFO] 初始化报文处理过程[1704050006]......
+2017-04-05 11:38:07.869 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().93 [INFO] 初始化报文处理过程完成！
+2017-04-05 11:38:07.870 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().101 [INFO] 检查报文处理过程条件[1704050006]......
+2017-04-05 11:38:07.871 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] MessageSet Start: GuaranteeDatachange/担保业务信息标识变更报文文件[110004580T011016170405161000600]
+2017-04-05 11:38:07.871 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] Message Start : changeGuaranteeData/担保业务信息标识变更报文
+2017-04-05 11:38:07.872 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] Header: Head/
+[Segment MessageHead-->HeadFlag=A|Version=1.0|FinanceCode=4580T011016|CreatedTime=20170405113805|MsgType=82|ReserveField=]
+2017-04-05 11:38:07.873 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.DBMessageBodyReader.executeQuery().56 [DEBUG] select * from BCR_GUARANTEECHANGE where (SessionID='1111111111') and (Incrementflag='1' or Incrementflag='2' or Incrementflag='3' or Incrementflag='4') and (ModFlag='1') and (RecordFlag='40')
+2017-04-05 11:38:07.875 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] Footer: tail/
+[Segment TailSegment-->TailFlag=Z|RecordNum=0000000000]
+2017-04-05 11:38:07.875 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] Message End : changeGuaranteeData[Total Parsed Record : 0]
+2017-04-05 11:38:07.875 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.message.MessageSet.trace().280 [TRACE] MessageSet End: GuaranteeDatachange/担保业务信息标识变更报文文件
+2017-04-05 11:38:07.876 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.ReportSession.ready().411 [INFO] 检查到待上报记录条数: 0
+2017-04-05 11:38:07.876 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().106 [WARN] 处理条件不成熟！
+2017-04-05 11:38:07.877 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.ReportSession.postProcess().276 [WARN] 报文文件未能正确生成,不能进行后续处理! 
+2017-04-05 11:38:07.877 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.VillageGuaranteeChangeReportUnit.execute().79 [INFO] 运行处理过程1704050006条件不具备！
+2017-04-05 11:38:07.878 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.run().111 [INFO] ExecuteUnit[ChangeGuaranteeMessage]OK[单元名称[ChangeGuaranteeMessage]单元执行状态[1]单元执行时间[0.073]秒开始时间[2017/04/05 11:38:07:804]结束时间[2017/04/05 11:38:07:877]]
+2017-04-05 11:38:07.878 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitExit().301 [INFO] 退出 Unit=ChangeGuaranteeMessage[担保业务信息变更报文]
+2017-04-05 11:38:07.883 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.runAfter().228 [INFO] isInsert:false,inputDate:2017/04/04,serialNO:7,TaskCode:BCRDataChange,startTime:2017/04/05 11:38:07,endTime:2017/04/05 11:38:07,unitCode:ChangeGuaranteeMessage,unitDisc:担保业务信息变更报文,timeDis:0:00:00
+2017-04-05 11:38:07.883 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.targetExit().275 [INFO] 退出 Target=GuaranteeChangeMessage[担保业务信息变更报文]
+2017-04-05 11:38:07.884 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.taskExit().247 [INFO] 退出 Task=BCRDataChange[担保业务报文生成任务]
+2017-04-05 11:38:07.884 CST com.amarsoft.are.ARE com.amarsoft.task.TaskRunner.runCli().135 [INFO] 任务运行完成！
+2017-04-05 11:38:11.467 CST com.amarsoft.are.ARE com.amarsoft.app.datax.ecr.AmarECR.main() [INFO] 自动计算后businessOccurDate：2017/04/04
+2017-04-05 11:38:11.479 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.taskStart().233 [INFO] 进入 Task=BackMessageProcess[反馈报文处理]
+2017-04-05 11:38:11.494 CST com.amarsoft.are.ARE com.amarsoft.are.sql.PooledConnectionFactory.addDataSource().136 [INFO] org.apache.commons.dbcp.datasources.SharedPoolDataSource@5b40c281
+2017-04-05 11:38:11.495 CST com.amarsoft.are.ARE com.amarsoft.are.sql.PooledConnectionFactory.addDataSource().136 [INFO] org.apache.commons.dbcp.datasources.SharedPoolDataSource@47df280b
+2017-04-05 11:38:11.495 CST com.amarsoft.are.ARE com.amarsoft.are.sql.DBConnectionFactory.getFactory().52 [DEBUG] AREService DBCONNECTION initialiezed!
+2017-04-05 11:38:11.724 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.listenerDBInit().73 [INFO] target 开始启动
+2017-04-05 11:38:11.724 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] BackMessageProcess[反馈报文处理] start! Task user: root(root)
+2017-04-05 11:38:11.725 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] GuaranteeInfoFeedback[担保业务信息反馈报文处理] start! Task user: root(root)
+2017-04-05 11:38:11.725 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.targetStart().262 [INFO] 进入 Target=GuaranteeInfoFeedback[担保业务信息反馈报文处理]
+2017-04-05 11:38:11.725 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] GuaranteeInfoResult[担保业务信息反馈报文处理] start! Task user: root(root)
+2017-04-05 11:38:11.726 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitStart().288 [INFO] 进入 Unit=GuaranteeInfoResult[担保业务信息反馈报文处理]
+2017-04-05 11:38:11.744 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().171 [TRACE] TaskVar replace start...
+2017-04-05 11:38:11.745 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.GuaranteeFeedbackSession.messageSetType old value : 1567
+2017-04-05 11:38:11.745 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.GuaranteeFeedbackSession.messageSetType new value : 1567
+2017-04-05 11:38:11.745 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.GuaranteeFeedbackSession.cryptKeyFile old value : ./etc/public.key
+2017-04-05 11:38:11.746 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.GuaranteeFeedbackSession.cryptKeyFile new value : ./etc/public.key
+2017-04-05 11:38:11.746 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.GuaranteeFeedbackSession.cryptConfigFile old value : ./etc/Crypt.xml
+2017-04-05 11:38:11.747 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.GuaranteeFeedbackSession.cryptConfigFile new value : ./etc/Crypt.xml
+2017-04-05 11:38:11.747 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.GuaranteeFeedbackSession.originalMessageList old value : {./etc/bcr_message_guaranteedelete.xml}         {./etc/bcr_message_guaranteechange.xml}         {./etc/bcr_message_guaranteeinfo.xml}
+2017-04-05 11:38:11.748 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.GuaranteeFeedbackSession.originalMessageList new value : {./etc/bcr_message_guaranteedelete.xml}         {./etc/bcr_message_guaranteechange.xml}         {./etc/bcr_message_guaranteeinfo.xml}
+2017-04-05 11:38:11.748 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] unit.backMessageDataFolder old value : ./feedback/guaranteefeedback
+2017-04-05 11:38:11.748 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] unit.backMessageDataFolder new value : ./feedback/guaranteefeedback
+2017-04-05 11:38:11.749 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.GuaranteeFeedbackSession.messageConfigFile old value : ./etc/bcr_message_guaranteefeedback.xml
+2017-04-05 11:38:11.749 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.GuaranteeFeedbackSession.messageConfigFile new value : ./etc/bcr_message_guaranteefeedback.xml
+2017-04-05 11:38:11.749 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.run().108 [DEBUG] ExecuteUnit[GuaranteeInfoResult] Starting ...
+2017-04-05 11:38:11.751 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.GuaranteeFeedbackUnit.execute().58 [INFO] 数据目录下面没有需要解密解压的反馈文件！
+2017-04-05 11:38:11.752 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.GuaranteeFeedbackUnit.execute().103 [INFO] 数据目录下面没有符合要求的反馈文件！
+2017-04-05 11:38:11.753 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.run().111 [INFO] ExecuteUnit[GuaranteeInfoResult]OK[单元名称[GuaranteeInfoResult]单元执行状态[1]单元执行时间[0.0030]秒开始时间[2017/04/05 11:38:11:749]结束时间[2017/04/05 11:38:11:752]]
+2017-04-05 11:38:11.753 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitExit().301 [INFO] 退出 Unit=GuaranteeInfoResult[担保业务信息反馈报文处理]
+2017-04-05 11:38:11.761 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.runAfter().228 [INFO] isInsert:true,inputDate:2017/04/04,serialNO:8,TaskCode:BackMessageProcess,startTime:2017/04/05 11:38:11,endTime:2017/04/05 11:38:11,unitCode:GuaranteeInfoResult,unitDisc:担保业务信息反馈报文处理,timeDis:0:00:00
+2017-04-05 11:38:11.762 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.targetExit().275 [INFO] 退出 Target=GuaranteeInfoFeedback[担保业务信息反馈报文处理]
+2017-04-05 11:38:11.763 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.taskExit().247 [INFO] 退出 Task=BackMessageProcess[反馈报文处理]
+2017-04-05 11:38:11.764 CST com.amarsoft.are.ARE com.amarsoft.task.TaskRunner.runCli().135 [INFO] 任务运行完成！
+2017-04-05 14:51:52.122 CST com.amarsoft.are.ARE com.amarsoft.app.datax.ecr.AmarECR.main() [INFO] 自动计算后businessOccurDate：2017/04/04
+2017-04-05 14:51:52.134 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.taskStart().233 [INFO] 进入 Task=BackMessageProcess[反馈报文处理]
+2017-04-05 14:51:52.149 CST com.amarsoft.are.ARE com.amarsoft.are.sql.PooledConnectionFactory.addDataSource().136 [INFO] org.apache.commons.dbcp.datasources.SharedPoolDataSource@5b40c281
+2017-04-05 14:51:52.149 CST com.amarsoft.are.ARE com.amarsoft.are.sql.PooledConnectionFactory.addDataSource().136 [INFO] org.apache.commons.dbcp.datasources.SharedPoolDataSource@47df280b
+2017-04-05 14:51:52.150 CST com.amarsoft.are.ARE com.amarsoft.are.sql.DBConnectionFactory.getFactory().52 [DEBUG] AREService DBCONNECTION initialiezed!
+2017-04-05 14:51:52.413 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.listenerDBInit().73 [INFO] target 开始启动
+2017-04-05 14:51:52.413 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] BackMessageProcess[反馈报文处理] start! Task user: root(root)
+2017-04-05 14:51:52.413 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] GuaranteeInfoFeedback[担保业务信息反馈报文处理] start! Task user: root(root)
+2017-04-05 14:51:52.414 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.targetStart().262 [INFO] 进入 Target=GuaranteeInfoFeedback[担保业务信息反馈报文处理]
+2017-04-05 14:51:52.414 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] GuaranteeInfoResult[担保业务信息反馈报文处理] start! Task user: root(root)
+2017-04-05 14:51:52.414 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitStart().288 [INFO] 进入 Unit=GuaranteeInfoResult[担保业务信息反馈报文处理]
+2017-04-05 14:51:52.429 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().171 [TRACE] TaskVar replace start...
+2017-04-05 14:51:52.429 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.GuaranteeFeedbackSession.messageSetType old value : 1567
+2017-04-05 14:51:52.430 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.GuaranteeFeedbackSession.messageSetType new value : 1567
+2017-04-05 14:51:52.430 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.GuaranteeFeedbackSession.cryptKeyFile old value : ./etc/public.key
+2017-04-05 14:51:52.431 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.GuaranteeFeedbackSession.cryptKeyFile new value : ./etc/public.key
+2017-04-05 14:51:52.431 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.GuaranteeFeedbackSession.cryptConfigFile old value : ./etc/Crypt.xml
+2017-04-05 14:51:52.431 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.GuaranteeFeedbackSession.cryptConfigFile new value : ./etc/Crypt.xml
+2017-04-05 14:51:52.432 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.GuaranteeFeedbackSession.originalMessageList old value : {./etc/bcr_message_guaranteedelete.xml}         {./etc/bcr_message_guaranteechange.xml}         {./etc/bcr_message_guaranteeinfo.xml}
+2017-04-05 14:51:52.432 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.GuaranteeFeedbackSession.originalMessageList new value : {./etc/bcr_message_guaranteedelete.xml}         {./etc/bcr_message_guaranteechange.xml}         {./etc/bcr_message_guaranteeinfo.xml}
+2017-04-05 14:51:52.433 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] unit.backMessageDataFolder old value : ./feedback/guaranteefeedback
+2017-04-05 14:51:52.433 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] unit.backMessageDataFolder new value : ./feedback/guaranteefeedback
+2017-04-05 14:51:52.434 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().185 [TRACE] com.amarsoft.app.datax.bcr.session.GuaranteeFeedbackSession.messageConfigFile old value : ./etc/bcr_message_guaranteefeedback.xml
+2017-04-05 14:51:52.434 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.replaceTaskVar().186 [TRACE] com.amarsoft.app.datax.bcr.session.GuaranteeFeedbackSession.messageConfigFile new value : ./etc/bcr_message_guaranteefeedback.xml
+2017-04-05 14:51:52.434 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.run().108 [DEBUG] ExecuteUnit[GuaranteeInfoResult] Starting ...
+2017-04-05 14:51:52.436 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.GuaranteeFeedbackUnit.execute().58 [INFO] 数据目录下面没有需要解密解压的反馈文件！
+2017-04-05 14:51:52.437 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.GuaranteeFeedbackUnit.execute().103 [INFO] 数据目录下面没有符合要求的反馈文件！
+2017-04-05 14:51:52.437 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.run().111 [INFO] ExecuteUnit[GuaranteeInfoResult]OK[单元名称[GuaranteeInfoResult]单元执行状态[1]单元执行时间[0.0030]秒开始时间[2017/04/05 14:51:52:434]结束时间[2017/04/05 14:51:52:437]]
+2017-04-05 14:51:52.438 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitExit().301 [INFO] 退出 Unit=GuaranteeInfoResult[担保业务信息反馈报文处理]
+2017-04-05 14:51:52.443 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.runAfter().228 [INFO] isInsert:false,inputDate:2017/04/04,serialNO:8,TaskCode:BackMessageProcess,startTime:2017/04/05 14:51:52,endTime:2017/04/05 14:51:52,unitCode:GuaranteeInfoResult,unitDisc:担保业务信息反馈报文处理,timeDis:0:00:00
+2017-04-05 14:51:52.444 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.targetExit().275 [INFO] 退出 Target=GuaranteeInfoFeedback[担保业务信息反馈报文处理]
+2017-04-05 14:51:52.444 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.taskExit().247 [INFO] 退出 Task=BackMessageProcess[反馈报文处理]
+2017-04-05 14:51:52.445 CST com.amarsoft.are.ARE com.amarsoft.task.TaskRunner.runCli().135 [INFO] 任务运行完成！

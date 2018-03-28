@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="GB2312" ?>
+<configuration>
+       
+    <!--消费线程池大小-->
+    <threadpoolsize>1</threadpoolsize>
+    <!--操作类型 
+      1 完全版：格式校验+加压加密。
+      2 加密压缩版：只是加密压缩功能。
+      3 格式校验版：只是格式校验功能。
+      4 错误过滤版：过滤错误记录，将正确的记录组成合格的报文，进行加密压缩。
+    -->
+    <oprType>1</oprType>
+    
+    <!--子系统名称（记录日志时用）-->
+    <sysname>报文处理子系统</sysname>
+    
+   !-- 使用公钥还是使用私钥解密(1为使用公钥,2为使用私钥 -->
+	<keyMode>1</keyMode>
+
+</configuration>
+

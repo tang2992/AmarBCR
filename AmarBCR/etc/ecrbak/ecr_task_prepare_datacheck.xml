@@ -1,0 +1,1062 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!-- 任务定义文件,每个任务有一个文件构成，任务构造器可以根据此文件构造一个任务出来 -->
+
+<task name="BANKDataPrepare" describe="征信明细数据抽取" parallelRun="false" traceOn="true">
+	<name>BANKDataPrepare</name>
+	<describe>明细数据抽取</describe>
+	<extendProperties>
+		<property name="CustomerCondition" value="EI.TempSaveFlag='2' and EI.LoanCardNo is not null and length(EI.LoanCardNo)>=16" />
+		<property name="ConctractCondition" value="BC.TempSaveFlag='2' and BC.BusinessSum>0 and BC.OccurType is not null 
+		and BC.OccurType not in ('015') and exists (select 1 from Business_DueBill where RelativeSerialNo2=BC.SerialNo)" />
+	</extendProperties>
+	<targets>
+		<target name="CustomerImport" describe="借款人信息抽取" enabled="true">
+			<executeUnits>
+			<!-- 每天生成核对报文，自动获取系统日期做为核对截至日期 -->
+			<executeUnit name="ChooseEndDate" describe="输入抽取截止日期" allowManualExecute="true" executeClass="com.amarsoft.app.datacheck.FileDateUnit">
+				</executeUnit>
+<!-- 				<executeUnit name="ChooseEndDate" describe="输入抽取截止日期" allowManualExecute="true" executeClass="com.amarsoft.app.datacheck.ChooseDateUnit">
+					<extendProperties>
+						<property name="unit.varName" value="ECR_EndDate" />
+						<property name="unit.varScope" value="task" />
+						<property name="unit.varFormat" value="yyyyMMdd"/>
+					</extendProperties>
+				</executeUnit> -->
+			
+				<executeUnit name="BaseInfo" describe="导入借款人基本信息表" executeClass="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:ecr_data:select * from ECR_CUSTOMERINFO:etc/ecr_are.xml:,"/>
+						<property name="unit.handlers" value="com.amarsoft.app.datax.ecr.prepare.dataimport.FIDChangeHandler"/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider.dataSource" 
+							value="datasource:db:loan:select
+							EI.CustomerID as CUSTOMERID{#客户号},
+							EI.CountryCode as COUNTRYCODE{#借款人国别},
+							EI.EnterpriseName as CHINANAME{#借款人中文名称},
+							EI.EnglishName as FOREIGNNAME{#借款人外文名称},
+							EI.CorpID as ORGANIZATIONCODE{#组织机构代码},
+							EI.SetupDate as SETUPDATE{#成立年份},
+							EI.OrgType as REGISTTYPE{#登记注册类型},
+							EI.LicenseNo as REGISTNO{#出资方登记注册号},
+							EI.LicenseDate as REGISTDATE{#注册登记日期},
+							EI.LicenseMaturity as REGISTENDDATE{#营业执照到期日期},
+							EI.TaxNO as COUNTRYTAXNO{#国税登记证号码},
+							EI.TaxNO1 as LOCATIONTAXNO{#地税登记证号码},
+							EI.OrgNature as ATTRIBUTE{#借款人性质},
+							EI.IndustryType as INDUSTRYTYPE{#行业分类},
+							EI.EmployeeNumber as EMPLOYEENUMBER{#从业人数},
+							EI.RegionCode as REGIONCODE{#行政区划},
+							EI.Scope as CUSTOMERCHARACTER{#借款人特征},
+							EI.OfficeTel as TEL{#借款人联系电话},
+							EI.RegisterAdd as ADDR{#借款人注册地址},
+							EI.OfficeFax as FAX{#借款人传真号码},
+							EI.EmailAdd as EMAIL{#借款人EMAIL地址},
+							EI.WebAdd as WEBSITE{#借款人网址},
+							EI.OfficeAdd as ADDRESS{#借款人通讯地址},
+							EI.OfficeZip as POSTNO{#邮政编码},
+							EI.MainProduction as MAINPRODUCT{#主要产品情况},
+							EI.WorkFieldArea as LOCALEAREA{#经营场地面积},
+							EI.WorkFieldFee as LOCALEDROIT{#经营场地所有权?},
+							EI.ECGroupFlag as GROUPFLAG{#集团客户标志},
+							EI.HasIERight as INOUTFLAG{#进出口权标志},
+							EI.ListingCorpOrNot as MARKETFLAG{#上市公司标志},
+							EI.FinanceDeptTel as FINANCECONTACT{#财务部联系方式},
+							EI.InputOrgID as FINANCEID{#金融机构代码},
+							EI.LoanCardNo as LOANCARDNO{#贷款卡编号}
+							from ENT_INFO EI
+							where {$TASK.CustomerCondition}" 
+						/>
+						<property name="com.amarsoft.app.datacheck.ECRDataSourceProvider.columnConvertors" 
+							value="{FinanceID,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='6501'}
+								{CountryCode,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='5509'}
+								{RegistType,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='5515'}
+								{Attribute,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='5523'}
+								{CustomerCharacter,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='5529'}
+								{LocaleDroit,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='8503'}
+								{GroupFlag,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='8505'}
+								{InOutFlag,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='8507'}
+								{MarketFlag,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='8509'}
+								{Currency,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='1501'}"
+						/>					
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.FIDChangeHandler.table" value="TEMP_CUSTOMERINFO" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.FIDChangeHandler.keyColumns" value="CustomerID" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.FIDChangeHandler.startSql" value="delete from TEMP_CUSTOMERINFO" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.FIDChangeHandler.updateColumns" 
+							value="FINANCEID,OCCURDATE,OLDFINANCEID,INCREMENTFLAG,CHINANAME,COUNTRYCODE,FINANCECONTACT" />
+					</extendProperties>
+				</executeUnit>
+			</executeUnits>				
+			<routeTable>
+				<route unit="BaseInfo" executeStatus="unexecute" nextUnit="BaseInfo"/>
+				<route unit="BaseInfo" executeStatus="successful" nextUnit="ChooseEndDate"/>
+			</routeTable>
+		</target>
+	
+		<target name="GuarrantyInfoImport" describe="担保信息抽取" enabled="true">
+			<executeUnits>
+				<executeUnit name="GuarantyContract1" describe="导入合同保证信息表" executeClass="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:ecr_data:select * from ECR_ASSURECONT:etc/ecr_are.xml:,"/>
+						<property name="unit.provider" value="com.amarsoft.app.datacheck.ECRDataSourceProvider"/>
+						<property name="com.amarsoft.app.datacheck.ECRDataSourceProvider.dataSource" 
+							value="datasource:db:loan:select
+							BC.SerialNo as CONTRACTNO{#主合同流水号},
+							GC.SerialNo as ASSURECONTNO{#保证合同流水号},
+							BC.ManageOrgID as FINANCEID{#金融机构代码},
+							ltrim(rtrim(GC.GuarantorName)) as ASSURERNAME{#保证人名称，注意各数据库的写法},
+							substr(BT.Attribute15,1,1) as BUSINESSTYPE{#信贷业务种类},
+							GC.GuarantyCurrency as ASSURECURRENCY{#保证币种},
+							GC.GuarantyValue as ASSURESUM{#保证金额},
+							GC.SignDate as CREATEDATE{#合同签订日期},
+							GC.GuaranteeForm as ASSUREFORM{#保证担保形式},
+							case when GC.ContractStatus = '030' then '2' when (BC.FinishDate is null or BC.FinishDate = '') then '1' else '2' end as AVAILABSTATUS{#合同有效状态},
+							GC.LoanCardNo as ALOANCARDNO{#保证人贷款卡编码},
+							GC.CertType as CertType {#证件类型},
+							GC.CertID as CertID {#证件号码},
+							BC.ManageOrgID as FINANCEID{#金融机构代码},
+							(case when trim(GC.LoanCardNo) &gt; ' ' then '1' else '2' end) as ReportType {#上报类型 1：贷款卡号上报 2：自然人证件上报}
+							from GUARANTY_CONTRACT GC,CONTRACT_RELATIVE CR,BUSINESS_CONTRACT BC,ENT_INFO EI,BUSINESS_TYPE BT
+							where BC.SerialNo = CR.SerialNo
+							and CR.ObjectNo = GC.SerialNo
+							and BT.TypeNO = BC.BusinessType
+							and EI.CustomerID = BC.CustomerID
+							and CR.ObjectType = 'GuarantyContract'
+							and GC.GuarantyType like '010%' {#担保方式：010010=保证,010040=保证金}
+							and (BT.Attribute15 like '1%' or BT.Attribute15 like '4%')  {#业务品种：贷款和贸易融资}
+							and GC.ContractStatus in ('020','030')
+							and {$TASK.CustomerCondition}
+							and {$TASK.ConctractCondition}
+							"/>
+						<property name="com.amarsoft.app.datacheck.ECRDataSourceProvider.columnConvertors" 
+							value="{FinanceID,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='6501'}
+								{BusinessType,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='7605'}
+								{AssureForm,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='7603'}
+								{AssureCurrency,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='1501'}"/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.table" value="BANK_ASSURECONT" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.keyColumns" value="CONTRACTNO,ASSURECONTNO" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.startSql" value="delete from BANK_ASSURECONT" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.updateColumns" 
+							value="FinanceID,INCREMENTFLAG,OCCURDATE,ASSURESUM,AVAILABSTATUS,BUSINESSTYPE,ASSURECURRENCY,ASSURERNAME,CREATEDATE,CertType,CertID,ReportType" />
+					</extendProperties>
+				</executeUnit>
+				
+				<executeUnit name="GuarantyContract2" describe="导入借据保证信息表" executeClass="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:ecr_data:select * from ECR_ASSURECONT:etc/ecr_are.xml:,"/>
+						<property name="unit.provider" value="com.amarsoft.app.datacheck.ECRDataSourceProvider"/>
+						<property name="com.amarsoft.app.datacheck.ECRDataSourceProvider.dataSource" 
+							value="datasource:db:loan:select distinct 
+							BD.SerialNo as CONTRACTNO{#主合同流水号},
+							GC.SerialNo as ASSURECONTNO{#保证合同流水号},
+							BC.ManageOrgID as FINANCEID{#金融机构代码},
+							ltrim(rtrim(GC.GuarantorName)) as ASSURERNAME{#保证人名称，注意各数据库的写法},
+							substr(BT.Attribute15,1,1) as BUSINESSTYPE{#信贷业务种类},
+							GC.GuarantyCurrency as ASSURECURRENCY{#保证币种},
+							GC.GuarantyValue as ASSURESUM{#保证金额},
+							GC.SignDate as CREATEDATE{#合同签订日期},
+							GC.GuaranteeForm as ASSUREFORM{#保证担保形式},
+							case when GC.ContractStatus = '030' then '2' when (BD.FinishDate is null or BD.FinishDate = '') then '1' else '2' end as AVAILABSTATUS{#合同有效状态},
+							GC.LoanCardNo as ALOANCARDNO{#保证人贷款卡编码},
+							GC.CertType as CertType {#证件类型},
+							GC.CertID as CertID {#证件号码},
+							BC.ManageOrgID as FINANCEID{#金融机构代码},
+							(case when trim(GC.LoanCardNo) &gt; ' ' then '1' else '2' end) as ReportType {#上报类型 1：贷款卡号上报 2：自然人证件上报}
+							from GUARANTY_CONTRACT GC,BUSINESS_DUEBILL BD,BUSINESS_CONTRACT BC,CONTRACT_RELATIVE CR,ENT_INFO EI,BUSINESS_TYPE BT
+							where CR.SerialNo = BD.RelativeSerialNo2
+							and BC.serialno=BD.RelativeSerialNo2
+							and CR.ObjectNo = GC.SerialNo
+							and BD.BusinessType = BT.TypeNO
+							and EI.CustomerID = BD.CustomerID
+							and CR.ObjectType = 'GuarantyContract'
+							and GC.GuarantyType like '010%' {#担保方式：010010=保证,010040=保证金}
+							and GC.ContractStatus in ('020','030')
+							and (BT.Attribute15 like '2%' or BT.Attribute15 like '5%' or BT.Attribute15 like '6%' or BT.Attribute15 like '7%')  {#业务品种：除贷款和贸易融资}
+							and {$TASK.CustomerCondition}"
+						/>
+						<property name="com.amarsoft.app.datacheck.ECRDataSourceProvider.columnConvertors" 
+							value="{FinanceID,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='6501'}
+								{BusinessType,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='7605'}
+								{AssureForm,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='7603'}
+								{AssureCurrency,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='1501'}"
+						/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.table" value="BANK_ASSURECONT" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.keyColumns" value="CONTRACTNO,ASSURECONTNO" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.updateColumns" 
+							value="FinanceID,INCREMENTFLAG,OCCURDATE,ASSURESUM,AVAILABSTATUS,BUSINESSTYPE,ASSURECURRENCY,ASSURERNAME,CREATEDATE,CertType,CertID,ReportType" />
+				</extendProperties>
+				</executeUnit>
+				
+				<executeUnit name="MortgageContract1" describe="导入合同抵押信息表" executeClass="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:ecr_data:select * from ECR_GUARANTYCONT:etc/ecr_are.xml:,"/>
+						<property name="unit.provider" value="com.amarsoft.app.datacheck.ECRDataSourceProvider"/>
+						<property name="unit.handlers" value="com.amarsoft.app.datacheck.GISerialNoHandler"/>
+						<property name="com.amarsoft.app.datacheck.ECRDataSourceProvider.dataSource" 
+							value="datasource:db:loan:select
+							BC.SerialNo as CONTRACTNO{#主合同流水号},
+							GC.SerialNo as GUARANTYCONTNO{#抵押合同编号},
+							BC.ManageOrgID as FINANCEID{#金融机构代码},
+							GC.GuarantorName as PLEDGORNAME{#抵押人名称},
+							GC.SignDate as CREATEDATE{#合同签订日期},
+							substr(BT.Attribute15,1,1) as BUSINESSTYPE{#信贷业务种类},
+							case when GC.ContractStatus = '030' then '2' when (BC.FinishDate is null or BC.FinishDate = '') then '1' else '2' end as AVAILABSTATUS{#合同有效状态},
+							GC.LoanCardNo as GLOANCARDNO{#抵押人贷款卡},
+							GI.EvalCurrency as EVALUATECURRENCY{#评估币种},
+							GI.EvalNetValue as EVALUATESUM{#抵押物评估价值},
+							GI.EvalDate as EVALUATEDATE{#评估日期},
+							GI.EvalOrgName as EVALUATEOFFICE{#评估机构名称},
+							GI.EvalOrgID as EVALUATEOFFICEID{#评估机构组织机构代码},
+							GI.GuarantyType as GUARANTYTYPE{#抵押物种类},
+							GI.GuarantyCurrency as GUARANTYCURRENCY{#抵押币种},
+							GI.ConfirmValue as GUARANTYSUM{#抵押金额},
+							'本机构' as REGISTORGNAME{#登记机关},
+							'' as REGISTDATE{#登记日期},
+							GI.GuarantyDescript as GUARANTYEXPLAIN{#抵押物说明},
+							GI.GuarantyID as GUARANTYSERIALNO{#信贷系统担保物的编号},
+							GC.CertType as CertType {#证件类型},
+							GC.CertID as CertID {#证件号码},
+							BC.ManageOrgID as FINANCEID{#金融机构代码},
+							(case when trim(GC.LoanCardNo) &gt; ' ' then '1' else '2' end) as ReportType {#上报类型 1：贷款卡号上报 2：自然人证件上报}
+							from GUARANTY_RELATIVE GR,GUARANTY_INFO GI,GUARANTY_CONTRACT GC,BUSINESS_CONTRACT BC,BUSINESS_TYPE BT,ENT_INFO EI,CONTRACT_RELATIVE CR							
+							where GR.GuarantyID = GI.GuarantyID
+							and BC.BusinessType = BT.TypeNO
+							and EI.CustomerID = BC.CustomerID
+							and BC.SerialNo = CR.SerialNo
+							and CR.ObjectNo = GC.SerialNo
+							and GR.ContractNo = GC.SerialNo
+							and CR.ObjectType = 'GuarantyContract'
+							and GR.ObjectType = 'BusinessContract'							
+							and GC.GuarantyType = '050' {#担保方式：050=抵押}
+							and (BT.Attribute15 like '1%' or BT.Attribute15 like '4%')  {#业务品种：贷款和贸易融资}
+							and GC.ContractStatus in ('020','030')
+							and {$TASK.CustomerCondition}
+							and {$TASK.ConctractCondition}
+							order by GI.GuarantyID{#增加排序}
+							"/>
+						<property name="com.amarsoft.app.datacheck.ECRDataSourceProvider.columnConvertors" 
+							value="{BusinessType,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='7605'}
+								{GuarantyType,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='7617'}
+								{EvaluateCurrency,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='1501'}
+								{GuarantyCurrency,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='1501'}"
+						/>
+						<property name="com.amarsoft.app.datacheck.GISerialNoHandler.table" value="BANK_GUARANTYCONT" />
+						<property name="com.amarsoft.app.datacheck.GISerialNoHandler.keyColumns" value="CONTRACTNO,GUARANTYCONTNO,GUARANTYSERIALNO" />
+						<property name="com.amarsoft.app.datacheck.GISerialNoHandler.startSql" value="delete from BANK_GUARANTYCONT" />
+						<property name="com.amarsoft.app.datacheck.GISerialNoHandler.updateColumns" 
+								value="FINANCEID,PLEDGORNAME,CREATEDATE,BUSINESSTYPE,AVAILABSTATUS,EVALUATECURRENCY,EVALUATESUM,
+								EVALUATEDATE,EVALUATEOFFICE,EVALUATEOFFICEID,GUARANTYTYPE,GUARANTYCURRENCY,GUARANTYSUM,IncrementFlag,OCCURDATE" />
+					</extendProperties>
+				</executeUnit>
+				
+				<executeUnit name="MortgageContract2" describe="导入借据抵押信息表" executeClass="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:ecr_data:select * from ECR_GUARANTYCONT:etc/ecr_are.xml:,"/>
+						<property name="unit.handlers" value="com.amarsoft.app.datacheck.GISerialNoHandler"/>
+						<property name="unit.provider" value="com.amarsoft.app.datacheck.ECRDataSourceProvider"/>
+						<property name="com.amarsoft.app.datacheck.ECRDataSourceProvider.dataSource" 
+							value="datasource:db:loan:select
+								BD.SerialNO as CONTRACTNO{#主合同流水号},
+								GC.SerialNo as GUARANTYCONTNO{#抵押合同编号},
+								BC.ManageOrgID as FINANCEID{#金融机构代码},
+								GC.GuarantorName as PLEDGORNAME{#抵押人名称},
+								GC.SignDate as CREATEDATE{#合同签订日期},
+								substr(BT.Attribute15,1,1) as BUSINESSTYPE{#信贷业务种类},
+								case when GC.ContractStatus = '030' then '2' when (BD.FinishDate is null or BD.FinishDate = '') then '1' else '2' end as AVAILABSTATUS{#合同有效状态},
+								GC.LoanCardNo as GLOANCARDNO{#抵押人贷款卡},
+								GI.EvalCurrency as EVALUATECURRENCY{#评估币种},
+								GI.EvalNetValue as EVALUATESUM{#抵押物评估价值},
+								GI.EvalDate as EVALUATEDATE{#评估日期},
+								GI.EvalOrgName as EVALUATEOFFICE{#评估机构名称},
+								GI.EvalOrgID  as EVALUATEOFFICEID{#评估机构组织机构代码},
+								GI.GuarantyType as GUARANTYTYPE{#抵押物种类},
+								GI.GuarantyCurrency as GUARANTYCURRENCY{#抵押币种},
+								GI.ConfirmValue as GUARANTYSUM{#抵押金额},
+								'本机构' as REGISTORGNAME{#登记机关},
+								'' as REGISTDATE{#登记日期},
+								GI.GuarantyDescript as GUARANTYEXPLAIN{#抵押物说明},
+								GI.GuarantyID as GUARANTYSERIALNO{#信贷系统担保物的编号},
+								GC.CertType as CertType {#证件类型},
+								GC.CertID as CertID {#证件号码},
+								BC.ManageOrgID as FINANCEID{#金融机构代码},
+								(case when trim(GC.LoanCardNo) &gt; ' ' then '1' else '2' end) as ReportType {#上报类型 1：贷款卡号上报 2：自然人证件上报}
+								from GUARANTY_RELATIVE GR,GUARANTY_INFO GI,GUARANTY_CONTRACT GC,BUSINESS_CONTRACT BC,BUSINESS_DUEBILL BD,ENT_INFO EI,BUSINESS_TYPE BT,CONTRACT_RELATIVE CR
+								where GR.GuarantyID = GI.GuarantyID
+								and BD.RelativeSerialNo2 = CR.SerialNo
+								and BC.serialNO=BD.RelativeSerialNo2
+							    and CR.ObjectNo = GC.SerialNo
+								and GR.ContractNo = GC.SerialNo
+								and EI.CustomerID = BD.CustomerID
+								and BD.BusinessType = BT.TypeNO
+								and CR.ObjectType = 'GuarantyContract'
+								and GR.ObjectType = 'BusinessContract'							
+								and GC.GuarantyType = '050' {#担保方式：050=抵押}
+								and (BT.Attribute15 like '2%' or BT.Attribute15 like '5%' or BT.Attribute15 like '6%' or BT.Attribute15 like '7%')  {#业务品种：除贷款和贸易融资}
+								and GC.ContractStatus in ('020','030')
+								and {$TASK.CustomerCondition}
+								order by GI.GuarantyID{#增加排序}"							
+						/>
+						<property name="com.amarsoft.app.datacheck.ECRDataSourceProvider.columnConvertors" 
+							value="{BusinessType,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='7605'}
+								{GuarantyType,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='7617'}
+								{EvaluateCurrency,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='1501'}
+								{GuarantyCurrency,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='1501'}"
+						/>
+						<property name="com.amarsoft.app.datacheck.GISerialNoHandler.table" value="BANK_GUARANTYCONT" />
+						<property name="com.amarsoft.app.datacheck.GISerialNoHandler.keyColumns" value="CONTRACTNO,GUARANTYCONTNO,GUARANTYSERIALNO" />
+						<property name="com.amarsoft.app.datacheck.GISerialNoHandler.updateColumns" 
+							value="FINANCEID,PLEDGORNAME,CREATEDATE,BUSINESSTYPE,AVAILABSTATUS,EVALUATECURRENCY,EVALUATESUM,
+								EVALUATEDATE,EVALUATEOFFICE,EVALUATEOFFICEID,GUARANTYTYPE,GUARANTYCURRENCY,GUARANTYSUM,IncrementFlag,OCCURDATE" />
+					</extendProperties>
+				</executeUnit>
+				
+				<executeUnit name="ImpawnContract1" describe="导入合同质押信息表" executeClass="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:ecr_data:select * from ECR_IMPAWNCONT:etc/ecr_are.xml:,"/>
+						<property name="unit.handlers" value="com.amarsoft.app.datacheck.GISerialNoHandler"/>
+						<property name="unit.provider" value="com.amarsoft.app.datacheck.ECRDataSourceProvider"/>
+						<property name="com.amarsoft.app.datacheck.ECRDataSourceProvider.dataSource" 
+							value="datasource:db:loan:select
+								BC.SerialNo as CONTRACTNO{#主合同流水号},
+								GC.SerialNo as IMPAWNCONTNO{#质押合同流水号},
+								BC.ManageOrgID as FINANCEID{#金融机构代码},
+								GC.GuarantorName as IMPAWNNAME{#出质人名称},
+								substr(BT.Attribute15,1,1) as BUSINESSTYPE{#信贷业务种类},
+								GC.SignDate as CREATEDATE{#合同签订日期},
+								case when GC.ContractStatus = '030' then '2' when (BC.FinishDate is null or BC.FinishDate = '') then '1' else '2' end as AVAILABSTATUS{#合同有效状态},
+								GC.LoanCardNo as ILOANCARDNO{#出质人贷款卡编码},
+								GI.EvalCurrency as VALUECURRENCY{#质押物币种},
+								GI.EvalNetValue as VALUESUM{#质押物价值},
+								GI.GuarantyType as IMPAWNTYPE{#质押物种类},								
+								GI.GuarantyCurrency as IMPAWNCURRENCY{#质押币种},
+								GI.ConfirmValue as IMPAWNSUM{#质押金额},
+								GI.GuarantyID as IMPAWSERIALNO{#信贷系统质押物编号},
+								GC.CertType as CertType {#证件类型},
+								GC.CertID as CertID {#证件号码},
+								BC.ManageOrgID as FINANCEID{#金融机构代码},
+								(case when trim(GC.LoanCardNo) &gt; ' ' then '1' else '2' end) as ReportType {#上报类型 1：贷款卡号上报 2：自然人证件上报}
+								from GUARANTY_RELATIVE GR,GUARANTY_INFO GI,GUARANTY_CONTRACT GC,BUSINESS_CONTRACT BC,BUSINESS_TYPE BT,ENT_INFO EI,CONTRACT_RELATIVE CR
+								where GR.GuarantyID = GI.GuarantyID
+								and BC.BusinessType = BT.TypeNO
+								and EI.CustomerID = BC.CustomerID
+								and BC.SerialNo = CR.SerialNo
+							    and CR.ObjectNo = GC.SerialNo
+								and GR.ContractNo = GC.SerialNo
+								and CR.ObjectType = 'GuarantyContract'
+								and GR.ObjectType = 'BusinessContract'							
+								and GC.GuarantyType = '060' {#担保方式：060=质押}
+								and GC.ContractStatus in ('020','030')
+								and (BT.Attribute15 like '1%' or BT.Attribute15 like '4%')  {#业务品种：贷款和贸易融资}
+								and {$TASK.CustomerCondition}
+								and {$TASK.ConctractCondition}
+								order by GI.GuarantyID{#增加排序}
+								"/>
+						<property name="com.amarsoft.app.datacheck.ECRDataSourceProvider.columnConvertors" 
+							value="{BusinessType,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='7605'}
+								{ImpawnType,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='7621'}
+								{ValueCurrency,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='1501'}
+								{ImpawnCurrency,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='1501'}"
+						/>
+						<property name="com.amarsoft.app.datacheck.GISerialNoHandler.table" value="BANK_IMPAWNCONT" />
+						<property name="com.amarsoft.app.datacheck.GISerialNoHandler.keyColumns" value="CONTRACTNO,IMPAWNCONTNO,IMPAWSERIALNO" />
+						<property name="com.amarsoft.app.datacheck.GISerialNoHandler.startSql" value="delete from BANK_IMPAWNCONT" />
+						<property name="com.amarsoft.app.datacheck.GISerialNoHandler.updateColumns" 
+							value="FINANCEID,INCREMENTFLAG,OCCURDATE,IMPAWNNAME,BUSINESSTYPE,CREATEDATE,AVAILABSTATUS,VALUECURRENCY,VALUESUM,IMPAWNTYPE,IMPAWNCURRENCY,IMPAWNSUM" />
+					</extendProperties>
+				</executeUnit>
+				
+				<executeUnit name="ImpawnContract2" describe="导入借据质押信息表" executeClass="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:ecr_data:select * from ECR_IMPAWNCONT:etc/ecr_are.xml:,"/>
+						<property name="unit.handlers" value="com.amarsoft.app.datacheck.GISerialNoHandler"/>
+						<property name="unit.provider" value="com.amarsoft.app.datacheck.ECRDataSourceProvider"/>
+						<property name="com.amarsoft.app.datacheck.ECRDataSourceProvider.dataSource" 
+							value="datasource:db:loan:select distinct 
+								BD.SerialNO as CONTRACTNO{#主合同流水号},
+								GC.SerialNo as IMPAWNCONTNO{#质押合同流水号},
+								BC.ManageOrgID as FINANCEID{#金融机构代码},
+								GC.GuarantorName as IMPAWNNAME{#出质人名称},
+								substr(BT.Attribute15,1,1) as BUSINESSTYPE{#信贷业务种类},
+								GC.SignDate as CREATEDATE{#合同签订日期},
+								case when GC.ContractStatus = '030' then '2' when (BD.FinishDate is null or BD.FinishDate = ' ') then '1' else '2' end as AVAILABSTATUS{#合同有效状态},
+								GC.LoanCardNo as ILOANCARDNO{#出质人贷款卡编码},
+								GI.EvalCurrency as VALUECURRENCY{#质押物币种},
+								GI.EvalNetValue as VALUESUM{#质押物价值},
+								GI.GuarantyType as IMPAWNTYPE{#质押物种类},								
+								GI.GuarantyCurrency as IMPAWNCURRENCY{#质押币种},
+								GI.ConfirmValue as IMPAWNSUM{#质押金额},
+								GI.GuarantyID as IMPAWSERIALNO{#信贷系统质押物编号},
+								GC.CertType as CertType {#证件类型},
+								GC.CertID as CertID {#证件号码},
+								BC.ManageOrgID as FINANCEID{#金融机构代码},
+								(case when trim(GC.LoanCardNo) &gt; ' ' then '1' else '2' end) as ReportType {#上报类型 1：贷款卡号上报 2：自然人证件上报}
+								from GUARANTY_RELATIVE GR,GUARANTY_INFO GI,GUARANTY_CONTRACT GC,BUSINESS_CONTRACT BC,BUSINESS_DUEBILL BD,ENT_INFO EI,BUSINESS_TYPE BT,CONTRACT_RELATIVE CR
+								where GR.GuarantyID = GI.GuarantyID
+								and BD.RelativeSerialNo2 = CR.SerialNo
+								and BC.serialNo=BD.RelativeSerialNo2
+							    and CR.ObjectNo = GC.SerialNo
+								and GR.ContractNo = GC.SerialNo
+								and EI.CustomerID = BD.CustomerID
+								and BD.BusinessType = BT.TypeNO
+								and CR.ObjectType = 'GuarantyContract'
+								and GR.ObjectType = 'BusinessContract'							
+								and GC.GuarantyType = '060' {#担保方式：060=质押}
+								and (BT.Attribute15 like '2%' or BT.Attribute15 like '5%' or BT.Attribute15 like '6%' or BT.Attribute15 like '7%')  {#业务品种：除贷款和贸易融资}
+								and GC.ContractStatus in ('020','030')
+								and {$TASK.CustomerCondition}
+								order by GI.GuarantyID{#增加排序}
+								"/>
+						<property name="com.amarsoft.app.datacheck.ECRDataSourceProvider.columnConvertors" 
+							value="{BusinessType,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='7605'}
+								{ImpawnType,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='7621'}
+								{ValueCurrency,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='1501'}
+								{ImpawnCurrency,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='1501'}"/>
+						<property name="com.amarsoft.app.datacheck.GISerialNoHandler.table" value="BANK_IMPAWNCONT" />
+						<property name="com.amarsoft.app.datacheck.GISerialNoHandler.keyColumns" value="CONTRACTNO,IMPAWNCONTNO,IMPAWSERIALNO" />
+						<property name="com.amarsoft.app.datacheck.GISerialNoHandler.updateColumns" 
+							value="FINANCEID,INCREMENTFLAG,OCCURDATE,IMPAWNNAME,BUSINESSTYPE,CREATEDATE,AVAILABSTATUS,VALUECURRENCY,VALUESUM,IMPAWNTYPE,IMPAWNCURRENCY,IMPAWNSUM" />
+					</extendProperties>
+				</executeUnit>
+
+			</executeUnits>	
+			<routeTable>
+				<route unit="GuarantyContract1"			executeStatus="unexecute"  	  	nextUnit="GuarantyContract1"/>
+				<route unit="GuarantyContract1"			executeStatus="successful"  	  nextUnit="GuarantyContract2"/>
+				<route unit="GuarantyContract2"			executeStatus="successful"  	  nextUnit="MortgageContract1"/>
+				<route unit="MortgageContract1"			executeStatus="successful"  	  nextUnit="MortgageContract2"/>
+				<route unit="MortgageContract2"			executeStatus="successful"  	  nextUnit="ImpawnContract1"/>
+				<route unit="ImpawnContract1"			executeStatus="successful"  	  nextUnit="ImpawnContract2"/>
+			</routeTable>
+		</target>
+			
+		<target name="ComplexBusinessImport" describe="借款人复杂业务抽取(贷款和贸易融资)" enabled="true">
+			<executeUnits>
+				
+				<executeUnit name="LoanDuebill" describe="导入贷款借据信息表" executeClass="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:ecr_data:select * from ECR_LOANDUEBILL:etc/ecr_are.xml:,"/>
+						<property name="unit.provider" value="com.amarsoft.app.datacheck.ECRDataSourceProvider"/>
+						<property name="com.amarsoft.app.datacheck.ECRDataSourceProvider.dataSource" 
+							value="datasource:db:loan:select
+							BD.SerialNo as LDUEBILLNO{#借据号},
+							BD.RelativeSerialNo2 as LCONTRACTNO{#合同号},
+							BC.ManageOrgID as FINANCEID{#金融机构代码},
+							BD.BusinessCurrency as CURRENCY{#币种},
+							BD.BusinessSum as PUTOUTAMOUNT{#发放金额},
+							BD.Balance as BALANCE{#余额},
+							BD.PutoutDate as PUTOUTDATE{#放款日期},
+							BD.ActualMaturity as PUTOUTENDDATE{#借据到期日},
+							substr(BT.Attribute15,2,1) as BUSINESSTYPE{#业务种类},
+							BC.OccurType as FORM{#贷款形式},
+							case when BD.BusinessType = '2070' then '2' else '1' end as LOANCHARACTER{#贷款性质,2070=‘委托贷款’},
+							BC.Direction as WAY{#贷款投向},
+							'2' as EXTENFLAG{#展期标志,后续更新},
+							'' as KIND{#贷款种类,程序内部控制大类，若外部传入值，则内部计算自动失效},
+							case when BD.BadBalance>0 then '40' when (BD.BadBalance=0 and BD.DullBalance>0) then '30' 
+							when ((BD.BadBalance+BD.DullBalance) =0 and BD.OverDueBalance>0) then '20 ' else '10' end as CLASSIFY4{#四级分类},
+							BD.ClassifyResult as CLASSIFY5{#五级分类}
+							from BUSINESS_DUEBILL BD,BUSINESS_CONTRACT BC,BUSINESS_TYPE BT,ENT_INFO EI
+							where BD.RelativeSerialNo2 = BC.SerialNo
+							and BD.BusinessType = BT.TypeNO
+							and BC.CustomerID = EI.CustomerID
+							and BT.Attribute15 like '1%'
+							and {$TASK.CustomerCondition}
+							and {$TASK.ConctractCondition}
+							"/>
+						<property name="com.amarsoft.app.datacheck.ECRDataSourceProvider.columnConvertors" 
+							value="{Currency,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='1501'}
+								{BusinessType,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='7529'}
+								{Form,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='7531'}
+								{LoanCharacter,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='7533'}
+								{Way,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='7535'}
+								{Kind,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='7537'}
+								{Classify4,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='7539'}
+								{Classify5,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='7541'}"
+						/>		
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.table" value="BANK_LOANDUEBILL" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.keyColumns" value="LDUEBILLNO" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.startSql" value="delete from BANK_LOANDUEBILL" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.updateColumns" 
+							value="FINANCEID,INCREMENTFLAG,OCCURDATE,BALANCE,BUSINESSTYPE,FORM,LOANCHARACTER,WAY,KIND,CLASSIFY4,CLASSIFY5" />
+					</extendProperties>
+				</executeUnit>
+				
+				<executeUnit name="LoanContract" describe="导入贷款合同信息表" executeClass="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:ecr_data:select * from ECR_LOANCONTRACT:etc/ecr_are.xml:,"/>
+						<property name="unit.handlers" value="com.amarsoft.app.datax.ecr.prepare.dataimport.FIDChangeHandler"/>
+						<property name="unit.provider" value="com.amarsoft.app.datacheck.ECRDataSourceProvider"/>
+						<property name="com.amarsoft.app.datacheck.ECRDataSourceProvider.dataSource" 
+							value="datasource:db:loan:select
+							BC.SerialNo as LCONTRACTNO{#合同流水号},
+							BC.CustomerID as CUSTOMERID{#客户号},
+							BC.ManageOrgID as FINANCEID{#金融机构代码},
+							BC.CreditAggreement as CREDITNO{#授信协议编号},
+							BC.PutoutDate as STARTDATE{#生效日期},
+							BC.Maturity as ENDDATE{#终止日期},
+							case when BC.BusinessType = '1060' then '1' else '2' end as BANKFLAG{#银团标志，1060=‘银团贷款’},
+							'1' as GUARANTYFLAG{#担保标志1=是，2=否，不需要抽取，程序内部会自动设置},
+							case when (BC.FinishDate is null or BC.FinishDate = '') then '1' else '2' end as AVAILABSTATUS{#有效状态1=有效，2=无效},
+							BC.BusinessCurrency as CURRENCY{#币种},
+							BC.BusinessSum as BUSINESSSUM{#合同金额},
+							BC.CycleFlag as RECYCLE{#循环贷款标志1=是，2=不是}
+							from BUSINESS_CONTRACT BC,ENT_INFO EI,BUSINESS_TYPE BT
+							where BC.BusinessType = BT.TypeNO
+							and BC.CustomerID = EI.CustomerID
+							and BT.Attribute15 like '1%'
+							and {$TASK.CustomerCondition}
+							and {$TASK.ConctractCondition}" />
+						<property name="com.amarsoft.app.datacheck.ECRDataSourceProvider.columnConvertors" 
+							value="{FinanceID,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='6501'}
+								{Currency,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='1501'}"/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.FIDChangeHandler.table" value="BANK_LOANCONTRACT" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.FIDChangeHandler.keyColumns" value="LCONTRACTNO" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.FIDChangeHandler.startSql" value="delete from BANK_LOANCONTRACT" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.FIDChangeHandler.updateColumns" 
+							value="INCREMENTFLAG,OCCURDATE,FINANCEID,OLDFINANCEID,CREDITNO,STARTDATE,ENDDATE,BANKFLAG,GUARANTYFLAG,AVAILABSTATUS,CURRENCY,BUSINESSSUM,AvailabBalance" />
+					</extendProperties>
+				</executeUnit>
+			
+				<executeUnit name="TradeDuebill" describe="导入贸易融资借据信息表" executeClass="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:ecr_data:select * from ECR_FINADUEBILL:etc/ecr_are.xml:,"/>
+						<property name="unit.provider" value="com.amarsoft.app.datacheck.ECRDataSourceProvider"/>
+						<property name="unit.handlers" value="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler"/>
+						<property name="com.amarsoft.app.datacheck.ECRDataSourceProvider.dataSource" 
+							value="datasource:db:loan:select
+							BD.SerialNo as FDUEBILLNO{#借据号},
+							BD.RelativeSerialNo2 as FCONTRACTNO{#合同号},
+							BC.ManageOrgID as FINANCEID{#金融机构代码},
+							BD.BusinessCurrency as CURRENCY{#币种},
+							BD.BusinessSum as PUTOUTAMOUNT{#发放金额},
+							BD.Balance as BALANCE{#余额},
+							BD.PutoutDate as PUTOUTDATE{#放款日期},
+							BD.ActualMaturity as PUTOUTENDDATE{#借据到期日},
+							substr(BT.Attribute15,2,2) as BUSINESSTYPE{#业务种类},
+							'2' as EXTENFLAG{#展期标志},
+							case when BD.BadBalance>0 then '40' when (BD.BadBalance=0 and BD.DullBalance>0) then '30' 
+							when ((BD.BadBalance+BD.DullBalance) =0 and BD.OverDueBalance>0) then '20 ' else '10' end as CLASSIFY4{#四级分类},
+							BD.ClassifyResult as CLASSIFY5{#五级分类}
+							from BUSINESS_DUEBILL BD,BUSINESS_CONTRACT BC,BUSINESS_TYPE BT,ENT_INFO EI
+							where BD.RelativeSerialNo2 = BC.SerialNo
+							and BD.BusinessType = BT.TypeNO
+							and BD.CustomerID = EI.CustomerID
+							and BT.Attribute15 like '4%'
+							and {$TASK.CustomerCondition}
+							and {$TASK.ConctractCondition}"/>
+						<property name="com.amarsoft.app.datacheck.ECRDataSourceProvider.columnConvertors" 
+							value="{Currency,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='1501'}
+								{BusinessType,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='7569'}
+								{Classify4,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='7539'}
+								{Classify5,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='7541'}"
+						/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.table" value="BANK_FINADUEBILL" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.keyColumns" value="FDUEBILLNO" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.startSql" value="delete from BANK_FINADUEBILL" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.updateColumns" 
+							value="FINANCEID,IncrementFlag,OCCURDATE,BALANCE,PUTOUTDATE,PUTOUTENDDATE,BUSINESSTYPE,CLASSIFY4,CLASSIFY5" />
+					</extendProperties>
+				</executeUnit>
+												
+				<executeUnit name="TradeContract" describe="导入贸易融资合同信息表" executeClass="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:ecr_data:select * from ECR_FINAINFO:etc/ecr_are.xml:,"/>
+						<property name="unit.handlers" value="com.amarsoft.app.datax.ecr.prepare.dataimport.FIDChangeHandler"/>
+						<property name="unit.provider" value="com.amarsoft.app.datacheck.ECRDataSourceProvider"/>
+						<property name="com.amarsoft.app.datacheck.ECRDataSourceProvider.dataSource" 
+							value="datasource:db:loan:select
+							BC.SerialNo as FContractNo{#合同流水号},
+							BC.CustomerID as CUSTOMERID{#客户号},
+							BC.ManageOrgID as FINANCEID{#金融机构代码},
+							BC.CreditAggreement as CREDITNO{#授信协议编号},
+							BC.PutoutDate as STARTDATE{#生效日期},
+							BC.Maturity as ENDDATE{#中止日期},
+							'1' as GUARANTYFLAG{#担保标志1=是，2=否getECRInfo(BC.SerialNo,'05')},
+							case when BC.FinishDate is null or BC.FinishDate = '' then '1' else '2' end as AVAILABSTATUS{#有效状态1=有效，2=无效},
+							BC.BusinessCurrency as CURRENCY{#币种},
+							BC.BusinessSum as BUSINESSSUM{#合同金额},
+							BC.CycleFlag as RECYCLE{#循环贷款标志1=是，2=不是}
+							from BUSINESS_CONTRACT BC,ENT_INFO EI,BUSINESS_TYPE BT
+							where BC.CustomerID = EI.CustomerID
+							and BC.BusinessType = BT.TypeNO
+							and BT.Attribute15 like '4%'
+							and {$TASK.CustomerCondition}
+							and {$TASK.ConctractCondition}"
+						/>
+						<property name="com.amarsoft.app.datacheck.ECRDataSourceProvider.columnConvertors" 
+							value="{FinanceID,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='6501'}
+								{Currency,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='1501'}"/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.FIDChangeHandler.table" value="BANK_FINAINFO" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.FIDChangeHandler.keyColumns" value="FCONTRACTNO" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.FIDChangeHandler.startSql" value="delete from BANK_FINAINFO" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.FIDChangeHandler.updateColumns" 
+							value="INCREMENTFLAG,OCCURDATE,FINANCEID,OLDFINANCEID,CREDITNO,STARTDATE,ENDDATE,GUARANTYFLAG,AVAILABSTATUS,CURRENCY,BUSINESSSUM" />
+					</extendProperties>
+				</executeUnit>
+			</executeUnits>
+				
+			<routeTable>
+				<route unit="LoanDuebill"			executeStatus="unexecute"  	  	  nextUnit="LoanDuebill"/>
+				<route unit="LoanDuebill"			executeStatus="successful"  	  nextUnit="LoanContract"/>
+				<route unit="LoanContract"			executeStatus="successful"  	  nextUnit="TradeDuebill"/>
+				<route unit="TradeDuebill"			executeStatus="successful"  	  nextUnit="TradeContract"/>
+			</routeTable>
+		</target>
+		
+		<target name="OtherBusinessImport" describe="简单业务抽取" enabled="true">
+			<executeUnits>
+				<executeUnit name="FactoringInfo" describe="导入保理基本信息表" executeClass="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:ecr_data:select * from ECR_FACTORING:etc/ecr_are.xml:,"/>
+						<property name="unit.handlers" value="com.amarsoft.app.datax.ecr.prepare.dataimport.FIDChangeHandler"/>
+						<property name="unit.provider" value="com.amarsoft.app.datacheck.ECRDataSourceProvider"/>
+						<property name="com.amarsoft.app.datacheck.ECRDataSourceProvider.dataSource" 
+							value="datasource:db:loan:select
+							BD.CustomerID as CUSTOMERID{#客户号},                                                                              
+							BD.SerialNo as FACTORINGNO{#保理协议编号},  
+							BC.CreditAggreement as CREDITNO{#授信协议号码},  									                                                                                
+							BC.ManageOrgID as FINANCEID{#金融机构代码},                                                                                                                                                         
+							substr(BT.Attribute15,2,1) as FACTORINGTYPE{#保理产品类型},                                                                        
+							case when (BD.BadBalance+BD.DullBalance+BD.OverDueBalance)>0 then '2' else '1' end as FACTORINGSTATUS{#保理业务状态}, 
+							BD.BusinessCurrency as CURRENCY{#币种},                                                                          
+							BD.BusinessSum as BUSINESSSUM{#叙做金额},                                                                           
+							BD.putoutdate as BUSINESSDATE{#叙做日期},                                                                           
+							BD.Balance as BALANCE{#叙做余额},                                                                                   
+							BD.UpdateDate as BALANCECHANGEDATE{#余额变化日期},                                                                       
+							case when (BD.AdvanceFlag is null or BD.AdvanceFlag = '') then '2' else BD.AdvanceFlag end as FLOORFLAG{#垫款标志},                                                                                        
+							'1' as GUARANTYFLAG{#担保标志},                         
+							case when BD.BadBalance>0 then '40' when (BD.BadBalance=0 and BD.DullBalance>0) then '30' 
+							when ((BD.BadBalance+BD.DullBalance) =0 and BD.OverDueBalance>0) then '20 ' else '10' end as CLASSIFY4{#四级分类},                                                                          
+							BD.ClassifyResult as CLASSIFY5{#五级分类}                                                
+							from BUSINESS_DUEBILL BD, BUSINESS_CONTRACT BC,BUSINESS_TYPE BT,ENT_INFO EI                                                 
+							where BD.RelativeSerialNo2 = BC.SerialNo                                  
+							and BD.BusinessType = BT.TypeNO
+							and BD.CustomerID = EI.CustomerID
+							and BT.Attribute15 like '2%'
+							and {$TASK.CustomerCondition} "/>
+						<property name="com.amarsoft.app.datacheck.ECRDataSourceProvider.columnConvertors" 
+							value="{FinanceID,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='6501'}
+								{FactoringType,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='7549'}
+								{FactoringStatus,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='7551'}
+								{Currency,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='1501'}
+								{Classify4,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='7539'}
+								{Classify5,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='7541'}"
+						/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.FIDChangeHandler.table" value="BANK_FACTORING" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.FIDChangeHandler.keyColumns" value="FACTORINGNO" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.FIDChangeHandler.startSql" value="delete from BANK_FACTORING" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.FIDChangeHandler.updateColumns" 
+							value="INCREMENTFLAG,OCCURDATE,FINANCEID,OLDFINANCEID,FACTORINGTYPE,FACTORINGSTATUS,CURRENCY,BUSINESSSUM,BALANCE,BUSINESSDATE,BALANCECHANGEDATE,FLOORFLAG,GUARANTYFLAG,CLASSIFY4,CLASSIFY5" />
+					</extendProperties>
+				</executeUnit>
+				
+				<executeUnit name="DiscountInfo" describe="导入票据贴现基本信息表" executeClass="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit" allowManualExecute="true">
+					<executeClass>com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit</executeClass>
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:ecr_data:select * from ECR_DISCOUNT:etc/ecr_are.xml:,"/>
+						<property name="unit.handlers" value="com.amarsoft.app.datax.ecr.prepare.dataimport.FIDChangeHandler"/>
+						<property name="unit.provider" value="com.amarsoft.app.datacheck.ECRDataSourceProvider"/>
+						<property name="com.amarsoft.app.datacheck.ECRDataSourceProvider.dataSource" 
+							value="datasource:db:loan:select
+							BD.CustomerID as CUSTOMERID{#客户号},
+							BD.SerialNo as BILLNO{#票据流水号},
+							BC.ManageOrgID as FINANCEID{#金融机构代码},
+							substr(BT.Attribute15,2,1) as BILLTYPE{#票据种类},
+							BC.ThirdParty1 as ACCEPTERNAME{#承兑人/行名称},
+							'' as ALOANCARDNO{#承兑人/行贷款卡号},
+							BD.BusinessCurrency as CURRENCY{#币种},
+							BD.BusinessSum as DISCOUNTSUM{#贴现金额},
+							BD.PutoutDate as DISCOUNTDATE{#贴现日},
+							BD.ActualMaturity as ACCEPTMATURITY{#承兑到期日},
+							BD.BusinessSum as BILLSUM{#票面金额},
+							case when (BD.FinishDate is null or BD.FinishDate = '') then '1' else '2' end as BILLSTATUS{#票据状态},
+							case when BD.BadBalance>0 then '40' when (BD.BadBalance=0 and BD.DullBalance>0) then '30' 
+							when ((BD.BadBalance+BD.DullBalance) =0 and BD.OverDueBalance>0) then '20 ' else '10' end as CLASSIFY4{#四级分类},
+							BD.ClassifyResult as CLASSIFY5{#五级分类},
+							BC.CreditAggreement as CREDITNO{#授信协议号码}
+							from BUSINESS_DUEBILL BD, BUSINESS_CONTRACT BC,BUSINESS_TYPE BT,ENT_INFO EI                                                 
+							where BD.RelativeSerialNo2 = BC.SerialNo                                  
+							and BD.BusinessType = BT.TypeNO
+							and BD.CustomerID = EI.CustomerID
+							and BT.Attribute15 like '3%'
+							and {$TASK.CustomerCondition} "
+						/>
+						<property name="com.amarsoft.app.datacheck.ECRDataSourceProvider.columnConvertors" 
+							value="{FinanceID,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='6501'}
+								{BillType,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='7555'}
+								{BillStatus,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='7561'}
+								{Currency,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='1501'}
+								{Classify4,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='7539'}
+								{Classify5,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='7541'}"
+						/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.FIDChangeHandler.table" value="BANK_DISCOUNT" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.FIDChangeHandler.keyColumns" value="BILLNO" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.FIDChangeHandler.startSql" value="delete from BANK_DISCOUNT" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.FIDChangeHandler.updateColumns" 
+							value="INCREMENTFLAG,OCCURDATE,FINANCEID,OLDFINANCEID,BILLTYPE,ACCEPTERNAME,ALOANCARDNO,CURRENCY,DISCOUNTSUM,DISCOUNTDATE,BILLSUM,ACCEPTMATURITY,BILLSTATUS,CLASSIFY4,CLASSIFY5" />
+					</extendProperties>
+				</executeUnit>
+				
+				<executeUnit name="LetterOfCredit" describe="导入信用证基本信息表" executeClass="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit" allowManualExecute="true">
+					<executeClass>com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit</executeClass>
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:ecr_data:select * from ECR_CREDITLETTER:etc/ecr_are.xml:,"/>
+						<property name="unit.handlers" value="com.amarsoft.app.datax.ecr.prepare.dataimport.FIDChangeHandler"/>
+						<property name="unit.provider" value="com.amarsoft.app.datacheck.ECRDataSourceProvider"/>
+						<property name="com.amarsoft.app.datacheck.ECRDataSourceProvider.dataSource" 
+							value="datasource:db:loan:select
+							BD.CustomerID as CUSTOMERID{#客户号},
+							BD.SerialNo as CREDITLETTERNO{#信用证号码},
+							BC.ManageOrgID as FINANCEID{#金融机构代码},
+							BC.CreditAggreement as CREDITNO{#授信协议编号},
+							BD.BusinessCurrency as CURRENCY{#币种},
+							BD.BusinessSum as CREATESUM{#开证金额},
+							BD.PutoutDate as CREATEDATE{#开证日期},
+							BD.ActualMaturity as AVAILABTERM{#信用证有效期},
+							BD.PaymentType as PAYTERM{#信用证付款期限},
+							round(BD.BailPercent,0) as DEPOSITSCALE{#保证金比例},
+							'1' as GUARANTYFLAG{#担保标志},
+							case when (BD.AdvanceFlag is null or BD.AdvanceFlag = '') then '2' else BD.AdvanceFlag end as FLOORFLAG{#垫款标志},
+							case when (BD.FinishDate is null or BD.FinishDate = '') then '1' else '2' end as CREDITSTATUS{#信用证状态},
+							BD.FinishDate as LOGOUTDATE{#信用证注销日期},
+							BD.Balance as BALANCE{#信用证余额},
+							BD.UpdateDate as BALANCEREPORTDATE{#余额报告日期},
+							BD.ClassifyResult as CLASSIFY5{#五级分类}
+							from BUSINESS_DUEBILL BD, BUSINESS_CONTRACT BC,BUSINESS_TYPE BT,ENT_INFO EI                                                 
+							where BD.RelativeSerialNo2 = BC.SerialNo                                  
+							and BD.BusinessType = BT.TypeNO
+							and BD.CustomerID = EI.CustomerID
+							and BT.Attribute15 like '5%'
+							and {$TASK.CustomerCondition}"
+						/>
+						<property name="com.amarsoft.app.datacheck.ECRDataSourceProvider.columnConvertors" 
+							value="{FinanceID,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='6501'}
+								{PayTerm,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='2579'}
+								{CreditStatus,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='7501'}
+								{Currency,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='1501'}
+								{Classify4,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='7539'}
+								{Classify5,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='7541'}"
+						/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.FIDChangeHandler.table" value="BANK_CREDITLETTER" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.FIDChangeHandler.keyColumns" value="CREDITLETTERNO" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.FIDChangeHandler.startSql" value="delete from BANK_CREDITLETTER" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.FIDChangeHandler.updateColumns" 
+							value="INCREMENTFLAG,OCCURDATE,FINANCEID,OLDFINANCEID,CURRENCY,CREATESUM,CREATEDATE,AVAILABTERM,PAYTERM,
+							DEPOSITSCALE,GUARANTYFLAG,FLOORFLAG,CREDITSTATUS,LOGOUTDATE,BALANCE,BALANCEREPORTDATE,CLASSIFY5" />
+					</extendProperties>
+				</executeUnit>
+				
+				<executeUnit name="LetterOfGuarantee" describe="导入保函基本信息表" executeClass="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit" allowManualExecute="true">
+					<executeClass>com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit</executeClass>
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:ecr_data:select * from ECR_GUARANTEEBILL:etc/ecr_are.xml:,"/>
+						<property name="unit.handlers" value="com.amarsoft.app.datax.ecr.prepare.dataimport.FIDChangeHandler"/>
+						<property name="unit.provider" value="com.amarsoft.app.datacheck.ECRDataSourceProvider"/>
+						<property name="com.amarsoft.app.datacheck.ECRDataSourceProvider.dataSource" 
+							value="datasource:db:loan:select
+							BD.CustomerID as CUSTOMERID{#客户号},
+							BC.ManageOrgID as FINANCEID{#金融机构代码},
+							BD.SerialNo as GUARANTEEBILLNO{#保函号码},
+							BC.CreditAggreement as CREDITNO{#授信协议编号},
+							substr(BT.Attribute15,2,1) as GUARANTEETYPE{#保函种类},
+							case when (BD.FinishDate is null or BD.FinishDate = '') then '1' else '2' end as GUARANTEESTATUS{#保函状态}, 
+							BD.BusinessCurrency as CURRENCY{#币种},
+							BD.BusinessSum as GUARANTEESUM{#保函金额},
+							BD.PutoutDate as CREATEDATE{#保函开立日期},
+							BD.ActualMaturity as ENDDATE{#保函到期日},
+							round(BD.BailPercent,0) as DEPOSITSCALE{#保证金比例},
+							'1' as GUARANTYFLAG{#担保标志},
+							case when (BD.AdvanceFlag is null or BD.AdvanceFlag = '') then '2' else BD.AdvanceFlag end as FLOORFLAG{#垫款标志},
+							BD.Balance as BALANCE{#保函余额},
+							BD.UpdateDate as BALANCEOCCURDATE{#保函余额发生日期},
+							BD.ClassifyResult as CLASSIFY5{#五级分类}
+							from BUSINESS_DUEBILL BD, BUSINESS_CONTRACT BC,BUSINESS_TYPE BT,ENT_INFO EI                                                 
+							where BD.RelativeSerialNo2 = BC.SerialNo                                  
+							and BD.BusinessType = BT.TypeNO
+							and BD.CustomerID = EI.CustomerID
+							and BT.Attribute15 like '6%'
+							and {$TASK.CustomerCondition}"/>
+						<property name="com.amarsoft.app.datacheck.ECRDataSourceProvider.columnConvertors" 
+							value="{FinanceID,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='6501'}
+								{GuaranteeType,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='7581'}
+								{GuaranteeStatus,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='7583'}
+								{Currency,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='1501'}
+								{Classify4,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='7539'}
+								{Classify5,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='7541'}"
+						/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.FIDChangeHandler.table" value="BANK_GUARANTEEBILL" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.FIDChangeHandler.keyColumns" value="GUARANTEEBILLNO" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.FIDChangeHandler.startSql" value="delete from BANK_GUARANTEEBILL" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.FIDChangeHandler.updateColumns" 
+							value="INCREMENTFLAG,OCCURDATE,FINANCEID,OLDFINANCEID,GUARANTEETYPE,GUARANTEESTATUS,CURRENCY,
+							GUARANTEESUM,CREATEDATE,ENDDATE,DEPOSITSCALE,GUARANTYFLAG,FLOORFLAG,BALANCE,BALANCEOCCURDATE,CLASSIFY5" />
+					</extendProperties>
+				</executeUnit>
+				
+				<executeUnit name="AcceptanceBill" describe="导入承兑汇票基本信息表" executeClass="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit" allowManualExecute="true">
+					<executeClass>com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit</executeClass>
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:ecr_data:select * from ECR_ACCEPTANCE:etc/ecr_are.xml:,"/>
+						<property name="unit.handlers" value="com.amarsoft.app.datax.ecr.prepare.dataimport.FIDChangeHandler"/>
+						<property name="unit.provider" value="com.amarsoft.app.datacheck.ECRDataSourceProvider"/>
+						<property name="com.amarsoft.app.datacheck.ECRDataSourceProvider.dataSource" 
+							value="datasource:db:loan:select
+							BD.CustomerID as CUSTOMERID{#客户号},
+							BD.RelativeSerialNo2 as ACONTRACTNO{#承兑协议流水号},
+							BD.SerialNo  as ACCEPTNO{#汇票号码},
+							BC.ManageOrgID as FINANCEID{#金融机构代码},
+							BD.BusinessCurrency as CURRENCY{#币种},
+							BC.CreditAggreement as CREDITNO{#授信协议编号},
+							BD.BusinessSum  as ACCEPSUM{#汇票金额},
+							BD.PutoutDate as ACCEPDATE{#汇票承兑日},
+							BD.ActualMaturity as ACCEPENDDATE{#汇票到期日},
+							BD.FinishDate as ACCEPPAYDATE{#汇票付款日期},
+							round(BD.BailPercent,0) as ASSURESCALE{#保证金比例},
+							case when (BD.AdvanceFlag is null or BD.AdvanceFlag = '') then '2' else BD.AdvanceFlag end as FLOORFLAG{#垫款标志},
+							'1' as GUARANTYFLAG{#担保标志},
+							case when (BD.FinishDate is null or BD.FinishDate = '') then '1' else '2' end as DRAFTSTATUS{#汇票状态},
+							BD.ClassifyResult as CLASSIFY5{#五级分类}
+							from BUSINESS_DUEBILL BD, BUSINESS_CONTRACT BC,BUSINESS_TYPE BT,ENT_INFO EI                                                 
+							where BD.RelativeSerialNo2 = BC.SerialNo                                  
+							and BD.BusinessType = BT.TypeNO
+							and BD.CustomerID = EI.CustomerID
+							and BT.Attribute15 like '7%'
+							and {$TASK.CustomerCondition} "/>
+						<property name="com.amarsoft.app.datacheck.ECRDataSourceProvider.columnConvertors" 
+							value="{FinanceID,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='6501'}
+								{DraftStatus,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='7591'}
+								{Currency,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='1501'}
+								{Classify4,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='7539'}
+								{Classify5,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='7541'}"
+						/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.FIDChangeHandler.table" value="BANK_ACCEPTANCE" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.FIDChangeHandler.keyColumns" value="ACCEPTNO" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.FIDChangeHandler.startSql" value="delete from BANK_ACCEPTANCE" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.FIDChangeHandler.updateColumns" 
+							value="INCREMENTFLAG,OCCURDATE,FINANCEID,OLDFINANCEID,CURRENCY,ACCEPSUM,ACCEPDATE,ACCEPENDDATE,ACCEPPAYDATE,
+							ASSURESCALE,FLOORFLAG,GUARANTYFLAG,DRAFTSTATUS,CLASSIFY5" />
+					</extendProperties>
+				</executeUnit>
+				
+				<executeUnit name="CreditExtension" describe="导入公开授信基本信息表" executeClass="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit" allowManualExecute="true">
+					<executeClass>com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit</executeClass>
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:ecr_data:select * from ECR_CUSTOMERCREDIT:etc/ecr_are.xml:,"/>
+						<property name="unit.handlers" value="com.amarsoft.app.datax.ecr.prepare.dataimport.FIDChangeHandler"/>
+						<property name="unit.provider" value="com.amarsoft.app.datacheck.ECRDataSourceProvider"/>
+						<property name="com.amarsoft.app.datacheck.ECRDataSourceProvider.dataSource" 
+							value="datasource:db:loan:select
+							BC.CustomerID as CUSTOMERID{#客户号},                                
+							BC.SerialNo as CCONTRACTNO{#授信合同号},                                    
+							BC.ManageOrgID as FINANCEID{#金融机构代码},                                                         
+							BC.BusinessCurrency as CURRENCY{#币种},                           
+							BC.BusinessSum as CREDITLIMIT{#授信额度},                                
+							BC.PutoutDate as CREDITSTARTDATE{#授信生效起始日期},                             
+							BC.Maturity as CREDITENDDATE{#授信终止日期},                                
+							case when (BC.FinishDate is not null and BC.FinishDate != '' and BC.FinishDate &lt; BC.Maturity) then BC.FinishDate else '' end as CREDITLOGOUTDATE{#授信额度注销生效日期},                       
+							case when (BC.FinishDate is not null and BC.FinishDate != '' and BC.FinishDate &lt; BC.Maturity) then '10' else '' end as CREDITLOGOUTCAUSE{#授信额度注销原因}                      
+							from BUSINESS_CONTRACT BC,BUSINESS_TYPE BT,ENT_INFO EI                        
+							where BC.BusinessType = BT.TypeNO
+							and BC.CustomerID = EI.CustomerID
+							and BT.Attribute15 like '8%'
+							and {$TASK.CustomerCondition}"
+						/>
+						<property name="com.amarsoft.app.datacheck.ECRDataSourceProvider.columnConvertors" 
+							value="{FinanceID,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='6501'}
+								{Currency,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='1501'}"
+						/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.FIDChangeHandler.table" value="BANK_CUSTOMERCREDIT" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.FIDChangeHandler.keyColumns" value="CCONTRACTNO" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.FIDChangeHandler.startSql" value="delete from BANK_CUSTOMERCREDIT" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.FIDChangeHandler.updateColumns" 
+							value="INCREMENTFLAG,OCCURDATE,FINANCEID,OLDFINANCEID,CURRENCY,CREDITLIMIT,CREDITSTARTDATE,CREDITENDDATE,CREDITLOGOUTDATE" />
+					</extendProperties>
+				</executeUnit>
+				
+				<executeUnit name="AdvancePayment" describe="导入垫款信息表" executeClass="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:ecr_data:select * from ECR_FLOORFUND:etc/ecr_are.xml:,"/>
+						<property name="unit.handlers" value="com.amarsoft.app.datax.ecr.prepare.dataimport.FIDChangeHandler"/>
+						<property name="unit.provider" value="com.amarsoft.app.datacheck.ECRDataSourceProvider"/>
+						<property name="com.amarsoft.app.datacheck.ECRDataSourceProvider.dataSource" 
+							value="datasource:db:loan:select
+							BD.CustomerID as CUSTOMERID{#客户号},
+							BD.SerialNo as FLOORFUNDNO{#垫款流水号},
+							BC.ManageOrgID as FINANCEID{#金融机构代码},
+							substr(BT.Attribute15,2,1) as FLOORTYPE{#垫款种类},
+							BD.RelativeDuebillNo as BUSINESSNO{#原业务号},
+							BD.BusinessCurrency as CURRENCY{#币种},
+							BD.BusinessSum as FLOORSUM{#垫款金额},
+							BD.PutoutDate as FLOORDATE{#垫款日期},
+							BD.Balance as FLOORBALANCE{#垫款余额},
+							BD.UpdateDate as BALANCEOCCURDATE{#金额发生日期},
+							BD.ReturnType as RETURNMODE{#还款方式},
+							case when BD.BadBalance>0 then '40' when (BD.BadBalance=0 and BD.DullBalance>0) then '30' 
+							when ((BD.BadBalance+BD.DullBalance) =0 and BD.OverDueBalance>0) then '20 ' else '10' end as CLASSIFY4{#四级分类},
+							BD.ClassifyResult as CLASSIFY5{#五级分类}
+							from BUSINESS_DUEBILL BD,BUSINESS_CONTRACT BC,BUSINESS_TYPE BT,ENT_INFO EI
+							where BD.RelativeSerialNo2 = BC.SerialNo	
+							and BD.BusinessType = BT.TypeNO
+							and BD.CustomerID = EI.CustomerID
+							and BT.Attribute15 like '9%'
+							and {$TASK.CustomerCondition}"
+						/>
+						<property name="com.amarsoft.app.datacheck.ECRDataSourceProvider.columnConvertors" 
+							value="{FinanceID,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='6501'}
+								{FloorType,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='7525'}
+								{ReturnMode,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='7545'}
+								{Currency,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='1501'}
+								{Classify4,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='7539'}
+								{Classify5,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='7541'}"
+						/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.FIDChangeHandler.table" value="BANK_FLOORFUND" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.FIDChangeHandler.keyColumns" value="FLOORFUNDNO" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.FIDChangeHandler.startSql" value="delete from BANK_FLOORFUND" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.FIDChangeHandler.updateColumns" 
+							value="INCREMENTFLAG,OCCURDATE,FINANCEID,OLDFINANCEID,FLOORTYPE,BUSINESSNO,
+							CURRENCY,FLOORSUM,FLOORDATE,FLOORBALANCE,BALANCEOCCURDATE,RETURNMODE,CLASSIFY4,CLASSIFY5" />
+					</extendProperties>
+				</executeUnit>
+				
+				<executeUnit name="DebitInterest" describe="导入欠息信息表" executeClass="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:ecr_data:select * from ECR_INTERESTDUE:etc/ecr_are.xml:,"/>
+						<property name="unit.handlers" value="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler"/>
+						<property name="unit.provider" value="com.amarsoft.app.datacheck.ECRDataSourceProvider"/>
+						<property name="com.amarsoft.app.datacheck.ECRDataSourceProvider.dataSource" 
+							value="datasource:db:loan:select
+							BC.CustomerID as CustomerID{#客户号},
+							BC.ManageOrgID as FinanceID{#金融机构代码},
+							BusinessCurrency as Currency{#币种},
+							sum(BC.InterestBalance1) as InterestBalance{#欠息余额},
+							 '1' as InterestType{#欠息类型},
+							max(BC.UpdateDate) as ChangeDate{#欠息余额改变日期}
+							from BUSINESS_CONTRACT BC,ENT_INFO EI
+							where BC.CustomerID = EI.CustomerID
+							and {$TASK.CustomerCondition}
+							group by BC.CustomerID,BusinessCurrency,BC.ManageOrgID,BC.UpdateDate
+   						having (sum(InterestBalance1)>=0 ) 
+							union	
+							select
+							BC.CustomerID as CustomerID,
+							BC.ManageOrgID as FinanceID,
+							BusinessCurrency as Currency,
+							sum(BC.InterestBalance2) as InterestBalance,
+							 '2' as InterestType,
+							max(BC.UpdateDate) as ChangeDate
+							from BUSINESS_CONTRACT BC,ENT_INFO EI
+							where BC.CustomerID = EI.CustomerID
+							and {$TASK.CustomerCondition}
+							group by BC.CustomerID,BusinessCurrency,BC.ManageOrgID,BC.UpdateDate
+   						having (sum(InterestBalance2)>=0 ) "
+						/>	
+						<property name="com.amarsoft.app.datacheck.ECRDataSourceProvider.columnConvertors" 
+							value="{FinanceID,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='6501'}
+								{Currency,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='1501'}"
+						/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.table" value="BANK_INTERESTDUE" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.keyColumns" value="CustomerID,Currency,FinanceID,InterestType" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.startSql" value="delete from BANK_INTERESTDUE" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.updateColumns" 
+							value="INCREMENTFLAG,OCCURDATE,InterestBalance,CHANGEDATE" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.endSql" 
+							value="delete from ECR_INTERESTDUE where IncrementFlag='1' and InterestBalance=0"
+						/>
+					</extendProperties>
+				</executeUnit>
+			</executeUnits>	
+			<routeTable>
+				<route unit="FactoringInfo"					executeStatus="unexecute"  	  	nextUnit="FactoringInfo"/>
+				<route unit="FactoringInfo"					executeStatus="successful"  	  nextUnit="DiscountInfo"/>
+				<route unit="DiscountInfo"					executeStatus="successful"  	  nextUnit="LetterOfCredit"/>
+				<route unit="LetterOfCredit"				executeStatus="successful"  	  nextUnit="LetterOfGuarantee"/>
+				<route unit="LetterOfGuarantee"			executeStatus="successful"  	  nextUnit="AcceptanceBill"/>
+				<route unit="AcceptanceBill"			executeStatus="successful"  	  nextUnit="CreditExtension"/>
+				<route unit="CreditExtension"			executeStatus="successful"  	  nextUnit="AdvancePayment"/>
+				<route unit="AdvancePayment"			executeStatus="successful"  	  nextUnit="DebitInterest"/>
+			</routeTable>
+		</target>
+		
+		<target name="PostProcess" describe="后处理单元" enabled="true">
+			<executeUnits>
+				<executeUnit name="UpdateCustomerinfo1" describe="更新借款人客户信息" executeClass="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:db:ecr:select * from BANK_CUSTOMERINFO"/>
+						<property name="unit.handlers" value="com.amarsoft.are.dpx.recordset.UpdateDBHandler"/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider.dataSource" 
+							value="datasource:db:ecr:select
+							tc.loancardno as loancardno,
+							 'Ent01' as OrganizationType,
+							tc.OrganizationCode as OrganizationCode,
+							tc.ChinaName as ChinaName,
+							tc.financeid as financeid
+							from temp_customerinfo tc" 
+						/>
+						<property name="com.amarsoft.app.datacheck.ECRDataSourceProvider.columnConvertors" 
+							value="{FinanceID,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='6501'}"/>	
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.database" value="ecr" />		
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.table" value="BANK_CUSTOMERINFO" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.keyColumns" value="LoanCardNO" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.startSql" value="delete from BANK_CUSTOMERINFO" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.updateColumns" 
+							value="OrganizationCode,ChinaName" />
+					</extendProperties>
+				</executeUnit>
+				
+			<executeUnit name="UpdateCustomerinfo2" describe="更担保机构客户信息" executeClass="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:db:ecr:select * from BANK_CUSTOMERINFO"/>
+						<property name="unit.handlers" value="com.amarsoft.are.dpx.recordset.UpdateDBHandler"/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider.dataSource" 
+							value="datasource:db:loan:select
+							GC.loancardno as loancardno,
+							GC.certid as OrganizationCode,
+							'Ent01' as OrganizationType,
+							GC.GuarantorName as ChinaName,
+							GC.inputorgid as FinanceID
+							from GUARANTY_CONTRACT GC
+							where GC.LoanCardNo is not null
+							and GC.certtype like 'Ent%'
+							and length(GC.LoanCardNo) >=16
+							" />	
+						<property name="com.amarsoft.app.datacheck.ECRDataSourceProvider.columnConvertors" 
+							value="{FinanceID,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='6501'}"/>
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.database" value="ecr" />			
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.table" value="BANK_CUSTOMERINFO" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.keyColumns" value="LoanCardNO" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.updateDifferent" value="false" />
+					</extendProperties>
+				</executeUnit>
+				<executeUnit name="UpdateCustomerinfo3" describe="更新担保自然人客户信息" executeClass="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:db:ecr:select * from BANK_CUSTOMERINFO"/>
+						<property name="unit.handlers" value="com.amarsoft.are.dpx.recordset.UpdateDBHandler"/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider.dataSource" 
+							value="datasource:db:loan:select
+							GC.certtype as loancardno,
+							'Ind' as OrganizationType,
+							GC.certid as OrganizationCode,
+							GC.GuarantorName as ChinaName,
+							GC.inputorgid as FinanceID
+							from GUARANTY_CONTRACT GC
+							where  GC.certtype  not like 'Ent%'
+							and GC.certid is not null
+							" />	
+						<property name="com.amarsoft.app.datacheck.ECRDataSourceProvider.columnConvertors" 
+							value="{FinanceID,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='6501'}"/>
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.database" value="ecr" />			
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.table" value="BANK_CUSTOMERINFO1" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.keyColumns" value="OrganizationCode" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.updateDifferent" value="false" />
+					</extendProperties>
+				</executeUnit>
+				
+		<executeUnit name="SyncCustomerInfo" describe="更新贷款卡和客户名称" executeClass="com.amarsoft.app.datacheck.SyncCustomerInfo" allowManualExecute="true"/>
+			</executeUnits>	
+			<routeTable>
+				<route unit="UpdateCustomerinfo1"				  executeStatus="unexecute"  	  	nextUnit="UpdateCustomerinfo1"/>
+				<route unit="UpdateCustomerinfo1"					executeStatus="successful"  	  nextUnit="UpdateCustomerinfo2"/>
+				<route unit="UpdateCustomerinfo2"					executeStatus="successful"  	  nextUnit="UpdateCustomerinfo3"/>
+				<route unit="UpdateCustomerinfo3"					executeStatus="successful"  	  nextUnit="SyncCustomerInfo"/>
+			</routeTable>
+		</target>
+	</targets>
+</task>

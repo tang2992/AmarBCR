@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!-- 本任务定义报文文件生成和加密加压模块，把待上报池中正确的数据生成报文 -->
+
+<!-- 把征程上报池中的数据生成报文，使用的主要是ReportSession。ReportSession使用下面的属性
+		* messageSetType-报文文件类型
+		* retryMessage-是否重报
+		* messageConfigFile-报文的配置文件，可以选择是客户和业务两种
+		* database-生成报文的数据库,缺省时ecr
+		* exportFolder-生成报文的目录
+		* autoEncrypt-自动加密
+		* autoCompress-自动换压缩
+		* multiOrg-是否多法人报文处理会话	
+		* cryptConfigFile-加密配置文件
+		* cryptKeyFile-加密密钥文件
+-->
+<task name="BCRDataReport" describe="担保业务报文生成任务" parallelRun="false" traceOn="false">
+	<listeners>
+		<!--ECRTaskListener仅配置了前三类监听，建议使用unitEvent或targetEvent级的监听。
+			taskEvent级监听基本无效，routeEvent级监听未做任何操作，仅供扩展使用。-->
+		<listener listenerClass="com.amarsoft.app.datax.bcr.common.BCRTaskListener" enabled="true">
+			<extendProperties>
+				<property name="taskEventEnabled" value="false" />
+				<property name="targetEventEnabled" value="false" />
+				<property name="unitEventEnabled" value="true" />
+				<property name="routeEventEnabled" value="false" />
+				<property name="database" value="bcr"/>
+			</extendProperties>
+		</listener>
+	</listeners>
+	<targets>
+	
+		<target name="GuaranteeInfoMessage" describe="担保业务信息正常报文" enabled="true">
+			<executeUnits>
+				<!-- 机构信息报文生成-->
+				<executeUnit name="NormalGuaranteeMessage" describe="担保业务信息正常报文" executeClass="com.amarsoft.app.datax.bcr.session.VillageGuaranteeReportUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="com.amarsoft.app.datax.bcr.session.ReportSession.messageSetType" value="15" />
+						<property name="com.amarsoft.app.datax.bcr.session.ReportSession.retryMessage" value="false" />
+						<property name="com.amarsoft.app.datax.bcr.session.ReportSession.messageConfigFile" value="{$ARE.BCR_HOME}/etc/bcr_message_guaranteeinfo.xml" />
+						<property name="com.amarsoft.app.datax.bcr.session.ReportSession.exportFolder" value="{$ARE.BCR_HOME}/export/" />
+						<property name="com.amarsoft.app.datax.bcr.session.ReportSession.autoEcrypt" value="true" />
+						<property name="com.amarsoft.app.datax.bcr.session.ReportSession.autoCompress" value="true" />
+						<property name="com.amarsoft.app.datax.bcr.session.ReportSession.multiOrg" value="false" />
+						<property name="com.amarsoft.app.datax.bcr.session.ReportSession.cryptConfigFile" value="{$ARE.BCR_HOME}/etc/Crypt.xml" />
+						<property name="com.amarsoft.app.datax.bcr.session.ReportSession.cryptKeyFile" value="{$ARE.BCR_HOME}/etc/public.key" />		
+					</extendProperties>
+				</executeUnit>	
+			</executeUnits>
+			<routeTable>
+				<route unit="NormalGuaranteeMessage"		executeStatus="unexecute"		nextUnit="NormalGuaranteeMessage"/> 
+			</routeTable>
+		</target>
+		
+	</targets>
+</task>
+

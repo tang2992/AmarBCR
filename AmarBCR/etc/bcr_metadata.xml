@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="GB2312"?>
+<dataSource>
+  <name>bcr_data</name>
+  <label>担保公司征信中间表结构</label>
+  <describe />
+  <encoding>GB18030</encoding>
+  <product>
+    <name>bcr_data</name>
+    <version>0.1</version>
+    <provider>Amarsoft</provider>
+  </product>
+  <extendProperties>
+    <modifier name="modifier" value="Administrator" />
+    <creationDate name="creationDate" value="1170750853" />
+    <modificationDate name="modificationDate" value="1170750853" />
+    <creator name="creator" value="Administrator" />
+  </extendProperties>
+  <!-- 
+		担保公司征信metadata增加了3个字段扩展属性，用于对字符型数据做严格处理。这些属性在倒入征信数据的过程中会进行处理，可识别的属性包括：
+		1、filterControlChar="true|false"： 是否过滤非法字符，避免数据中出现回车换行等字符
+		2、isCertNo="true|false"：指定本字段是是身份标志字段，个人身份证号码均要求按照 GB11643-1999《公民身份号码》转换成18位(为true时，对于非15位长度只转换为全大写，15位长度会转换为18位)
+		3、pureDigital="true|false"：指明本字段是否是纯数字，如果是会进行部分转换工作，全角数字转化等
+		增加这些属性可以确保数据以正确的形式倒入，但不可避免的会增加性能负担，请根据情况处理。
+	 -->
+  <tables>
+  
+  	<table name="BCR_GUARANTEEINFO" label="担保基础信息表">
+      <extendProperties>
+        <property modifier="Administrator" />
+        <property creationDate="1374659450" />
+        <property modificationDate="1375326991" />
+        <property creator="dell" />
+      </extendProperties>
+      <column index="1" name="GBUSINESSNO" label="担保业务编号" describe="COLUMN_1" type="CHAR" format="" schemaName="" displaySize="60" precision="60" scale="0" caseSensitive="true" searchable="true" />
+      <column index="2" name="GCONTRACTNO" label="担保合同号码" type="CHAR" displaySize="60" precision="60" scale="0" format="" />
+      <column index="3" name="OCCURDATE" label="发生日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="4" name="FINANCEID" label="管理行代码(金融机构代码)" type="VARCHAR" displaySize="11" precision="11" scale="0" format="" />
+      <column index="5" name="OLDFINANCEID" label="原金融机构代码" type="VARCHAR" displaySize="66" precision="66" scale="0" format="" />      
+      <column index="6" name="INSUREDTYPE" label="被担保人类型" type="VARCHAR" displaySize="1" precision="1" scale="0" format="" />
+      <column index="7" name="INSUREDNAME" label="被担保人名称" type="VARCHAR" displaySize="80" precision="80" scale="0" format="" />
+      <column index="8" name="CERTTYPE" label="被担保人证件类型" type="VARCHAR" displaySize="1" precision="1" scale="0" format="" />
+      <column index="9" name="CERTID" label="被担保人证件号码" type="VARCHAR" displaySize="18" precision="18" scale="0" format="" />
+      <column index="10" name="GATHERDATE" label="数据报告日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />      
+      <column index="11" name="ATTRIBUTE1" label="预留字段" type="VARCHAR" displaySize="60" precision="60" scale="0" format="" />      
+      <column index="12" name="INCREMENTFLAG" label="增量标志" type="VARCHAR" displaySize="1" precision="1" scale="0" format="" />
+      <column index="13" name="MODFLAG" label="修改标志" type="VARCHAR" displaySize="1" precision="1" scale="0" format="" />
+      <column index="14" name="TRACENUMBER" label="跟踪编号" type="VARCHAR" displaySize="20" precision="20" scale="0" format="" />
+      <column index="15" name="RECORDFLAG" label="记录标志" type="VARCHAR" displaySize="20" precision="20" scale="0" format="" />
+      <column index="16" name="SESSIONID" label="报送期次" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="17" name="ERRORCODE" label="错误代码" type="VARCHAR" displaySize="80" precision="80" scale="0" format="" />
+    </table>
+    
+    <table name="BCR_GUARANTEECONT" label="担保合同信息信息表">
+      <extendProperties>
+        <property modifier="Administrator" />
+        <property creationDate="1374659450" />
+        <property modificationDate="1375326991" />
+        <property creator="dell" />
+      </extendProperties>
+      <column index="1" name="GBUSINESSNO" label="担保业务编号" describe="COLUMN_1" type="CHAR" format="" schemaName="" displaySize="60" precision="60" scale="0" caseSensitive="true" searchable="true" />
+      <column index="2" name="OCCURDATE" label="发生日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="3" name="BUSINESSTYPE" label="担保业务种类" type="VARCHAR" displaySize="2" precision="2" scale="0" format="" />
+      <column index="4" name="GUARANTYTYPE" label="担保方式" type="VARCHAR" displaySize="1" precision="1" scale="0" format="" />      
+      <column index="5" name="GUARANTYSUM" label="担保金额" type="INTEGER" displaySize="24" precision="24" scale="0" format="" />
+      <column index="6" name="GSTARTDATE" label="担保起始日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="7" name="GENDDATE" label="担保到期日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="8" name="DEPOSITSCALE" label="存出保证金比例" type="INTEGER" displaySize="3" precision="3" scale="0" format="" />
+      <column index="9" name="COUNTERTYPE" label="反担保方式" type="VARCHAR" displaySize="1" precision="1" scale="0" format="" />      
+      <column index="10" name="COMPENSATION" label="约定再担保补偿比例" type="INTEGER" displaySize="3" precision="0" scale="0" format="" />  
+      <column index="11" name="RATE" label="费率" type="VARCHAR" displaySize="6" precision="6" scale="0" format="" />      
+      <column index="12" name="ANNUALRATE" label="年化费率" type="VARCHAR" displaySize="6" precision="6" scale="0" format="" /> 
+      <column index="13" name="ATTRIBUTE1" label="预留字段" type="VARCHAR" displaySize="60" precision="60" scale="0" format="" />        
+      <column index="14" name="INCREMENTFLAG" label="增量标志" type="VARCHAR" displaySize="1" precision="1" scale="0" format="" />
+      <column index="15" name="MODFLAG" label="修改标志" type="VARCHAR" displaySize="1" precision="1" scale="0" format="" />
+      <column index="16" name="TRACENUMBER" label="跟踪编号" type="VARCHAR" displaySize="20" precision="20" scale="0" format="" />
+      <column index="17" name="RECORDFLAG" label="记录标志" type="VARCHAR" displaySize="20" precision="20" scale="0" format="" />
+      <column index="18" name="SESSIONID" label="报送期次" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="19" name="ERRORCODE" label="错误代码" type="VARCHAR" displaySize="80" precision="80" scale="0" format="" />
+    </table>
+    
+    <table name="BCR_INSUREDS" label="被担保人信息表">
+      <extendProperties>
+        <property modifier="Administrator" />
+        <property creationDate="1374659450" />
+        <property modificationDate="1375326991" />
+        <property creator="dell" />
+      </extendProperties>
+      <column index="1" name="GBUSINESSNO" label="担保业务编号" describe="COLUMN_1" type="CHAR" format="" schemaName="" displaySize="60" precision="60" scale="0" caseSensitive="true" searchable="true" />
+      <column index="2" name="OCCURDATE" label="发生日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="3" name="INSUREDTYPE" label="被担保人类型" type="VARCHAR" displaySize="1" precision="1" scale="0" format="" />
+      <column index="4" name="INSUREDNAME" label="被担保人名称" type="VARCHAR" displaySize="80" precision="80" scale="0" format="" />      
+      <column index="5" name="CERTTYPE" label="被担保人证件类型" type="VARCHAR" displaySize="1" precision="1" scale="0" format="" />
+      <column index="6" name="CERTID" label="被担保人证件号码" type="VARCHAR" displaySize="18" precision="18" scale="0" format="" />
+      <column index="7" name="INSUREDSTATE" label="状态位" type="VARCHAR" displaySize="1" precision="1" scale="0" format="" />
+      <column index="8" name="INCREMENTFLAG" label="增量标志" type="VARCHAR" displaySize="1" precision="1" scale="0" format="" />
+      <column index="9" name="MODFLAG" label="修改标志" type="VARCHAR" displaySize="1" precision="1" scale="0" format="" />
+      <column index="10" name="TRACENUMBER" label="跟踪编号" type="VARCHAR" displaySize="20" precision="20" scale="0" format="" />
+      <column index="11" name="RECORDFLAG" label="记录标志" type="VARCHAR" displaySize="20" precision="20" scale="0" format="" />
+      <column index="12" name="SESSIONID" label="报送期次" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="13" name="ERRORCODE" label="错误代码" type="VARCHAR" displaySize="80" precision="80" scale="0" format="" />
+    </table>
+    
+    <table name="BCR_CREDITORINFO" label="债权人及主合同信息表">
+      <extendProperties>
+        <property modifier="Administrator" />
+        <property creationDate="1374659450" />
+        <property modificationDate="1375326991" />
+        <property creator="dell" />
+      </extendProperties>
+      <column index="1" name="GBUSINESSNO" label="担保业务编号" describe="COLUMN_1" type="CHAR" format="" schemaName="" displaySize="60" precision="60" scale="0" caseSensitive="true" searchable="true" />
+      <column index="2" name="GCONTRACTNO" label="主合同编号" describe="COLUMN_2" type="CHAR" format="" schemaName="" displaySize="60" precision="60" scale="0" caseSensitive="true" searchable="true" />
+      <column index="3" name="OCCURDATE" label="发生日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="4" name="CREDITORTYPE" label="债权人类型" type="VARCHAR" displaySize="1" precision="1" scale="0" format="" />
+      <column index="5" name="CREDITORNAME" label="债权人名称" type="VARCHAR" displaySize="60" precision="60" scale="0" format="" />
+      <column index="6" name="CERTTYPE" label="债权人证件类型" type="VARCHAR" displaySize="1" precision="1" scale="0" format="" />
+      <column index="7" name="CERTID" label="债权人证件号码" type="VARCHAR" displaySize="18" precision="18" scale="0" format="" />
+      <column index="8" name="WAY" label="投向" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+      <column index="9" name="CONTRACTFLAG" label="状态位" type="VARCHAR" displaySize="1" precision="1" scale="0" format="" />      
+      <column index="10" name="INCREMENTFLAG" label="增量标志" type="VARCHAR" displaySize="1" precision="1" scale="0" format="" />
+      <column index="11" name="MODFLAG" label="修改标志" type="VARCHAR" displaySize="1" precision="1" scale="0" format="" />
+      <column index="12" name="TRACENUMBER" label="跟踪编号" type="VARCHAR" displaySize="20" precision="20" scale="0" format="" />
+      <column index="13" name="RECORDFLAG" label="记录标志" type="VARCHAR" displaySize="20" precision="20" scale="0" format="" />
+      <column index="14" name="SESSIONID" label="报送期次" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="15" name="ERRORCODE" label="错误代码" type="VARCHAR" displaySize="80" precision="80" scale="0" format="" />
+    </table>
+    
+    <table name="BCR_COUNTERGUARANTOR" label="反担保人信息表">
+      <extendProperties>
+        <property modifier="Administrator" />
+        <property creationDate="1374659450" />
+        <property modificationDate="1375326991" />
+        <property creator="dell" />
+      </extendProperties>
+      <column index="1" name="GBUSINESSNO" label="担保业务编号" describe="COLUMN_1" type="CHAR" format="" schemaName="" displaySize="60" precision="60" scale="0" caseSensitive="true" searchable="true" />
+      <column index="2" name="OCCURDATE" label="发生日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="3" name="COUNTERGTYPE" label="反担保人类型" type="VARCHAR" displaySize="1" precision="1" scale="0" format="" />  
+      <column index="4" name="COUNTERGNAME" label="反担保人名称" type="VARCHAR" displaySize="80" precision="80" scale="0" format="" />
+      <column index="5" name="CERTTYPE" label="反担保人证件类型" type="VARCHAR" displaySize="1" precision="1" scale="0" format="" />
+      <column index="6" name="CERTID" label="反担保人证件号码" type="VARCHAR" displaySize="18" precision="18" scale="0" format="" />
+      <column index="7" name="COUNTERGSUM" label="反担保责任金额" type="INTEGER" displaySize="24" precision="24" scale="0" format="" />
+      <column index="8" name="COUNTERGFLAG" label="状态位" type="VARCHAR" displaySize="1" precision="1" scale="0" format="" />      
+      <column index="9" name="INCREMENTFLAG" label="增量标志" type="VARCHAR" displaySize="1" precision="1" scale="0" format="" />
+      <column index="10" name="MODFLAG" label="修改标志" type="VARCHAR" displaySize="1" precision="1" scale="0" format="" />
+      <column index="11" name="TRACENUMBER" label="跟踪编号" type="VARCHAR" displaySize="20" precision="20" scale="0" format="" />
+      <column index="12" name="RECORDFLAG" label="记录标志" type="VARCHAR" displaySize="20" precision="20" scale="0" format="" />
+      <column index="13" name="SESSIONID" label="报送期次" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="14" name="ERRORCODE" label="错误代码" type="VARCHAR" displaySize="80" precision="80" scale="0" format="" />
+    </table>
+    
+    <table name="BCR_GUARANTEEDUTY" label="实际在保（代偿）责任信息表">
+      <extendProperties>
+        <property modifier="Administrator" />
+        <property creationDate="1374659450" />
+        <property modificationDate="1375326991" />
+        <property creator="dell" />
+      </extendProperties>
+      <column index="1" name="GBUSINESSNO" label="担保业务编号" describe="COLUMN_1" type="CHAR" format="" schemaName="" displaySize="60" precision="60" scale="0" caseSensitive="true" searchable="true" />
+      <column index="2" name="OCCURDATE" label="发生日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="3" name="GCONTRACTFLAG" label="担保合同状态" type="VARCHAR" displaySize="1" precision="1" scale="0" format="" />  
+      <column index="4" name="GCONTRACTENDDATE" label="担保责任解除日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="5" name="GCONTRACTBALANCE" label="在保余额" type="INTEGER" displaySize="24" precision="24" scale="0" format="" />
+      <column index="6" name="BALANCECHANGEDATE" label="余额变化日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" /> 
+      <column index="7" name="INCREMENTFLAG" label="增量标志" type="VARCHAR" displaySize="1" precision="1" scale="0" format="" />
+      <column index="8" name="MODFLAG" label="修改标志" type="VARCHAR" displaySize="1" precision="1" scale="0" format="" />
+      <column index="9" name="TRACENUMBER" label="跟踪编号" type="VARCHAR" displaySize="20" precision="20" scale="0" format="" />
+      <column index="10" name="RECORDFLAG" label="记录标志" type="VARCHAR" displaySize="20" precision="20" scale="0" format="" />
+      <column index="11" name="SESSIONID" label="报送期次" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="12" name="ERRORCODE" label="错误代码" type="VARCHAR" displaySize="80" precision="80" scale="0" format="" />
+    </table>
+    
+    <table name="BCR_COMPENSATORYINFO" label="代偿概况信息表">
+      <extendProperties>
+        <property modifier="Administrator" />
+        <property creationDate="1374659450" />
+        <property modificationDate="1375326991" />
+        <property creator="dell" />
+      </extendProperties>
+      <column index="1" name="GBUSINESSNO" label="担保业务编号" describe="COLUMN_2" type="CHAR" format="" schemaName="" displaySize="60" precision="60" scale="0" caseSensitive="true" searchable="true" />
+      <column index="2" name="OCCURDATE" label="发生日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="3" name="BILLINGDATE" label="记账日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="4" name="RecoveryFlag" label="继续追偿标志" type="VARCHAR" displaySize="1" precision="1" scale="0" format="" />      
+      <column index="5" name="LASTCDATE" label="最近一次代偿日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="6" name="CSum" label="累计代偿金额" type="INTEGER" displaySize="24" precision="24" scale="0" format="" />
+      <column index="7" name="OwnCSum" label="本机构承担代偿金额" type="INTEGER" displaySize="24" precision="24" scale="0" format="" />
+      <column index="8" name="LASTRECOVERYDATE" label="最近一次追偿日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="9" name="CBalance" label="代偿余额" type="INTEGER" displaySize="24" precision="24" scale="6" format="" />
+      <column index="10" name="OwnCBalance" label="本机构承担代偿余额" type="INTEGER" displaySize="24" precision="24" scale="0" format="" />
+      <column index="11" name="RECOVERYSUM" label="累计追偿金额" type="INTEGER" displaySize="24" precision="24" scale="0" format="" />
+      <column index="12" name="LOSSSUM" label="累计损失金额" type="INTEGER" displaySize="24" precision="24" scale="0" format="" />
+      <column index="13" name="ATTRIBUTE1" label="预留字段" type="VARCHAR" displaySize="60" precision="60" scale="0" format="" />  
+      <column index="14" name="INCREMENTFLAG" label="增量标志" type="VARCHAR" displaySize="1" precision="1" scale="0" format="" />
+      <column index="15" name="MODFLAG" label="修改标志" type="VARCHAR" displaySize="1" precision="1" scale="0" format="" />
+      <column index="16" name="TRACENUMBER" label="跟踪编号" type="VARCHAR" displaySize="20" precision="20" scale="0" format="" />
+      <column index="17" name="RECORDFLAG" label="记录标志" type="VARCHAR" displaySize="20" precision="20" scale="0" format="" />
+      <column index="18" name="SESSIONID" label="报送期次" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="19" name="ERRORCODE" label="错误代码" type="VARCHAR" displaySize="80" precision="80" scale="0" format="" />
+    </table>
+    
+    <table name="BCR_COMPENSATORYDETAIL" label="代偿明细信息表">
+      <extendProperties>
+        <property modifier="Administrator" />
+        <property creationDate="1374659450" />
+        <property modificationDate="1375326991" />
+        <property creator="dell" />
+      </extendProperties>
+      <column index="1" name="GBUSINESSNO" label="担保业务编号" describe="COLUMN_2" type="CHAR" format="" schemaName="" displaySize="60" precision="60" scale="0" caseSensitive="true" searchable="true" />
+      <column index="2" name="OCCURDATE" label="发生日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="3" name="COMPENSATORDATE" label="代偿日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />  
+      <column index="4" name="COMPENSATORYSUM" label="代偿金额" type="INTEGER" displaySize="24" precision="24" scale="0" format="" />
+      <column index="5" name="INCREMENTFLAG" label="增量标志" type="VARCHAR" displaySize="1" precision="1" scale="0" format="" />
+      <column index="6" name="MODFLAG" label="修改标志" type="VARCHAR" displaySize="1" precision="1" scale="0" format="" />
+      <column index="7" name="TRACENUMBER" label="跟踪编号" type="VARCHAR" displaySize="20" precision="20" scale="0" format="" />
+      <column index="8" name="RECORDFLAG" label="记录标志" type="VARCHAR" displaySize="20" precision="20" scale="0" format="" />
+      <column index="9" name="SESSIONID" label="报送期次" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="10" name="ERRORCODE" label="错误代码" type="VARCHAR" displaySize="80" precision="80" scale="0" format="" />
+    </table>
+    
+    <table name="BCR_RECOVERYDETAIL" label="追偿明细信息表">
+      <extendProperties>
+        <property modifier="Administrator" />
+        <property creationDate="1374659450" />
+        <property modificationDate="1375326991" />
+        <property creator="dell" />
+      </extendProperties>
+      <column index="1" name="GBUSINESSNO" label="担保业务编号" describe="COLUMN_2" type="CHAR" format="" schemaName="" displaySize="60" precision="60" scale="0" caseSensitive="true" searchable="true" />
+      <column index="2" name="OCCURDATE" label="发生日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="3" name="RECOVERYDATE" label="追偿日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />  
+      <column index="4" name="RECOVERYSUM" label="追偿金额" type="INTEGER" displaySize="24" precision="24" scale="0" format="" />
+      <column index="5" name="INCREMENTFLAG" label="增量标志" type="VARCHAR" displaySize="1" precision="1" scale="0" format="" />
+      <column index="6" name="MODFLAG" label="修改标志" type="VARCHAR" displaySize="1" precision="1" scale="0" format="" />
+      <column index="7" name="TRACENUMBER" label="跟踪编号" type="VARCHAR" displaySize="20" precision="20" scale="0" format="" />
+      <column index="8" name="RECORDFLAG" label="记录标志" type="VARCHAR" displaySize="20" precision="20" scale="0" format="" />
+      <column index="9" name="SESSIONID" label="报送期次" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="10" name="ERRORCODE" label="错误代码" type="VARCHAR" displaySize="80" precision="80" scale="0" format="" />
+    </table>
+    
+    <table name="BCR_PREMIUMINFO" label="保费缴纳概况信息表">
+      <extendProperties>
+        <property modifier="Administrator" />
+        <property creationDate="1374659450" />
+        <property modificationDate="1375326991" />
+        <property creator="dell" />
+      </extendProperties>
+      <column index="1" name="GBUSINESSNO" label="担保业务编号" describe="COLUMN_2" type="CHAR" format="" schemaName="" displaySize="60" precision="60" scale="0" caseSensitive="true" searchable="true" />
+      <column index="2" name="OCCURDATE" label="发生日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="3" name="PAYTYPE" label="缴费类别" type="VARCHAR" displaySize="1" precision="1" scale="0" format="" />
+      <column index="4" name="BILLINGDATE" label="记账日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />      
+      <column index="5" name="PREMIUMSUM" label="金额" type="INTEGER" displaySize="24" precision="24" scale="0" format="" />
+      <column index="6" name="PREMIUMMODE" label="缴纳方式" type="VARCHAR" displaySize="1" precision="1" scale="0" format="" />
+      <column index="7" name="PREMIUMFREQUENCY" label="缴纳频率" type="VARCHAR" displaySize="2" precision="2" scale="0" format="" />
+      <column index="8" name="CHARGINGSTARTDATE" label="计费起始日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="9" name="PREMIUMSTATE" label="保费缴纳状态" type="VARCHAR" displaySize="1" precision="1" scale="0" format="" />
+      <column index="10" name="CHARGINGENDDATE" label="缴纳结束日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="11" name="PremiumBalance" label="余额" type="INTEGER" displaySize="24" precision="24" scale="0" format="" />
+      <column index="12" name="UNPAIDSUM" label="累计欠缴金额" type="INTEGER" displaySize="24" precision="24" scale="0" format="" />
+      <column index="13" name="ATTRIBUTE1" label="预留字段" type="VARCHAR" displaySize="60" precision="60" scale="0" format="" />  
+      <column index="14" name="INCREMENTFLAG" label="增量标志" type="VARCHAR" displaySize="1" precision="1" scale="0" format="" />
+      <column index="15" name="MODFLAG" label="修改标志" type="VARCHAR" displaySize="1" precision="1" scale="0" format="" />
+      <column index="16" name="TRACENUMBER" label="跟踪编号" type="VARCHAR" displaySize="20" precision="20" scale="0" format="" />
+      <column index="17" name="RECORDFLAG" label="记录标志" type="VARCHAR" displaySize="20" precision="20" scale="0" format="" />
+      <column index="18" name="SESSIONID" label="报送期次" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="19" name="ERRORCODE" label="错误代码" type="VARCHAR" displaySize="80" precision="80" scale="0" format="" />
+    </table>
+    
+    <table name="BCR_PREMIUMDETAIL" label="保费缴纳明细信息表">
+      <extendProperties>
+        <property modifier="Administrator" />
+        <property creationDate="1374659450" />
+        <property modificationDate="1375326991" />
+        <property creator="dell" />
+      </extendProperties>
+      <column index="1" name="GBUSINESSNO" label="担保业务编号" describe="COLUMN_2" type="CHAR" format="" schemaName="" displaySize="60" precision="60" scale="0" caseSensitive="true" searchable="true" />
+      <column index="2" name="OCCURDATE" label="发生日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="3" name="PAYABLEDATE" label="应缴日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="4" name="PAYABLESUM" label="应缴金额" type="INTEGER" displaySize="24" precision="24" scale="0" format="" />    
+      <column index="5" name="PAIDDATE" label="实缴日期" type="varchar" displaySize="10" precision="10" scale="0" format="" />
+      <column index="6" name="UNPAIDSUM" label="欠缴金额" type="INTEGER" displaySize="24" precision="24" scale="0" format="" />
+      <column index="7" name="PERIODPREMIUMSTATE" label="本期保费缴纳状态" type="VARCHAR" displaySize="2" precision="2" scale="0" format="" />
+      <column index="8" name="ATTRIBUTE1" label="预留字段" type="VARCHAR" displaySize="60" precision="60" scale="0" format="" />  
+      <column index="9" name="INCREMENTFLAG" label="增量标志" type="VARCHAR" displaySize="1" precision="1" scale="0" format="" />
+      <column index="10" name="MODFLAG" label="修改标志" type="VARCHAR" displaySize="1" precision="1" scale="0" format="" />
+      <column index="11" name="TRACENUMBER" label="跟踪编号" type="VARCHAR" displaySize="20" precision="20" scale="0" format="" />
+      <column index="12" name="RECORDFLAG" label="记录标志" type="VARCHAR" displaySize="20" precision="20" scale="0" format="" />
+      <column index="13" name="SESSIONID" label="报送期次" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="14" name="ERRORCODE" label="错误代码" type="VARCHAR" displaySize="80" precision="80" scale="0" format="" />
+    </table>
+  </tables>
+</dataSource>
+

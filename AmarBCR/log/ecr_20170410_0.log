@@ -1,0 +1,409 @@
+2017-04-10 05:00:01.469 CST com.amarsoft.are.ARE com.amarsoft.app.datax.ecr.AmarECR.main() [INFO] 自动计算后businessOccurDate：2017/04/09
+2017-04-10 05:00:01.518 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.taskStart().233 [INFO] 进入 Task=BCRDataInit[担保业务信息抽取任务]
+2017-04-10 05:00:01.533 CST com.amarsoft.are.ARE com.amarsoft.are.sql.PooledConnectionFactory.addDataSource().136 [INFO] org.apache.commons.dbcp.datasources.SharedPoolDataSource@5c73a7ab
+2017-04-10 05:00:01.534 CST com.amarsoft.are.ARE com.amarsoft.are.sql.PooledConnectionFactory.addDataSource().136 [INFO] org.apache.commons.dbcp.datasources.SharedPoolDataSource@21f8c6df
+2017-04-10 05:00:01.804 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.listenerDBInit().73 [INFO] target 开始启动
+2017-04-10 05:00:01.804 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] BCRDataInit[担保业务信息抽取任务] start! Task user: root(root)
+2017-04-10 05:00:01.804 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] GCI[BCR标准批量任务处理] start! Task user: root(root)
+2017-04-10 05:00:01.805 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.targetStart().262 [INFO] 进入 Target=GCI[BCR标准批量任务处理]
+2017-04-10 05:00:01.805 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] ImpGuaranteeInfo[导入担保基础信息临时表] start! Task user: root(root)
+2017-04-10 05:00:01.805 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitStart().288 [INFO] 进入 Unit=ImpGuaranteeInfo[导入担保基础信息临时表]
+2017-04-10 05:00:01.821 CST com.amarsoft.are.ARE com.amarsoft.task.units.dpx.PRHUnit.execute().254 [INFO] 导入担保基础信息临时表开始...
+2017-04-10 05:00:06.134 CST com.amarsoft.are.ARE com.amarsoft.task.units.dpx.PRHUnit.execute().364 [INFO] 导入担保基础信息临时表完成!
+2017-04-10 05:00:06.136 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.run().111 [INFO] ExecuteUnit[ImpGuaranteeInfo]OK[单元名称[ImpGuaranteeInfo]单元执行状态[1]单元执行时间[4.315]秒开始时间[2017/04/10 05:00:01:820]结束时间[2017/04/10 05:00:06:135]]
+2017-04-10 05:00:06.151 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitExit().301 [INFO] 退出 Unit=ImpGuaranteeInfo[导入担保基础信息临时表]
+2017-04-10 05:00:06.172 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.runAfter().228 [INFO] isInsert:true,inputDate:2017/04/09,serialNO:1,TaskCode:BCRDataInit,startTime:2017/04/10 05:00:01,endTime:2017/04/10 05:00:06,unitCode:ImpGuaranteeInfo,unitDisc:导入担保基础信息临时表,timeDis:0:00:05
+2017-04-10 05:00:06.173 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] ImpGuaranteeCont[导入担保合同信息信息临时表] start! Task user: root(root)
+2017-04-10 05:00:06.173 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitStart().288 [INFO] 进入 Unit=ImpGuaranteeCont[导入担保合同信息信息临时表]
+2017-04-10 05:00:06.176 CST com.amarsoft.are.ARE com.amarsoft.task.units.dpx.PRHUnit.execute().254 [INFO] 导入担保合同信息信息临时表开始...
+2017-04-10 05:03:39.988 CST com.amarsoft.are.ARE com.amarsoft.task.units.dpx.PRHUnit.execute().364 [INFO] 导入担保合同信息信息临时表完成!
+2017-04-10 05:03:39.988 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.run().111 [INFO] ExecuteUnit[ImpGuaranteeCont]OK[单元名称[ImpGuaranteeCont]单元执行状态[1]单元执行时间[213.813]秒开始时间[2017/04/10 05:00:06:175]结束时间[2017/04/10 05:03:39:988]]
+2017-04-10 05:03:39.988 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitExit().301 [INFO] 退出 Unit=ImpGuaranteeCont[导入担保合同信息信息临时表]
+2017-04-10 05:03:39.990 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.runAfter().228 [INFO] isInsert:true,inputDate:2017/04/09,serialNO:2,TaskCode:BCRDataInit,startTime:2017/04/10 05:00:06,endTime:2017/04/10 05:03:39,unitCode:ImpGuaranteeCont,unitDisc:导入担保合同信息信息临时表,timeDis:0:03:33
+2017-04-10 05:03:39.990 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] ImpInsureds[导入被担保人信息临时表] start! Task user: root(root)
+2017-04-10 05:03:39.991 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitStart().288 [INFO] 进入 Unit=ImpInsureds[导入被担保人信息临时表]
+2017-04-10 05:03:39.992 CST com.amarsoft.are.ARE com.amarsoft.task.units.dpx.PRHUnit.execute().254 [INFO] 导入被担保人信息临时表开始...
+2017-04-10 05:03:43.616 CST com.amarsoft.are.ARE com.amarsoft.task.units.dpx.PRHUnit.execute().364 [INFO] 导入被担保人信息临时表完成!
+2017-04-10 05:03:43.617 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.run().111 [INFO] ExecuteUnit[ImpInsureds]OK[单元名称[ImpInsureds]单元执行状态[1]单元执行时间[3.624]秒开始时间[2017/04/10 05:03:39:992]结束时间[2017/04/10 05:03:43:616]]
+2017-04-10 05:03:43.617 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitExit().301 [INFO] 退出 Unit=ImpInsureds[导入被担保人信息临时表]
+2017-04-10 05:03:43.620 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.runAfter().228 [INFO] isInsert:true,inputDate:2017/04/09,serialNO:3,TaskCode:BCRDataInit,startTime:2017/04/10 05:03:39,endTime:2017/04/10 05:03:43,unitCode:ImpInsureds,unitDisc:导入被担保人信息临时表,timeDis:0:00:04
+2017-04-10 05:03:43.621 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] ImpCreditorInfo[导入债权人及主合同信息临时表] start! Task user: root(root)
+2017-04-10 05:03:43.621 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitStart().288 [INFO] 进入 Unit=ImpCreditorInfo[导入债权人及主合同信息临时表]
+2017-04-10 05:03:43.623 CST com.amarsoft.are.ARE com.amarsoft.task.units.dpx.PRHUnit.execute().254 [INFO] 导入债权人及主合同信息临时表开始...
+2017-04-10 05:05:37.451 CST com.amarsoft.are.ARE com.amarsoft.task.units.dpx.PRHUnit.execute().364 [INFO] 导入债权人及主合同信息临时表完成!
+2017-04-10 05:05:37.451 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.run().111 [INFO] ExecuteUnit[ImpCreditorInfo]OK[单元名称[ImpCreditorInfo]单元执行状态[1]单元执行时间[113.828]秒开始时间[2017/04/10 05:03:43:623]结束时间[2017/04/10 05:05:37:451]]
+2017-04-10 05:05:37.452 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitExit().301 [INFO] 退出 Unit=ImpCreditorInfo[导入债权人及主合同信息临时表]
+2017-04-10 05:05:37.456 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.runAfter().228 [INFO] isInsert:true,inputDate:2017/04/09,serialNO:4,TaskCode:BCRDataInit,startTime:2017/04/10 05:03:43,endTime:2017/04/10 05:05:37,unitCode:ImpCreditorInfo,unitDisc:导入债权人及主合同信息临时表,timeDis:0:01:54
+2017-04-10 05:05:37.456 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] ImpCounterGuarantor[导入反担保人信息临时表] start! Task user: root(root)
+2017-04-10 05:05:37.457 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitStart().288 [INFO] 进入 Unit=ImpCounterGuarantor[导入反担保人信息临时表]
+2017-04-10 05:05:37.459 CST com.amarsoft.are.ARE com.amarsoft.task.units.dpx.PRHUnit.execute().254 [INFO] 导入反担保人信息临时表开始...
+2017-04-10 05:06:45.253 CST com.amarsoft.are.ARE com.amarsoft.task.units.dpx.PRHUnit.execute().364 [INFO] 导入反担保人信息临时表完成!
+2017-04-10 05:06:45.254 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.run().111 [INFO] ExecuteUnit[ImpCounterGuarantor]OK[单元名称[ImpCounterGuarantor]单元执行状态[1]单元执行时间[67.795]秒开始时间[2017/04/10 05:05:37:459]结束时间[2017/04/10 05:06:45:254]]
+2017-04-10 05:06:45.254 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitExit().301 [INFO] 退出 Unit=ImpCounterGuarantor[导入反担保人信息临时表]
+2017-04-10 05:06:45.262 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.runAfter().228 [INFO] isInsert:true,inputDate:2017/04/09,serialNO:5,TaskCode:BCRDataInit,startTime:2017/04/10 05:05:37,endTime:2017/04/10 05:06:45,unitCode:ImpCounterGuarantor,unitDisc:导入反担保人信息临时表,timeDis:0:01:08
+2017-04-10 05:06:45.262 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] ImpGuaranteeDuty[导入实际在保（代偿）责任信息临时表] start! Task user: root(root)
+2017-04-10 05:06:45.263 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitStart().288 [INFO] 进入 Unit=ImpGuaranteeDuty[导入实际在保（代偿）责任信息临时表]
+2017-04-10 05:06:45.264 CST com.amarsoft.are.ARE com.amarsoft.task.units.dpx.PRHUnit.execute().254 [INFO] 导入实际在保（代偿）责任信息临时表开始...
+2017-04-10 05:08:43.087 CST com.amarsoft.are.ARE com.amarsoft.task.units.dpx.PRHUnit.execute().364 [INFO] 导入实际在保（代偿）责任信息临时表完成!
+2017-04-10 05:08:43.087 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.run().111 [INFO] ExecuteUnit[ImpGuaranteeDuty]OK[单元名称[ImpGuaranteeDuty]单元执行状态[1]单元执行时间[117.823]秒开始时间[2017/04/10 05:06:45:264]结束时间[2017/04/10 05:08:43:087]]
+2017-04-10 05:08:43.088 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitExit().301 [INFO] 退出 Unit=ImpGuaranteeDuty[导入实际在保（代偿）责任信息临时表]
+2017-04-10 05:08:43.125 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.runAfter().228 [INFO] isInsert:true,inputDate:2017/04/09,serialNO:6,TaskCode:BCRDataInit,startTime:2017/04/10 05:06:45,endTime:2017/04/10 05:08:43,unitCode:ImpGuaranteeDuty,unitDisc:导入实际在保（代偿）责任信息临时表,timeDis:0:01:58
+2017-04-10 05:08:43.125 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] ImpCompensatoryInfo[导入代偿概况信息临时表] start! Task user: root(root)
+2017-04-10 05:08:43.126 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitStart().288 [INFO] 进入 Unit=ImpCompensatoryInfo[导入代偿概况信息临时表]
+2017-04-10 05:08:43.128 CST com.amarsoft.are.ARE com.amarsoft.task.units.dpx.PRHUnit.execute().254 [INFO] 导入代偿概况信息临时表开始...
+2017-04-10 05:09:08.589 CST com.amarsoft.are.ARE com.amarsoft.task.units.dpx.PRHUnit.execute().364 [INFO] 导入代偿概况信息临时表完成!
+2017-04-10 05:09:08.590 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.run().111 [INFO] ExecuteUnit[ImpCompensatoryInfo]OK[单元名称[ImpCompensatoryInfo]单元执行状态[1]单元执行时间[25.462]秒开始时间[2017/04/10 05:08:43:127]结束时间[2017/04/10 05:09:08:589]]
+2017-04-10 05:09:08.590 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitExit().301 [INFO] 退出 Unit=ImpCompensatoryInfo[导入代偿概况信息临时表]
+2017-04-10 05:09:08.595 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.runAfter().228 [INFO] isInsert:true,inputDate:2017/04/09,serialNO:7,TaskCode:BCRDataInit,startTime:2017/04/10 05:08:43,endTime:2017/04/10 05:09:08,unitCode:ImpCompensatoryInfo,unitDisc:导入代偿概况信息临时表,timeDis:0:00:25
+2017-04-10 05:09:08.595 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] ImpCompensatoryDetail[导入代偿明细信息临时表] start! Task user: root(root)
+2017-04-10 05:09:08.595 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitStart().288 [INFO] 进入 Unit=ImpCompensatoryDetail[导入代偿明细信息临时表]
+2017-04-10 05:09:08.597 CST com.amarsoft.are.ARE com.amarsoft.task.units.dpx.PRHUnit.execute().254 [INFO] 导入代偿明细信息临时表开始...
+2017-04-10 05:09:35.467 CST com.amarsoft.are.ARE com.amarsoft.task.units.dpx.PRHUnit.execute().364 [INFO] 导入代偿明细信息临时表完成!
+2017-04-10 05:09:35.467 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.run().111 [INFO] ExecuteUnit[ImpCompensatoryDetail]OK[单元名称[ImpCompensatoryDetail]单元执行状态[1]单元执行时间[26.87]秒开始时间[2017/04/10 05:09:08:597]结束时间[2017/04/10 05:09:35:467]]
+2017-04-10 05:09:35.467 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitExit().301 [INFO] 退出 Unit=ImpCompensatoryDetail[导入代偿明细信息临时表]
+2017-04-10 05:09:35.469 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.runAfter().228 [INFO] isInsert:true,inputDate:2017/04/09,serialNO:8,TaskCode:BCRDataInit,startTime:2017/04/10 05:09:08,endTime:2017/04/10 05:09:35,unitCode:ImpCompensatoryDetail,unitDisc:导入代偿明细信息临时表,timeDis:0:00:27
+2017-04-10 05:09:35.470 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.targetExit().275 [INFO] 退出 Target=GCI[BCR标准批量任务处理]
+2017-04-10 05:09:35.470 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.taskExit().247 [INFO] 退出 Task=BCRDataInit[担保业务信息抽取任务]
+2017-04-10 05:09:35.470 CST com.amarsoft.are.ARE com.amarsoft.task.TaskRunner.runCli().135 [INFO] 任务运行完成！
+2017-04-10 05:09:35.814 CST com.amarsoft.are.ARE com.amarsoft.app.datax.ecr.AmarECR.main() [INFO] 自动计算后businessOccurDate：2017/04/09
+2017-04-10 05:09:35.846 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.taskStart().233 [INFO] 进入 Task=BCRDataPrepare[原始数据抽取]
+2017-04-10 05:09:35.861 CST com.amarsoft.are.ARE com.amarsoft.are.sql.PooledConnectionFactory.addDataSource().136 [INFO] org.apache.commons.dbcp.datasources.SharedPoolDataSource@2d04faf8
+2017-04-10 05:09:35.862 CST com.amarsoft.are.ARE com.amarsoft.are.sql.PooledConnectionFactory.addDataSource().136 [INFO] org.apache.commons.dbcp.datasources.SharedPoolDataSource@53c86be5
+2017-04-10 05:09:36.162 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.listenerDBInit().73 [INFO] target 开始启动
+2017-04-10 05:09:36.163 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] BCRDataPrepare[原始数据抽取] start! Task user: root(root)
+2017-04-10 05:09:36.163 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] GuaranteeBusinessImport[融资性担保业务抽取] start! Task user: root(root)
+2017-04-10 05:09:36.163 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.targetStart().262 [INFO] 进入 Target=GuaranteeBusinessImport[融资性担保业务抽取]
+2017-04-10 05:09:36.164 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] GuaranteeInfo[导入担保基础信息表] start! Task user: root(root)
+2017-04-10 05:09:36.164 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitStart().288 [INFO] 进入 Unit=GuaranteeInfo[导入担保基础信息表]
+2017-04-10 05:09:36.179 CST com.amarsoft.are.ARE com.amarsoft.task.units.dpx.PRHUnit.execute().254 [INFO] 导入担保基础信息表开始...
+2017-04-10 05:09:40.457 CST com.amarsoft.are.ARE com.amarsoft.task.units.dpx.PRHUnit.execute().364 [INFO] 导入担保基础信息表完成!
+2017-04-10 05:09:40.458 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.run().111 [INFO] ExecuteUnit[GuaranteeInfo]OK[单元名称[GuaranteeInfo]单元执行状态[1]单元执行时间[4.278]秒开始时间[2017/04/10 05:09:36:179]结束时间[2017/04/10 05:09:40:457]]
+2017-04-10 05:09:40.498 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitExit().301 [INFO] 退出 Unit=GuaranteeInfo[导入担保基础信息表]
+2017-04-10 05:09:40.512 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.runAfter().228 [INFO] isInsert:true,inputDate:2017/04/09,serialNO:9,TaskCode:BCRDataPrepare,startTime:2017/04/10 05:09:36,endTime:2017/04/10 05:09:40,unitCode:GuaranteeInfo,unitDisc:导入担保基础信息表,timeDis:0:00:04
+2017-04-10 05:09:40.513 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] GuaranteeCont[导入担保合同信息表] start! Task user: root(root)
+2017-04-10 05:09:40.513 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitStart().288 [INFO] 进入 Unit=GuaranteeCont[导入担保合同信息表]
+2017-04-10 05:09:40.515 CST com.amarsoft.are.ARE com.amarsoft.task.units.dpx.PRHUnit.execute().254 [INFO] 导入担保合同信息表开始...
+2017-04-10 05:09:44.080 CST com.amarsoft.are.ARE com.amarsoft.task.units.dpx.PRHUnit.execute().364 [INFO] 导入担保合同信息表完成!
+2017-04-10 05:09:44.081 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.run().111 [INFO] ExecuteUnit[GuaranteeCont]OK[单元名称[GuaranteeCont]单元执行状态[1]单元执行时间[3.566]秒开始时间[2017/04/10 05:09:40:515]结束时间[2017/04/10 05:09:44:081]]
+2017-04-10 05:09:44.081 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitExit().301 [INFO] 退出 Unit=GuaranteeCont[导入担保合同信息表]
+2017-04-10 05:09:44.084 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.runAfter().228 [INFO] isInsert:true,inputDate:2017/04/09,serialNO:10,TaskCode:BCRDataPrepare,startTime:2017/04/10 05:09:40,endTime:2017/04/10 05:09:44,unitCode:GuaranteeCont,unitDisc:导入担保合同信息表,timeDis:0:00:04
+2017-04-10 05:09:44.084 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] Insureds[导入被担保人信息表] start! Task user: root(root)
+2017-04-10 05:09:44.084 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitStart().288 [INFO] 进入 Unit=Insureds[导入被担保人信息表]
+2017-04-10 05:09:44.086 CST com.amarsoft.are.ARE com.amarsoft.task.units.dpx.PRHUnit.execute().254 [INFO] 导入被担保人信息表开始...
+2017-04-10 05:09:47.747 CST com.amarsoft.are.ARE com.amarsoft.task.units.dpx.PRHUnit.execute().364 [INFO] 导入被担保人信息表完成!
+2017-04-10 05:09:47.748 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.run().111 [INFO] ExecuteUnit[Insureds]OK[单元名称[Insureds]单元执行状态[1]单元执行时间[3.662]秒开始时间[2017/04/10 05:09:44:086]结束时间[2017/04/10 05:09:47:748]]
+2017-04-10 05:09:47.749 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitExit().301 [INFO] 退出 Unit=Insureds[导入被担保人信息表]
+2017-04-10 05:09:47.758 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.runAfter().228 [INFO] isInsert:true,inputDate:2017/04/09,serialNO:11,TaskCode:BCRDataPrepare,startTime:2017/04/10 05:09:44,endTime:2017/04/10 05:09:47,unitCode:Insureds,unitDisc:导入被担保人信息表,timeDis:0:00:03
+2017-04-10 05:09:47.759 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] CreditorInfo[导入债权人及主合同信息表] start! Task user: root(root)
+2017-04-10 05:09:47.759 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitStart().288 [INFO] 进入 Unit=CreditorInfo[导入债权人及主合同信息表]
+2017-04-10 05:09:47.761 CST com.amarsoft.are.ARE com.amarsoft.task.units.dpx.PRHUnit.execute().254 [INFO] 导入债权人及主合同信息表开始...
+2017-04-10 05:09:51.444 CST com.amarsoft.are.ARE com.amarsoft.task.units.dpx.PRHUnit.execute().364 [INFO] 导入债权人及主合同信息表完成!
+2017-04-10 05:09:51.445 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.run().111 [INFO] ExecuteUnit[CreditorInfo]OK[单元名称[CreditorInfo]单元执行状态[1]单元执行时间[3.684]秒开始时间[2017/04/10 05:09:47:760]结束时间[2017/04/10 05:09:51:444]]
+2017-04-10 05:09:51.445 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitExit().301 [INFO] 退出 Unit=CreditorInfo[导入债权人及主合同信息表]
+2017-04-10 05:09:51.447 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.runAfter().228 [INFO] isInsert:true,inputDate:2017/04/09,serialNO:12,TaskCode:BCRDataPrepare,startTime:2017/04/10 05:09:47,endTime:2017/04/10 05:09:51,unitCode:CreditorInfo,unitDisc:导入债权人及主合同信息表,timeDis:0:00:04
+2017-04-10 05:09:51.447 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] CounterGuarantor[导入反担保人信息表] start! Task user: root(root)
+2017-04-10 05:09:51.448 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitStart().288 [INFO] 进入 Unit=CounterGuarantor[导入反担保人信息表]
+2017-04-10 05:09:51.449 CST com.amarsoft.are.ARE com.amarsoft.task.units.dpx.PRHUnit.execute().254 [INFO] 导入反担保人信息表开始...
+2017-04-10 05:09:53.234 CST com.amarsoft.are.ARE com.amarsoft.task.units.dpx.PRHUnit.execute().364 [INFO] 导入反担保人信息表完成!
+2017-04-10 05:09:53.235 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.run().111 [INFO] ExecuteUnit[CounterGuarantor]OK[单元名称[CounterGuarantor]单元执行状态[1]单元执行时间[1.786]秒开始时间[2017/04/10 05:09:51:449]结束时间[2017/04/10 05:09:53:235]]
+2017-04-10 05:09:53.236 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitExit().301 [INFO] 退出 Unit=CounterGuarantor[导入反担保人信息表]
+2017-04-10 05:09:53.237 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.runAfter().228 [INFO] isInsert:true,inputDate:2017/04/09,serialNO:13,TaskCode:BCRDataPrepare,startTime:2017/04/10 05:09:51,endTime:2017/04/10 05:09:53,unitCode:CounterGuarantor,unitDisc:导入反担保人信息表,timeDis:0:00:02
+2017-04-10 05:09:53.238 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] GuaranteeDuty[导入实际在保（代偿）责任信息表] start! Task user: root(root)
+2017-04-10 05:09:53.238 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitStart().288 [INFO] 进入 Unit=GuaranteeDuty[导入实际在保（代偿）责任信息表]
+2017-04-10 05:09:53.240 CST com.amarsoft.are.ARE com.amarsoft.task.units.dpx.PRHUnit.execute().254 [INFO] 导入实际在保（代偿）责任信息表开始...
+2017-04-10 05:09:56.777 CST com.amarsoft.are.ARE com.amarsoft.task.units.dpx.PRHUnit.execute().364 [INFO] 导入实际在保（代偿）责任信息表完成!
+2017-04-10 05:09:56.777 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.run().111 [INFO] ExecuteUnit[GuaranteeDuty]OK[单元名称[GuaranteeDuty]单元执行状态[1]单元执行时间[3.538]秒开始时间[2017/04/10 05:09:53:239]结束时间[2017/04/10 05:09:56:777]]
+2017-04-10 05:09:56.778 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitExit().301 [INFO] 退出 Unit=GuaranteeDuty[导入实际在保（代偿）责任信息表]
+2017-04-10 05:09:56.787 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.runAfter().228 [INFO] isInsert:true,inputDate:2017/04/09,serialNO:14,TaskCode:BCRDataPrepare,startTime:2017/04/10 05:09:53,endTime:2017/04/10 05:09:56,unitCode:GuaranteeDuty,unitDisc:导入实际在保（代偿）责任信息表,timeDis:0:00:03
+2017-04-10 05:09:56.787 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] CompensatoryInfo[导入代偿概况信息信息表] start! Task user: root(root)
+2017-04-10 05:09:56.788 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitStart().288 [INFO] 进入 Unit=CompensatoryInfo[导入代偿概况信息信息表]
+2017-04-10 05:09:56.789 CST com.amarsoft.are.ARE com.amarsoft.task.units.dpx.PRHUnit.execute().254 [INFO] 导入代偿概况信息信息表开始...
+2017-04-10 05:09:57.432 CST com.amarsoft.are.ARE com.amarsoft.task.units.dpx.PRHUnit.execute().364 [INFO] 导入代偿概况信息信息表完成!
+2017-04-10 05:09:57.433 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.run().111 [INFO] ExecuteUnit[CompensatoryInfo]OK[单元名称[CompensatoryInfo]单元执行状态[1]单元执行时间[0.643]秒开始时间[2017/04/10 05:09:56:789]结束时间[2017/04/10 05:09:57:432]]
+2017-04-10 05:09:57.433 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitExit().301 [INFO] 退出 Unit=CompensatoryInfo[导入代偿概况信息信息表]
+2017-04-10 05:09:57.435 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.runAfter().228 [INFO] isInsert:true,inputDate:2017/04/09,serialNO:15,TaskCode:BCRDataPrepare,startTime:2017/04/10 05:09:56,endTime:2017/04/10 05:09:57,unitCode:CompensatoryInfo,unitDisc:导入代偿概况信息信息表,timeDis:0:00:01
+2017-04-10 05:09:57.435 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] CompensatoryDetail[导入代偿明细信息表] start! Task user: root(root)
+2017-04-10 05:09:57.436 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitStart().288 [INFO] 进入 Unit=CompensatoryDetail[导入代偿明细信息表]
+2017-04-10 05:09:57.437 CST com.amarsoft.are.ARE com.amarsoft.task.units.dpx.PRHUnit.execute().254 [INFO] 导入代偿明细信息表开始...
+2017-04-10 05:09:58.059 CST com.amarsoft.are.ARE com.amarsoft.task.units.dpx.PRHUnit.execute().364 [INFO] 导入代偿明细信息表完成!
+2017-04-10 05:09:58.059 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.run().111 [INFO] ExecuteUnit[CompensatoryDetail]OK[单元名称[CompensatoryDetail]单元执行状态[1]单元执行时间[0.622]秒开始时间[2017/04/10 05:09:57:437]结束时间[2017/04/10 05:09:58:059]]
+2017-04-10 05:09:58.060 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitExit().301 [INFO] 退出 Unit=CompensatoryDetail[导入代偿明细信息表]
+2017-04-10 05:09:58.062 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.runAfter().228 [INFO] isInsert:true,inputDate:2017/04/09,serialNO:16,TaskCode:BCRDataPrepare,startTime:2017/04/10 05:09:57,endTime:2017/04/10 05:09:58,unitCode:CompensatoryDetail,unitDisc:导入代偿明细信息表,timeDis:0:00:01
+2017-04-10 05:09:58.062 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] RecoveryDetail[导入追偿明细信息表] start! Task user: root(root)
+2017-04-10 05:09:58.062 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitStart().288 [INFO] 进入 Unit=RecoveryDetail[导入追偿明细信息表]
+2017-04-10 05:09:58.064 CST com.amarsoft.are.ARE com.amarsoft.task.units.dpx.PRHUnit.execute().254 [INFO] 导入追偿明细信息表开始...
+2017-04-10 05:09:58.067 CST com.amarsoft.are.ARE com.amarsoft.task.units.dpx.PRHUnit.execute().364 [INFO] 导入追偿明细信息表完成!
+2017-04-10 05:09:58.067 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.run().111 [INFO] ExecuteUnit[RecoveryDetail]OK[单元名称[RecoveryDetail]单元执行状态[1]单元执行时间[0.0040]秒开始时间[2017/04/10 05:09:58:063]结束时间[2017/04/10 05:09:58:067]]
+2017-04-10 05:09:58.068 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitExit().301 [INFO] 退出 Unit=RecoveryDetail[导入追偿明细信息表]
+2017-04-10 05:09:58.078 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.runAfter().228 [INFO] isInsert:true,inputDate:2017/04/09,serialNO:17,TaskCode:BCRDataPrepare,startTime:2017/04/10 05:09:58,endTime:2017/04/10 05:09:58,unitCode:RecoveryDetail,unitDisc:导入追偿明细信息表,timeDis:0:00:00
+2017-04-10 05:09:58.078 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] PremiumInfo[导入保费缴纳概况信息表] start! Task user: root(root)
+2017-04-10 05:09:58.079 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitStart().288 [INFO] 进入 Unit=PremiumInfo[导入保费缴纳概况信息表]
+2017-04-10 05:09:58.080 CST com.amarsoft.are.ARE com.amarsoft.task.units.dpx.PRHUnit.execute().254 [INFO] 导入保费缴纳概况信息表开始...
+2017-04-10 05:09:58.088 CST com.amarsoft.are.ARE com.amarsoft.task.units.dpx.PRHUnit.execute().364 [INFO] 导入保费缴纳概况信息表完成!
+2017-04-10 05:09:58.088 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.run().111 [INFO] ExecuteUnit[PremiumInfo]OK[单元名称[PremiumInfo]单元执行状态[1]单元执行时间[0.0080]秒开始时间[2017/04/10 05:09:58:080]结束时间[2017/04/10 05:09:58:088]]
+2017-04-10 05:09:58.089 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitExit().301 [INFO] 退出 Unit=PremiumInfo[导入保费缴纳概况信息表]
+2017-04-10 05:09:58.090 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.runAfter().228 [INFO] isInsert:true,inputDate:2017/04/09,serialNO:18,TaskCode:BCRDataPrepare,startTime:2017/04/10 05:09:58,endTime:2017/04/10 05:09:58,unitCode:PremiumInfo,unitDisc:导入保费缴纳概况信息表,timeDis:0:00:00
+2017-04-10 05:09:58.091 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] PremiumDetail[导入保费缴纳明细信息表] start! Task user: root(root)
+2017-04-10 05:09:58.091 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitStart().288 [INFO] 进入 Unit=PremiumDetail[导入保费缴纳明细信息表]
+2017-04-10 05:09:58.093 CST com.amarsoft.are.ARE com.amarsoft.task.units.dpx.PRHUnit.execute().254 [INFO] 导入保费缴纳明细信息表开始...
+2017-04-10 05:09:58.098 CST com.amarsoft.are.ARE com.amarsoft.task.units.dpx.PRHUnit.execute().364 [INFO] 导入保费缴纳明细信息表完成!
+2017-04-10 05:09:58.098 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.run().111 [INFO] ExecuteUnit[PremiumDetail]OK[单元名称[PremiumDetail]单元执行状态[1]单元执行时间[0.0060]秒开始时间[2017/04/10 05:09:58:092]结束时间[2017/04/10 05:09:58:098]]
+2017-04-10 05:09:58.099 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitExit().301 [INFO] 退出 Unit=PremiumDetail[导入保费缴纳明细信息表]
+2017-04-10 05:09:58.100 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.runAfter().228 [INFO] isInsert:true,inputDate:2017/04/09,serialNO:19,TaskCode:BCRDataPrepare,startTime:2017/04/10 05:09:58,endTime:2017/04/10 05:09:58,unitCode:PremiumDetail,unitDisc:导入保费缴纳明细信息表,timeDis:0:00:00
+2017-04-10 05:09:58.101 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] updateIncrementFlag[更新基础表信息操作类型] start! Task user: root(root)
+2017-04-10 05:09:58.101 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitStart().288 [INFO] 进入 Unit=updateIncrementFlag[更新基础表信息操作类型]
+2017-04-10 05:09:58.506 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.run().111 [INFO] ExecuteUnit[updateIncrementFlag]OK[单元名称[updateIncrementFlag]单元执行状态[1]单元执行时间[0.403]秒开始时间[2017/04/10 05:09:58:102]结束时间[2017/04/10 05:09:58:505]]
+2017-04-10 05:09:58.506 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitExit().301 [INFO] 退出 Unit=updateIncrementFlag[更新基础表信息操作类型]
+2017-04-10 05:09:58.540 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.runAfter().228 [INFO] isInsert:true,inputDate:2017/04/09,serialNO:20,TaskCode:BCRDataPrepare,startTime:2017/04/10 05:09:58,endTime:2017/04/10 05:09:58,unitCode:updateIncrementFlag,unitDisc:更新基础表信息操作类型,timeDis:0:00:00
+2017-04-10 05:09:58.540 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.targetExit().275 [INFO] 退出 Target=GuaranteeBusinessImport[融资性担保业务抽取]
+2017-04-10 05:09:58.541 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.taskExit().247 [INFO] 退出 Task=BCRDataPrepare[原始数据抽取]
+2017-04-10 05:09:58.541 CST com.amarsoft.are.ARE com.amarsoft.task.TaskRunner.runCli().135 [INFO] 任务运行完成！
+2017-04-10 05:09:58.883 CST com.amarsoft.are.ARE com.amarsoft.app.datax.ecr.AmarECR.main() [INFO] 自动计算后businessOccurDate：2017/04/09
+2017-04-10 05:09:58.896 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.taskStart().233 [INFO] 进入 Task=BCRDataValidate[原始数据校验]
+2017-04-10 05:09:58.911 CST com.amarsoft.are.ARE com.amarsoft.are.sql.PooledConnectionFactory.addDataSource().136 [INFO] org.apache.commons.dbcp.datasources.SharedPoolDataSource@47df280b
+2017-04-10 05:09:58.911 CST com.amarsoft.are.ARE com.amarsoft.are.sql.PooledConnectionFactory.addDataSource().136 [INFO] org.apache.commons.dbcp.datasources.SharedPoolDataSource@6acd5f8b
+2017-04-10 05:09:59.176 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.listenerDBInit().73 [INFO] target 开始启动
+2017-04-10 05:09:59.176 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] BCRDataValidate[原始数据校验] start! Task user: root(root)
+2017-04-10 05:09:59.177 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] BCRDataValidate[融资性担保业务数据校验] start! Task user: root(root)
+2017-04-10 05:09:59.177 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.targetStart().262 [INFO] 进入 Target=BCRDataValidate[融资性担保业务数据校验]
+2017-04-10 05:09:59.177 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] GuaranteeDataValidate[业务数据校验] start! Task user: root(root)
+2017-04-10 05:09:59.178 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitStart().288 [INFO] 进入 Unit=GuaranteeDataValidate[业务数据校验]
+2017-04-10 05:09:59.223 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().91 [INFO] 初始化报文处理过程[1111111111]......
+2017-04-10 05:09:59.474 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().93 [INFO] 初始化报文处理过程完成！
+2017-04-10 05:09:59.474 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().101 [INFO] 检查报文处理过程条件[1111111111]......
+2017-04-10 05:09:59.475 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().103 [INFO] 处理条件就绪！
+2017-04-10 05:09:59.475 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().111 [INFO] 执行处理报文处理过程[1111111111]......
+2017-04-10 05:10:01.724 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().113 [INFO] 执行报文处理过程完成！
+2017-04-10 05:10:01.725 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.ValidateSession.postProcess().84 [INFO] 共校验记录数：186, 其中正确记录：146, 检验到错误数：40, 错误关联记录：0
+2017-04-10 05:10:01.726 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSessionUnit.execute().49 [INFO] 运行处理过程1111111111成功！
+2017-04-10 05:10:01.728 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.run().111 [INFO] ExecuteUnit[GuaranteeDataValidate]OK[单元名称[GuaranteeDataValidate]单元执行状态[1]单元执行时间[2.533]秒开始时间[2017/04/10 05:09:59:193]结束时间[2017/04/10 05:10:01:726]]
+2017-04-10 05:10:01.728 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitExit().301 [INFO] 退出 Unit=GuaranteeDataValidate[业务数据校验]
+2017-04-10 05:10:01.735 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.runAfter().228 [INFO] isInsert:true,inputDate:2017/04/09,serialNO:21,TaskCode:BCRDataValidate,startTime:2017/04/10 05:09:59,endTime:2017/04/10 05:10:01,unitCode:GuaranteeDataValidate,unitDisc:业务数据校验,timeDis:0:00:02
+2017-04-10 05:10:01.736 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] GDataChengeValidate[变更记录校验] start! Task user: root(root)
+2017-04-10 05:10:01.736 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitStart().288 [INFO] 进入 Unit=GDataChengeValidate[变更记录校验]
+2017-04-10 05:10:01.744 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().91 [INFO] 初始化报文处理过程[1111111111]......
+2017-04-10 05:10:01.757 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().93 [INFO] 初始化报文处理过程完成！
+2017-04-10 05:10:01.757 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().101 [INFO] 检查报文处理过程条件[1111111111]......
+2017-04-10 05:10:01.758 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().103 [INFO] 处理条件就绪！
+2017-04-10 05:10:01.758 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().111 [INFO] 执行处理报文处理过程[1111111111]......
+2017-04-10 05:10:01.764 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().113 [INFO] 执行报文处理过程完成！
+2017-04-10 05:10:01.764 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.ValidateSession.postProcess().84 [INFO] 共校验记录数：1, 其中正确记录：1, 检验到错误数：0, 错误关联记录：0
+2017-04-10 05:10:01.765 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSessionUnit.execute().49 [INFO] 运行处理过程1111111111成功！
+2017-04-10 05:10:01.765 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.run().111 [INFO] ExecuteUnit[GDataChengeValidate]OK[单元名称[GDataChengeValidate]单元执行状态[1]单元执行时间[0.027]秒开始时间[2017/04/10 05:10:01:738]结束时间[2017/04/10 05:10:01:765]]
+2017-04-10 05:10:01.766 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitExit().301 [INFO] 退出 Unit=GDataChengeValidate[变更记录校验]
+2017-04-10 05:10:01.769 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.runAfter().228 [INFO] isInsert:true,inputDate:2017/04/09,serialNO:22,TaskCode:BCRDataValidate,startTime:2017/04/10 05:10:01,endTime:2017/04/10 05:10:01,unitCode:GDataChengeValidate,unitDisc:变更记录校验,timeDis:0:00:00
+2017-04-10 05:10:01.769 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] GDataDeleteValidate[删除记录校验] start! Task user: root(root)
+2017-04-10 05:10:01.770 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitStart().288 [INFO] 进入 Unit=GDataDeleteValidate[删除记录校验]
+2017-04-10 05:10:01.775 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().91 [INFO] 初始化报文处理过程[1111111111]......
+2017-04-10 05:10:01.788 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().93 [INFO] 初始化报文处理过程完成！
+2017-04-10 05:10:01.788 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().101 [INFO] 检查报文处理过程条件[1111111111]......
+2017-04-10 05:10:01.789 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().103 [INFO] 处理条件就绪！
+2017-04-10 05:10:01.789 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().111 [INFO] 执行处理报文处理过程[1111111111]......
+2017-04-10 05:10:01.866 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().116 [ERROR] 执行报文处理过程失败！
+2017-04-10 05:10:01.866 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSessionUnit.execute().43 [FATAL] 运行处理过程1111111111失败 <com.amarsoft.app.datax.bcr.BCRException: 执行报文处理过程失败！>com.amarsoft.app.datax.bcr.BCRException: 执行报文处理过程失败！
+	at com.amarsoft.app.datax.bcr.session.MessageProcessSession.start(MessageProcessSession.java:117)
+	at com.amarsoft.app.datax.bcr.session.MessageProcessSessionUnit.execute(MessageProcessSessionUnit.java:41)
+	at com.amarsoft.task.ExecuteUnit.run(ExecuteUnit.java:109)
+	at com.amarsoft.task.Target.runSerial(Target.java:153)
+	at com.amarsoft.task.Target.run(Target.java:89)
+	at com.amarsoft.task.Task.runSerial(Task.java:144)
+	at com.amarsoft.task.Task.start(Task.java:63)
+	at com.amarsoft.task.Task.start(Task.java:41)
+	at com.amarsoft.task.TaskRunner.runCli(TaskRunner.java:134)
+	at com.amarsoft.task.TaskRunner.runCli(TaskRunner.java:124)
+	at com.amarsoft.app.datax.ecr.AmarECR.main(Unknown Source)
+com.amarsoft.app.datax.bcr.BCRException: 执行报文处理过程失败！
+	at com.amarsoft.app.datax.bcr.session.MessageProcessSession.start(MessageProcessSession.java:117)
+	at com.amarsoft.app.datax.bcr.session.MessageProcessSessionUnit.execute(MessageProcessSessionUnit.java:41)
+	at com.amarsoft.task.ExecuteUnit.run(ExecuteUnit.java:109)
+	at com.amarsoft.task.Target.runSerial(Target.java:153)
+	at com.amarsoft.task.Target.run(Target.java:89)
+	at com.amarsoft.task.Task.runSerial(Task.java:144)
+	at com.amarsoft.task.Task.start(Task.java:63)
+	at com.amarsoft.task.Task.start(Task.java:41)
+	at com.amarsoft.task.TaskRunner.runCli(TaskRunner.java:134)
+	at com.amarsoft.task.TaskRunner.runCli(TaskRunner.java:124)
+	at com.amarsoft.app.datax.ecr.AmarECR.main(Unknown Source)
+
+2017-04-10 05:10:01.867 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.run().111 [INFO] ExecuteUnit[GDataDeleteValidate]OK[单元名称[GDataDeleteValidate]单元执行状态[2]单元执行时间[0.095]秒开始时间[2017/04/10 05:10:01:771]结束时间[2017/04/10 05:10:01:866]]
+2017-04-10 05:10:01.867 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitExit().301 [INFO] 退出 Unit=GDataDeleteValidate[删除记录校验]
+2017-04-10 05:10:01.872 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.runAfter().228 [INFO] isInsert:true,inputDate:2017/04/09,serialNO:23,TaskCode:BCRDataValidate,startTime:2017/04/10 05:10:01,endTime:2017/04/10 05:10:01,unitCode:GDataDeleteValidate,unitDisc:删除记录校验,timeDis:0:00:00
+2017-04-10 05:10:01.872 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.targetExit().275 [INFO] 退出 Target=BCRDataValidate[融资性担保业务数据校验]
+2017-04-10 05:10:01.873 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.taskExit().247 [INFO] 退出 Task=BCRDataValidate[原始数据校验]
+2017-04-10 05:10:01.873 CST com.amarsoft.are.ARE com.amarsoft.task.TaskRunner.runCli().135 [INFO] 任务运行完成！
+2017-04-10 08:16:45.465 CST com.amarsoft.are.ARE com.amarsoft.app.datax.ecr.AmarECR.main() [INFO] 自动计算后businessOccurDate：2017/04/09
+2017-04-10 08:16:45.478 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.taskStart().233 [INFO] 进入 Task=BCRDataValidate[原始数据校验]
+2017-04-10 08:16:45.494 CST com.amarsoft.are.ARE com.amarsoft.are.sql.PooledConnectionFactory.addDataSource().136 [INFO] org.apache.commons.dbcp.datasources.SharedPoolDataSource@bbe0f0a
+2017-04-10 08:16:45.494 CST com.amarsoft.are.ARE com.amarsoft.are.sql.PooledConnectionFactory.addDataSource().136 [INFO] org.apache.commons.dbcp.datasources.SharedPoolDataSource@513bd574
+2017-04-10 08:16:47.923 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.listenerDBInit().73 [INFO] target 开始启动
+2017-04-10 08:16:47.923 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] BCRDataValidate[原始数据校验] start! Task user: root(root)
+2017-04-10 08:16:47.924 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] BCRDataValidate[融资性担保业务数据校验] start! Task user: root(root)
+2017-04-10 08:16:47.924 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.targetStart().262 [INFO] 进入 Target=BCRDataValidate[融资性担保业务数据校验]
+2017-04-10 08:16:47.924 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] GuaranteeDataValidate[业务数据校验] start! Task user: root(root)
+2017-04-10 08:16:47.925 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitStart().288 [INFO] 进入 Unit=GuaranteeDataValidate[业务数据校验]
+2017-04-10 08:16:47.971 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().91 [INFO] 初始化报文处理过程[1111111111]......
+2017-04-10 08:16:48.224 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().93 [INFO] 初始化报文处理过程完成！
+2017-04-10 08:16:48.224 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().101 [INFO] 检查报文处理过程条件[1111111111]......
+2017-04-10 08:16:48.224 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().103 [INFO] 处理条件就绪！
+2017-04-10 08:16:48.225 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().111 [INFO] 执行处理报文处理过程[1111111111]......
+2017-04-10 08:16:50.362 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().113 [INFO] 执行报文处理过程完成！
+2017-04-10 08:16:50.362 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.ValidateSession.postProcess().84 [INFO] 共校验记录数：186, 其中正确记录：146, 检验到错误数：40, 错误关联记录：0
+2017-04-10 08:16:50.382 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSessionUnit.execute().49 [INFO] 运行处理过程1111111111成功！
+2017-04-10 08:16:50.384 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.run().111 [INFO] ExecuteUnit[GuaranteeDataValidate]OK[单元名称[GuaranteeDataValidate]单元执行状态[1]单元执行时间[2.442]秒开始时间[2017/04/10 08:16:47:940]结束时间[2017/04/10 08:16:50:382]]
+2017-04-10 08:16:50.385 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitExit().301 [INFO] 退出 Unit=GuaranteeDataValidate[业务数据校验]
+2017-04-10 08:16:50.395 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.runAfter().228 [INFO] isInsert:false,inputDate:2017/04/09,serialNO:21,TaskCode:BCRDataValidate,startTime:2017/04/10 08:16:47,endTime:2017/04/10 08:16:50,unitCode:GuaranteeDataValidate,unitDisc:业务数据校验,timeDis:0:00:03
+2017-04-10 08:16:50.396 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] GDataChengeValidate[变更记录校验] start! Task user: root(root)
+2017-04-10 08:16:50.396 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitStart().288 [INFO] 进入 Unit=GDataChengeValidate[变更记录校验]
+2017-04-10 08:16:50.404 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().91 [INFO] 初始化报文处理过程[1111111111]......
+2017-04-10 08:16:50.416 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().93 [INFO] 初始化报文处理过程完成！
+2017-04-10 08:16:50.417 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().101 [INFO] 检查报文处理过程条件[1111111111]......
+2017-04-10 08:16:50.417 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().103 [INFO] 处理条件就绪！
+2017-04-10 08:16:50.417 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().111 [INFO] 执行处理报文处理过程[1111111111]......
+2017-04-10 08:16:50.426 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().113 [INFO] 执行报文处理过程完成！
+2017-04-10 08:16:50.426 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.ValidateSession.postProcess().84 [INFO] 共校验记录数：1, 其中正确记录：1, 检验到错误数：0, 错误关联记录：0
+2017-04-10 08:16:50.426 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSessionUnit.execute().49 [INFO] 运行处理过程1111111111成功！
+2017-04-10 08:16:50.427 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.run().111 [INFO] ExecuteUnit[GDataChengeValidate]OK[单元名称[GDataChengeValidate]单元执行状态[1]单元执行时间[0.028]秒开始时间[2017/04/10 08:16:50:398]结束时间[2017/04/10 08:16:50:426]]
+2017-04-10 08:16:50.427 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitExit().301 [INFO] 退出 Unit=GDataChengeValidate[变更记录校验]
+2017-04-10 08:16:50.429 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.runAfter().228 [INFO] isInsert:false,inputDate:2017/04/09,serialNO:22,TaskCode:BCRDataValidate,startTime:2017/04/10 08:16:50,endTime:2017/04/10 08:16:50,unitCode:GDataChengeValidate,unitDisc:变更记录校验,timeDis:0:00:00
+2017-04-10 08:16:50.430 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] GDataDeleteValidate[删除记录校验] start! Task user: root(root)
+2017-04-10 08:16:50.430 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitStart().288 [INFO] 进入 Unit=GDataDeleteValidate[删除记录校验]
+2017-04-10 08:16:50.434 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().91 [INFO] 初始化报文处理过程[1111111111]......
+2017-04-10 08:16:50.444 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().93 [INFO] 初始化报文处理过程完成！
+2017-04-10 08:16:50.444 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().101 [INFO] 检查报文处理过程条件[1111111111]......
+2017-04-10 08:16:50.444 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().103 [INFO] 处理条件就绪！
+2017-04-10 08:16:50.444 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().111 [INFO] 执行处理报文处理过程[1111111111]......
+2017-04-10 08:16:50.502 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().116 [ERROR] 执行报文处理过程失败！
+2017-04-10 08:16:50.503 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSessionUnit.execute().43 [FATAL] 运行处理过程1111111111失败 <com.amarsoft.app.datax.bcr.BCRException: 执行报文处理过程失败！>com.amarsoft.app.datax.bcr.BCRException: 执行报文处理过程失败！
+	at com.amarsoft.app.datax.bcr.session.MessageProcessSession.start(MessageProcessSession.java:117)
+	at com.amarsoft.app.datax.bcr.session.MessageProcessSessionUnit.execute(MessageProcessSessionUnit.java:41)
+	at com.amarsoft.task.ExecuteUnit.run(ExecuteUnit.java:109)
+	at com.amarsoft.task.Target.runSerial(Target.java:153)
+	at com.amarsoft.task.Target.run(Target.java:89)
+	at com.amarsoft.task.Task.runSerial(Task.java:144)
+	at com.amarsoft.task.Task.start(Task.java:63)
+	at com.amarsoft.task.Task.start(Task.java:41)
+	at com.amarsoft.task.TaskRunner.runCli(TaskRunner.java:134)
+	at com.amarsoft.task.TaskRunner.runCli(TaskRunner.java:124)
+	at com.amarsoft.app.datax.ecr.AmarECR.main(Unknown Source)
+com.amarsoft.app.datax.bcr.BCRException: 执行报文处理过程失败！
+	at com.amarsoft.app.datax.bcr.session.MessageProcessSession.start(MessageProcessSession.java:117)
+	at com.amarsoft.app.datax.bcr.session.MessageProcessSessionUnit.execute(MessageProcessSessionUnit.java:41)
+	at com.amarsoft.task.ExecuteUnit.run(ExecuteUnit.java:109)
+	at com.amarsoft.task.Target.runSerial(Target.java:153)
+	at com.amarsoft.task.Target.run(Target.java:89)
+	at com.amarsoft.task.Task.runSerial(Task.java:144)
+	at com.amarsoft.task.Task.start(Task.java:63)
+	at com.amarsoft.task.Task.start(Task.java:41)
+	at com.amarsoft.task.TaskRunner.runCli(TaskRunner.java:134)
+	at com.amarsoft.task.TaskRunner.runCli(TaskRunner.java:124)
+	at com.amarsoft.app.datax.ecr.AmarECR.main(Unknown Source)
+
+2017-04-10 08:16:50.504 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.run().111 [INFO] ExecuteUnit[GDataDeleteValidate]OK[单元名称[GDataDeleteValidate]单元执行状态[2]单元执行时间[0.072]秒开始时间[2017/04/10 08:16:50:431]结束时间[2017/04/10 08:16:50:503]]
+2017-04-10 08:16:50.504 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitExit().301 [INFO] 退出 Unit=GDataDeleteValidate[删除记录校验]
+2017-04-10 08:16:50.509 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.runAfter().228 [INFO] isInsert:false,inputDate:2017/04/09,serialNO:23,TaskCode:BCRDataValidate,startTime:2017/04/10 08:16:50,endTime:2017/04/10 08:16:50,unitCode:GDataDeleteValidate,unitDisc:删除记录校验,timeDis:0:00:00
+2017-04-10 08:16:50.510 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.targetExit().275 [INFO] 退出 Target=BCRDataValidate[融资性担保业务数据校验]
+2017-04-10 08:16:50.510 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.taskExit().247 [INFO] 退出 Task=BCRDataValidate[原始数据校验]
+2017-04-10 08:16:50.510 CST com.amarsoft.are.ARE com.amarsoft.task.TaskRunner.runCli().135 [INFO] 任务运行完成！
+2017-04-10 08:25:11.542 CST com.amarsoft.are.ARE com.amarsoft.app.datax.ecr.AmarECR.main() [INFO] 自动计算后businessOccurDate：2017/04/09
+2017-04-10 08:25:11.555 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.taskStart().233 [INFO] 进入 Task=BCRDataValidate[原始数据校验]
+2017-04-10 08:25:11.571 CST com.amarsoft.are.ARE com.amarsoft.are.sql.PooledConnectionFactory.addDataSource().136 [INFO] org.apache.commons.dbcp.datasources.SharedPoolDataSource@47df280b
+2017-04-10 08:25:11.571 CST com.amarsoft.are.ARE com.amarsoft.are.sql.PooledConnectionFactory.addDataSource().136 [INFO] org.apache.commons.dbcp.datasources.SharedPoolDataSource@6acd5f8b
+2017-04-10 08:25:11.886 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.listenerDBInit().73 [INFO] target 开始启动
+2017-04-10 08:25:11.886 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] BCRDataValidate[原始数据校验] start! Task user: root(root)
+2017-04-10 08:25:11.887 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] BCRDataValidate[融资性担保业务数据校验] start! Task user: root(root)
+2017-04-10 08:25:11.887 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.targetStart().262 [INFO] 进入 Target=BCRDataValidate[融资性担保业务数据校验]
+2017-04-10 08:25:11.887 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] GuaranteeDataValidate[业务数据校验] start! Task user: root(root)
+2017-04-10 08:25:11.888 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitStart().288 [INFO] 进入 Unit=GuaranteeDataValidate[业务数据校验]
+2017-04-10 08:25:11.934 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().91 [INFO] 初始化报文处理过程[1111111111]......
+2017-04-10 08:25:12.189 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().93 [INFO] 初始化报文处理过程完成！
+2017-04-10 08:25:12.189 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().101 [INFO] 检查报文处理过程条件[1111111111]......
+2017-04-10 08:25:12.190 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().103 [INFO] 处理条件就绪！
+2017-04-10 08:25:12.190 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().111 [INFO] 执行处理报文处理过程[1111111111]......
+2017-04-10 08:25:14.346 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().113 [INFO] 执行报文处理过程完成！
+2017-04-10 08:25:14.347 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.ValidateSession.postProcess().84 [INFO] 共校验记录数：186, 其中正确记录：146, 检验到错误数：40, 错误关联记录：0
+2017-04-10 08:25:14.347 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSessionUnit.execute().49 [INFO] 运行处理过程1111111111成功！
+2017-04-10 08:25:14.349 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.run().111 [INFO] ExecuteUnit[GuaranteeDataValidate]OK[单元名称[GuaranteeDataValidate]单元执行状态[1]单元执行时间[2.444]秒开始时间[2017/04/10 08:25:11:903]结束时间[2017/04/10 08:25:14:347]]
+2017-04-10 08:25:14.350 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitExit().301 [INFO] 退出 Unit=GuaranteeDataValidate[业务数据校验]
+2017-04-10 08:25:14.357 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.runAfter().228 [INFO] isInsert:false,inputDate:2017/04/09,serialNO:21,TaskCode:BCRDataValidate,startTime:2017/04/10 08:25:11,endTime:2017/04/10 08:25:14,unitCode:GuaranteeDataValidate,unitDisc:业务数据校验,timeDis:0:00:03
+2017-04-10 08:25:14.357 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] GDataChengeValidate[变更记录校验] start! Task user: root(root)
+2017-04-10 08:25:14.357 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitStart().288 [INFO] 进入 Unit=GDataChengeValidate[变更记录校验]
+2017-04-10 08:25:14.362 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().91 [INFO] 初始化报文处理过程[1111111111]......
+2017-04-10 08:25:14.376 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().93 [INFO] 初始化报文处理过程完成！
+2017-04-10 08:25:14.376 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().101 [INFO] 检查报文处理过程条件[1111111111]......
+2017-04-10 08:25:14.377 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().103 [INFO] 处理条件就绪！
+2017-04-10 08:25:14.377 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().111 [INFO] 执行处理报文处理过程[1111111111]......
+2017-04-10 08:25:14.386 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().113 [INFO] 执行报文处理过程完成！
+2017-04-10 08:25:14.386 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.ValidateSession.postProcess().84 [INFO] 共校验记录数：1, 其中正确记录：1, 检验到错误数：0, 错误关联记录：0
+2017-04-10 08:25:14.386 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSessionUnit.execute().49 [INFO] 运行处理过程1111111111成功！
+2017-04-10 08:25:14.387 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.run().111 [INFO] ExecuteUnit[GDataChengeValidate]OK[单元名称[GDataChengeValidate]单元执行状态[1]单元执行时间[0.028]秒开始时间[2017/04/10 08:25:14:358]结束时间[2017/04/10 08:25:14:386]]
+2017-04-10 08:25:14.387 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitExit().301 [INFO] 退出 Unit=GDataChengeValidate[变更记录校验]
+2017-04-10 08:25:14.391 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.runAfter().228 [INFO] isInsert:false,inputDate:2017/04/09,serialNO:22,TaskCode:BCRDataValidate,startTime:2017/04/10 08:25:14,endTime:2017/04/10 08:25:14,unitCode:GDataChengeValidate,unitDisc:变更记录校验,timeDis:0:00:00
+2017-04-10 08:25:14.391 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] GDataDeleteValidate[删除记录校验] start! Task user: root(root)
+2017-04-10 08:25:14.392 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitStart().288 [INFO] 进入 Unit=GDataDeleteValidate[删除记录校验]
+2017-04-10 08:25:14.398 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().91 [INFO] 初始化报文处理过程[1111111111]......
+2017-04-10 08:25:14.411 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().93 [INFO] 初始化报文处理过程完成！
+2017-04-10 08:25:14.411 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().101 [INFO] 检查报文处理过程条件[1111111111]......
+2017-04-10 08:25:14.411 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().103 [INFO] 处理条件就绪！
+2017-04-10 08:25:14.412 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().111 [INFO] 执行处理报文处理过程[1111111111]......
+2017-04-10 08:25:14.469 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().113 [INFO] 执行报文处理过程完成！
+2017-04-10 08:25:14.469 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.ValidateSession.postProcess().84 [INFO] 共校验记录数：2, 其中正确记录：2, 检验到错误数：0, 错误关联记录：0
+2017-04-10 08:25:14.470 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSessionUnit.execute().49 [INFO] 运行处理过程1111111111成功！
+2017-04-10 08:25:14.471 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.run().111 [INFO] ExecuteUnit[GDataDeleteValidate]OK[单元名称[GDataDeleteValidate]单元执行状态[1]单元执行时间[0.077]秒开始时间[2017/04/10 08:25:14:393]结束时间[2017/04/10 08:25:14:470]]
+2017-04-10 08:25:14.472 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitExit().301 [INFO] 退出 Unit=GDataDeleteValidate[删除记录校验]
+2017-04-10 08:25:14.477 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.runAfter().228 [INFO] isInsert:false,inputDate:2017/04/09,serialNO:23,TaskCode:BCRDataValidate,startTime:2017/04/10 08:25:14,endTime:2017/04/10 08:25:14,unitCode:GDataDeleteValidate,unitDisc:删除记录校验,timeDis:0:00:00
+2017-04-10 08:25:14.477 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.targetExit().275 [INFO] 退出 Target=BCRDataValidate[融资性担保业务数据校验]
+2017-04-10 08:25:14.478 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.taskExit().247 [INFO] 退出 Task=BCRDataValidate[原始数据校验]
+2017-04-10 08:25:14.478 CST com.amarsoft.are.ARE com.amarsoft.task.TaskRunner.runCli().135 [INFO] 任务运行完成！
+2017-04-10 15:00:02.099 CST com.amarsoft.are.ARE com.amarsoft.app.datax.ecr.AmarECR.main() [INFO] 自动计算后businessOccurDate：2017/04/09
+2017-04-10 15:00:02.120 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.taskStart().233 [INFO] 进入 Task=BCRDataTransfer[待上报数据迁移]
+2017-04-10 15:00:02.136 CST com.amarsoft.are.ARE com.amarsoft.are.sql.PooledConnectionFactory.addDataSource().136 [INFO] org.apache.commons.dbcp.datasources.SharedPoolDataSource@513bd574
+2017-04-10 15:00:02.137 CST com.amarsoft.are.ARE com.amarsoft.are.sql.PooledConnectionFactory.addDataSource().136 [INFO] org.apache.commons.dbcp.datasources.SharedPoolDataSource@4157aa53
+2017-04-10 15:00:02.602 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.listenerDBInit().73 [INFO] target 开始启动
+2017-04-10 15:00:02.602 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] BCRDataTransfer[待上报数据迁移] start! Task user: root(root)
+2017-04-10 15:00:02.603 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] BCRDataTransfer[基础数据迁移] start! Task user: root(root)
+2017-04-10 15:00:02.603 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.targetStart().262 [INFO] 进入 Target=BCRDataTransfer[基础数据迁移]
+2017-04-10 15:00:02.603 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] SetTransferFilter[设置迁移过滤器] start! Task user: root(root)
+2017-04-10 15:00:02.604 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitStart().288 [INFO] 进入 Unit=SetTransferFilter[设置迁移过滤器]
+2017-04-10 15:00:02.705 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.run().111 [INFO] ExecuteUnit[SetTransferFilter]OK[单元名称[SetTransferFilter]单元执行状态[1]单元执行时间[0.085]秒开始时间[2017/04/10 15:00:02:619]结束时间[2017/04/10 15:00:02:704]]
+2017-04-10 15:00:02.705 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitExit().301 [INFO] 退出 Unit=SetTransferFilter[设置迁移过滤器]
+2017-04-10 15:00:02.717 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.runAfter().228 [INFO] isInsert:true,inputDate:2017/04/09,serialNO:24,TaskCode:BCRDataTransfer,startTime:2017/04/10 15:00:02,endTime:2017/04/10 15:00:02,unitCode:SetTransferFilter,unitDisc:设置迁移过滤器,timeDis:0:00:00
+2017-04-10 15:00:02.717 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] TransferGuaranteeRecord[迁移新增/变更的业务记录] start! Task user: root(root)
+2017-04-10 15:00:02.717 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitStart().288 [INFO] 进入 Unit=TransferGuaranteeRecord[迁移新增/变更的业务记录]
+2017-04-10 15:00:02.753 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().91 [INFO] 初始化报文处理过程[1111111111]......
+2017-04-10 15:00:02.756 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().93 [INFO] 初始化报文处理过程完成！
+2017-04-10 15:00:02.756 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().101 [INFO] 检查报文处理过程条件[1111111111]......
+2017-04-10 15:00:02.756 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().103 [INFO] 处理条件就绪！
+2017-04-10 15:00:02.756 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().111 [INFO] 执行处理报文处理过程[1111111111]......
+2017-04-10 15:00:05.253 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().113 [INFO] 执行报文处理过程完成！
+2017-04-10 15:00:05.254 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.TransferSession.postProcess().38 [INFO] 共处理记录数：186, 其中成功迁移：144, 被过滤器拒绝：42
+2017-04-10 15:00:05.254 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSessionUnit.execute().49 [INFO] 运行处理过程1111111111成功！
+2017-04-10 15:00:05.255 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.run().111 [INFO] ExecuteUnit[TransferGuaranteeRecord]OK[单元名称[TransferGuaranteeRecord]单元执行状态[1]单元执行时间[2.536]秒开始时间[2017/04/10 15:00:02:718]结束时间[2017/04/10 15:00:05:254]]
+2017-04-10 15:00:05.255 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitExit().301 [INFO] 退出 Unit=TransferGuaranteeRecord[迁移新增/变更的业务记录]
+2017-04-10 15:00:05.266 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.runAfter().228 [INFO] isInsert:true,inputDate:2017/04/09,serialNO:25,TaskCode:BCRDataTransfer,startTime:2017/04/10 15:00:02,endTime:2017/04/10 15:00:05,unitCode:TransferGuaranteeRecord,unitDisc:迁移新增/变更的业务记录,timeDis:0:00:03
+2017-04-10 15:00:05.266 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.targetExit().275 [INFO] 退出 Target=BCRDataTransfer[基础数据迁移]
+2017-04-10 15:00:05.267 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.taskExit().247 [INFO] 退出 Task=BCRDataTransfer[待上报数据迁移]
+2017-04-10 15:00:05.268 CST com.amarsoft.are.ARE com.amarsoft.task.TaskRunner.runCli().135 [INFO] 任务运行完成！
+2017-04-10 15:00:05.613 CST com.amarsoft.are.ARE com.amarsoft.app.datax.ecr.AmarECR.main() [INFO] 自动计算后businessOccurDate：2017/04/09
+2017-04-10 15:00:05.625 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.taskStart().233 [INFO] 进入 Task=BCRDataReport[担保业务报文生成任务]
+2017-04-10 15:00:05.640 CST com.amarsoft.are.ARE com.amarsoft.are.sql.PooledConnectionFactory.addDataSource().136 [INFO] org.apache.commons.dbcp.datasources.SharedPoolDataSource@78a1d1f4
+2017-04-10 15:00:05.641 CST com.amarsoft.are.ARE com.amarsoft.are.sql.PooledConnectionFactory.addDataSource().136 [INFO] org.apache.commons.dbcp.datasources.SharedPoolDataSource@bbe0f0a
+2017-04-10 15:00:05.911 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.listenerDBInit().73 [INFO] target 开始启动
+2017-04-10 15:00:05.912 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.targetStart().262 [INFO] 进入 Target=GuaranteeInfoMessage[担保业务信息正常报文]
+2017-04-10 15:00:05.912 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitStart().288 [INFO] 进入 Unit=NormalGuaranteeMessage[担保业务信息正常报文]
+2017-04-10 15:00:06.027 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().91 [INFO] 初始化报文处理过程[1704100001]......
+2017-04-10 15:00:06.030 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().93 [INFO] 初始化报文处理过程完成！
+2017-04-10 15:00:06.030 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().101 [INFO] 检查报文处理过程条件[1704100001]......
+2017-04-10 15:00:06.587 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.ReportSession.ready().411 [INFO] 检查到待上报记录条数: 144
+2017-04-10 15:00:06.587 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().103 [INFO] 处理条件就绪！
+2017-04-10 15:00:06.588 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().111 [INFO] 执行处理报文处理过程[1704100001]......
+2017-04-10 15:00:07.741 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().113 [INFO] 执行报文处理过程完成！
+2017-04-10 15:00:07.748 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.ReportSession.postProcess().280 [INFO] 恭喜，报文文件生成完成! 
+2017-04-10 15:00:08.211 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.ReportSession.postProcess().312 [INFO] 恭喜，生成加密文件成功! 
+2017-04-10 15:00:08.212 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.ReportSession.postProcess().326 [INFO] 恭喜，生成压缩文件成功! 
+2017-04-10 15:00:08.213 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.VillageGuaranteeReportUnit.execute().74 [INFO] 运行处理过程1704100001成功！
+2017-04-10 15:00:08.213 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.run().111 [INFO] ExecuteUnit[NormalGuaranteeMessage]OK[单元名称[NormalGuaranteeMessage]单元执行状态[1]单元执行时间[2.286]秒开始时间[2017/04/10 15:00:05:927]结束时间[2017/04/10 15:00:08:213]]
+2017-04-10 15:00:08.213 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitExit().301 [INFO] 退出 Unit=NormalGuaranteeMessage[担保业务信息正常报文]
+2017-04-10 15:00:08.216 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.runAfter().228 [INFO] isInsert:true,inputDate:2017/04/09,serialNO:26,TaskCode:BCRDataReport,startTime:2017/04/10 15:00:05,endTime:2017/04/10 15:00:08,unitCode:NormalGuaranteeMessage,unitDisc:担保业务信息正常报文,timeDis:0:00:03
+2017-04-10 15:00:08.216 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.targetExit().275 [INFO] 退出 Target=GuaranteeInfoMessage[担保业务信息正常报文]
+2017-04-10 15:00:08.216 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.taskExit().247 [INFO] 退出 Task=BCRDataReport[担保业务报文生成任务]
+2017-04-10 15:00:08.217 CST com.amarsoft.are.ARE com.amarsoft.task.TaskRunner.runCli().135 [INFO] 任务运行完成！

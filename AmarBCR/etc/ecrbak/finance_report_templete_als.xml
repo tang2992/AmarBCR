@@ -1,0 +1,666 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!-- ALS6通用财务模板，此模板用于对照ALS6标准财务对照，使用的ALS6标准财务模型的系统可以以此为基础进行修改 -->
+<reportTemplete>
+	<!--凡是beginningExpression和endingExpression中有值项,均为报表平衡关系及数据校验所必需,一般不允许改动
+	    对资产负债有影响的信贷科目必须要找到相应的征信科目,如果找不到请放入其他项.如果信贷科目比征信科目大,请放入征信科目的第一项
+	    其它项不是单纯对应信贷科目中的其它,而应该是所有找不到对应的科目之代数和.
+	    抽完数据后应核对征信汇总科目与信贷汇总科目之间的差异.
+	    核对科目请咨询业务人员核定后方可
+	    -->
+	<report class="1" name="Balance Sheets" label="资产负债表信息记录" loanModelNo="0001">
+		<!--计算 流动资产合计-->
+		<item code="9501" level="1" name="货币资金" type="0" beginningExpression="" endingExpression="" loanItem="101" />
+		<item code="9503" level="1" name="短期投资" type="0" beginningExpression="" endingExpression="" loanItem="102-195" />
+		<item code="9505" level="1" name="应收票据" type="0" beginningExpression="" endingExpression="" loanItem="103" />
+		<item code="9507" level="1" name="应收股利" type="0" beginningExpression="" endingExpression="" loanItem="134" />
+		<item code="9509" level="1" name="应收利息" type="0" beginningExpression="" endingExpression="" loanItem="19c" />
+		<item code="9511" level="1" name="应收账款" type="0" beginningExpression="" endingExpression="" loanItem="106" />
+		<item code="9513" level="1" name="其他应收款" type="0" beginningExpression="" endingExpression="" loanItem="108" />
+		<item code="9515" level="1" name="预付账款" type="0" beginningExpression="" endingExpression="" loanItem="107" />
+		<item code="9517" level="1" name="期货保证金" type="0" beginningExpression="" endingExpression="" loanItem="" />
+		<item code="9519" level="1" name="应收补贴款" type="0" beginningExpression="" endingExpression="" loanItem="10806" />
+		<item code="9521" level="1" name="应收出口退税" type="0" beginningExpression="" endingExpression="" loanItem="" />
+		<item code="9523" level="1" name="存货" type="0" beginningExpression="" endingExpression="" loanItem="112" />
+		<item code="9525" level="1" name="存货原材料" type="0" beginningExpression="" endingExpression="" loanItem="" />
+		<item code="9527" level="1" name="存货产成品" type="0" beginningExpression="" endingExpression="" loanItem="" />
+		<item code="9529" level="1" name="待摊费用" type="0" beginningExpression="" endingExpression="" loanItem="109" />
+		<item code="9531" level="1" name="待处理流动资产净损失" type="0" beginningExpression="" endingExpression="" loanItem="113" />
+		<item code="9533" level="1" name="一年内到期的长期债权投资" type="0" beginningExpression="" endingExpression="" loanItem="114" />
+		<item code="9535" level="1" name="其他流动资产" type="0" beginningExpression="" endingExpression="" loanItem="115" />
+		
+		<item code="9537" level="1" name="流动资产合计" type="0" beginningExpression="9501+9503+9505+9507+9509+9511+9513+9515+9517+9519+9521+9523+9529+9531+9533+9535" endingExpression="9501+9503+9505+9507+9509+9511+9513+9515+9517+9519+9521+9523+9529+9531+9533+9535" loanItem="" />
+		
+		<!--计算 长期投资合计-->
+		<item code="9539" level="1" name="长期投资" type="0" beginningExpression="" endingExpression="" loanItem="815" />
+		<item code="9541" level="1" name="长期股权投资" type="0" beginningExpression="" endingExpression="" loanItem="" />
+		<item code="9543" level="1" name="长期债权投资" type="0" beginningExpression="" endingExpression="" loanItem="" />
+		<item code="9545" level="1" name="合并价差" type="0" beginningExpression="" endingExpression="" loanItem="135" />
+		
+		<item code="9547" level="1" name="长期投资合计" type="0" beginningExpression="9539+9545" endingExpression="9539+9545" loanItem="" />
+		
+		<!--计算 固定资产净值-->
+		<item code="9549" level="1" name="固定资产原价" type="0" beginningExpression="" endingExpression="" loanItem="117" />
+		<item code="9551" level="1" name="累计折旧" type="0" beginningExpression="" endingExpression="" loanItem="118" />
+		
+		<item code="9553" level="1" name="固定资产净值" type="0" beginningExpression="9549-9551" endingExpression="9549-9551" loanItem="" />
+		
+		<!--计算 固定资产净额-->
+		<item code="9555" level="1" name="固定资产值减值准备" type="0" beginningExpression="" endingExpression="" loanItem="128" />
+		
+		<item code="9557" level="1" name="固定资产净额" type="0" beginningExpression="9553-9555" endingExpression="9553-9555" loanItem="" />
+		
+		<!--计算 固定资产合计-->
+		<item code="9559" level="1" name="固定资产清理" type="0" beginningExpression="" endingExpression="" loanItem="121" />
+		<item code="9561" level="1" name="工程物资" type="0" beginningExpression="" endingExpression="" loanItem="" />
+		<item code="9563" level="1" name="在建工程" type="0" beginningExpression="" endingExpression="" loanItem="120-19a" />
+		<item code="9565" level="1" name="待处理固定资产净损失" type="0" beginningExpression="" endingExpression="" loanItem="122" />
+		
+		<item code="9567" level="1" name="固定资产合计" type="0" beginningExpression="9557+9559+9561+9563+9565" endingExpression="9557+9559+9561+9563+9565" loanItem="" />
+		
+		<!--计算 无形及其他资产合计-->
+		<item code="9569" level="1" name="无形资产" type="0" beginningExpression="" endingExpression="" loanItem="123-199" />
+		<item code="9571" level="1" name="无形资产土地使用权" type="0" beginningExpression="" endingExpression="" loanItem="" />
+		<item code="9573" level="1" name="递延资产" type="0" beginningExpression="" endingExpression="" loanItem="124+181" />
+		<item code="9575" level="1" name="递延资产固定资产修理" type="0" beginningExpression="" endingExpression="" loanItem="" />
+		<item code="9577" level="1" name="递延资产固定资产改良支出" type="0" beginningExpression="" endingExpression="" loanItem="" />
+		<item code="9579" level="1" name="其他长期资产" type="0" beginningExpression="" endingExpression="" loanItem="125+278" />
+		<item code="9581" level="1" name="其他长期资产特准储备物资" type="0" beginningExpression="" endingExpression="" loanItem="" />
+		
+		<item code="9583" level="1" name="无形及其他资产合计" type="0" beginningExpression="9569+9573+9579" endingExpression="9569+9573+9579" loanItem="" />
+		
+		<!--计算 资产总计-->
+		<item code="9585" level="1" name="递延税款借项" type="0" beginningExpression="" endingExpression="" loanItem="126" />
+		
+		<item code="9587" level="1" name="资产总计" type="0" beginningExpression="9537+9547+9567+9583+9585" endingExpression="9537+9547+9567+9583+9585" loanItem="" />
+		
+		<!--计算 流动负债合计-->
+		<item code="9589" level="1" name="短期借款" type="1" beginningExpression="" endingExpression="" loanItem="201" />
+		<item code="9591" level="1" name="应付票据" type="1" beginningExpression="" endingExpression="" loanItem="202" />
+		<item code="9593" level="1" name="应付账款" type="1" beginningExpression="" endingExpression="" loanItem="203" />
+		<item code="9595" level="1" name="预收账款" type="1" beginningExpression="" endingExpression="" loanItem="204" />
+		<item code="9597" level="1" name="应付工资" type="1" beginningExpression="" endingExpression="" loanItem="218" />
+		<item code="9599" level="1" name="应付福利费" type="1" beginningExpression="" endingExpression="" loanItem="205+230" />
+		<item code="9601" level="1" name="应付利润" type="1" beginningExpression="" endingExpression="" loanItem="219" />
+		<item code="9603" level="1" name="应交税金" type="1" beginningExpression="" endingExpression="" loanItem="207" />
+		<item code="9605" level="1" name="其他应交款" type="1" beginningExpression="" endingExpression="" loanItem="208" />
+		<item code="9607" level="1" name="其他应付款" type="1" beginningExpression="" endingExpression="" loanItem="209+274" />
+		<item code="9609" level="1" name="预提费用" type="2" beginningExpression="" endingExpression="" loanItem="210" />
+		<item code="9611" level="1" name="预计负债" type="2" beginningExpression="" endingExpression="" loanItem="" />
+		<item code="9613" level="1" name="一年内到期的长期负债" type="2" beginningExpression="" endingExpression="" loanItem="211" />
+		<item code="9615" level="1" name="其他流动负债" type="2" beginningExpression="" endingExpression="" loanItem="212" />
+		
+		<item code="9617" level="1" name="流动负债合计" type="2" beginningExpression="9589+9591+9593+9595+9597+9599+9601+9603+9605+9607+9609+9611+9613+9615" endingExpression="9589+9591+9593+9595+9597+9599+9601+9603+9605+9607+9609+9611+9613+9615" loanItem="" />
+		
+		<!--计算 长期负债合计-->
+		<item code="9619" level="1" name="长期借款" type="2" beginningExpression="" endingExpression="" loanItem="213" />
+		<item code="9621" level="1" name="应付债券" type="2" beginningExpression="" endingExpression="" loanItem="214" />
+		<item code="9623" level="1" name="长期应付款" type="2" beginningExpression="" endingExpression="" loanItem="215" />
+		<item code="9625" level="1" name="专项应付款" type="2" beginningExpression="" endingExpression="" loanItem="220" />
+		<item code="9627" level="1" name="其他长期负债" type="2" beginningExpression="" endingExpression="" loanItem="216" />
+		<item code="9629" level="1" name="其他长期负债特准储备基金" type="2" beginningExpression="" endingExpression="" loanItem="221" />
+		
+		<item code="9631" level="1" name="长期负债合计" type="2" beginningExpression="9619+9621+9623+9625+9627" endingExpression="9619+9621+9623+9625+9627" loanItem="" />
+		
+		<!--计算 负债合计-->
+		<item code="9633" level="1" name="递延税款贷项" type="2" beginningExpression="" endingExpression="" loanItem="217" />
+		
+		<item code="9635" level="1" name="负债合计" type="2" beginningExpression="9617+9631+9633" endingExpression="9617+9631+9633" loanItem="" />
+		
+		<item code="9637" level="1" name="少数股东权益" type="3" beginningExpression="" endingExpression="" loanItem="307" />
+		
+		<!--计算 实收资本-->
+		<item code="9639" level="1" name="实收资本" type="3" beginningExpression="" endingExpression="" loanItem="301" />
+		<item code="9641" level="1" name="国家资本" type="3" beginningExpression="" endingExpression="" loanItem="" />
+		<item code="9643" level="1" name="集体资本" type="3" beginningExpression="" endingExpression="" loanItem="" />
+		<item code="9645" level="1" name="法人资本" type="3" beginningExpression="" endingExpression="" loanItem="" />
+		<item code="9647" level="1" name="法人资本国有法人资本" type="3" beginningExpression="" endingExpression="" loanItem="" />
+		<item code="9649" level="1" name="法人资本集体法人资本" type="3" beginningExpression="" endingExpression="" loanItem="" />
+		<item code="9651" level="1" name="个人资本" type="3" beginningExpression="" endingExpression="" loanItem="" />
+		<item code="9653" level="1" name="外商资本" type="3" beginningExpression="" endingExpression="" loanItem="" />
+		
+		<!--计算 所有者权益合计-->
+		<item code="9655" level="1" name="资本公积" type="3" beginningExpression="" endingExpression="" loanItem="302" />
+		<item code="9657" level="1" name="盈余公积" type="3" beginningExpression="" endingExpression="" loanItem="303" />
+		<item code="9659" level="1" name="盈余公积法定盈余公积" type="3" beginningExpression="" endingExpression="" loanItem="304" />
+		<item code="9661" level="1" name="盈余公积公益金" type="3" beginningExpression="" endingExpression="" loanItem="" />
+		<item code="9663" level="1" name="盈余公积补充流动资本" type="3" beginningExpression="" endingExpression="" loanItem="" />
+		<item code="9665" level="1" name="未确认的投资损失" type="3" beginningExpression="" endingExpression="" loanItem="" />
+		<item code="9667" level="1" name="未分配利润" type="3" beginningExpression="" endingExpression="" loanItem="305" />
+		<item code="9669" level="1" name="外币报表折算差额" type="3" beginningExpression="" endingExpression="" loanItem="" />
+		
+		<item code="9671" level="1" name="所有者权益合计" type="3" beginningExpression="9639+9655+9657+9665+9667+9669" endingExpression="9639+9655+9657+9665+9667+9669" loanItem="" />
+		
+		<!--计算 负债和所有者权益总计-->
+		<item code="9673" level="1" name="负债和所有者权益总计" type="3" beginningExpression="9635+9637+9671" endingExpression="9635+9637+9671" loanItem="" />
+	</report>
+	
+	<report class="2" name="Statement of Profits" label="利润及利润分配表" loanModelNo="0002">
+		<!--计算 主营业务收入净额-->
+		<item code="9675" level="1" name="主营业务收入" type="11" beginningExpression="" endingExpression="" loanItem="501" />
+		<item code="9677" level="1" name="主营业务收入出口产品销售收入" type="11" beginningExpression="" endingExpression="" loanItem="" />
+		<item code="9679" level="1" name="主营业务收入进口产品销售收入" type="11" beginningExpression="" endingExpression="" loanItem="" />
+		<item code="9681" level="1" name="折扣与拆让" type="11" beginningExpression="" endingExpression="" loanItem="" />
+		
+		<item code="9683" level="1" name="主营业务收入净额" type="11" beginningExpression="9675-9681" endingExpression="9675-9681" loanItem="" />
+		
+		<!--计算 主营业务利润-->
+		<item code="9685" level="1" name="主营业务成本" type="11" beginningExpression="" endingExpression="" loanItem="502" />		
+		<item code="9687" level="1" name="主营业务成本出口产品销售成本" type="11" beginningExpression="" endingExpression="" loanItem="" />
+		<item code="9689" level="1" name="主营业务税金及附加" type="11" beginningExpression="" endingExpression="" loanItem="504" />
+		<item code="9693" level="1" name="经营费用" type="11" beginningExpression="" endingExpression="" loanItem="503" />
+		<item code="9691" level="1" name="其他" type="11" beginningExpression="" endingExpression="" loanItem="" />
+		<item code="9695" level="1" name="递延收益" type="11" beginningExpression="" endingExpression="" loanItem="" />
+		<item code="9697" level="1" name="代购代销收入" type="11" beginningExpression="" endingExpression="" loanItem="" />
+		<item code="9699" level="1" name="其他" type="11" beginningExpression="" endingExpression="" loanItem="" />
+		
+		<item code="9701" level="1" name="主营业务利润" type="11" beginningExpression="9683-9685-9689-9693-9691+9695+9697+9699" endingExpression="9683-9685-9689-9693-9691+9695+9697+9699" loanItem="" />
+		
+		<!--计算 营业利润-->
+		<item code="9703" level="1" name="其他业务利润" type="11" beginningExpression="" endingExpression="" loanItem="506" />
+		<item code="9705" level="1" name="营业费用" type="11" beginningExpression="" endingExpression="" loanItem="" />
+		<item code="9707" level="1" name="管理费用" type="11" beginningExpression="" endingExpression="" loanItem="507" />
+		<item code="9709" level="1" name="财务费用" type="11" beginningExpression="" endingExpression="" loanItem="508" />
+		<item code="9907" level="1" name="其他" type="11" beginningExpression="" endingExpression="" loanItem="" />
+		
+		<item code="9711" level="1" name="营业利润" type="11" beginningExpression="9701+9703-9705-9707-9709-9907" endingExpression="9701+9703-9705-9707-9709-9907" loanItem="" />
+		
+		<!--计算 利润总额-->
+		<item code="9713" level="1" name="投资收益" type="11" beginningExpression="" endingExpression="" loanItem="510" />
+		<item code="9715" level="1" name="期货收益" type="11" beginningExpression="" endingExpression="" loanItem="532" />
+		<item code="9717" level="1" name="补贴收入" type="11" beginningExpression="" endingExpression="" loanItem="511" />
+		<item code="9719" level="1" name="补贴收入补贴前亏损的企业补贴收入" type="11" beginningExpression="" endingExpression="" loanItem="" />
+		<item code="9721" level="1" name="营业外收入" type="11" beginningExpression="" endingExpression="" loanItem="512" />
+		<item code="9723" level="1" name="营业外收入处置固定资产净收益" type="11" beginningExpression="" endingExpression="" loanItem="" />
+		<item code="9725" level="1" name="营业外收入非货币性交易收益" type="11" beginningExpression="" endingExpression="" loanItem="" />
+		<item code="9727" level="1" name="营业外收入出售无形资产收益" type="11" beginningExpression="" endingExpression="" loanItem="" />
+		<item code="9729" level="1" name="营业外收入罚款净收入" type="11" beginningExpression="" endingExpression="" loanItem="" />
+		<item code="9909" level="1" name="其他" type="11" beginningExpression="" endingExpression="" loanItem="514" />
+		<item code="9731" level="1" name="其他用以前年度含量工资节余弥补利润" type="11" beginningExpression="" endingExpression="" loanItem="" />
+		<item code="9733" level="1" name="营业外支出" type="11" beginningExpression="" endingExpression="" loanItem="513" />
+		<item code="9735" level="1" name="营业外支出处置固定资产净损失" type="11" beginningExpression="" endingExpression="" loanItem="" />
+		<item code="9737" level="1" name="营业外支出债务重组损失" type="11" beginningExpression="" endingExpression="" loanItem="" />
+		<item code="9739" level="1" name="营业外支出罚款支出" type="11" beginningExpression="" endingExpression="" loanItem="" />
+		<item code="9741" level="1" name="营业外支出捐赠支出" type="11" beginningExpression="" endingExpression="" loanItem="" />
+		<item code="9743" level="1" name="其他支出" type="11" beginningExpression="" endingExpression="" loanItem="" />
+		<item code="9745" level="1" name="其他支出结转的含量工资包干节余" type="11" beginningExpression="" endingExpression="" loanItem="" />
+		
+		<item code="9747" level="1" name="利润总额" type="11" beginningExpression="9711+9713+9715+9717+9721+9909-9733-9743" endingExpression="9711+9713+9715+9717+9721+9909-9733-9743" loanItem="" />
+		
+		<!--计算 净利润-->
+		<item code="9749" level="1" name="所得税" type="11" beginningExpression="" endingExpression="" loanItem="516" />
+		<item code="9751" level="1" name="少数股东损益" type="11" beginningExpression="" endingExpression="" loanItem="523" />
+		
+		<item code="9753" level="1" name="未确认的投资损失" type="11" beginningExpression="" endingExpression="" loanItem="" />
+		
+		<item code="9755" level="1" name="净利润" type="11" beginningExpression="9747-9749-9751+9753" endingExpression="9747-9749-9751+9753" loanItem="" />
+		
+		<!--计算 可供分配的利润-->
+		<item code="9757" level="1" name="年初未分配利润" type="11" beginningExpression="" endingExpression="" loanItem="" />
+		<item code="9759" level="1" name="盈余公积补亏" type="11" beginningExpression="" endingExpression="" loanItem="" />
+		<item code="9761" level="1" name="其他调整因素" type="11" beginningExpression="" endingExpression="" loanItem="" />
+		
+		<item code="9763" level="1" name="可供分配的利润" type="11" beginningExpression="9755+9757+9759+9761" endingExpression="9755+9757+9759+9761" loanItem="" />
+		
+		<!--计算 可供投资者分配的利润-->
+		<item code="9765" level="1" name="单项留用的利润" type="11" beginningExpression="" endingExpression="" loanItem="" />
+		<item code="9767" level="1" name="补充流动资本" type="11" beginningExpression="" endingExpression="" loanItem="" />
+		<item code="9769" level="1" name="提取法定盈余公积" type="11" beginningExpression="" endingExpression="" loanItem="" />
+		<item code="9771" level="1" name="提取法定公益金" type="11" beginningExpression="" endingExpression="" loanItem="" />
+		<item code="9773" level="1" name="提取职工奖励及福利基金" type="11" beginningExpression="" endingExpression="" loanItem="" />
+		<item code="9775" level="1" name="提取储备基金" type="11" beginningExpression="" endingExpression="" loanItem="" />
+		<item code="9777" level="1" name="提取企业发展基金" type="11" beginningExpression="" endingExpression="" loanItem="" />
+		<item code="9779" level="1" name="利润归还投资" type="11" beginningExpression="" endingExpression="" loanItem="" />
+		<item code="9911" level="1" name="其他" type="11" beginningExpression="" endingExpression="" loanItem="" />
+		
+		<item code="9781" level="1" name="可供投资者分配的利润" type="11" beginningExpression="9763-9765-9767-9769-9771-9773-9775-9777-9779-9911" endingExpression="9763-9765-9767-9769-9771-9773-9775-9777-9779-9911" loanItem="" />
+		
+		<!--计算 未分配利润-->
+		<item code="9783" level="1" name="应付优先股股利" type="11" beginningExpression="" endingExpression="" loanItem="" />
+		<item code="9785" level="1" name="提取任意盈余公积" type="11" beginningExpression="" endingExpression="" loanItem="" />
+		<item code="9787" level="1" name="应付普通股股利" type="11" beginningExpression="" endingExpression="" loanItem="" />
+		<item code="9789" level="1" name="转作资本的普通股股利" type="11" beginningExpression="" endingExpression="" loanItem="" />
+		<item code="9913" level="1" name="其他" type="11" beginningExpression="" endingExpression="" loanItem="" />
+		
+		<item code="9791" level="1" name="未分配利润" type="11" beginningExpression="9781-9783-9785-9787-9789-9913" endingExpression="9781-9783-9785-9787-9789-9913" loanItem="" />
+		
+		<item code="9793" level="1" name="未分配利润应由以后年度税前利润弥补的亏损" type="11" beginningExpression="" endingExpression="" loanItem="" />
+	</report>
+	
+	<report class="3" name="Cash Flow" label="现金流量表"  loanModelNo="0007">
+		<!--计算 经营活动现金流入小计-->
+		<item code="9795" level="1" name="销售商品和提供劳务收到的现金" type="12" beginningExpression="" endingExpression="" loanItem="a01" />
+		<item code="9797" level="1" name="收到的税费返还" type="12" beginningExpression="" endingExpression="" loanItem="a17+a18" />
+		<item code="9799" level="1" name="收到的其他与经营活动有关的现金" type="12" beginningExpression="" endingExpression="" loanItem="a16+a19" />
+		
+		<item code="9823" level="1" name="经营活动现金流入小计" type="12" beginningExpression="9795+9797+9799" endingExpression="9795+9797+9799" loanItem="" />
+		
+		<!--计算 经营活动现金流出小计-->
+		<item code="9803" level="1" name="购买商品、接受劳务支付的现金" type="12" beginningExpression="" endingExpression="" loanItem="a02" />
+		<item code="9805" level="1" name="支付给职工以及为职工支付的现金" type="12" beginningExpression="" endingExpression="" loanItem="a22" />
+		<item code="9807" level="1" name="支付的各项税费" type="12" beginningExpression="" endingExpression="" loanItem="a23+a24+a25" />
+		<item code="9809" level="1" name="支付的其他与经营活动有关的现金" type="12" beginningExpression="" endingExpression="" loanItem="a03+a26" />
+		
+		<item code="9831" level="1" name="经营活动现金流出小计" type="12" beginningExpression="9803+9805+9807+9809" endingExpression="9803+9805+9807+9809" loanItem="" />
+		
+		<!--计算 经营活动产生的现金流量净额-->
+		<item code="9813" level="1" name="经营活动产生的现金流量净额" type="12" beginningExpression="9823-9831" endingExpression="9823-9831" loanItem="" />
+		
+		<!--计算 投资活动现金流入小计-->
+		<item code="9815" level="1" name="收回投资所收到的现金" type="12" beginningExpression="" endingExpression="" loanItem="a28" />
+		<item code="9817" level="1" name="取得投资收益所收到的现金" type="12" beginningExpression="" endingExpression="" loanItem="" />
+		<item code="9819" level="1" name="处置固定资产无形资产和其他长期资产所收回的现金净额" type="12" beginningExpression="" endingExpression="" loanItem="a31" />
+		<item code="9821" level="1" name="收到的其他与投资活动有关的现金" type="12" beginningExpression="" endingExpression="" loanItem="a29+a30+a32" />
+		
+		<item code="9917" level="1" name="投资活动现金流入小计" type="12" beginningExpression="9815+9817+9819+9821" endingExpression="9815+9817+9819+9821" loanItem="" />
+		
+		<!--计算 投资活动现金流出小计-->
+		<item code="9825" level="1" name="购建固定资产无形资产和其他长期资产所支付的现金" type="12" beginningExpression="" endingExpression="" loanItem="a34" />
+		<item code="9827" level="1" name="投资所支付的现金" type="12" beginningExpression="" endingExpression="" loanItem="a35+a36" />
+		<item code="9829" level="1" name="支付的其他与投资活动有关的现金" type="12" beginningExpression="" endingExpression="" loanItem="a37" />
+		
+		<item code="9919" level="1" name="投资活动现金流出小计" type="12" beginningExpression="9825+9827+9829" endingExpression="9825+9827+9829" loanItem="" />
+		
+		<!--计算 投资活动产生的现金流量净额-->
+		<item code="9833" level="1" name="投资活动产生的现金流量净额" type="12" beginningExpression="9917-9919" endingExpression="9917-9919" loanItem="" />
+		
+		<!--计算 筹资活动现金流入小计-->
+		<item code="9835" level="1" name="吸收投资所收到的现金" type="12" beginningExpression="" endingExpression="" loanItem="a39" />
+		<item code="9837" level="1" name="借款所收到的现金" type="12" beginningExpression="" endingExpression="" loanItem="a41" />
+		<item code="9839" level="1" name="收到的其他与筹资活动有关的现金" type="12" beginningExpression="" endingExpression="" loanItem="a40+a42" />
+		
+		<item code="9921" level="1" name="筹资活动现金流入小计" type="12" beginningExpression="9835+9837+9839" endingExpression="9835+9837+9839" loanItem="" />
+		
+		<!--计算 筹资活动现金流出小计-->
+		<item code="9843" level="1" name="偿还债务所支付的现金" type="12" beginningExpression="" endingExpression="" loanItem="a44" />
+		<item code="9845" level="1" name="分配股利、利润或偿付利息所支付的现金" type="12" beginningExpression="" endingExpression="" loanItem="a46" />
+		<item code="9847" level="1" name="支付的其他与筹资活动有关的现金" type="12" beginningExpression="" endingExpression="" loanItem="a45+a47+a48+a49" />
+		
+		<item code="9923" level="1" name="筹资活动现金流出小计" type="12" beginningExpression="9843+9845+9847" endingExpression="9843+9845+9847" loanItem="" />
+		
+		<!--计算 筹集活动产生的现金流量净额-->
+		<item code="9851" level="1" name="筹集活动产生的现金流量净额" type="12" beginningExpression="9921-9923" endingExpression="9921-9923" loanItem="" />
+		
+		<item code="9853" level="1" name="汇率变动对现金的影响" type="12" beginningExpression="" endingExpression="" loanItem="a51" />
+		
+		<!--计算 现金及现金等价物净增加额-->
+		<item code="9855" level="1" name="现金及现金等价物净增加额" type="12" beginningExpression="9851+9853+9813+9833" endingExpression="9851+9853+9813+9833" loanItem="" />
+		
+		<item code="9857" level="1" name="净利润" type="12" beginningExpression="" endingExpression="" loanItem="" />
+		<item code="9859" level="1" name="计提的资产减值准备" type="12" beginningExpression="" endingExpression="" loanItem="" />
+		<item code="9861" level="1" name="固定资产拆旧" type="12" beginningExpression="" endingExpression="" loanItem="" />
+		<item code="9863" level="1" name="无形资产摊销" type="12" beginningExpression="" endingExpression="" loanItem="" />
+		<item code="9865" level="1" name="长期待摊费用摊销" type="12" beginningExpression="" endingExpression="" loanItem="" />
+		<item code="9867" level="1" name="待摊费用减少" type="12" beginningExpression="" endingExpression="" loanItem="" />
+		<item code="9869" level="1" name="预提费用增加" type="12" beginningExpression="" endingExpression="" loanItem="" />
+		<item code="9871" level="1" name="处置固定资产无形资产和其他长期资产的损失" type="12" beginningExpression="" endingExpression="" loanItem="" />
+		<item code="9873" level="1" name="固定资产报废损失" type="12" beginningExpression="" endingExpression="" loanItem="" />
+		<item code="9925" level="1" name="财务费用" type="12" beginningExpression="" endingExpression="" loanItem="" />
+		<item code="9877" level="1" name="投资损失" type="12" beginningExpression="" endingExpression="" loanItem="" />
+		<item code="9879" level="1" name="递延税款贷项" type="12" beginningExpression="" endingExpression="" loanItem="" />
+		<item code="9881" level="1" name="存货的减少" type="12" beginningExpression="" endingExpression="" loanItem="" />
+		<item code="9883" level="1" name="经营性应收项目的减少" type="12" beginningExpression="" endingExpression="" loanItem="" />
+		<item code="9885" level="1" name="经营性应付项目的增加" type="12" beginningExpression="" endingExpression="" loanItem="" />
+		<item code="9915" level="1" name="其他" type="12" beginningExpression="" endingExpression="" loanItem="" />
+		<item code="1813" level="1" name="经营活动产生的现金流量净额" type="12" beginningExpression="" endingExpression="" loanItem="" />
+		<item code="9891" level="1" name="债务转为资本" type="12" beginningExpression="" endingExpression="" loanItem="" />
+		<item code="9893" level="1" name="一年内到期的可转换公司债券" type="12" beginningExpression="" endingExpression="" loanItem="" />
+		<item code="9895" level="1" name="融资租入固定资产" type="12" beginningExpression="" endingExpression="" loanItem="" />
+		<item code="9897" level="1" name="其他" type="12" beginningExpression="" endingExpression="" loanItem="" />
+		<item code="9899" level="1" name="现金的期末余额" type="12" beginningExpression="" endingExpression="" loanItem="" />
+		<item code="9901" level="1" name="现金的期初余额" type="12" beginningExpression="" endingExpression="" loanItem="" />
+		<item code="9903" level="1" name="现金等价物的期末余额" type="12" beginningExpression="" endingExpression="" loanItem="" />
+		<item code="9905" level="1" name="现金等价物的期初余额" type="12" beginningExpression="" endingExpression="" loanItem="" />
+		
+		<item code="1855" level="1" name="现金及现金等价物净增加额" type="12" beginningExpression="9851+9853+9813+9833" endingExpression="9851+9853+9813+9833" loanItem="" />
+	</report>
+    
+	<report class="4" name="Balance Sheets 2007" label="2007资产负债表信息记录" loanModelNo="0291">
+		<!--计算 流动资产合计-->
+		<item  code="9100"  level="1"  name="货币资金" type="12" beginningExpression="" endingExpression="" loanItem="101"/>
+		<item  code="9101"  level="1"  name="交易性金融资产" type="12" beginningExpression="" endingExpression="" loanItem="631"/>
+		<item  code="9102"  level="1"  name="应收票据" type="12" beginningExpression="" endingExpression="" loanItem="103"/>
+		<item  code="9103"  level="1"  name="应收账款" type="12" beginningExpression="" endingExpression="" loanItem="106"/>
+		<item  code="9104"  level="1"  name="预付账款" type="12" beginningExpression="" endingExpression="" loanItem="107"/>
+		<item  code="9105"  level="1"  name="应收利息" type="12" beginningExpression="" endingExpression="" loanItem="19c"/>
+		<item  code="9106"  level="1"  name="应收股利" type="12" beginningExpression="" endingExpression="" loanItem="134"/>
+		<item  code="9107"  level="1"  name="其他应收款" type="12" beginningExpression="" endingExpression="" loanItem="108"/>
+		<item  code="9108"  level="1"  name="存货" type="12" beginningExpression="" endingExpression="" loanItem="110"/>
+		<item  code="9109"  level="1"  name="一年内到期的非流动资产" type="12" beginningExpression="" endingExpression="" loanItem="632"/>
+		<item  code="9110"  level="1"  name="其他流动资产" type="12" beginningExpression="" endingExpression="" loanItem="115+109"/>
+		
+		<item  code="9111"  level="1"  name="流动资产合计" type="12" beginningExpression="9100+9101+9102+9103+9104+9105+9106+9107+9108+9109+9110" endingExpression="9100+9101+9102+9103+9104+9105+9106+9107+9108+9109+9110" loanItem=""/>
+		
+		<!--计算 非流动资产合计-->
+		<item  code="9112"  level="1"  name="可供出售的金融资产" type="12" beginningExpression="" endingExpression="" loanItem="633"/>
+		<item  code="9113"  level="1"  name="持有至到期投资" type="12" beginningExpression="" endingExpression="" loanItem="634"/>
+		<item  code="9114"  level="1"  name="长期股权投资" type="12" beginningExpression="" endingExpression="" loanItem="648"/>
+		<item  code="9115"  level="1"  name="长期应收款" type="12" beginningExpression="" endingExpression="" loanItem="635"/>
+		<item  code="9116"  level="1"  name="投资性房地产" type="12" beginningExpression="" endingExpression="" loanItem="636"/>
+		<item  code="9117"  level="1"  name="固定资产" type="12" beginningExpression="" endingExpression="" loanItem="649"/>
+		<item  code="9118"  level="1"  name="在建工程" type="12" beginningExpression="" endingExpression="" loanItem="120"/>
+		<item  code="9119"  level="1"  name="工程物资" type="12" beginningExpression="" endingExpression="" loanItem="127"/>
+		<item  code="9120"  level="1"  name="固定资产清理" type="12" beginningExpression="" endingExpression="" loanItem="121"/>
+		<item  code="9121"  level="1"  name="生产性生物资产" type="12" beginningExpression="" endingExpression="" loanItem="637"/>
+		<item  code="9122"  level="1"  name="油气资产" type="12" beginningExpression="" endingExpression="" loanItem="638"/>
+		<item  code="9123"  level="1"  name="无形资产" type="12" beginningExpression="" endingExpression="" loanItem="129"/>
+		<item  code="9124"  level="1"  name="开发支出" type="12" beginningExpression="" endingExpression="" loanItem="130"/>
+		<item  code="9125"  level="1"  name="商誉" type="12" beginningExpression="" endingExpression="" loanItem="131"/>
+		<item  code="9126"  level="1"  name="长期待摊费用" type="12" beginningExpression="" endingExpression="" loanItem="132"/>
+		<item  code="9127"  level="1"  name="递延所得税资产" type="12" beginningExpression="" endingExpression="" loanItem="133"/>
+		<item  code="9128"  level="1"  name="其他非流动资产" type="12" beginningExpression="" endingExpression="" loanItem="639+125"/>
+		
+		<item  code="9129"  level="1"  name="非流动资产合计" type="12" beginningExpression="9112+9113+9114+9115+9116+9117+9118+9119+9120+9121+9122+9123+9124+9125+9126+9127+9128" endingExpression="9112+9113+9114+9115+9116+9117+9118+9119+9120+9121+9122+9123+9124+9125+9126+9127+9128" loanItem=""/>
+		
+		<!--计算 资产总计-->
+		<item  code="9130"  level="1"  name="资产总计" type="12" beginningExpression="9111+9129" endingExpression="9111+9129" loanItem=""/>
+		
+		<!--计算 流动负债合计-->
+		<item  code="9131"  level="1"  name="短期借款" type="12" beginningExpression="" endingExpression="" loanItem="201"/>
+		<item  code="9132"  level="1"  name="交易性金融负债" type="12" beginningExpression="" endingExpression="" loanItem="640"/>
+		<item  code="9133"  level="1"  name="应付票据" type="12" beginningExpression="" endingExpression="" loanItem="202"/>
+		<item  code="9134"  level="1"  name="应付账款" type="12" beginningExpression="" endingExpression="" loanItem="203"/>
+		<item  code="9135"  level="1"  name="预收账款" type="12" beginningExpression="" endingExpression="" loanItem="204"/>
+		<item  code="9136"  level="1"  name="应付利息" type="12" beginningExpression="" endingExpression="" loanItem="274"/>
+		<item  code="9137"  level="1"  name="应付职工薪酬" type="12" beginningExpression="" endingExpression="" loanItem="206"/>
+		<item  code="9138"  level="1"  name="应交税费" type="12" beginningExpression="" endingExpression="" loanItem="651"/>
+		<item  code="9139"  level="1"  name="应付股利" type="12" beginningExpression="" endingExpression="" loanItem="641"/>
+		<item  code="9140"  level="1"  name="其他应付款" type="12" beginningExpression="" endingExpression="" loanItem="209"/>
+		<item  code="9141"  level="1"  name="一年内到期的非流动负债" type="12" beginningExpression="" endingExpression="" loanItem="643"/>
+		<item  code="9142"  level="1"  name="其他流动负债" type="12" beginningExpression="" endingExpression="" loanItem="212+210"/>
+		
+		<item  code="9143"  level="1"  name="流动负债合计" type="12" beginningExpression="9131+9132+9133+9134+9135+9136+9137+9138+9139+9140+9141+9142" endingExpression="9131+9132+9133+9134+9135+9136+9137+9138+9139+9140+9141+9142" loanItem=""/>
+		
+		<!--计算 非流动负债合计-->
+		<item  code="9144"  level="1"  name="长期借款" type="12" beginningExpression="" endingExpression="" loanItem="213"/>
+		<item  code="9145"  level="1"  name="应付债券" type="12" beginningExpression="" endingExpression="" loanItem="214"/>
+		<item  code="9146"  level="1"  name="长期应付款" type="12" beginningExpression="" endingExpression="" loanItem="215"/>
+		<item  code="9147"  level="1"  name="专项应付款" type="12" beginningExpression="" endingExpression="" loanItem="644"/>
+		<item  code="9148"  level="1"  name="预计负债" type="12" beginningExpression="" endingExpression="" loanItem="647"/>
+		<item  code="9149"  level="1"  name="递延所得税负债" type="12" beginningExpression="" endingExpression="" loanItem="652"/>
+		<item  code="9150"  level="1"  name="其他非流动负债" type="12" beginningExpression="" endingExpression="" loanItem="645"/>
+		
+		<item  code="9151"  level="1"  name="非流动负债合计" type="12" beginningExpression="9144+9145+9146+9147+9148+9149+9150" endingExpression="9144+9145+9146+9147+9148+9149+9150" loanItem=""/>
+		
+		<!--计算 负债合计-->
+		<item  code="9152"  level="1"  name="负债合计" type="12" beginningExpression="9143+9151" endingExpression="9143+9151" loanItem=""/>
+		
+		<!--计算 所有者权益合计-->
+		<item  code="9153"  level="1"  name="实收资本（或股本）" type="12" beginningExpression="" endingExpression="" loanItem="301"/>
+		<item  code="9154"  level="1"  name="资本公积" type="12" beginningExpression="" endingExpression="" loanItem="302"/>
+		<item  code="9155"  level="1"  name="减：库存股" type="12" beginningExpression="" endingExpression="" loanItem="646"/>
+		<item  code="9156"  level="1"  name="盈余公积" type="12" beginningExpression="" endingExpression="" loanItem="303"/>
+		<item  code="9157"  level="1"  name="未分配利润" type="12" beginningExpression="" endingExpression="" loanItem="305+307"/>
+		
+		<item  code="9158"  level="1"  name="所有者权益合计" type="12" beginningExpression="9153+9154-9155+9156+9157" endingExpression="9153+9154-9155+9156+9157" loanItem=""/>
+		
+		<!--计算 负债和所有者权益合计-->
+		<item  code="9159"  level="1"  name="负债和所有者权益合计" type="12" beginningExpression="9152+9158" endingExpression="9152+9158" loanItem=""/>
+    </report>
+	
+	<report class="5" name="Statement of Profits 2007" label="2007利润及利润分配表" loanModelNo="0292">
+	    <!--计算 营业利润-->
+		<item  code="9170" level="1" name="营业收入" type="12" beginningExpression="" endingExpression="" loanItem="501"/>
+		<item  code="9171" level="1" name="营业成本" type="12" beginningExpression="" endingExpression="" loanItem="502"/>
+		<item  code="9172" level="1" name="营业税金及附加" type="12" beginningExpression="" endingExpression="" loanItem="504"/>
+		<item  code="9173" level="1" name="销售费用" type="12" beginningExpression="" endingExpression="" loanItem="503"/>
+		<item  code="9174" level="1" name="管理费用" type="12" beginningExpression="" endingExpression="" loanItem="507"/>
+		<item  code="9175" level="1" name="财务费用" type="12" beginningExpression="" endingExpression="" loanItem="508"/>
+		<item  code="9176" level="1" name="资产减值损失" type="12" beginningExpression="" endingExpression="" loanItem="653"/>
+		<item  code="9177" level="1" name="公允价值变动净收益" type="12" beginningExpression="" endingExpression="" loanItem="654"/>
+		<item  code="9178" level="1" name="投资净收益" type="12" beginningExpression="" endingExpression="" loanItem="510"/>
+		<item  code="9179" level="1" name="对联营企业和合营企业的投资收益" type="12" beginningExpression="" endingExpression="" loanItem="655"/>
+		
+		<item  code="9180" level="1" name="营业利润" type="12" beginningExpression="9170-9171-9172-9173-9174-9175-9176+9177+9178" endingExpression="9170-9171-9172-9173-9174-9175-9176+9177+9178" loanItem=""/>
+		
+		<!--计算 利润总额-->
+		<item  code="9181" level="1" name="营业外收入" type="12" beginningExpression="" endingExpression="" loanItem="512"/>
+		<item  code="9182" level="1" name="营业外支出" type="12" beginningExpression="" endingExpression="" loanItem="513"/>
+		<item  code="9183" level="1" name="非流动资产损失" type="12" beginningExpression="" endingExpression="" loanItem="524"/>
+		
+		<item  code="9184" level="1" name="利润总额" type="12" beginningExpression="9180+9181-9182" endingExpression="9180+9181-9182" loanItem=""/>
+		
+		<!--计算 净利润-->
+		<item  code="9185" level="1" name="所得税费用" type="12" beginningExpression="" endingExpression="" loanItem="516"/>
+		
+		<item  code="9186" level="1" name="净利润" type="12" beginningExpression="9184-9185" endingExpression="9184-9185" loanItem=""/>
+		
+		<item  code="9187" level="1" name="基本每股收益" type="12" beginningExpression="" endingExpression="" loanItem="657"/>
+		<item  code="9188" level="1" name="稀释每股收益" type="12" beginningExpression="" endingExpression="" loanItem="553"/>
+	</report>
+	
+	<report class="6" name="Cash Flow 2007" label="2007现金流量表" loanModelNo="0297">
+	    <!--计算  经营活动现金流入小计-->
+		<item  code="9199"  level="1" name="销售商品和提供劳务收到的现金" type="12" beginningExpression="" endingExpression="" loanItem="601"/>
+		<item  code="9200"  level="1" name="收到的税费返还" type="12" beginningExpression="" endingExpression="" loanItem="602"/>
+		<item  code="9201"  level="1" name="收到其他与经营活动有关的现金" type="12" beginningExpression="" endingExpression="" loanItem="603"/>
+		
+		<item  code="9202"  level="1" name="经营活动现金流入小计" type="12" beginningExpression="9199+9200+9201" endingExpression="9199+9200+9201" loanItem=""/>
+		
+		<!--计算  经营活动现金流出小计-->
+		<item  code="9203"  level="1" name="购买商品、接受劳务支付的现金" type="12" beginningExpression="" endingExpression="" loanItem="605"/>
+		<item  code="9204"  level="1" name="支付给职工以及为职工支付的现金" type="12" beginningExpression="" endingExpression="" loanItem="606"/>
+		<item  code="9205"  level="1" name="支付的各项税费" type="12" beginningExpression="" endingExpression="" loanItem="607"/>
+		<item  code="9206"  level="1" name="支付其他与经营活动有关的现金" type="12" beginningExpression="" endingExpression="" loanItem="608"/>
+		
+		<item  code="9207"  level="1" name="经营活动现金流出小计" type="12" beginningExpression="9203+9204+9205+9206" endingExpression="9203+9204+9205+9206" loanItem=""/>
+		
+		<!--计算  经营活动产生的现金流量净额 -->
+		<item  code="9208"  level="1" name="经营活动产生的现金流量净额" type="12" beginningExpression="9202-9207" endingExpression="9202-9207" loanItem=""/>
+		
+		<!--计算  投资活动现金流入小计-->
+		<item  code="9209"  level="1" name="收回投资所收到的现金" type="12" beginningExpression="" endingExpression="" loanItem="611"/>
+		<item  code="9210"  level="1" name="取得投资收益所收到的现金" type="12" beginningExpression="" endingExpression="" loanItem="612"/>
+		<item  code="9211"  level="1" name="处置固定资产无形资产和其他长期资产所收回的现金净额" type="12" beginningExpression="" endingExpression="" loanItem="613"/>
+		<item  code="9212"  level="1" name="处置子公司及其他营业单位收到的现金净额" type="12" beginningExpression="" endingExpression="" loanItem="614"/>
+		<item  code="9213"  level="1" name="收到其他与投资活动有关的现金" type="12" beginningExpression="" endingExpression="" loanItem="615"/>
+		
+		<item  code="9214"  level="1" name="投资活动现金流入小计" type="12" beginningExpression="9209+9210+9211+9212+9213" endingExpression="9209+9210+9211+9212+9213" loanItem=""/>
+		
+		<!--计算  投资活动现金流出小计-->
+		<item  code="9215"  level="1" name="购建固定资产无形资产和其他长期资产所支付的现金" type="12" beginningExpression="" endingExpression="" loanItem="617"/>
+		<item  code="9216"  level="1" name="投资所支付的现金" type="12" beginningExpression="" endingExpression="" loanItem="618"/>
+		<item  code="9217"  level="1" name="取得子公司及其他营业单位支付的现金净额" type="12" beginningExpression="" endingExpression="" loanItem="619"/>
+		<item  code="9218"  level="1" name="支付其他与投资活动有关的现金" type="12" beginningExpression="" endingExpression="" loanItem="620"/>
+		
+		<item  code="9219"  level="1" name="投资活动现金流出小计" type="12" beginningExpression="9215+9216+9217+9218" endingExpression="9215+9216+9217+9218" loanItem=""/>
+		
+		<!--计算  投资活动产生的现金流量净额-->
+		<item  code="9220"  level="1" name="投资活动产生的现金流量净额" type="12" beginningExpression="9214-9219" endingExpression="9214-9219" loanItem=""/>
+		
+		<!--计算 筹资活动现金流入小计-->
+		<item  code="9221"  level="1" name="吸收投资收到的现金" type="12" beginningExpression="" endingExpression="" loanItem="622"/>
+		<item  code="9222"  level="1" name="取得借款收到的现金" type="12" beginningExpression="" endingExpression="" loanItem="623"/>
+		<item  code="9223"  level="1" name="收到其他与筹资活动有关的现金" type="12" beginningExpression="" endingExpression="" loanItem="624"/>
+		
+		<item  code="9224"  level="1" name="筹资活动现金流入小计" type="12" beginningExpression="9221+9222+9223" endingExpression="9221+9222+9223" loanItem=""/>
+		
+		<!--计算  筹资活动现金流出小计-->
+		<item  code="9225"  level="1" name="偿还债务所支付的现金" type="12" beginningExpression="" endingExpression="" loanItem="626"/>
+		<item  code="9226"  level="1" name="分配股利、利润或偿付利息所支付的现金" type="12" beginningExpression="" endingExpression="" loanItem="627"/>
+		<item  code="9227"  level="1" name="支付其他与筹资活动有关的现金" type="12" beginningExpression="" endingExpression="" loanItem="628"/>
+		
+		<item  code="9228"  level="1" name="筹资活动现金流出小计" type="12" beginningExpression="9225+9226+9227" endingExpression="9225+9226+9227" loanItem=""/>
+		
+		<!--计算  筹集活动产生的现金流量净额-->
+		<item  code="9229"  level="1" name="筹集活动产生的现金流量净额" type="12" beginningExpression="9224-9228" endingExpression="9224-9228" loanItem=""/>
+		
+		<item  code="9230"  level="1" name="汇率变动对现金及现金等价物的影响" type="12" beginningExpression="" endingExpression="" loanItem="630"/>
+		
+		<!--计算 现金及现金等价物净增加额（五）-->
+		<item  code="9231"  level="1" name="现金及现金等价物净增加额(五)" type="12" beginningExpression="9208+9220+9229" endingExpression="9208+9220+9229" loanItem=""/>
+		
+		<item  code="9232"  level="1" name="期初现金及现金等价物余额" type="12" beginningExpression="" endingExpression="" loanItem=""/>
+		
+		<!--计算 期末现金及现金等价物余额（六）-->
+		<item  code="9233"  level="1" name="期末现金及现金等价物余额(六)" type="12" beginningExpression="9231+9232" endingExpression="9231+9232" loanItem=""/>
+		
+		<item  code="9234"  level="1" name="净利润" type="12" beginningExpression="" endingExpression="" loanItem=""/>
+		<item  code="9235"  level="1" name="资产减值准备" type="12" beginningExpression="" endingExpression="" loanItem=""/>
+		<item  code="9236"  level="1" name="固定资产折旧、油气资产折耗、生产性生物资产折旧" type="12" beginningExpression="" endingExpression="" loanItem=""/>
+		<item  code="9237"  level="1" name="无形资产摊销" type="12" beginningExpression="" endingExpression="" loanItem=""/>
+		<item  code="9238"  level="1" name="长期待摊费用摊销" type="12" beginningExpression="" endingExpression="" loanItem=""/>
+		<item  code="9239"  level="1" name="待摊费用减少" type="12" beginningExpression="" endingExpression="" loanItem=""/>
+		<item  code="9240"  level="1" name="预提费用增加" type="12" beginningExpression="" endingExpression="" loanItem=""/>
+		<item  code="9241"  level="1" name="处置固定资产无形资产和其他长期资产的损失" type="12" beginningExpression="" endingExpression="" loanItem=""/>
+		<item  code="9242"  level="1" name="固定资产报废损失" type="12" beginningExpression="" endingExpression="" loanItem=""/>
+		<item  code="9243"  level="1" name="公允价值变动损失" type="12" beginningExpression="" endingExpression="" loanItem=""/>
+		<item  code="9244"  level="1" name="财务费用" type="12" beginningExpression="" endingExpression="" loanItem=""/>
+		<item  code="9245"  level="1" name="投资损失" type="12" beginningExpression="" endingExpression="" loanItem=""/>
+		<item  code="9246"  level="1" name="递延所得税资产减少" type="12" beginningExpression="" endingExpression="" loanItem=""/>
+		<item  code="9247"  level="1" name="递延所得税负债增加" type="12" beginningExpression="" endingExpression="" loanItem=""/>
+		<item  code="9248"  level="1" name="存货的减少" type="12" beginningExpression="" endingExpression="" loanItem=""/>
+		<item  code="9249"  level="1" name="经营性应收项目的减少" type="12" beginningExpression="" endingExpression="" loanItem=""/>
+		<item  code="9250"  level="1" name="经营性应付项目的增加" type="12" beginningExpression="" endingExpression="" loanItem=""/>
+		<item  code="9251"  level="1" name="其他" type="12" beginningExpression="" endingExpression="" loanItem=""/>
+		<item  code="9252"  level="1" name="经营活动产生的现金流量净额" type="12" beginningExpression="" endingExpression="" loanItem=""/>
+		<item  code="9253"  level="1" name="债务转为资本" type="12" beginningExpression="" endingExpression="" loanItem=""/>
+		<item  code="9254"  level="1" name="一年内到期的可转换公司债券" type="12" beginningExpression="" endingExpression="" loanItem=""/>
+		<item  code="9255"  level="1" name="融资租入固定资产" type="12" beginningExpression="" endingExpression="" loanItem=""/>
+		<item  code="9256"  level="1" name="其他" type="12" beginningExpression="" endingExpression="" loanItem=""/>
+		<item  code="9257"  level="1" name="现金的期末余额" type="12" beginningExpression="" endingExpression="" loanItem=""/>
+		<item  code="9258"  level="1" name="现金的期初余额" type="12" beginningExpression="" endingExpression="" loanItem=""/>
+		<item  code="9259"  level="1" name="现金等价物的期末余额" type="12" beginningExpression="" endingExpression="" loanItem=""/>
+		<item  code="9260"  level="1" name="现金等价物的期初余额" type="12" beginningExpression="" endingExpression="" loanItem=""/>
+		<item  code="9261"  level="1" name="现金及现金等价物净增加额" type="12" beginningExpression="" endingExpression="" loanItem=""/>
+	</report>
+	
+	<report class="7" name="ECR_FINANCEBS_IN" label="事业单位资产负债表" loanModelNo="0191">
+		<!--计算 资产合计-->
+		<item  code="9271"  level="1" name="现金" type="12" beginningExpression="" endingExpression="" loanItem="10102"/>
+		<item  code="9272"  level="1" name="银行存款" type="12" beginningExpression="" endingExpression="" loanItem="136"/>
+		<item  code="9273"  level="1" name="应收票据" type="12" beginningExpression="" endingExpression="" loanItem="103"/>
+		<item  code="9274"  level="1" name="应收账款" type="12" beginningExpression="" endingExpression="" loanItem="19f"/>
+		<item  code="9275"  level="1" name="预付账款" type="12" beginningExpression="" endingExpression="" loanItem="19n"/>
+		<item  code="9276"  level="1" name="其他应收款" type="12" beginningExpression="" endingExpression="" loanItem="19e"/>
+		<item  code="9277"  level="1" name="材料" type="12" beginningExpression="" endingExpression="" loanItem="11001"/>
+		<item  code="9278"  level="1" name="产成品" type="12" beginningExpression="" endingExpression="" loanItem="11002"/>
+		<item  code="9279"  level="1" name="对外投资" type="12" beginningExpression="" endingExpression="" loanItem="188+188a"/>
+		<item  code="9280"  level="1" name="固定资产" type="12" beginningExpression="" endingExpression="" loanItem="117"/>
+		<item  code="9281"  level="1" name="无形资产" type="12" beginningExpression="" endingExpression="" loanItem="123+120+19g"/>
+		
+		<item  code="9282"  level="1" name="资产合计" type="12" beginningExpression="9271+9272+9273+9274+9275+9276+9277+9278+9279+9280+9281" endingExpression="9271+9272+9273+9274+9275+9276+9277+9278+9279+9280+9281" loanItem=""/>
+		
+		<!--计算 支出合计-->
+		<item  code="9283"  level="1" name="拨出经费" type="12" beginningExpression="" endingExpression="" loanItem="548"/>
+		<item  code="9284"  level="1" name="拨出专款" type="12" beginningExpression="" endingExpression="" loanItem="549"/>
+		<item  code="9285"  level="1" name="专款支出" type="12" beginningExpression="" endingExpression="" loanItem="550"/>
+		<item  code="9286"  level="1" name="事业支出" type="12" beginningExpression="" endingExpression="" loanItem="551"/>
+		<item  code="9287"  level="1" name="经营支出" type="12" beginningExpression="" endingExpression="" loanItem="552"/>
+		<item  code="9288"  level="1" name="成本费用" type="12" beginningExpression="" endingExpression="" loanItem="554"/>
+		<item  code="9289"  level="1" name="销售税金" type="12" beginningExpression="" endingExpression="" loanItem="504"/>
+		<item  code="9290"  level="1" name="上缴上级支出" type="12" beginningExpression="" endingExpression="" loanItem="581"/>
+		<item  code="9291"  level="1" name="对附属单位补助" type="12" beginningExpression="" endingExpression="" loanItem="557"/>
+		<item  code="9292"  level="1" name="结转自筹基建" type="12" beginningExpression="" endingExpression="" loanItem="558"/>
+		
+		<item  code="9293"  level="1" name="支出合计" type="12" beginningExpression="9283+9284+9285+9286+9287+9288+9289+9290+9291+9292" endingExpression="9283+9284+9285+9286+9287+9288+9289+9290+9291+9292" loanItem=""/>
+		
+		<!--计算 资产部类总计-->
+		<item  code="9294"  level="1" name="资产部类总计" type="12" beginningExpression="9282+9293" endingExpression="9282+9293" loanItem=""/>
+		
+		<!--计算 负债合计-->
+		<item  code="9295"  level="1" name="借记款项" type="12" beginningExpression="" endingExpression="" loanItem="275+275a"/>
+		<item  code="9296"  level="1" name="应付票据" type="12" beginningExpression="" endingExpression="" loanItem="202"/>
+		<item  code="9297"  level="1" name="应付账款" type="12" beginningExpression="" endingExpression="" loanItem="203"/>
+		<item  code="9298"  level="1" name="预收账款" type="12" beginningExpression="" endingExpression="" loanItem="204"/>
+		<item  code="9299"  level="1" name="其他应付款" type="12" beginningExpression="" endingExpression="" loanItem="209"/>
+		<item  code="9300"  level="1" name="应缴预算款" type="12" beginningExpression="" endingExpression="" loanItem="218"/>
+		<item  code="9301"  level="1" name="应缴财政专户款" type="12" beginningExpression="" endingExpression="" loanItem="205"/>
+		<item  code="9302"  level="1" name="应交税金" type="12" beginningExpression="" endingExpression="" loanItem="276"/>
+		
+		<item  code="9303"  level="1" name="负债合计" type="12" beginningExpression="9295+9296+9297+9298+9299+9300+9301+9302" endingExpression="9295+9296+9297+9298+9299+9300+9301+9302" loanItem=""/>
+		
+		<!--计算 净资产合计-->
+		<item  code="9304"  level="1" name="事业基金" type="12" beginningExpression="" endingExpression="" loanItem="319-329"/>
+		<item  code="9305"  level="1" name="一般基金" type="12" beginningExpression="" endingExpression="" loanItem="328"/>
+		<item  code="9306"  level="1" name="投资基金" type="12" beginningExpression="" endingExpression="" loanItem="329"/>
+		<item  code="9307"  level="1" name="固定基金" type="12" beginningExpression="" endingExpression="" loanItem="320"/>
+		<item  code="9308"  level="1" name="专用基金" type="12" beginningExpression="" endingExpression="" loanItem="321"/>
+		<item  code="9309"  level="1" name="事业结余" type="12" beginningExpression="" endingExpression="" loanItem="322"/>
+		<item  code="9310"  level="1" name="经营结余" type="12" beginningExpression="" endingExpression="" loanItem="19x+277"/>
+		
+		<item  code="9311"  level="1" name="净资产合计" type="12" beginningExpression="9304+9306+9307+9308+9309+9310" endingExpression="9304+9306+9307+9308+9309+9310" loanItem=""/>
+		
+		<!--计算 收入合计-->
+		<item  code="9312"  level="1" name="财政补助收入" type="12" beginningExpression="" endingExpression="" loanItem="559"/>
+		<item  code="9313"  level="1" name="上级补助收入" type="12" beginningExpression="" endingExpression="" loanItem="560"/>
+		<item  code="9314"  level="1" name="拨入专款" type="12" beginningExpression="" endingExpression="" loanItem="561"/>
+		<item  code="9315"  level="1" name="事业收入" type="12" beginningExpression="" endingExpression="" loanItem="562"/>
+		<item  code="9316"  level="1" name="经营收入" type="12" beginningExpression="" endingExpression="" loanItem="587"/>
+		<item  code="9317"  level="1" name="附属单位缴款" type="12" beginningExpression="" endingExpression="" loanItem="565"/>
+		<item  code="9318"  level="1" name="其他收入" type="12" beginningExpression="" endingExpression="" loanItem="571"/>
+		
+		<item  code="9319"  level="1" name="收入合计" type="12" beginningExpression="9312+9313+9314+9315+9316+9317+9318" endingExpression="9312+9313+9314+9315+9316+9317+9318" loanItem=""/>
+		
+		<!--计算 负债部类总计-->
+		<item  code="9320"  level="1" name="负债部类总计" type="12" beginningExpression="9303+9311+9319" endingExpression="9303+9311+9319" loanItem=""/>
+	</report>
+	
+    <report class="8" name="ECR_FINANCECF_IN" label="事业单位收入支出表" loanModelNo="0192">
+		<!--计算 事业收入合计-->
+		<item  code="9330" level="1" name="财政补助收入" type="11" beginningExpression="" endingExpression="" loanItem="559"/>
+		<item  code="9331" level="1" name="上级补助收入" type="11" beginningExpression="" endingExpression="" loanItem="560"/>
+		<item  code="9332" level="1" name="附属单位缴款" type="11" beginningExpression="" endingExpression="" loanItem="565"/>
+		<item  code="9333" level="1" name="事业收入" type="11" beginningExpression="" endingExpression="" loanItem="562"/>
+		<item  code="9334" level="1" name="预算外资金收入" type="11" beginningExpression="" endingExpression="" loanItem="55701"/>
+		<item  code="9335" level="1" name="其他收入" type="11" beginningExpression="" endingExpression="" loanItem="571"/>
+		
+		<item  code="9336" level="1" name="事业收入小计" type="11" beginningExpression="9330+9331+9332+9333+9335" endingExpression="9330+9331+9332+9333+9335" loanItem=""/>
+		
+		<!--计算 事业收入合计-->
+		<item  code="9337" level="1" name="经营收入" type="11" beginningExpression="" endingExpression="" loanItem="564"/>
+		
+		<item  code="9338" level="1" name="经营收入小计" type="11" beginningExpression="" endingExpression="" loanItem="564"/>
+		
+		<!--计算 拨入专款合计-->
+		<item  code="9339" level="1" name="拨入专款" type="11" beginningExpression="" endingExpression="" loanItem="561"/>
+		
+		<item  code="9340" level="1" name="拨入专款小计" type="11" beginningExpression="" endingExpression="" loanItem="561"/>
+		
+		<!--计算 收入总计-->
+		<item  code="9341" level="1" name="收入总计" type="11" beginningExpression="9336+9338+9340" endingExpression="9336+9338+9340" loanItem=""/>
+		
+		<!--计算 事业支出合计-->
+		<item  code="9342" level="1" name="拨出经费" type="11" beginningExpression="" endingExpression="" loanItem="548"/>
+		<item  code="9343" level="1" name="上缴上级支出" type="11" beginningExpression="" endingExpression="" loanItem="556"/>
+		<item  code="9344" level="1" name="对附属单位补助" type="11" beginningExpression="" endingExpression="" loanItem="557"/>
+		<item  code="9345" level="1" name="事业支出" type="11" beginningExpression="" endingExpression="" loanItem="551"/>
+		<item  code="9346" level="1" name="财政补助支出" type="11" beginningExpression="" endingExpression="" loanItem="5b2"/>
+		<item  code="9347" level="1" name="预算外资金支出" type="11" beginningExpression="" endingExpression="" loanItem="5b3"/>
+		<item  code="9348" level="1" name="销售税金" type="11" beginningExpression="" endingExpression="" loanItem="504"/>
+		<item  code="9349" level="1" name="结转自筹基建" type="11" beginningExpression="" endingExpression="" loanItem="558"/>
+		
+		<item  code="9350" level="1" name="事业支出小计" type="11" beginningExpression="9342+9343+9344+9345+9348+9349" endingExpression="9342+9343+9344+9345+9348+9349" loanItem=""/>
+		
+		<!--计算 经营支出合计-->
+		<item  code="9351" level="1" name="经营支出" type="11" beginningExpression="" endingExpression="" loanItem="552"/>
+		<item  code="9352" level="1" name="销售税金" type="11" beginningExpression="" endingExpression="" loanItem="z84"/>
+		
+		<item  code="9353" level="1" name="经营支出小计" type="11" beginningExpression="9351+9352" endingExpression="9351+9352" loanItem=""/>
+		
+		<!--计算 专款合计-->
+		<item  code="9354" level="1" name="拨出专款" type="11" beginningExpression="" endingExpression="" loanItem="549"/>
+		<item  code="9355" level="1" name="专款支出" type="11" beginningExpression="" endingExpression="" loanItem="550"/>
+		
+		<item  code="9356" level="1" name="专款小计" type="11" beginningExpression="9354+9355" endingExpression="9354+9355" loanItem=""/>
+		
+		<!--计算 支出总计-->
+		<item  code="9357" level="1" name="支出总计" type="11" beginningExpression="9350+9353+9356" endingExpression="9350+9353+9356" loanItem=""/>
+		
+		<!--计算 事业结余-->
+		<item  code="9358" level="1" name="事业结余" type="11" beginningExpression="9336-9350" endingExpression="9336-9350" loanItem=""/>
+		
+		<item  code="9359" level="1" name="正常收入结余" type="11" beginningExpression="" endingExpression="" loanItem="z79"/>
+		<item  code="9360" level="1" name="收回以前年度事业支出" type="11" beginningExpression="" endingExpression="" loanItem="z80"/>
+		
+		<!--计算 经营结余-->
+		<item  code="9361" level="1" name="经营结余" type="11" beginningExpression="9338-9353" endingExpression="9338-9353" loanItem=""/>
+		
+		<item  code="9362" level="1" name="以前年度经营亏损" type="11" beginningExpression="" endingExpression="" loanItem="z81"/>
+		<item  code="9363" level="1" name="结余分配" type="11" beginningExpression="" endingExpression="" loanItem="324"/>
+		<item  code="9364" level="1" name="应交所得税" type="11" beginningExpression="" endingExpression="" loanItem="z82"/>
+		<item  code="9365" level="1" name="提取专用基金" type="11" beginningExpression="" endingExpression="" loanItem="z85"/>
+		<item  code="9366" level="1" name="转入事业基金" type="11" beginningExpression="" endingExpression="" loanItem="578"/>
+		<item  code="9367" level="1" name="其他结余分配" type="11" beginningExpression="" endingExpression="" loanItem="57103"/>
+	</report>
+	</reportTemplete>
+

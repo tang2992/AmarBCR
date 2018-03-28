@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="GB2312"?>
+
+<configuration>
+<!--?	不良信贷资产处置信息文件  -->
+<messageList type="14"
+             name="AssetsDisposeData" 
+             datatype="1"
+             direction="0"
+             chinesename="不良信贷资产处置信息文件" 
+             description="包括：文件包含不良信贷资产处置信息报文一个"
+             applicationcode="1"
+             messagefiletype="14"                       
+                     >
+	
+	<!-- 报文名字：不良信贷资产处置信息采集报文 -->   
+<message type="61"
+            id="61"   
+            name="AssetsDisposeMessage" 
+						chinesename="不良信贷资产处置信息采集报文" 
+						tasktype="4"  
+						headerLength="61" 
+						version="2.1"
+						readerVersion="1.1" 
+						charset="GB18030" >  	
+	<record id="header" name="header" type="0" > 
+	  <segment segmentFlag="A" id="0" name="MessageHead" chineseName="报文头" segmentLength="61" optional="false" unique="true">			
+			<field id="8519" dataType="char" name="HeadFlag"     chineseName="报文头标识"     type="AN" startPosition="0" endPosition="0" optional="false"  defaultValue="A"  /> 	    
+			<field id="8517" dataType="char" name="Version"      chineseName="报文格式版本号" type="AN" startPosition="1" endPosition="3" optional="false" defaultValue="2.1"/> 	    
+			<field id="6501" dataType="char" name="FinanceID" chineseName="金融机构代码"   type="AN" startPosition="4" endPosition="14" optional="false"/>
+			<field id="2585" dataType="datetime" name="CreatedTime"   chineseName="报文生成时间"   type="N" startPosition="15" endPosition="28" optional="false"/>
+			<field id="8523" dataType="char" name="MsgType"      chineseName="报文类型"       type="N" startPosition="29" endPosition="30" optional="false"  defaultValue="61"  />			
+			<field id="8515" dataType="char" name="ReserveField" chineseName="预留字段"       type="ANC" startPosition="31" endPosition="60" optional="false"/>
+	 	</segment> 
+ 	</record>
+ 	<record 
+		id="1"  
+		type="51"   
+		name="AssetsDispose" 
+		mainBusinessNo="B.7661" 
+		briefFields="B.6509,B.5559,B.7661,E.1579,E.1585" 
+		chineseName="不良信贷资产处置信息记录"
+	>    
+		<segment segmentFlag="B" id="1" name="BaseSegment" chineseName="基础段" segmentLength="213" optional="false" unique="true">	
+			<field id="4501" dataType="int" name="RecordLength"        chineseName="信息记录长度"     type="N"  startPosition="0"  endPosition="3" optional="false"/> 	    
+			<field id="7653" dataType="char" name="RecordType"          chineseName="信息记录类型"     type="N"  startPosition="4"  endPosition="5" optional="false"   defaultValue="51" /> 	    
+			<field id="7543" dataType="char" name="MessageType"         chineseName="信息类别"         type="AN" startPosition="6"  endPosition="6" optional="false"   defaultValue="B" />
+			<field id="6509" dataType="char" name="FinanceID" chineseName="金融机构代码"   type="AN" startPosition="7" endPosition="17" optional="false"/>
+		 	<field id="5559" dataType="char"   name="CustomerName"           chineseName="借款人名称"             type="ANC" startPosition="18"  endPosition="97"  optional="false"/>				
+		 	<field id="7503" dataType="char" name="LoanCardNo"    chineseName="贷款卡编码"         type="AN"  startPosition="98" endPosition="113" optional="false"/>
+		 	<field id="6511" dataType="char"    name="OrganizationCode"       chineseName="组织机构代码"         type="AN"  startPosition="114" endPosition="123" optional="false"/>				
+		 	<field id="5517" dataType="char" name="BusinessRegistryNo "    chineseName="工商注册登记号"         type="ANC"  startPosition="124" endPosition="143" optional="false"/>
+		 	<field id="7661" dataType="char" name="BusinessNo "    chineseName="业务编号"         type="ANC"  startPosition="144" endPosition="203" optional="false"/>
+			<field id="7511" dataType="char"  name="RecordOperateType"  chineseName="信息记录操作类型" type="AN"  startPosition="204" endPosition="204" optional="false"/>
+			<field id="2501" dataType="date" name="OccurDate"           chineseName="业务发生日期"     type="N" startPosition="205" endPosition="212" optional="false"/>
+			<field id="7641" dataType="char" 		name="RecordNo"   		     chineseName="信息记录跟踪编号" type="AN" 	startPosition="213"  endPosition="232" optional="false"/>
+			<field id="9991" dataType="char" name="CustomerID" chineseName="客户编号" type="AN" startPosition="233" endPosition="272" optional="false"/>
+		</segment> 	
+		<segment segmentFlag="C" id="2" name="SymbolUpdateSegment" chineseName="标识变更段" segmentLength="62" optional="true" unique="false">			
+		 	<field id="7543" dataType="char" name="MessageType"       chineseName="信息类别"   type="AN"  startPosition="0" endPosition="0" optional="false"  defaultValue="C" />
+		 	<field id="7515" dataType="char"  name="ChangeType"        chineseName="变更类型"   type="N"   startPosition="1" endPosition="1"  optional="false" />
+		 	<field id="7517" dataType="char" name="BusinessNo"        chineseName="业务标识号" type="ANC" startPosition="2" endPosition="61" optional="false" />		 	
+		</segment>  
+		<segment segmentFlag="E" id="3" name="AssetsDisposeSegment"  chineseName="资产处置信息段"  segmentLength="50" optional="false" unique="true">					 
+			<field id="7543" dataType="char"   name="MessageType"        chineseName="信息类别"         type="AN"  startPosition="0" endPosition="0"  optional="false" defaultValue="E" />
+		 	<field id="1579" dataType="double"    name="Balance"       chineseName="余额"         type="N"  startPosition="1" endPosition="20" optional="false"/>				
+		 	<field id="2595" dataType="date" name="DisposeDate"    chineseName="处置日期"         type="N"  startPosition="21" endPosition="28" optional="false"/>
+		 	<field id="7639" dataType="char" name="DisposeType"    chineseName="主要资产处置方式"         type="AN"  startPosition="29" endPosition="29" optional="false"/>
+			<field id="1585" dataType="double"    name="RecoveryAmount"       chineseName="已回收金额"         type="N"  startPosition="30" endPosition="49" optional="true"/>				
+		</segment>
+	</record>
+	<record id="tail"  type="-1" name="Tail" > 
+		<segment segmentFlag="Z" id="-1" name="Tail" chineseName="报文尾" segmentLength="11" optional="false" unique="true">
+			<field id="8521" dataType="char" name="TailFlag"    chineseName="报文尾标识"   type="AN"   startPosition="0" endPosition="0" optional="false" defaultValue="Z"  />				
+			<field id="4513" dataType="int"  name="RecordNum"   chineseName="信息记录数"   type="N"    startPosition="1" endPosition="10" optional="false"   />							
+		</segment>
+	</record>
+	</message>
+</messageList>
+</configuration>

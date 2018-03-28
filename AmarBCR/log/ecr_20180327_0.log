@@ -1,0 +1,377 @@
+2018-03-27 11:50:38.365 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.AmarBCR.main().35 [INFO] 自动计算后businessOccurDate：2018/03/26
+2018-03-27 11:50:42.169 CST com.amarsoft.are.ARE com.amarsoft.task.ui.RunTaskObjectAction.run().31 [INFO] 开始运行任务对象......
+2018-03-27 11:50:42.193 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] BCRDataValidate[融资性担保业务数据校验] start! Task user: Administrator(Administrator)
+2018-03-27 11:50:42.206 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.targetStart().262 [INFO] 进入 Target=BCRDataValidate[融资性担保业务数据校验]
+2018-03-27 11:50:42.208 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] GuaranteeDataValidate[业务数据校验] start! Task user: Administrator(Administrator)
+2018-03-27 11:50:42.208 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitStart().288 [INFO] 进入 Unit=GuaranteeDataValidate[业务数据校验]
+2018-03-27 11:50:42.426 CST com.amarsoft.are.ARE com.amarsoft.are.sql.PooledConnectionFactory.addDataSource().136 [INFO] org.apache.commons.dbcp.datasources.SharedPoolDataSource@68f76021
+2018-03-27 11:50:42.429 CST com.amarsoft.are.ARE com.amarsoft.are.sql.PooledConnectionFactory.addDataSource().136 [INFO] org.apache.commons.dbcp.datasources.SharedPoolDataSource@b24b404
+2018-03-27 11:50:43.375 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.listenerDBInit().73 [INFO] target 开始启动
+2018-03-27 11:50:43.958 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().91 [INFO] 初始化报文处理过程[1111111111]......
+2018-03-27 11:50:44.543 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().93 [INFO] 初始化报文处理过程完成！
+2018-03-27 11:50:44.548 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().101 [INFO] 检查报文处理过程条件[1111111111]......
+2018-03-27 11:50:44.553 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().103 [INFO] 处理条件就绪！
+2018-03-27 11:50:44.554 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().111 [INFO] 执行处理报文处理过程[1111111111]......
+2018-03-27 11:50:49.005 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().113 [INFO] 执行报文处理过程完成！
+2018-03-27 11:50:49.035 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.ValidateSession.postProcess().84 [INFO] 共校验记录数：174, 其中正确记录：151, 检验到错误数：23, 错误关联记录：0
+2018-03-27 11:50:49.036 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSessionUnit.execute().49 [INFO] 运行处理过程1111111111成功！
+2018-03-27 11:50:49.067 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.run().111 [INFO] ExecuteUnit[GuaranteeDataValidate]OK[单元名称[GuaranteeDataValidate]单元执行状态[1]单元执行时间[5.252]秒开始时间[2018/03/27 11:50:43:785]结束时间[2018/03/27 11:50:49:037]]
+2018-03-27 11:50:49.070 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitExit().301 [INFO] 退出 Unit=GuaranteeDataValidate[业务数据校验]
+2018-03-27 11:50:49.188 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.runAfter().228 [INFO] isInsert:true,inputDate:2018/03/26,serialNO:1,TaskCode:BCRDataValidate,startTime:2018/03/27 11:50:43,endTime:2018/03/27 11:50:49,unitCode:GuaranteeDataValidate,unitDisc:业务数据校验,timeDis:0:00:06
+2018-03-27 11:50:49.189 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] GDataChengeValidate[变更记录校验] start! Task user: Administrator(Administrator)
+2018-03-27 11:50:49.189 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitStart().288 [INFO] 进入 Unit=GDataChengeValidate[变更记录校验]
+2018-03-27 11:50:49.223 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().91 [INFO] 初始化报文处理过程[1111111111]......
+2018-03-27 11:50:49.232 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().93 [INFO] 初始化报文处理过程完成！
+2018-03-27 11:50:49.234 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().101 [INFO] 检查报文处理过程条件[1111111111]......
+2018-03-27 11:50:49.234 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().103 [INFO] 处理条件就绪！
+2018-03-27 11:50:49.235 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().111 [INFO] 执行处理报文处理过程[1111111111]......
+2018-03-27 11:50:49.241 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().113 [INFO] 执行报文处理过程完成！
+2018-03-27 11:50:49.242 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.ValidateSession.postProcess().84 [INFO] 共校验记录数：1, 其中正确记录：1, 检验到错误数：0, 错误关联记录：0
+2018-03-27 11:50:49.242 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSessionUnit.execute().49 [INFO] 运行处理过程1111111111成功！
+2018-03-27 11:50:49.243 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.run().111 [INFO] ExecuteUnit[GDataChengeValidate]OK[单元名称[GDataChengeValidate]单元执行状态[1]单元执行时间[0.052]秒开始时间[2018/03/27 11:50:49:191]结束时间[2018/03/27 11:50:49:243]]
+2018-03-27 11:50:49.243 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitExit().301 [INFO] 退出 Unit=GDataChengeValidate[变更记录校验]
+2018-03-27 11:50:49.263 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.runAfter().228 [INFO] isInsert:true,inputDate:2018/03/26,serialNO:2,TaskCode:BCRDataValidate,startTime:2018/03/27 11:50:49,endTime:2018/03/27 11:50:49,unitCode:GDataChengeValidate,unitDisc:变更记录校验,timeDis:0:00:00
+2018-03-27 11:50:49.268 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] GDataDeleteValidate[删除记录校验] start! Task user: Administrator(Administrator)
+2018-03-27 11:50:49.269 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitStart().288 [INFO] 进入 Unit=GDataDeleteValidate[删除记录校验]
+2018-03-27 11:50:49.302 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().91 [INFO] 初始化报文处理过程[1111111111]......
+2018-03-27 11:50:49.349 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().93 [INFO] 初始化报文处理过程完成！
+2018-03-27 11:50:49.350 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().101 [INFO] 检查报文处理过程条件[1111111111]......
+2018-03-27 11:50:49.350 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().103 [INFO] 处理条件就绪！
+2018-03-27 11:50:49.351 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().111 [INFO] 执行处理报文处理过程[1111111111]......
+2018-03-27 11:50:49.541 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().116 [ERROR] 执行报文处理过程失败！
+2018-03-27 11:50:49.557 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSessionUnit.execute().43 [FATAL] 运行处理过程1111111111失败 <com.amarsoft.app.datax.bcr.BCRException: 执行报文处理过程失败！>com.amarsoft.app.datax.bcr.BCRException: 执行报文处理过程失败！
+	at com.amarsoft.app.datax.bcr.session.MessageProcessSession.start(MessageProcessSession.java:117)
+	at com.amarsoft.app.datax.bcr.session.MessageProcessSessionUnit.execute(MessageProcessSessionUnit.java:41)
+	at com.amarsoft.task.ExecuteUnit.run(ExecuteUnit.java:109)
+	at com.amarsoft.task.Target.runSerial(Target.java:153)
+	at com.amarsoft.task.Target.run(Target.java:89)
+	at com.amarsoft.task.Task.runTarget(Task.java:85)
+	at com.amarsoft.task.ui.RunTaskObjectAction.run(RunTaskObjectAction.java:38)
+	at java.lang.Thread.run(Unknown Source)
+com.amarsoft.app.datax.bcr.BCRException: 执行报文处理过程失败！
+	at com.amarsoft.app.datax.bcr.session.MessageProcessSession.start(MessageProcessSession.java:117)
+	at com.amarsoft.app.datax.bcr.session.MessageProcessSessionUnit.execute(MessageProcessSessionUnit.java:41)
+	at com.amarsoft.task.ExecuteUnit.run(ExecuteUnit.java:109)
+	at com.amarsoft.task.Target.runSerial(Target.java:153)
+	at com.amarsoft.task.Target.run(Target.java:89)
+	at com.amarsoft.task.Task.runTarget(Task.java:85)
+	at com.amarsoft.task.ui.RunTaskObjectAction.run(RunTaskObjectAction.java:38)
+	at java.lang.Thread.run(Unknown Source)
+
+2018-03-27 11:50:49.559 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.run().111 [INFO] ExecuteUnit[GDataDeleteValidate]OK[单元名称[GDataDeleteValidate]单元执行状态[2]单元执行时间[0.276]秒开始时间[2018/03/27 11:50:49:282]结束时间[2018/03/27 11:50:49:558]]
+2018-03-27 11:50:49.562 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitExit().301 [INFO] 退出 Unit=GDataDeleteValidate[删除记录校验]
+2018-03-27 11:50:49.568 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.runAfter().228 [INFO] isInsert:true,inputDate:2018/03/26,serialNO:3,TaskCode:BCRDataValidate,startTime:2018/03/27 11:50:49,endTime:2018/03/27 11:50:49,unitCode:GDataDeleteValidate,unitDisc:删除记录校验,timeDis:0:00:00
+2018-03-27 11:50:49.570 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.targetExit().275 [INFO] 退出 Target=BCRDataValidate[融资性担保业务数据校验]
+2018-03-27 11:50:49.572 CST com.amarsoft.are.ARE com.amarsoft.task.ui.RunTaskObjectAction.run().46 [INFO] 任务对象运行结束！
+2018-03-27 11:50:53.923 CST com.amarsoft.are.ARE com.amarsoft.task.ui.RunTaskObjectAction.run().31 [INFO] 开始运行任务对象......
+2018-03-27 11:50:53.924 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] BCRDataValidate[融资性担保业务数据校验] start! Task user: Administrator(Administrator)
+2018-03-27 11:50:53.926 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] GuaranteeDataValidate[业务数据校验] start! Task user: Administrator(Administrator)
+2018-03-27 11:50:53.926 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitStart().288 [INFO] 进入 Unit=GuaranteeDataValidate[业务数据校验]
+2018-03-27 11:50:53.969 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().91 [INFO] 初始化报文处理过程[1111111111]......
+2018-03-27 11:50:53.984 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().93 [INFO] 初始化报文处理过程完成！
+2018-03-27 11:50:53.984 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().101 [INFO] 检查报文处理过程条件[1111111111]......
+2018-03-27 11:50:53.985 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().103 [INFO] 处理条件就绪！
+2018-03-27 11:50:53.985 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().111 [INFO] 执行处理报文处理过程[1111111111]......
+2018-03-27 11:50:57.006 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().113 [INFO] 执行报文处理过程完成！
+2018-03-27 11:50:57.007 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.ValidateSession.postProcess().84 [INFO] 共校验记录数：174, 其中正确记录：151, 检验到错误数：23, 错误关联记录：0
+2018-03-27 11:50:57.008 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSessionUnit.execute().49 [INFO] 运行处理过程1111111111成功！
+2018-03-27 11:50:57.008 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitExit().301 [INFO] 退出 Unit=GuaranteeDataValidate[业务数据校验]
+2018-03-27 11:50:57.017 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.runAfter().228 [INFO] isInsert:false,inputDate:2018/03/26,serialNO:1,TaskCode:BCRDataValidate,startTime:2018/03/27 11:50:53,endTime:2018/03/27 11:50:57,unitCode:GuaranteeDataValidate,unitDisc:业务数据校验,timeDis:0:00:04
+2018-03-27 11:50:57.017 CST com.amarsoft.are.ARE com.amarsoft.task.ui.RunTaskObjectAction.run().46 [INFO] 任务对象运行结束！
+2018-03-27 11:51:01.386 CST com.amarsoft.are.ARE com.amarsoft.task.ui.RunTaskObjectAction.run().31 [INFO] 开始运行任务对象......
+2018-03-27 11:51:01.387 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] BCRDataValidate[融资性担保业务数据校验] start! Task user: Administrator(Administrator)
+2018-03-27 11:51:01.387 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] GDataChengeValidate[变更记录校验] start! Task user: Administrator(Administrator)
+2018-03-27 11:51:01.388 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitStart().288 [INFO] 进入 Unit=GDataChengeValidate[变更记录校验]
+2018-03-27 11:51:01.401 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().91 [INFO] 初始化报文处理过程[1111111111]......
+2018-03-27 11:51:01.406 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().93 [INFO] 初始化报文处理过程完成！
+2018-03-27 11:51:01.406 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().101 [INFO] 检查报文处理过程条件[1111111111]......
+2018-03-27 11:51:01.407 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().103 [INFO] 处理条件就绪！
+2018-03-27 11:51:01.407 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().111 [INFO] 执行处理报文处理过程[1111111111]......
+2018-03-27 11:51:01.496 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().113 [INFO] 执行报文处理过程完成！
+2018-03-27 11:51:01.497 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.ValidateSession.postProcess().84 [INFO] 共校验记录数：1, 其中正确记录：1, 检验到错误数：0, 错误关联记录：0
+2018-03-27 11:51:01.497 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSessionUnit.execute().49 [INFO] 运行处理过程1111111111成功！
+2018-03-27 11:51:01.498 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitExit().301 [INFO] 退出 Unit=GDataChengeValidate[变更记录校验]
+2018-03-27 11:51:01.583 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.runAfter().228 [INFO] isInsert:false,inputDate:2018/03/26,serialNO:2,TaskCode:BCRDataValidate,startTime:2018/03/27 11:51:01,endTime:2018/03/27 11:51:01,unitCode:GDataChengeValidate,unitDisc:变更记录校验,timeDis:0:00:00
+2018-03-27 11:51:01.584 CST com.amarsoft.are.ARE com.amarsoft.task.ui.RunTaskObjectAction.run().46 [INFO] 任务对象运行结束！
+2018-03-27 11:51:05.083 CST com.amarsoft.are.ARE com.amarsoft.task.ui.RunTaskObjectAction.run().31 [INFO] 开始运行任务对象......
+2018-03-27 11:51:05.092 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] BCRDataValidate[融资性担保业务数据校验] start! Task user: Administrator(Administrator)
+2018-03-27 11:51:05.092 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] GDataDeleteValidate[删除记录校验] start! Task user: Administrator(Administrator)
+2018-03-27 11:51:05.093 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitStart().288 [INFO] 进入 Unit=GDataDeleteValidate[删除记录校验]
+2018-03-27 11:51:05.106 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().91 [INFO] 初始化报文处理过程[1111111111]......
+2018-03-27 11:51:05.115 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().93 [INFO] 初始化报文处理过程完成！
+2018-03-27 11:51:05.116 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().101 [INFO] 检查报文处理过程条件[1111111111]......
+2018-03-27 11:51:05.116 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().103 [INFO] 处理条件就绪！
+2018-03-27 11:51:05.116 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().111 [INFO] 执行处理报文处理过程[1111111111]......
+2018-03-27 11:51:05.175 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().116 [ERROR] 执行报文处理过程失败！
+2018-03-27 11:51:05.183 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSessionUnit.execute().43 [FATAL] 运行处理过程1111111111失败 <com.amarsoft.app.datax.bcr.BCRException: 执行报文处理过程失败！>com.amarsoft.app.datax.bcr.BCRException: 执行报文处理过程失败！
+	at com.amarsoft.app.datax.bcr.session.MessageProcessSession.start(MessageProcessSession.java:117)
+	at com.amarsoft.app.datax.bcr.session.MessageProcessSessionUnit.execute(MessageProcessSessionUnit.java:41)
+	at com.amarsoft.task.Target.executeUnit(Target.java:231)
+	at com.amarsoft.task.Task.executeUnit(Task.java:105)
+	at com.amarsoft.task.ui.RunTaskObjectAction.run(RunTaskObjectAction.java:42)
+	at java.lang.Thread.run(Unknown Source)
+com.amarsoft.app.datax.bcr.BCRException: 执行报文处理过程失败！
+	at com.amarsoft.app.datax.bcr.session.MessageProcessSession.start(MessageProcessSession.java:117)
+	at com.amarsoft.app.datax.bcr.session.MessageProcessSessionUnit.execute(MessageProcessSessionUnit.java:41)
+	at com.amarsoft.task.Target.executeUnit(Target.java:231)
+	at com.amarsoft.task.Task.executeUnit(Task.java:105)
+	at com.amarsoft.task.ui.RunTaskObjectAction.run(RunTaskObjectAction.java:42)
+	at java.lang.Thread.run(Unknown Source)
+
+2018-03-27 11:51:05.183 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitExit().301 [INFO] 退出 Unit=GDataDeleteValidate[删除记录校验]
+2018-03-27 11:51:05.187 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.runAfter().228 [INFO] isInsert:false,inputDate:2018/03/26,serialNO:3,TaskCode:BCRDataValidate,startTime:2018/03/27 11:51:05,endTime:2018/03/27 11:51:05,unitCode:GDataDeleteValidate,unitDisc:删除记录校验,timeDis:0:00:00
+2018-03-27 11:51:05.188 CST com.amarsoft.are.ARE com.amarsoft.task.ui.RunTaskObjectAction.run().46 [INFO] 任务对象运行结束！
+2018-03-27 11:57:42.475 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.AmarBCR.main().35 [INFO] 自动计算后businessOccurDate：2018/03/26
+2018-03-27 11:57:44.223 CST com.amarsoft.are.ARE com.amarsoft.task.ui.RunTaskObjectAction.run().31 [INFO] 开始运行任务对象......
+2018-03-27 11:57:44.226 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] BCRDataValidate[融资性担保业务数据校验] start! Task user: Administrator(Administrator)
+2018-03-27 11:57:44.227 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] GuaranteeDataValidate[业务数据校验] start! Task user: Administrator(Administrator)
+2018-03-27 11:57:44.230 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitStart().288 [INFO] 进入 Unit=GuaranteeDataValidate[业务数据校验]
+2018-03-27 11:57:44.262 CST com.amarsoft.are.ARE com.amarsoft.are.sql.PooledConnectionFactory.addDataSource().136 [INFO] org.apache.commons.dbcp.datasources.SharedPoolDataSource@5845744e
+2018-03-27 11:57:44.265 CST com.amarsoft.are.ARE com.amarsoft.are.sql.PooledConnectionFactory.addDataSource().136 [INFO] org.apache.commons.dbcp.datasources.SharedPoolDataSource@6a43c248
+2018-03-27 11:57:44.677 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.listenerDBInit().73 [INFO] target 开始启动
+2018-03-27 11:57:44.753 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().91 [INFO] 初始化报文处理过程[1111111111]......
+2018-03-27 11:57:44.902 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().93 [INFO] 初始化报文处理过程完成！
+2018-03-27 11:57:44.905 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().101 [INFO] 检查报文处理过程条件[1111111111]......
+2018-03-27 11:57:44.911 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().103 [INFO] 处理条件就绪！
+2018-03-27 11:57:44.912 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().111 [INFO] 执行处理报文处理过程[1111111111]......
+2018-03-27 11:57:47.422 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().113 [INFO] 执行报文处理过程完成！
+2018-03-27 11:57:47.427 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.ValidateSession.postProcess().84 [INFO] 共校验记录数：174, 其中正确记录：171, 检验到错误数：3, 错误关联记录：0
+2018-03-27 11:57:47.432 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSessionUnit.execute().49 [INFO] 运行处理过程1111111111成功！
+2018-03-27 11:57:47.433 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitExit().301 [INFO] 退出 Unit=GuaranteeDataValidate[业务数据校验]
+2018-03-27 11:57:47.494 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.runAfter().228 [INFO] isInsert:false,inputDate:2018/03/26,serialNO:1,TaskCode:BCRDataValidate,startTime:2018/03/27 11:57:44,endTime:2018/03/27 11:57:47,unitCode:GuaranteeDataValidate,unitDisc:业务数据校验,timeDis:0:00:03
+2018-03-27 11:57:47.494 CST com.amarsoft.are.ARE com.amarsoft.task.ui.RunTaskObjectAction.run().46 [INFO] 任务对象运行结束！
+2018-03-27 11:57:48.220 CST com.amarsoft.are.ARE com.amarsoft.task.ui.RunTaskObjectAction.run().31 [INFO] 开始运行任务对象......
+2018-03-27 11:57:48.222 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] BCRDataValidate[融资性担保业务数据校验] start! Task user: Administrator(Administrator)
+2018-03-27 11:57:48.228 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] GDataChengeValidate[变更记录校验] start! Task user: Administrator(Administrator)
+2018-03-27 11:57:48.228 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitStart().288 [INFO] 进入 Unit=GDataChengeValidate[变更记录校验]
+2018-03-27 11:57:48.241 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().91 [INFO] 初始化报文处理过程[1111111111]......
+2018-03-27 11:57:48.290 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().93 [INFO] 初始化报文处理过程完成！
+2018-03-27 11:57:48.293 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().101 [INFO] 检查报文处理过程条件[1111111111]......
+2018-03-27 11:57:48.294 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().103 [INFO] 处理条件就绪！
+2018-03-27 11:57:48.295 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().111 [INFO] 执行处理报文处理过程[1111111111]......
+2018-03-27 11:57:48.302 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().113 [INFO] 执行报文处理过程完成！
+2018-03-27 11:57:48.303 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.ValidateSession.postProcess().84 [INFO] 共校验记录数：1, 其中正确记录：1, 检验到错误数：0, 错误关联记录：0
+2018-03-27 11:57:48.304 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSessionUnit.execute().49 [INFO] 运行处理过程1111111111成功！
+2018-03-27 11:57:48.306 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitExit().301 [INFO] 退出 Unit=GDataChengeValidate[变更记录校验]
+2018-03-27 11:57:48.419 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.runAfter().228 [INFO] isInsert:false,inputDate:2018/03/26,serialNO:2,TaskCode:BCRDataValidate,startTime:2018/03/27 11:57:48,endTime:2018/03/27 11:57:48,unitCode:GDataChengeValidate,unitDisc:变更记录校验,timeDis:0:00:00
+2018-03-27 11:57:48.420 CST com.amarsoft.are.ARE com.amarsoft.task.ui.RunTaskObjectAction.run().46 [INFO] 任务对象运行结束！
+2018-03-27 11:57:51.019 CST com.amarsoft.are.ARE com.amarsoft.task.ui.RunTaskObjectAction.run().31 [INFO] 开始运行任务对象......
+2018-03-27 11:57:51.023 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] BCRDataValidate[融资性担保业务数据校验] start! Task user: Administrator(Administrator)
+2018-03-27 11:57:51.023 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] GDataChengeValidate[变更记录校验] start! Task user: Administrator(Administrator)
+2018-03-27 11:57:51.024 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitStart().288 [INFO] 进入 Unit=GDataChengeValidate[变更记录校验]
+2018-03-27 11:57:51.028 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().91 [INFO] 初始化报文处理过程[1111111111]......
+2018-03-27 11:57:51.039 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().93 [INFO] 初始化报文处理过程完成！
+2018-03-27 11:57:51.039 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().101 [INFO] 检查报文处理过程条件[1111111111]......
+2018-03-27 11:57:51.040 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().103 [INFO] 处理条件就绪！
+2018-03-27 11:57:51.040 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().111 [INFO] 执行处理报文处理过程[1111111111]......
+2018-03-27 11:57:51.090 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().113 [INFO] 执行报文处理过程完成！
+2018-03-27 11:57:51.091 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.ValidateSession.postProcess().84 [INFO] 共校验记录数：1, 其中正确记录：1, 检验到错误数：0, 错误关联记录：0
+2018-03-27 11:57:51.091 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSessionUnit.execute().49 [INFO] 运行处理过程1111111111成功！
+2018-03-27 11:57:51.092 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitExit().301 [INFO] 退出 Unit=GDataChengeValidate[变更记录校验]
+2018-03-27 11:57:51.105 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.runAfter().228 [INFO] isInsert:false,inputDate:2018/03/26,serialNO:2,TaskCode:BCRDataValidate,startTime:2018/03/27 11:57:51,endTime:2018/03/27 11:57:51,unitCode:GDataChengeValidate,unitDisc:变更记录校验,timeDis:0:00:00
+2018-03-27 11:57:51.105 CST com.amarsoft.are.ARE com.amarsoft.task.ui.RunTaskObjectAction.run().46 [INFO] 任务对象运行结束！
+2018-03-27 11:57:52.459 CST com.amarsoft.are.ARE com.amarsoft.task.ui.RunTaskObjectAction.run().31 [INFO] 开始运行任务对象......
+2018-03-27 11:57:52.461 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] BCRDataValidate[融资性担保业务数据校验] start! Task user: Administrator(Administrator)
+2018-03-27 11:57:52.464 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] GuaranteeDataValidate[业务数据校验] start! Task user: Administrator(Administrator)
+2018-03-27 11:57:52.465 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitStart().288 [INFO] 进入 Unit=GuaranteeDataValidate[业务数据校验]
+2018-03-27 11:57:52.472 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().91 [INFO] 初始化报文处理过程[1111111111]......
+2018-03-27 11:57:52.481 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().93 [INFO] 初始化报文处理过程完成！
+2018-03-27 11:57:52.481 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().101 [INFO] 检查报文处理过程条件[1111111111]......
+2018-03-27 11:57:52.481 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().103 [INFO] 处理条件就绪！
+2018-03-27 11:57:52.482 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().111 [INFO] 执行处理报文处理过程[1111111111]......
+2018-03-27 11:57:54.846 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().113 [INFO] 执行报文处理过程完成！
+2018-03-27 11:57:54.847 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.ValidateSession.postProcess().84 [INFO] 共校验记录数：174, 其中正确记录：171, 检验到错误数：3, 错误关联记录：0
+2018-03-27 11:57:54.848 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSessionUnit.execute().49 [INFO] 运行处理过程1111111111成功！
+2018-03-27 11:57:54.848 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitExit().301 [INFO] 退出 Unit=GuaranteeDataValidate[业务数据校验]
+2018-03-27 11:57:54.852 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.runAfter().228 [INFO] isInsert:false,inputDate:2018/03/26,serialNO:1,TaskCode:BCRDataValidate,startTime:2018/03/27 11:57:52,endTime:2018/03/27 11:57:54,unitCode:GuaranteeDataValidate,unitDisc:业务数据校验,timeDis:0:00:02
+2018-03-27 11:57:54.853 CST com.amarsoft.are.ARE com.amarsoft.task.ui.RunTaskObjectAction.run().46 [INFO] 任务对象运行结束！
+2018-03-27 11:59:52.131 CST com.amarsoft.are.ARE com.amarsoft.task.ui.RunTaskObjectAction.run().31 [INFO] 开始运行任务对象......
+2018-03-27 11:59:52.132 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] BCRDataValidate[融资性担保业务数据校验] start! Task user: Administrator(Administrator)
+2018-03-27 11:59:52.132 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] GuaranteeDataValidate[业务数据校验] start! Task user: Administrator(Administrator)
+2018-03-27 11:59:52.134 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitStart().288 [INFO] 进入 Unit=GuaranteeDataValidate[业务数据校验]
+2018-03-27 11:59:52.154 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().91 [INFO] 初始化报文处理过程[1111111111]......
+2018-03-27 11:59:52.164 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().93 [INFO] 初始化报文处理过程完成！
+2018-03-27 11:59:52.164 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().101 [INFO] 检查报文处理过程条件[1111111111]......
+2018-03-27 11:59:52.164 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().103 [INFO] 处理条件就绪！
+2018-03-27 11:59:52.165 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().111 [INFO] 执行处理报文处理过程[1111111111]......
+2018-03-27 11:59:54.344 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().113 [INFO] 执行报文处理过程完成！
+2018-03-27 11:59:54.344 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.ValidateSession.postProcess().84 [INFO] 共校验记录数：174, 其中正确记录：174, 检验到错误数：0, 错误关联记录：0
+2018-03-27 11:59:54.345 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSessionUnit.execute().49 [INFO] 运行处理过程1111111111成功！
+2018-03-27 11:59:54.345 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitExit().301 [INFO] 退出 Unit=GuaranteeDataValidate[业务数据校验]
+2018-03-27 11:59:54.349 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.runAfter().228 [INFO] isInsert:false,inputDate:2018/03/26,serialNO:1,TaskCode:BCRDataValidate,startTime:2018/03/27 11:59:52,endTime:2018/03/27 11:59:54,unitCode:GuaranteeDataValidate,unitDisc:业务数据校验,timeDis:0:00:02
+2018-03-27 11:59:54.349 CST com.amarsoft.are.ARE com.amarsoft.task.ui.RunTaskObjectAction.run().46 [INFO] 任务对象运行结束！
+2018-03-27 11:59:56.995 CST com.amarsoft.are.ARE com.amarsoft.task.ui.RunTaskObjectAction.run().31 [INFO] 开始运行任务对象......
+2018-03-27 11:59:56.995 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] BCRDataValidate[融资性担保业务数据校验] start! Task user: Administrator(Administrator)
+2018-03-27 11:59:56.997 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] GDataChengeValidate[变更记录校验] start! Task user: Administrator(Administrator)
+2018-03-27 11:59:56.998 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitStart().288 [INFO] 进入 Unit=GDataChengeValidate[变更记录校验]
+2018-03-27 11:59:57.004 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().91 [INFO] 初始化报文处理过程[1111111111]......
+2018-03-27 11:59:57.021 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().93 [INFO] 初始化报文处理过程完成！
+2018-03-27 11:59:57.021 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().101 [INFO] 检查报文处理过程条件[1111111111]......
+2018-03-27 11:59:57.021 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().103 [INFO] 处理条件就绪！
+2018-03-27 11:59:57.022 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().111 [INFO] 执行处理报文处理过程[1111111111]......
+2018-03-27 11:59:57.054 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().113 [INFO] 执行报文处理过程完成！
+2018-03-27 11:59:57.056 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.ValidateSession.postProcess().84 [INFO] 共校验记录数：1, 其中正确记录：1, 检验到错误数：0, 错误关联记录：0
+2018-03-27 11:59:57.056 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSessionUnit.execute().49 [INFO] 运行处理过程1111111111成功！
+2018-03-27 11:59:57.057 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitExit().301 [INFO] 退出 Unit=GDataChengeValidate[变更记录校验]
+2018-03-27 11:59:57.058 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.runAfter().228 [INFO] isInsert:false,inputDate:2018/03/26,serialNO:2,TaskCode:BCRDataValidate,startTime:2018/03/27 11:59:56,endTime:2018/03/27 11:59:57,unitCode:GDataChengeValidate,unitDisc:变更记录校验,timeDis:0:00:01
+2018-03-27 11:59:57.059 CST com.amarsoft.are.ARE com.amarsoft.task.ui.RunTaskObjectAction.run().46 [INFO] 任务对象运行结束！
+2018-03-27 14:36:49.250 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.AmarBCR.main().35 [INFO] 自动计算后businessOccurDate：2018/03/26
+2018-03-27 14:36:51.158 CST com.amarsoft.are.ARE com.amarsoft.task.ui.RunTaskObjectAction.run().31 [INFO] 开始运行任务对象......
+2018-03-27 14:36:51.165 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] BCRDataValidate[融资性担保业务数据校验] start! Task user: Administrator(Administrator)
+2018-03-27 14:36:51.166 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] GuaranteeDataValidate[业务数据校验] start! Task user: Administrator(Administrator)
+2018-03-27 14:36:51.167 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitStart().288 [INFO] 进入 Unit=GuaranteeDataValidate[业务数据校验]
+2018-03-27 14:36:51.347 CST com.amarsoft.are.ARE com.amarsoft.are.sql.PooledConnectionFactory.addDataSource().136 [INFO] org.apache.commons.dbcp.datasources.SharedPoolDataSource@70c4825c
+2018-03-27 14:36:51.348 CST com.amarsoft.are.ARE com.amarsoft.are.sql.PooledConnectionFactory.addDataSource().136 [INFO] org.apache.commons.dbcp.datasources.SharedPoolDataSource@4efc9893
+2018-03-27 14:36:52.230 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.listenerDBInit().73 [INFO] target 开始启动
+2018-03-27 14:36:52.463 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().91 [INFO] 初始化报文处理过程[1111111111]......
+2018-03-27 14:36:52.759 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().93 [INFO] 初始化报文处理过程完成！
+2018-03-27 14:36:52.760 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().101 [INFO] 检查报文处理过程条件[1111111111]......
+2018-03-27 14:36:52.761 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().103 [INFO] 处理条件就绪！
+2018-03-27 14:36:52.762 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().111 [INFO] 执行处理报文处理过程[1111111111]......
+2018-03-27 14:36:56.497 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().113 [INFO] 执行报文处理过程完成！
+2018-03-27 14:36:56.524 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.ValidateSession.postProcess().84 [INFO] 共校验记录数：174, 其中正确记录：174, 检验到错误数：0, 错误关联记录：0
+2018-03-27 14:36:56.525 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSessionUnit.execute().49 [INFO] 运行处理过程1111111111成功！
+2018-03-27 14:36:56.526 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitExit().301 [INFO] 退出 Unit=GuaranteeDataValidate[业务数据校验]
+2018-03-27 14:36:56.532 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.runAfter().228 [INFO] isInsert:false,inputDate:2018/03/26,serialNO:1,TaskCode:BCRDataValidate,startTime:2018/03/27 14:36:52,endTime:2018/03/27 14:36:56,unitCode:GuaranteeDataValidate,unitDisc:业务数据校验,timeDis:0:00:04
+2018-03-27 14:36:56.533 CST com.amarsoft.are.ARE com.amarsoft.task.ui.RunTaskObjectAction.run().46 [INFO] 任务对象运行结束！
+2018-03-27 14:36:57.796 CST com.amarsoft.are.ARE com.amarsoft.task.ui.RunTaskObjectAction.run().31 [INFO] 开始运行任务对象......
+2018-03-27 14:36:57.797 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] BCRDataValidate[融资性担保业务数据校验] start! Task user: Administrator(Administrator)
+2018-03-27 14:36:57.798 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] GDataChengeValidate[变更记录校验] start! Task user: Administrator(Administrator)
+2018-03-27 14:36:57.802 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitStart().288 [INFO] 进入 Unit=GDataChengeValidate[变更记录校验]
+2018-03-27 14:36:57.856 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().91 [INFO] 初始化报文处理过程[1111111111]......
+2018-03-27 14:36:57.890 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().93 [INFO] 初始化报文处理过程完成！
+2018-03-27 14:36:57.896 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().101 [INFO] 检查报文处理过程条件[1111111111]......
+2018-03-27 14:36:57.899 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().103 [INFO] 处理条件就绪！
+2018-03-27 14:36:57.913 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().111 [INFO] 执行处理报文处理过程[1111111111]......
+2018-03-27 14:36:57.965 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().113 [INFO] 执行报文处理过程完成！
+2018-03-27 14:36:57.973 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.ValidateSession.postProcess().84 [INFO] 共校验记录数：1, 其中正确记录：1, 检验到错误数：0, 错误关联记录：0
+2018-03-27 14:36:57.974 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSessionUnit.execute().49 [INFO] 运行处理过程1111111111成功！
+2018-03-27 14:36:57.975 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitExit().301 [INFO] 退出 Unit=GDataChengeValidate[变更记录校验]
+2018-03-27 14:36:57.980 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.runAfter().228 [INFO] isInsert:false,inputDate:2018/03/26,serialNO:2,TaskCode:BCRDataValidate,startTime:2018/03/27 14:36:57,endTime:2018/03/27 14:36:57,unitCode:GDataChengeValidate,unitDisc:变更记录校验,timeDis:0:00:00
+2018-03-27 14:36:57.981 CST com.amarsoft.are.ARE com.amarsoft.task.ui.RunTaskObjectAction.run().46 [INFO] 任务对象运行结束！
+2018-03-27 15:05:54.273 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.AmarBCR.main().37 [INFO] 自动计算后businessOccurDate：2018/03/26
+2018-03-27 15:05:54.445 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.taskStart().233 [INFO] 进入 Task=BCRDataValidate[原始数据校验]
+2018-03-27 15:05:54.721 CST com.amarsoft.are.ARE com.amarsoft.are.sql.PooledConnectionFactory.addDataSource().136 [INFO] org.apache.commons.dbcp.datasources.SharedPoolDataSource@d70c109
+2018-03-27 15:05:54.723 CST com.amarsoft.are.ARE com.amarsoft.are.sql.PooledConnectionFactory.addDataSource().136 [INFO] org.apache.commons.dbcp.datasources.SharedPoolDataSource@17ed40e0
+2018-03-27 15:05:55.674 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.listenerDBInit().73 [INFO] target 开始启动
+2018-03-27 15:05:55.676 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] BCRDataValidate[原始数据校验] start! Task user: Administrator(Administrator)
+2018-03-27 15:05:55.680 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] BCRDataValidate[融资性担保业务数据校验] start! Task user: Administrator(Administrator)
+2018-03-27 15:05:55.683 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.targetStart().262 [INFO] 进入 Target=BCRDataValidate[融资性担保业务数据校验]
+2018-03-27 15:05:55.685 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] GuaranteeDataValidate[业务数据校验] start! Task user: Administrator(Administrator)
+2018-03-27 15:05:55.687 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitStart().288 [INFO] 进入 Unit=GuaranteeDataValidate[业务数据校验]
+2018-03-27 15:05:56.209 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().91 [INFO] 初始化报文处理过程[1111111111]......
+2018-03-27 15:05:56.470 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().93 [INFO] 初始化报文处理过程完成！
+2018-03-27 15:05:56.472 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().101 [INFO] 检查报文处理过程条件[1111111111]......
+2018-03-27 15:05:56.474 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().103 [INFO] 处理条件就绪！
+2018-03-27 15:05:56.477 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().111 [INFO] 执行处理报文处理过程[1111111111]......
+2018-03-27 15:05:58.303 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().113 [INFO] 执行报文处理过程完成！
+2018-03-27 15:05:58.306 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.ValidateSession.postProcess().84 [INFO] 共校验记录数：174, 其中正确记录：174, 检验到错误数：0, 错误关联记录：0
+2018-03-27 15:05:58.308 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSessionUnit.execute().49 [INFO] 运行处理过程1111111111成功！
+2018-03-27 15:05:58.334 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.run().111 [INFO] ExecuteUnit[GuaranteeDataValidate]OK[单元名称[GuaranteeDataValidate]单元执行状态[1]单元执行时间[2.198]秒开始时间[2018/03/27 15:05:56:111]结束时间[2018/03/27 15:05:58:309]]
+2018-03-27 15:05:58.336 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitExit().301 [INFO] 退出 Unit=GuaranteeDataValidate[业务数据校验]
+2018-03-27 15:05:58.341 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.runAfter().228 [INFO] isInsert:false,inputDate:2018/03/26,serialNO:1,TaskCode:BCRDataValidate,startTime:2018/03/27 15:05:55,endTime:2018/03/27 15:05:58,unitCode:GuaranteeDataValidate,unitDisc:业务数据校验,timeDis:0:00:03
+2018-03-27 15:05:58.344 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] GDataChengeValidate[变更记录校验] start! Task user: Administrator(Administrator)
+2018-03-27 15:05:58.346 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitStart().288 [INFO] 进入 Unit=GDataChengeValidate[变更记录校验]
+2018-03-27 15:05:58.482 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().91 [INFO] 初始化报文处理过程[1111111111]......
+2018-03-27 15:05:58.500 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().93 [INFO] 初始化报文处理过程完成！
+2018-03-27 15:05:58.502 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().101 [INFO] 检查报文处理过程条件[1111111111]......
+2018-03-27 15:05:58.503 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().103 [INFO] 处理条件就绪！
+2018-03-27 15:05:58.509 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().111 [INFO] 执行处理报文处理过程[1111111111]......
+2018-03-27 15:05:58.546 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().113 [INFO] 执行报文处理过程完成！
+2018-03-27 15:05:58.548 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.ValidateSession.postProcess().84 [INFO] 共校验记录数：1, 其中正确记录：1, 检验到错误数：0, 错误关联记录：0
+2018-03-27 15:05:58.549 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSessionUnit.execute().49 [INFO] 运行处理过程1111111111成功！
+2018-03-27 15:05:58.553 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.run().111 [INFO] ExecuteUnit[GDataChengeValidate]OK[单元名称[GDataChengeValidate]单元执行状态[1]单元执行时间[0.202]秒开始时间[2018/03/27 15:05:58:347]结束时间[2018/03/27 15:05:58:549]]
+2018-03-27 15:05:58.555 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitExit().301 [INFO] 退出 Unit=GDataChengeValidate[变更记录校验]
+2018-03-27 15:05:58.719 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.runAfter().228 [INFO] isInsert:false,inputDate:2018/03/26,serialNO:2,TaskCode:BCRDataValidate,startTime:2018/03/27 15:05:58,endTime:2018/03/27 15:05:58,unitCode:GDataChengeValidate,unitDisc:变更记录校验,timeDis:0:00:00
+2018-03-27 15:05:58.720 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] GDataDeleteValidate[删除记录校验] start! Task user: Administrator(Administrator)
+2018-03-27 15:05:58.723 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitStart().288 [INFO] 进入 Unit=GDataDeleteValidate[删除记录校验]
+2018-03-27 15:05:58.730 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().91 [INFO] 初始化报文处理过程[1111111111]......
+2018-03-27 15:05:58.744 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().93 [INFO] 初始化报文处理过程完成！
+2018-03-27 15:05:58.746 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().101 [INFO] 检查报文处理过程条件[1111111111]......
+2018-03-27 15:05:58.748 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().103 [INFO] 处理条件就绪！
+2018-03-27 15:05:58.749 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().111 [INFO] 执行处理报文处理过程[1111111111]......
+2018-03-27 15:05:58.829 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().116 [ERROR] 执行报文处理过程失败！
+2018-03-27 15:05:58.858 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSessionUnit.execute().43 [FATAL] 运行处理过程1111111111失败 <com.amarsoft.app.datax.bcr.BCRException: 执行报文处理过程失败！>com.amarsoft.app.datax.bcr.BCRException: 执行报文处理过程失败！
+	at com.amarsoft.app.datax.bcr.session.MessageProcessSession.start(MessageProcessSession.java:117)
+	at com.amarsoft.app.datax.bcr.session.MessageProcessSessionUnit.execute(MessageProcessSessionUnit.java:41)
+	at com.amarsoft.task.ExecuteUnit.run(ExecuteUnit.java:109)
+	at com.amarsoft.task.Target.runSerial(Target.java:153)
+	at com.amarsoft.task.Target.run(Target.java:89)
+	at com.amarsoft.task.Task.runSerial(Task.java:144)
+	at com.amarsoft.task.Task.start(Task.java:63)
+	at com.amarsoft.task.Task.start(Task.java:41)
+	at com.amarsoft.task.TaskRunner.runCli(TaskRunner.java:134)
+	at com.amarsoft.task.TaskRunner.runCli(TaskRunner.java:124)
+	at com.amarsoft.app.datax.bcr.AmarBCR.main(AmarBCR.java:38)
+com.amarsoft.app.datax.bcr.BCRException: 执行报文处理过程失败！
+	at com.amarsoft.app.datax.bcr.session.MessageProcessSession.start(MessageProcessSession.java:117)
+	at com.amarsoft.app.datax.bcr.session.MessageProcessSessionUnit.execute(MessageProcessSessionUnit.java:41)
+	at com.amarsoft.task.ExecuteUnit.run(ExecuteUnit.java:109)
+	at com.amarsoft.task.Target.runSerial(Target.java:153)
+	at com.amarsoft.task.Target.run(Target.java:89)
+	at com.amarsoft.task.Task.runSerial(Task.java:144)
+	at com.amarsoft.task.Task.start(Task.java:63)
+	at com.amarsoft.task.Task.start(Task.java:41)
+	at com.amarsoft.task.TaskRunner.runCli(TaskRunner.java:134)
+	at com.amarsoft.task.TaskRunner.runCli(TaskRunner.java:124)
+	at com.amarsoft.app.datax.bcr.AmarBCR.main(AmarBCR.java:38)
+
+2018-03-27 15:05:58.861 CST com.amarsoft.are.ARE com.amarsoft.task.ExecuteUnit.run().111 [INFO] ExecuteUnit[GDataDeleteValidate]OK[单元名称[GDataDeleteValidate]单元执行状态[2]单元执行时间[0.133]秒开始时间[2018/03/27 15:05:58:725]结束时间[2018/03/27 15:05:58:858]]
+2018-03-27 15:05:58.862 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitExit().301 [INFO] 退出 Unit=GDataDeleteValidate[删除记录校验]
+2018-03-27 15:05:58.866 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.runAfter().228 [INFO] isInsert:false,inputDate:2018/03/26,serialNO:3,TaskCode:BCRDataValidate,startTime:2018/03/27 15:05:58,endTime:2018/03/27 15:05:58,unitCode:GDataDeleteValidate,unitDisc:删除记录校验,timeDis:0:00:00
+2018-03-27 15:05:58.868 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.targetExit().275 [INFO] 退出 Target=BCRDataValidate[融资性担保业务数据校验]
+2018-03-27 15:05:58.871 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.taskExit().247 [INFO] 退出 Task=BCRDataValidate[原始数据校验]
+2018-03-27 15:05:58.872 CST com.amarsoft.are.ARE com.amarsoft.task.TaskRunner.runCli().135 [INFO] 任务运行完成！
+2018-03-27 15:09:11.014 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.AmarBCR.main().35 [INFO] 自动计算后businessOccurDate：2018/03/26
+2018-03-27 15:09:14.472 CST com.amarsoft.are.ARE com.amarsoft.task.ui.RunTaskObjectAction.run().31 [INFO] 开始运行任务对象......
+2018-03-27 15:09:14.523 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] BCRDataTransfer[基础数据迁移] start! Task user: Administrator(Administrator)
+2018-03-27 15:09:14.524 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] SetTransferFilter[设置迁移过滤器] start! Task user: Administrator(Administrator)
+2018-03-27 15:09:14.525 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitStart().288 [INFO] 进入 Unit=SetTransferFilter[设置迁移过滤器]
+2018-03-27 15:09:14.554 CST com.amarsoft.are.ARE com.amarsoft.are.sql.PooledConnectionFactory.addDataSource().136 [INFO] org.apache.commons.dbcp.datasources.SharedPoolDataSource@3b702a1a
+2018-03-27 15:09:14.556 CST com.amarsoft.are.ARE com.amarsoft.are.sql.PooledConnectionFactory.addDataSource().136 [INFO] org.apache.commons.dbcp.datasources.SharedPoolDataSource@15c93664
+2018-03-27 15:09:14.988 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.listenerDBInit().73 [INFO] target 开始启动
+2018-03-27 15:09:15.940 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitExit().301 [INFO] 退出 Unit=SetTransferFilter[设置迁移过滤器]
+2018-03-27 15:09:16.038 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.runAfter().228 [INFO] isInsert:true,inputDate:2018/03/26,serialNO:4,TaskCode:BCRDataTransfer,startTime:2018/03/27 15:09:14,endTime:2018/03/27 15:09:15,unitCode:SetTransferFilter,unitDisc:设置迁移过滤器,timeDis:0:00:01
+2018-03-27 15:09:16.040 CST com.amarsoft.are.ARE com.amarsoft.task.ui.RunTaskObjectAction.run().46 [INFO] 任务对象运行结束！
+2018-03-27 15:09:18.108 CST com.amarsoft.are.ARE com.amarsoft.task.ui.RunTaskObjectAction.run().31 [INFO] 开始运行任务对象......
+2018-03-27 15:09:18.111 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] BCRDataTransfer[基础数据迁移] start! Task user: Administrator(Administrator)
+2018-03-27 15:09:18.113 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] TransferGuaranteeRecord[迁移新增/变更的业务记录] start! Task user: Administrator(Administrator)
+2018-03-27 15:09:18.114 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitStart().288 [INFO] 进入 Unit=TransferGuaranteeRecord[迁移新增/变更的业务记录]
+2018-03-27 15:09:18.157 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().91 [INFO] 初始化报文处理过程[1111111111]......
+2018-03-27 15:09:18.187 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().93 [INFO] 初始化报文处理过程完成！
+2018-03-27 15:09:18.188 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().101 [INFO] 检查报文处理过程条件[1111111111]......
+2018-03-27 15:09:18.192 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().103 [INFO] 处理条件就绪！
+2018-03-27 15:09:18.197 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().111 [INFO] 执行处理报文处理过程[1111111111]......
+2018-03-27 15:09:22.305 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().113 [INFO] 执行报文处理过程完成！
+2018-03-27 15:09:22.306 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.TransferSession.postProcess().38 [INFO] 共处理记录数：174, 其中成功迁移：174, 被过滤器拒绝：0
+2018-03-27 15:09:22.307 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSessionUnit.execute().49 [INFO] 运行处理过程1111111111成功！
+2018-03-27 15:09:22.307 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitExit().301 [INFO] 退出 Unit=TransferGuaranteeRecord[迁移新增/变更的业务记录]
+2018-03-27 15:09:22.321 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.runAfter().228 [INFO] isInsert:true,inputDate:2018/03/26,serialNO:5,TaskCode:BCRDataTransfer,startTime:2018/03/27 15:09:18,endTime:2018/03/27 15:09:22,unitCode:TransferGuaranteeRecord,unitDisc:迁移新增/变更的业务记录,timeDis:0:00:04
+2018-03-27 15:09:22.322 CST com.amarsoft.are.ARE com.amarsoft.task.ui.RunTaskObjectAction.run().46 [INFO] 任务对象运行结束！
+2018-03-27 15:09:24.297 CST com.amarsoft.are.ARE com.amarsoft.task.ui.RunTaskObjectAction.run().31 [INFO] 开始运行任务对象......
+2018-03-27 15:09:24.298 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] BCRDataTransfer[基础数据迁移] start! Task user: Administrator(Administrator)
+2018-03-27 15:09:24.298 CST com.amarsoft.are.ARE com.amarsoft.task.TaskObject.trace().119 [INFO] updateClosedData[设置数据结清标志] start! Task user: Administrator(Administrator)
+2018-03-27 15:09:24.298 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitStart().288 [INFO] 进入 Unit=updateClosedData[设置数据结清标志]
+2018-03-27 15:09:24.405 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitExit().301 [INFO] 退出 Unit=updateClosedData[设置数据结清标志]
+2018-03-27 15:09:24.410 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.runAfter().228 [INFO] isInsert:true,inputDate:2018/03/26,serialNO:6,TaskCode:BCRDataTransfer,startTime:2018/03/27 15:09:24,endTime:2018/03/27 15:09:24,unitCode:updateClosedData,unitDisc:设置数据结清标志,timeDis:0:00:00
+2018-03-27 15:09:24.411 CST com.amarsoft.are.ARE com.amarsoft.task.ui.RunTaskObjectAction.run().46 [INFO] 任务对象运行结束！
+2018-03-27 15:09:37.759 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.AmarBCR.main().35 [INFO] 自动计算后businessOccurDate：2018/03/26
+2018-03-27 15:09:39.549 CST com.amarsoft.are.ARE com.amarsoft.task.ui.RunTaskObjectAction.run().31 [INFO] 开始运行任务对象......
+2018-03-27 15:09:39.553 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitStart().288 [INFO] 进入 Unit=NormalGuaranteeMessage[担保业务信息正常报文]
+2018-03-27 15:09:39.579 CST com.amarsoft.are.ARE com.amarsoft.are.sql.PooledConnectionFactory.addDataSource().136 [INFO] org.apache.commons.dbcp.datasources.SharedPoolDataSource@ec12d82
+2018-03-27 15:09:39.580 CST com.amarsoft.are.ARE com.amarsoft.are.sql.PooledConnectionFactory.addDataSource().136 [INFO] org.apache.commons.dbcp.datasources.SharedPoolDataSource@39d9eb0c
+2018-03-27 15:09:39.971 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.listenerDBInit().73 [INFO] target 开始启动
+2018-03-27 15:09:40.193 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().91 [INFO] 初始化报文处理过程[1803270001]......
+2018-03-27 15:09:40.251 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().93 [INFO] 初始化报文处理过程完成！
+2018-03-27 15:09:40.253 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().101 [INFO] 检查报文处理过程条件[1803270001]......
+2018-03-27 15:09:40.799 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.ReportSession.ready().411 [INFO] 检查到待上报记录条数: 174
+2018-03-27 15:09:40.806 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().103 [INFO] 处理条件就绪！
+2018-03-27 15:09:40.808 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().111 [INFO] 执行处理报文处理过程[1803270001]......
+2018-03-27 15:09:43.901 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.MessageProcessSession.start().113 [INFO] 执行报文处理过程完成！
+2018-03-27 15:09:43.957 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.ReportSession.postProcess().280 [INFO] 恭喜，报文文件生成完成! 
+2018-03-27 15:09:46.416 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.ReportSession.postProcess().312 [INFO] 恭喜，生成加密文件成功! 
+2018-03-27 15:09:46.433 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.ReportSession.postProcess().326 [INFO] 恭喜，生成压缩文件成功! 
+2018-03-27 15:09:46.433 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.session.VillageGuaranteeReportUnit.execute().74 [INFO] 运行处理过程1803270001成功！
+2018-03-27 15:09:46.434 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.unitExit().301 [INFO] 退出 Unit=NormalGuaranteeMessage[担保业务信息正常报文]
+2018-03-27 15:09:46.439 CST com.amarsoft.are.ARE com.amarsoft.app.datax.bcr.common.BCRTaskListener.runAfter().228 [INFO] isInsert:true,inputDate:2018/03/26,serialNO:7,TaskCode:BCRDataReport,startTime:2018/03/27 15:09:39,endTime:2018/03/27 15:09:46,unitCode:NormalGuaranteeMessage,unitDisc:担保业务信息正常报文,timeDis:0:00:07
+2018-03-27 15:09:46.439 CST com.amarsoft.are.ARE com.amarsoft.task.ui.RunTaskObjectAction.run().46 [INFO] 任务对象运行结束！

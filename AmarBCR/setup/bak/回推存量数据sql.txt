@@ -1,0 +1,398 @@
+--更新还款的业务发生日期
+update his_loanreturn set occurdate =returndate where incrementflag='1' and sessionid='0000000000';
+commit;
+
+
+--更新展期的业务发生日期
+update his_loanextension set occurdate = extenstartdate where incrementflag='1' and sessionid='0000000000';
+commit;
+
+--回推借据信息(对于展期标志和增量标志,在最后统一更新)
+
+1.插入一条发生日期为借据发放日期的借据，金额为发放金额-当天归还的金额。排除在ARE.Occurdate当天发放的借据。
+insert into HIS_LOANDUEBILL(LCONTRACTNO,LDUEBILLNO,OCCURDATE, CURRENCY,PutoutAmount,BALANCE,PUTOUTDATE,PUTOUTENDDATE,BUSINESSTYPE,
+FORM,LOANCHARACTER,WAY,KIND,EXTENFLAG,CLASSIFY4,CLASSIFY5,SESSIONID,
+INCREMENTFLAG,TRACENUMBER)         
+SELECT  ECR_LOANDUEBILL.LCONTRACTNO AS LCONTRACTNO,
+        ECR_LOANDUEBILL.LDUEBILLNO AS LDUEBILLNO,          
+ 	ECR_LOANDUEBILL.PUTOUTDATE AS OCCURDATE,
+ 	ECR_LOANDUEBILL.CURRENCY AS CURRENCY,           
+ 	ECR_LOANDUEBILL.PutoutAmount AS PutoutAmount,           
+ 	(ECR_LOANDUEBILL.PutoutAmount-
+ 				nvl((select sum(LR1.ReturnSum) 
+ 					from HIS_LOANRETURN LR1
+  					where LR1.LDuebillno= ECR_LOANDUEBILL.Lduebillno 
+  					and LR1.OCCURDATE = ECR_LOANDUEBILL.PUTOUTDATE),0)
+  ) AS BALANCE,           
+  ECR_LOANDUEBILL.PUTOUTDATE AS PUTOUTDATE,           
+  ECR_LOANDUEBILL.PUTOUTENDDATE AS PUTOUTENDDATE,           
+  ECR_LOANDUEBILL.BUSINESSTYPE AS BUSINESSTYPE,           
+  ECR_LOANDUEBILL.FORM AS FORM,           
+  ECR_LOANDUEBILL.LOANCHARACTER AS LOANCHARACTER,
+  ECR_LOANDUEBILL.WAY AS WAY,           
+  ECR_LOANDUEBILL.KIND AS KIND,           
+  '2' as EXTENFLAG,           
+  ECR_LOANDUEBILL.CLASSIFY4 AS CLASSIFY4,           
+  ECR_LOANDUEBILL.CLASSIFY5 AS CLASSIFY5,           
+  ECR_LOANDUEBILL.SESSIONID AS SESSIONID,           
+  '2' AS INCREMENTFLAG,           
+  ECR_LOANDUEBILL.TRACENUMBER AS TRACENUMBER 
+  FROM ECR_LOANDUEBILL           
+WHERE ECR_LOANDUEBILL.PutOutDate<>'{$ARE.Occurdate}';
+
+commit;
+
+2.根据还款来回推借据,但要排除轧差流水来回推的那一部分，因为通过轧差流水来回推，会出现OccurDate重复。
+  此外当天发放当天还款的这一笔还款流水也不必回推借据。
+insert into HIS_LOANDUEBILL(LCONTRACTNO,LDUEBILLNO,OCCURDATE, CURRENCY,PutoutAmount,BALANCE,PUTOUTDATE,PUTOUTENDDATE,BUSINESSTYPE,
+FORM,LOANCHARACTER,WAY,KIND,EXTENFLAG,CLASSIFY4,CLASSIFY5,SESSIONID,
+INCREMENTFLAG,TRACENUMBER)         
+SELECT  ECR_LOANDUEBILL.LCONTRACTNO AS LCONTRACTNO,
+        ECR_LOANDUEBILL.LDUEBILLNO AS LDUEBILLNO,          
+ 	HIS_LOANRETURN.Returndate AS OCCURDATE,
+ 	ECR_LOANDUEBILL.CURRENCY AS CURRENCY,           
+ 	ECR_LOANDUEBILL.PutoutAmount AS PutoutAmount,           
+ 	(ECR_LOANDUEBILL.PutoutAmount-
+ 				(select sum(LR1.ReturnSum) 
+ 					from HIS_LOANRETURN LR1
+  					where LR1.LDuebillno=HIS_LOANRETURN.Lduebillno 
+  					and LR1.OCCURDATE <=HIS_LOANRETURN.OCCURDATE)
+  ) AS BALANCE,           
+  ECR_LOANDUEBILL.PUTOUTDATE AS PUTOUTDATE,           
+  ECR_LOANDUEBILL.PUTOUTENDDATE AS PUTOUTENDDATE,           
+  ECR_LOANDUEBILL.BUSINESSTYPE AS BUSINESSTYPE,           
+  ECR_LOANDUEBILL.FORM AS FORM,           
+  ECR_LOANDUEBILL.LOANCHARACTER AS LOANCHARACTER,
+  ECR_LOANDUEBILL.WAY AS WAY,           
+  ECR_LOANDUEBILL.KIND AS KIND,           
+  '2' as EXTENFLAG,           
+  ECR_LOANDUEBILL.CLASSIFY4 AS CLASSIFY4,           
+  ECR_LOANDUEBILL.CLASSIFY5 AS CLASSIFY5,           
+  ECR_LOANDUEBILL.SESSIONID AS SESSIONID,           
+  '2' AS INCREMENTFLAG,           
+  ECR_LOANDUEBILL.TRACENUMBER AS TRACENUMBER 
+  FROM ECR_LOANDUEBILL,HIS_LOANRETURN           
+WHERE ECR_LOANDUEBILL.LDuebillno = HIS_LOANRETURN.LDuebillno            
+AND HIS_LOANRETURN.INCREMENTFLAG='1' 
+and HIS_LOANRETURN.Occurdate<>'{$ARE.Occurdate}'
+and  HIS_LOANRETURN.Occurdate<>ECR_LOANDUEBILL.PutOutDate
+and HIS_LOANRETURN.sessionid='0000000000';
+
+commit;
+
+
+3.根据展期来回推借据.为避免插入重复的纪录.需要避免展期日期是ARE.Occurdate或某一还款日期的情况.
+  对于展期日为与还款日期重复的,不做任何处理,不重合的则插入一条记录.
+insert into HIS_LOANDUEBILL(LCONTRACTNO,LDUEBILLNO,OCCURDATE,CURRENCY,PutoutAmount,
+BALANCE,PUTOUTDATE,PUTOUTENDDATE,BUSINESSTYPE,FORM,LOANCHARACTER,WAY,KIND,EXTENFLAG,        
+CLASSIFY4,CLASSIFY5,SESSIONID,INCREMENTFLAG,TRACENUMBER)       
+SELECT  HIS_LOANDUEBILL.LContractno AS LContractno,
+	HIS_LOANDUEBILL.LDuebillNo AS LDuebillNo,
+	HIS_LOANEXTENSION.OCCURDATE AS OCCURDATE,
+	HIS_LOANDUEBILL.CURRENCY AS CURRENCY,         
+	HIS_LOANDUEBILL.PutoutAmount AS PutoutAmount,         
+	HIS_LOANEXTENSION.EXTENSUM AS BALANCE,       
+	HIS_LOANDUEBILL.PUTOUTDATE AS PUTOUTDATE,         
+	HIS_LOANDUEBILL.PUTOUTENDDATE AS PUTOUTENDDATE,         
+	HIS_LOANDUEBILL.BUSINESSTYPE AS BUSINESSTYPE,         
+	HIS_LOANDUEBILL.FORM AS FORM,         
+	HIS_LOANDUEBILL.LOANCHARACTER AS LOANCHARACTER,         
+	HIS_LOANDUEBILL.WAY AS WAY,         
+	HIS_LOANDUEBILL.KIND AS KIND,         
+	'2' as EXTENFLAG,         
+	HIS_LOANDUEBILL.CLASSIFY4 AS CLASSIFY4,         
+	HIS_LOANDUEBILL.CLASSIFY5 AS CLASSIFY5,         
+	HIS_LOANDUEBILL.SESSIONID AS SESSIONID,         
+	'2' AS INCREMENTFLAG,          
+	HIS_LOANDUEBILL.TRACENUMBER AS TRACENUMBER         
+ FROM HIS_LOANDUEBILL,         
+ HIS_LOANEXTENSION          
+WHERE HIS_LOANDUEBILL.LDuebillNo = HIS_LOANEXTENSION.LDuebillNo          
+　and HIS_LOANEXTENSION.INCREMENTFLAG='1' 
+  and HIS_LOANDUEBILL.INCREMENTFLAG='1'
+  and HIS_LOANEXTENSION.Occurdate <> '{$ARE.OccurDate}'
+  and HIS_LOANEXTENSION.Occurdate not in (SELECT OCCURDATE 
+					 FROM HIS_LoanReturn 
+					WHERE LDUEBILLNO=HIS_LOANEXTENSION.LDUEBILLNO); 
+
+commit;
+
+
+4.删除多余的纪录，即ARE.Occurdate当天无任何变化的借据。导致借据发生变化的应该是发生还款或者展期
+delete from  His_LoanDuebill
+where Occurdate = '{$ARE.OccurDate}'
+and Sessionid='0000000000'
+and not exists (select 1 from HIS_LoanReturn where LDuebillNO=His_LoanDuebill.LduebillNo and OccurDate=His_LoanDuebill.Occurdate)
+and not exists (select 1 from HIS_LoanExtension where LDuebillNO=His_LoanDuebill.LduebillNo and OccurDate=His_LoanDuebill.Occurdate);
+commit;
+
+
+5.更新增量标志。先全量更新为'2',对于借据发放当天的借据，更新为'1'
+update His_LoanDuebill set IncrementFlag ='2' where 1=1;
+update His_LoanDuebill HL set HL.IncrementFlag ='1' 
+where OccurDate=(select min(OccurDate) from His_LoanDuebill where LDuebillNo=HL.LDuebillNo);
+commit;
+
+6.更新展期标志，先全量更新为'2',对于展期日在发生日之后的借据，更新为'1';
+update His_LoanDuebill set ExtenFlag ='2' where 1=1;
+update His_LoanDuebill HL set HL.ExtenFlag ='1' 
+where OccurDate>=(select min(OccurDate) from HIS_LoanExtension where LDuebillNo=HL.LDuebillNo);
+commit;
+
+
+
+
+
+
+----回推合同信息(HIS_LoanContract跟ECR_LoanDuebill关联,Occurdate为借据的发放日期，可用余额用合同金额减借据发放金额)
+
+1.根据借据插入合同信息,排除在ARE.Occurdate当天发放的借据.(需要注明的是同一天发放两笔借据的情况需要distinct)
+
+
+insert into HIS_LOANCONTRACT(LContractNo,CustomerID,OccurDate,IncrementFlag,
+ModFlag,TraceNumber,RecordFlag,OldFinanceID,FinanceID,CreditNo,LoanCardNo,CustomerName , 
+SessionID,ErrorCode,StartDate,EndDate,BankFlag,GuarantyFlag,AvailabStatus ,Currency ,BusinessSum ,
+ AvailabBalance)         
+SELECT distinct HIS_LOANCONTRACT.LContractNo,
+       HIS_LOANCONTRACT.CustomerID,
+       ECR_LoanDuebill.PutOutDate,
+       '2',
+       HIS_LOANCONTRACT.ModFlag,
+       HIS_LOANCONTRACT.TraceNumber,
+       HIS_LOANCONTRACT.RecordFlag,
+       HIS_LOANCONTRACT.OldFinanceID,
+       HIS_LOANCONTRACT.FinanceID,
+       HIS_LOANCONTRACT.CreditNo,
+       HIS_LOANCONTRACT.LoanCardNo,
+       HIS_LOANCONTRACT.CustomerName,
+       HIS_LOANCONTRACT.SessionID,
+       HIS_LOANCONTRACT.ErrorCode,
+       HIS_LOANCONTRACT.StartDate,
+       HIS_LOANCONTRACT.EndDate,
+       HIS_LOANCONTRACT.BankFlag,
+       HIS_LOANCONTRACT.GuarantyFlag,
+       '1',
+       HIS_LOANCONTRACT.Currency,
+       HIS_LOANCONTRACT.BusinessSum, 
+	 case when  HIS_LOANCONTRACT.BusinessSum-(select sum(EL.PutoutAmount) from ECR_LOANDUEBILL EL 
+	 WHERE EL.LCONTRACTNO=HIS_LOANCONTRACT.LCONTRACTNO AND EL.PUTOUTDATE <=ECR_LOANDUEBILL.PUTOUTDATE )<0 then 0 
+	 else           HIS_LOANCONTRACT.BusinessSum-(select sum(EL.PutoutAmount) from ECR_LOANDUEBILL EL 
+	 WHERE EL.LCONTRACTNO=HIS_LOANCONTRACT.LCONTRACTNO AND EL.PUTOUTDATE <=ECR_LOANDUEBILL.PUTOUTDATE ) end 
+ 
+ FROM ECR_LOANDUEBILL,HIS_LOANCONTRACT             
+WHERE HIS_LOANCONTRACT.LCONTRACTNO = ECR_LOANDUEBILL.LCONTRACTNO  
+and ECR_LOANDUEBILL.PUTOUTDATE<>'{$ARE.Occurdate}'
+and HIS_LOANCONTRACT.OCCURDATE<>ECR_LOANDUEBILL.PUTOUTDATE 
+AND HIS_LOANCONTRACT.INCREMENTFLAG='1' 
+AND HIS_LOANCONTRACT.SESSIONID='0000000000'; 
+commit; 
+
+2.对于报数当天没有新增借据的合同信息，予以删除。
+delete from HIS_LoanContract where OccurDate='{$ARE.OccurDate}' 
+and  not exists (select 1 from ECR_LoanDuebill where LContractNo=HIS_LoanContract.LContractNO 
+and PutOutdate=HIS_LoanContract.OccurDate);
+commit;
+
+3.更新第一笔合同的新增状态(先全部更新成'2',再更新成'1')
+update HIS_LoanContract set IncrementFlag='2';
+update HIS_LoanContract set IncrementFlag='1' where OccurDate = (select min(HL.Occurdate) from HIS_LoanContract HL 
+where HL.LcontractNo=HIS_LoanContract.LContractNo);
+
+
+----更新担保合同的业务发生日期
+update his_assurecont 	set occurdate=(select min(occurdate) from his_loancontract where his_loancontract.lcontractno=his_assurecont.contractno) where businesstype='1';
+update his_guarantycont set occurdate=(select min(occurdate) from his_loancontract where his_loancontract.lcontractno=his_guarantycont.contractno) where businesstype='1';
+update his_impawncont set occurdate=(select min(occurdate) from his_loancontract where his_loancontract.lcontractno=his_impawncont.contractno) where businesstype='1';
+update his_assurecont set createdate=occurdate where occurdate<createdate and businesstype='1';
+update his_guarantycont set createdate=occurdate where occurdate<createdate and businesstype='1';
+update his_impawncont set createdate=occurdate where occurdate<createdate and businesstype='1';
+commit;
+
+
+同理可以回推贸易融资信息。
+update his_finareturn set occurdate =returndate where incrementflag='1' and sessionid='0000000000';
+commit;
+
+update his_finaextension set occurdate = extenstartdate where incrementflag='1' and sessionid='0000000000';
+commit;
+
+insert into HIS_FINADUEBILL(FCONTRACTNO,FDUEBILLNO,OCCURDATE, CURRENCY,PutoutAmount,BALANCE,PUTOUTDATE,PUTOUTENDDATE,BUSINESSTYPE,
+FORM,LOANCHARACTER,WAY,KIND,EXTENFLAG,CLASSIFY4,CLASSIFY5,SESSIONID,
+INCREMENTFLAG,TRACENUMBER)         
+SELECT  ECR_FINADUEBILL.FCONTRACTNO AS FCONTRACTNO,
+        ECR_FINADUEBILL.FDUEBILLNO AS FDUEBILLNO,          
+ 	ECR_FINADUEBILL.PUTOUTDATE AS OCCURDATE,
+ 	ECR_FINADUEBILL.CURRENCY AS CURRENCY,           
+ 	ECR_FINADUEBILL.PutoutAmount AS PutoutAmount,           
+ 	(ECR_FINADUEBILL.PutoutAmount-
+ 				nvl((select sum(LR1.ReturnSum) 
+ 					from HIS_FINARETURN LR1
+  					where LR1.FDUEBILLNO= ECR_FINADUEBILL.FDUEBILLNO 
+  					and LR1.OCCURDATE = ECR_FINADUEBILL.PUTOUTDATE),0)
+  ) AS BALANCE,           
+  ECR_FINADUEBILL.PUTOUTDATE AS PUTOUTDATE,           
+  ECR_FINADUEBILL.PUTOUTENDDATE AS PUTOUTENDDATE,           
+  ECR_FINADUEBILL.BUSINESSTYPE AS BUSINESSTYPE,           
+  ECR_FINADUEBILL.FORM AS FORM,           
+  ECR_FINADUEBILL.LOANCHARACTER AS LOANCHARACTER,
+  ECR_FINADUEBILL.WAY AS WAY,           
+  ECR_FINADUEBILL.KIND AS KIND,           
+  '2' as EXTENFLAG,           
+  ECR_FINADUEBILL.CLASSIFY4 AS CLASSIFY4,           
+  ECR_FINADUEBILL.CLASSIFY5 AS CLASSIFY5,           
+  ECR_FINADUEBILL.SESSIONID AS SESSIONID,           
+  '2' AS INCREMENTFLAG,           
+  ECR_FINADUEBILL.TRACENUMBER AS TRACENUMBER 
+  FROM ECR_FINADUEBILL           
+WHERE ECR_FINADUEBILL.PutOutDate<>'{$ARE.Occurdate}';
+
+commit;
+
+                    
+insert into HIS_FINADUEBILL(FCONTRACTNO,FDUEBILLNO,OCCURDATE, CURRENCY,PutoutAmount,BALANCE,PUTOUTDATE,PUTOUTENDDATE,BUSINESSTYPE,
+FORM,LOANCHARACTER,WAY,KIND,EXTENFLAG,CLASSIFY4,CLASSIFY5,SESSIONID,
+INCREMENTFLAG,TRACENUMBER)         
+SELECT  ECR_FINADUEBILL.FCONTRACTNO AS FCONTRACTNO,
+        ECR_FINADUEBILL.FDUEBILLNO AS FDUEBILLNO,          
+ 	ECR_FINADUEBILL.Returndate AS OCCURDATE,
+ 	ECR_FINADUEBILL.CURRENCY AS CURRENCY,           
+ 	ECR_FINADUEBILL.PutoutAmount AS PutoutAmount,           
+ 	(ECR_FINADUEBILL.PutoutAmount-
+ 				(select sum(LR1.ReturnSum) 
+ 					from HIS_FINARETURN LR1
+  					where LR1.FDUEBILLNO=HIS_FINARETURN.FDUEBILLNO 
+  					and LR1.OCCURDATE <=HIS_FINARETURN.OCCURDATE)
+  ) AS BALANCE,           
+  ECR_FINADUEBILL.PUTOUTDATE AS PUTOUTDATE,           
+  ECR_FINADUEBILL.PUTOUTENDDATE AS PUTOUTENDDATE,           
+  ECR_FINADUEBILL.BUSINESSTYPE AS BUSINESSTYPE,           
+  ECR_FINADUEBILL.FORM AS FORM,           
+  ECR_FINADUEBILL.LOANCHARACTER AS LOANCHARACTER,
+  ECR_FINADUEBILL.WAY AS WAY,           
+  ECR_FINADUEBILL.KIND AS KIND,           
+  '2' as EXTENFLAG,           
+  ECR_FINADUEBILL.CLASSIFY4 AS CLASSIFY4,           
+  ECR_FINADUEBILL.CLASSIFY5 AS CLASSIFY5,           
+  ECR_FINADUEBILL.SESSIONID AS SESSIONID,           
+  '2' AS INCREMENTFLAG,           
+  ECR_FINADUEBILL.TRACENUMBER AS TRACENUMBER 
+  FROM ECR_FINADUEBILL,HIS_FINARETURN           
+WHERE ECR_FINADUEBILL.FDUEBILLNO = HIS_FINARETURN.FDUEBILLNO            
+AND HIS_FINARETURN.INCREMENTFLAG='1' 
+and HIS_FINARETURN.Occurdate<>'{$ARE.Occurdate}'
+and  HIS_FINARETURN.Occurdate<>HIS_FINARETURN.PutOutDate
+and HIS_FINARETURN.sessionid='0000000000';
+
+commit;       
+     
+insert into HIS_FINADUEBILL(FCONTRACTNO,FDUEBILLNO,OCCURDATE,CURRENCY,PutoutAmount,
+BALANCE,PUTOUTDATE,PUTOUTENDDATE,BUSINESSTYPE,FORM,LOANCHARACTER,WAY,KIND,EXTENFLAG,        
+CLASSIFY4,CLASSIFY5,SESSIONID,INCREMENTFLAG,TRACENUMBER)       
+SELECT  HIS_FINADUEBILL.FCONTRACTNO AS FCONTRACTNO,
+	HIS_FINADUEBILL.FDUEBILLNO AS FDUEBILLNO,
+	HIS_FINAEXTENSION.OCCURDATE AS OCCURDATE,
+	HIS_FINADUEBILL.CURRENCY AS CURRENCY,         
+	HIS_FINADUEBILL.PutoutAmount AS PutoutAmount,         
+	HIS_FINAEXTENSION.EXTENSUM AS BALANCE,       
+	HIS_FINADUEBILL.PUTOUTDATE AS PUTOUTDATE,         
+	HIS_FINADUEBILL.PUTOUTENDDATE AS PUTOUTENDDATE,         
+	HIS_FINADUEBILL.BUSINESSTYPE AS BUSINESSTYPE,         
+	HIS_FINADUEBILL.FORM AS FORM,         
+	HIS_FINADUEBILL.LOANCHARACTER AS LOANCHARACTER,         
+	HIS_FINADUEBILL.WAY AS WAY,         
+	HIS_FINADUEBILL.KIND AS KIND,         
+	'2' as EXTENFLAG,         
+	HIS_FINADUEBILL.CLASSIFY4 AS CLASSIFY4,         
+	HIS_FINADUEBILL.CLASSIFY5 AS CLASSIFY5,         
+	HIS_FINADUEBILL.SESSIONID AS SESSIONID,         
+	'2' AS INCREMENTFLAG,          
+	HIS_FINADUEBILL.TRACENUMBER AS TRACENUMBER         
+ FROM HIS_FINADUEBILL,         
+ HIS_FINAEXTENSION          
+WHERE HIS_FINADUEBILL.FDUEBILLNO = HIS_FINAEXTENSION.FDUEBILLNO          
+　and HIS_FINAEXTENSION.INCREMENTFLAG='1' 
+  and HIS_FINADUEBILL.INCREMENTFLAG='1'
+  and HIS_FINAEXTENSION.Occurdate <> '{$ARE.OccurDate}'
+  and HIS_FINAEXTENSION.Occurdate not in (SELECT OCCURDATE 
+					 FROM HIS_FINARETURN 
+					WHERE FDUEBILLNO=HIS_FINAEXTENSION.FDUEBILLNO); 
+
+commit;
+
+
+delete from  HIS_FINADUEBILL
+where Occurdate = '{$ARE.OccurDate}'
+and Sessionid='0000000000'
+and not exists (select 1 from HIS_FINARETURN where FDUEBILLNO=HIS_FINADUEBILL.FDUEBILLNO and OccurDate=HIS_FINADUEBILL.Occurdate)
+and not exists (select 1 from HIS_FINAEXTENSION where FDUEBILLNO=HIS_FINADUEBILL.FDUEBILLNO and OccurDate=HIS_FINADUEBILL.Occurdate);
+commit;
+update HIS_FINADUEBILL set IncrementFlag ='2' where 1=1;
+update HIS_FINADUEBILL HL set HL.IncrementFlag ='1' 
+where OccurDate=(select min(OccurDate) from HIS_FINADUEBILL where FDUEBILLNO=HL.FDUEBILLNO);
+commit;
+update HIS_FINADUEBILL set ExtenFlag ='2' where 1=1;
+update HIS_FINADUEBILL HL set HL.ExtenFlag ='1' 
+where OccurDate>=(select min(OccurDate) from HIS_FINAEXTENSION where FDUEBILLNO=HL.FDUEBILLNO);
+commit;
+
+
+
+
+insert into HIS_FINAINFO(FContractNo,CustomerID,OccurDate,IncrementFlag,
+ModFlag,TraceNumber,RecordFlag,OldFinanceID,FinanceID,CreditNo,LoanCardNo,CustomerName , 
+SessionID,ErrorCode,StartDate,EndDate,BankFlag,GuarantyFlag,AvailabStatus ,Currency ,BusinessSum ,
+ AvailabBalance)         
+SELECT distinct HIS_FINAINFO.FContractNo,
+       HIS_FINAINFO.CustomerID,
+       ECR_FINADUEBILL.PutOutDate,
+       '2',
+       HIS_FINAINFO.ModFlag,
+       HIS_FINAINFO.TraceNumber,
+       HIS_FINAINFO.RecordFlag,
+       HIS_FINAINFO.OldFinanceID,
+       HIS_FINAINFO.FinanceID,
+       HIS_FINAINFO.CreditNo,
+       HIS_FINAINFO.LoanCardNo,
+       HIS_FINAINFO.CustomerName,
+       HIS_FINAINFO.SessionID,
+       HIS_FINAINFO.ErrorCode,
+       HIS_FINAINFO.StartDate,
+       HIS_FINAINFO.EndDate,
+       HIS_FINAINFO.BankFlag,
+       HIS_FINAINFO.GuarantyFlag,
+       '1',
+       HIS_FINAINFO.Currency,
+       HIS_FINAINFO.BusinessSum, 
+	 case when  HIS_FINAINFO.BusinessSum-(select sum(EL.PutoutAmount) from ECR_FINADUEBILL EL 
+	 WHERE EL.LCONTRACTNO=HIS_FINAINFO.FContractNo AND EL.PUTOUTDATE <=ECR_FINADUEBILL.PUTOUTDATE )<0 then 0 
+	 else           HIS_FINAINFO.BusinessSum-(select sum(EL.PutoutAmount) from ECR_FINADUEBILL EL 
+	 WHERE EL.FContractNo=HIS_FINAINFO.FContractNo AND EL.PUTOUTDATE <=ECR_FINADUEBILL.PUTOUTDATE ) end 
+ 
+ FROM ECR_FINADUEBILL,HIS_FINAINFO             
+WHERE HIS_FINAINFO.FContractNo = ECR_FINADUEBILL.FContractNo  
+and ECR_FINADUEBILL.PUTOUTDATE<>'{$ARE.Occurdate}'
+and HIS_FINAINFO.OCCURDATE<>ECR_FINADUEBILL.PUTOUTDATE 
+AND HIS_FINAINFO.INCREMENTFLAG='1' 
+AND HIS_FINAINFO.SESSIONID='0000000000'; 
+commit; 
+
+2.对于报数当天没有新增借据的合同信息，予以删除。
+delete from HIS_FINAINFO where OccurDate='{$ARE.OccurDate}' 
+and  not exists (select 1 from ECR_FINADUEBILL where FContractNo=HIS_FINAINFO.FContractNo 
+and PutOutdate=HIS_FINAINFO.OccurDate);
+commit;
+
+3.更新第一笔合同的新增状态(先全部更新成'2',再更新成'1')
+update HIS_FINAINFO set IncrementFlag='2';
+update HIS_FINAINFO set IncrementFlag='1' where OccurDate = (select min(HL.Occurdate) from HIS_FINAINFO HL 
+where HL.FContractNo=HIS_FINAINFO.FContractNo);
+
+
+----更新担保合同的业务发生日期
+update his_assurecont 	set occurdate=(select min(occurdate) from HIS_FINAINFO where HIS_FINAINFO.FContractNo=his_assurecont.contractno) where businesstype='4';
+update his_guarantycont set occurdate=(select min(occurdate) from HIS_FINAINFO where HIS_FINAINFO.FContractNo=his_guarantycont.contractno) where businesstype='4';
+update his_impawncont set occurdate=(select min(occurdate) from HIS_FINAINFO where HIS_FINAINFO.FContractNo=his_impawncont.contractno) where businesstype='4';
+update his_assurecont set createdate=occurdate where occurdate<createdate and businesstype='4';
+update his_guarantycont set createdate=occurdate where occurdate<createdate and businesstype='4';
+update his_impawncont set createdate=occurdate where occurdate<createdate and businesstype='4';
+commit;

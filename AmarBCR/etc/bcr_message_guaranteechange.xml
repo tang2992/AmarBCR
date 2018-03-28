@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="GB2312"?>
+
+<configuration>
+<!--?	担保业务信息标识变更报文  -->
+<messageList 
+	type="16"
+	name="GuaranteeDatachange" 
+	direction="0"
+	chineseName="担保业务信息标识变更报文文件" 
+	description="担保业务信息标识变更报文文件">
+
+<message type="82" id="82" name="changeGuaranteeData" chineseName="担保业务信息标识变更报文" headerLength="64" version="1.0" readerVersion="1.1" charset="GB18030">  	
+	<record id="header" type="0" name="Head">
+		<segment segmentFlag="A" id="0" name="MessageHead" chineseName="报文头"  segmentLength="64" optional="false" unique="true">
+			<field id="1001" dataType="char" name="HeadFlag" chineseName="报文头标识" type="AN" startPosition="0" endPosition="0" optional="false" defaultValue="A"/>
+			<field id="1002" dataType="char" name="Version" chineseName="报文格式版本号" type="AN" startPosition="1" endPosition="3" optional="false" />
+			<!-- 报送机构代码:11位金融机构代码+空格 -->
+			<field id="1003" dataType="char" name="FinanceCode" chineseName="担保机构代码" type="AN" startPosition="4" endPosition="17" optional="false" />
+			<field id="1004" dataType="datetime" name="CreatedTime" chineseName="报文生成时间" type="N" startPosition="18" endPosition="31" optional="false" />
+			<!-- 报文信息类别: 81－担保业务信息采集正常报文;82－担保业务信息采集标识变更报文;83－担保业务信息采集删除报文 -->
+			<field id="1005" dataType="int" name="MsgType" chineseName="报文信息类别" type="N" startPosition="32" endPosition="33" optional="false"  defaultValue="82"/>
+			<field id="1006" dataType="char" name="ReserveField" chineseName="预留字段" type="ANC" startPosition="34" endPosition="63" optional="true" status="O"/>
+		</segment>
+	</record>
+	<record id="1" name="ChangeGuaranteeDataRecord" type="821" mainBusinessNo="C.2002" keyFields="C.2002,C.2003,C.2004" briefFields="C.2001,C.2002,C.2003" chineseName="担保业务标识变更记录">    
+		<segment segmentFlag="C" id="1"  name="ChangeMessagesegment" chineseName="担保业务信息标识变更信息" description="仅有一个段" segmentLength="143"  optional="false" unique="true">	
+		    <field id="2000" dataType="char" name="MessageType" chineseName="信息类别" type="AN" startPosition="0" endPosition="0" optional="false"  defaultValue="C"/>
+	        <field id="2001" dataType="char" name="FinanceCode" chineseName="担保机构代码" type="AN" startPosition="1" endPosition="14" optional="false" />
+	        <field id="2002" dataType="char" name="GBusinessNo" chineseName="原担保业务编号" type="ANC" startPosition="15" endPosition="74" optional="false" />
+	        <field id="2003" dataType="char" name="NEWGBusinessNo" chineseName="变更后的担保业务编号" type="ANC" startPosition="75" endPosition="134" optional="false"/>
+	        <field id="2004" dataType="date" name="UpdateDate" chineseName="数据报告日期" type="N" startPosition="135" endPosition="142" optional="false" />
+	        <field id="9993" dataType="date" name="OccurDate" chineseName="发生日期" type="N" startPosition="143" endPosition="150" optional="true"  />
+		</segment> 	 	   	 
+	</record>
+	<record id="tail" name="tail" type="-1"> 
+		<segment segmentFlag="Z" id="-1" name="TailSegment" chineseName="报文尾" description="" segmentLength="11" optional="false" unique="true">
+			<field id="3001" dataType="char" name="TailFlag" chineseName="报文尾标识"   type="AN"   startPosition="0" endPosition="0" optional="false" defaultValue="Z"  />				
+			<field id="3002" dataType="int" name="RecordNum" chineseName="信息记录数"  type="N"   startPosition="1" endPosition="10" optional="false"   />							
+		</segment>
+	</record>
+</message>  
+</messageList>
+</configuration>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="GB2312"?>
+
+<configuration>
+<!--?	反馈报文文件  -->
+<messageList 
+	type="36"
+	name="OrganizationFeedback" 
+	direction="1"
+	chineseName="机构信息反馈报文文件" 
+	description="文件包含反馈报文文件一个"
+>
+
+<message type="36"
+	id="36"   
+	name="OrganizationFeedback" 
+	chineseName="机构信息反馈报文" 
+	headerLength="154" 
+	version="1.0"
+	readerVersion="1.1" 
+	charset="GB18030"
+>  	
+	<record 
+		id="Header" 
+		name="Header"
+		type="0"
+		chineseName="机构信息反馈报文头"
+	> 
+		<segment segmentFlag="A" id="0" name="MessageHead" chineseName="通用报文头" segmentLength="162" optional="false" unique="true">			
+			<field id="2301" dataType="char" name="HeadFlag" chineseName="报文头标识" type="AN" startPosition="0" endPosition="0" optional="false" status="M"/>
+	        <field id="2302" dataType="char" name="Version" chineseName="报文格式版本号" type="AN" startPosition="1" endPosition="3" optional="false" status="M"/>
+	        <field id="2303" dataType="char" name="FinianceCode" chineseName="报送机构代码" type="AN" startPosition="4" endPosition="23" optional="false" status="M"/>
+	        <field id="2304" dataType="char" name="CreatedTime" chineseName="报文生成时间" type="N" startPosition="24" endPosition="37" optional="false" status="M"/>
+	        <field id="2305" dataType="char" name="ErrorFileName" chineseName="出错报文名" type="AN" startPosition="38" endPosition="74" optional="false" status="M"/>
+	        <field id="2306" dataType="char" name="ErrorReason" chineseName="出错原因代码" type="N" startPosition="75" endPosition="76" optional="false" status="O"/>
+	        <field id="2307" dataType="char" name="" chineseName="联系人" type="ANC" startPosition="77" endPosition="106" optional="false" status="O"/>
+	        <field id="2308" dataType="char" name="" chineseName="联系电话" type="ANC" startPosition="107" endPosition="131" optional="false" status="O"/>
+	        <field id="2309" dataType="char" name="ReserveField" chineseName="预留字段" type="ANC" startPosition="132" endPosition="161" optional="false" status="O"/>
+		</segment> 
+ 	</record>
+	<record 
+		id="1"
+		type="0"
+		name="returnmessage" 
+		mainBusinessNo="B.2409"
+		keyFields="B.2409"
+		chineseName="机构信息反馈报文信息记录" 
+	>    
+		<segment segmentFlag="B" id="1" name="BaseSegment" chineseName="反馈报文信息记录数据项" segmentLength="60" optional="false" unique="true">	
+			<field id="2401" dataType="int" name="ErrorPosition" chineseName="出错记录位置" type="N" startPosition="0" endPosition="9" optional="false" status="M"/>
+	        <field id="2402" dataType="char" name="ErrorMsg" chineseName="出错信息" type="AN" startPosition="10" endPosition="10" optional="false" status="M"/>
+	        <field id="2403" dataType="char" name="RecordData" chineseName="出错信息记录" type="ANC" startPosition="11" endPosition="11" optional="false" status="M"/>
+	        <field id="2409" dataType="int" name="RecordType" chineseName="反馈记录类型" type="ANC" startPosition="12" endPosition="12" optional="false" status="M"/>
+		 </segment> 	 	   	 
+	</record>
+	<record id="Tail" type="-1" name="Tail">
+		<segment segmentFlag="Z" id="-1" name="Tail" chineseName="报文尾"  segmentLength="11" optional="false" unique="true">
+			<field id="2501" dataType="char" name="TailFlag" chineseName="报文尾标识" type="AN" startPosition="0" endPosition="0" optional="false" defaultValue="Z"/>
+			<field id="2502" dataType="int" name="RecordNum" chineseName="信息记录数" type="N" startPosition="1" endPosition="10" optional="false"/>
+		</segment>
+	</record>
+</message>
+ 
+ <message type="37"
+	id="37"   
+	name="OrganizationFeedback" 
+	chineseName="机构删除反馈报文" 
+	headerLength="154" 
+	version="1.0"
+	readerVersion="1.1" 
+	charset="GB18030"
+>  	
+	<record 
+		id="Header" 
+		name="Header"
+		type="0"
+		chineseName="机构删除反馈报文头"
+	> 
+		<segment segmentFlag="A" id="0" name="MessageHead" chineseName="通用报文头" segmentLength="162" optional="false" unique="true">			
+			<field id="2301" dataType="char" name="HeadFlag" chineseName="报文头标识" type="AN" startPosition="0" endPosition="0" optional="false" status="M"/>
+	        <field id="2302" dataType="char" name="Version" chineseName="报文格式版本号" type="AN" startPosition="1" endPosition="3" optional="false" status="M"/>
+	        <field id="2303" dataType="char" name="FinianceCode" chineseName="报送机构代码" type="AN" startPosition="4" endPosition="23" optional="false" status="M"/>
+	        <field id="2304" dataType="char" name="CreatedTime" chineseName="报文生成时间" type="N" startPosition="24" endPosition="37" optional="false" status="M"/>
+	        <field id="2305" dataType="char" name="ErrorFileName" chineseName="出错报文名" type="AN" startPosition="38" endPosition="74" optional="false" status="M"/>
+	        <field id="2306" dataType="char" name="ErrorReason" chineseName="出错原因代码" type="N" startPosition="75" endPosition="76" optional="false" status="O"/>
+	        <field id="2307" dataType="char" name="" chineseName="联系人" type="ANC" startPosition="77" endPosition="106" optional="false" status="O"/>
+	        <field id="2308" dataType="char" name="" chineseName="联系电话" type="ANC" startPosition="107" endPosition="131" optional="false" status="O"/>
+	        <field id="2309" dataType="char" name="ReserveField" chineseName="预留字段" type="ANC" startPosition="132" endPosition="161" optional="false" status="O"/>
+		</segment> 
+ 	</record>
+	<record 
+		id="1"
+		type="0"
+		name="returnmessage" 
+		mainBusinessNo="B.2409"
+		keyFields="B.2409"
+		chineseName="机构删除反馈报文信息记录" 
+	>    
+		<segment segmentFlag="B" id="1" name="BaseSegment" chineseName="反馈报文信息记录数据项" segmentLength="60" optional="false" unique="true">	
+			<field id="2401" dataType="int" name="ErrorPosition" chineseName="出错记录位置" type="N" startPosition="0" endPosition="9" optional="false" status="M"/>
+	        <field id="2402" dataType="char" name="ErrorMsg" chineseName="出错信息" type="AN" startPosition="10" endPosition="10" optional="false" status="M"/>
+	        <field id="2403" dataType="char" name="RecordData" chineseName="出错信息记录" type="ANC" startPosition="11" endPosition="11" optional="false" status="M"/>
+	        <field id="2409" dataType="int" name="RecordType" chineseName="反馈记录类型" type="ANC" startPosition="12" endPosition="12" optional="false" status="M"/>
+		 </segment> 	 	   	 
+	</record>
+	<record id="Tail" type="-1" name="Tail">
+		<segment segmentFlag="Z" id="-1" name="Tail" chineseName="报文尾"  segmentLength="11" optional="false" unique="true">
+			<field id="2501" dataType="char" name="TailFlag" chineseName="报文尾标识" type="AN" startPosition="0" endPosition="0" optional="false" defaultValue="Z"/>
+			<field id="2502" dataType="int" name="RecordNum" chineseName="信息记录数" type="N" startPosition="1" endPosition="10" optional="false"/>
+		</segment>
+	</record>
+</message>
+</messageList>
+</configuration>

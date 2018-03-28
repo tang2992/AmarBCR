@@ -1,0 +1,132 @@
+欠息单元的特别处理
+
+1、设计的处理逻辑：
+(1) 在ecr_metadata.xml中增加TEMP_INTERESTDUE表中。
+(2) 抽取增量信息（欠息余额>0）到临时表TEMP_INTERESTDUE中。
+(3) 不满足ecr_interestdue和Temp_Interestdue的financeid,customerid,currency,interesttype条件的按照ecr_interestdue表连接一次
+(3) 从ecr_interestdue表再抽一次。
+(4) 临时表每次抽之前清空。
+
+
+
+
+create table TEMP_INTERESTDUE  (
+   CustomerID           VARCHAR2(40)                     not null,
+   InterestType         VARCHAR2(1)                      not null,
+   Currency             VARCHAR2(3)                      not null,
+   OccurDate            VARCHAR2(10),
+   OldFinanceID         VARCHAR2(59),
+   FinanceID            VARCHAR2(11)                     not null,
+   LoanCardNo           VARCHAR2(16),
+   IncrementFlag        VARCHAR2(1),
+   ModFlag              VARCHAR2(1),
+   TraceNumber          VARCHAR2(20),
+   RecordFlag           VARCHAR2(20),
+   SessionID            VARCHAR2(10),
+   ErrorCode            VARCHAR2(80),
+   InterestBalance      NUMBER(24,6),
+   ChangeDate           VARCHAR2(10),
+   constraint PK_Tmp_INTERESTDUE primary key (CustomerID, InterestType, Currency,FinanceID)
+);
+
+		delete from temp_interestdue;
+		
+		<executeUnit name="DebitInterestTemp" describe="导入欠息临时信息表" executeClass="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:ecr_data:select * from TEMP_INTERESTDUE:etc/ecr_are.xml:,"/>
+						<property name="unit.handlers" value="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler"/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider.dataSource"
+							value="datasource:db:loan:select
+							BC.CustomerID as CustomerID{#客户号},
+							BC.ManageOrgID as FinanceID{#金融机构代码},
+							BusinessCurrency as Currency{#币种},
+							sum(BC.InterestBalance1) as InterestBalance{#欠息余额},
+							 '1' as InterestType{#欠息类型},
+							max(UpdateDate) as ChangeDate{#欠息余额改变日期}
+							from BUSINESS_CONTRACT BC
+							where (BC.CustomerID&lt;&gt;'' or BC.CustomerID is not null)
+							group by CustomerID,ManageOrgID,BusinessCurrency
+   					  having (sum(InterestBalance1)&gt; 0 )
+							union
+							select
+							BC.CustomerID as CustomerID,
+							BC.ManageOrgID as FinanceID,
+							BusinessCurrency as Currency,
+							sum(BC.InterestBalance2) as InterestBalance,
+							'2' as InterestType,
+							max(UpdateDate) as ChangeDate
+							from BUSINESS_CONTRACT BC
+							where (BC.CustomerID&lt;&gt;'' or BC.CustomerID is not null)
+							group by CustomerID,ManageOrgID,BusinessCurrency
+   							having (sum(InterestBalance2)&gt; 0 ) "
+						/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider.columnConvertors"
+							value="{FinanceID,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='6501'}
+								{Currency,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='1501'}"
+						/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.table" value="TEMP_INTERESTDUE" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.keyColumns" value="CustomerID,Currency,FinanceID,InterestType" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.updateColumns"
+							value="INCREMENTFLAG,OCCURDATE,FINANCEID,OLDFINANCEID,InterestBalance,CHANGEDATE" />
+					</extendProperties>
+				</executeUnit>
+				
+				
+				<executeUnit name="DebitInterestchange" describe="导入欠息金融信息变更表" executeClass="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:ecr_data:select * from ECR_INTERESTDUE:etc/ecr_are.xml:,"/>
+						<property name="unit.handlers" value="com.amarsoft.app.datax.ecr.prepare.dataimport.FIDChangeHandler"/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider.dataSource"
+							value="datasource:db:loan:select
+							EI.CustomerID as CustomerID,
+							EI.FinanceID as FinanceID,
+							EI.Currency as Currency,
+							0 as InterestBalance,
+							EI.InterestType as InterestType,
+							EI.ChangeDate as ChangeDate {#这个日期可能按照occurdate来计算}
+							from ECR_INTERESTDUE EI
+							where EI.InterestBalance &gt; 0 
+							and not exists (select 1 from TEMP_INTERESTDUE TI where and EI.CustomerID = TI.CustomerID
+							and EI.Currency = TI.Currency
+							and EI.InterestType = TI.InterestType
+							and EI.FinanceID = TI.FinanceID 
+							)
+							 "
+						/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider.columnConvertors"
+							value="{FinanceID,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='6501'}
+								{Currency,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='1501'}"
+						/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.FIDChangeHandler.table" value="ECR_INTERESTDUE" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.FIDChangeHandler.keyColumns" value="CustomerID,Currency,FinanceID,InterestType" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.FIDChangeHandler.updateColumns"
+							value="INCREMENTFLAG,OCCURDATE,FINANCEID,OLDFINANCEID,InterestBalance,CHANGEDATE" />
+					</extendProperties>
+				</executeUnit>
+				
+				<executeUnit name="DebitInterestfinal" describe="导入欠息信息" executeClass="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:ecr_data:select * from ECR_INTERESTDUE:etc/ecr_are.xml:,"/>
+						<property name="unit.handlers" value="com.amarsoft.app.datax.ecr.prepare.dataimport.FIDChangeHandler"/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider.dataSource"
+							value="datasource:db:loan:select
+							EI.CustomerID as CustomerID,
+							EI.FinanceID as FinanceID,
+							EI.Currency as Currency,
+							0 as InterestBalance,
+							EI.InterestType as InterestType,
+							EI.ChangeDate as ChangeDate {#这个日期可能按照occurdate来计算}
+							from TEMP_INTERESTDUE TI
+							where 1=1
+							 "
+						/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider.columnConvertors"
+							value="{FinanceID,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='6501'}
+								{Currency,datasource:db:ecr:select CTCODE,PBCODE from ECR_CODEMAP where ColName='1501'}"
+						/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.FIDChangeHandler.table" value="ECR_INTERESTDUE" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.FIDChangeHandler.keyColumns" value="CustomerID,Currency,FinanceID,InterestType" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.FIDChangeHandler.updateColumns"
+							value="INCREMENTFLAG,OCCURDATE,FINANCEID,OLDFINANCEID,InterestBalance,CHANGEDATE" />
+					</extendProperties>
+				</executeUnit>

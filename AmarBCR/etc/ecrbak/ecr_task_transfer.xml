@@ -1,0 +1,472 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!-- 本任务定义数据校验迁移模块，从基础数据表迁移可以接受的记录到待上报池中 -->
+
+<task name="ECR2HISTransfer" describe="待上报数据迁移" parallelRun="false" traceOn="true">
+	<listeners>
+		<!--ECRTaskListener仅配置了前三类监听，建议使用unitEvent或targetEvent级的监听。
+			taskEvent级监听基本无效，routeEvent级监听未做任何操作，仅供扩展使用。-->
+		<listener listenerClass="com.amarsoft.app.datax.ecr.common.ECRTaskListener" enabled="true">
+			<extendProperties>
+				<property name="taskEventEnabled" value="false" />
+				<property name="targetEventEnabled" value="false" />
+				<property name="unitEventEnabled" value="true" />
+				<property name="routeEventEnabled" value="false" />
+				<property name="database" value="ecr"/>
+			</extendProperties>
+		</listener>
+	</listeners>
+	<targets>
+		<target name="ECRDataTransfer" describe="基础数据迁移" enabled="true">
+			<executeUnits>
+			 
+				<!-- 设置迁移过滤器。迁移过滤器设置在表ECR_TRANSFERFILTER中，包括3个核心字段：
+					* MainbusinessNo，要过滤的业务号, 机构信息为CIFCustomerID
+					* RecordScope，该业务作用的记录范围。形式如：1,2,3-7,8这样的一个字符串,特别的可以用A表示全部记录，B表示业务记录，C表示客户记录，O表示机构基本信息记录，F表示机构家族成员记录
+					* FilterCause，过滤器起因，支持几种类型：D-删除记录停报，E-校验错误，F-反馈错误，H-历史年数据，O-其他原因。机构基本信息、机构家族成员信息的过滤把校验/删除停报/反馈放在一起考虑，设置为O
+				 -->
+				<executeUnit name="SetTransferFilter" describe="设置迁移过滤器" executeClass="com.amarsoft.task.units.dpx.SQLProcess" allowManualExecute="true" >
+					<extendProperties>
+						<property name="unit.onErrorAction" value="rollback_break"/>
+						<property name="unit.logLevel" value="debug"/>
+						<property name="unit.script" value="
+							{#准备工作}
+							connect to ecr;&#xA;
+							set autocommit false;&#xA;
+							delete from ECR_TRANSFERFILTER where FilterCause &lt;>'T' ;&#xA;
+							
+							{#所有的错误校验业务插入到过滤表中, 机构信息和机构家族成员信息除外}
+							insert into ECR_TRANSFERFILTER(MainBusinessNo,RecordScope,FilterCause,Note) 
+							select distinct MainBusinessNo,'A','E','Validaty Error' from ECR_ERRHISTORY 
+							where RECORDTYPE not in ('71', '72' ) ;&#xA;
+							
+							{#待上报批量删除业务的记录暂时停报}
+							insert into ECR_TRANSFERFILTER(MainBusinessNo,RecordScope,FilterCause,Note) 
+							select distinct ContractNo,'B','D','Delete Business' from HIS_BATCHDELETE
+							where SessionID &lt;&gt;'8888888888';&#xA;
+							
+							{#待上报的机构信息批量删除的记录, 校验出错的机构基本信息记录, 反馈错误的机构信息记录,  RecordScope设置为O}
+							insert into ECR_TRANSFERFILTER(MainBusinessNo,RecordScope,FilterCause,Note) 
+							select distinct CIFCustomerID,'O','O','Organ Filter' from HIS_BATCHDELETEORGAN
+							    where SessionID &lt;&gt;'8888888888' 
+							union 
+							select distinct MainBusinessNo,'O','O','Organ Filter'  from ECR_ERRHISTORY  where RECORDTYPE='71' 
+							union 
+							select distinct MainBusinessNo,'O','O','Organ Filter'  from ECR_FEEDBACK where RECORDTYPE='71'   ;&#xA;
+							
+							{#待上报的机构家族成员信息批量删除的记录, 校验出错的机构家族成员信息, 反馈错误的机构家族成员信息记录, RecordScope设置为F}
+							insert into ECR_TRANSFERFILTER(MainBusinessNo,RecordScope,FilterCause,Note) 
+							select distinct CIFCustomerID,'F','O','OrganFamily Filter'  from HIS_BATCHDELETEFAMILY
+							    where SessionID &lt;&gt;'8888888888' 
+							union 
+							select distinct MainBusinessNo,'F','O','OrganFamily Filter'  from ECR_ERRHISTORY  where RECORDTYPE='72' 
+							union 
+							select distinct MainBusinessNo,'F','O','OrganFamily Filter'  from ECR_FEEDBACK  where RECORDTYPE='72' ;&#xA;
+							
+							{#反馈错误记录停报, 71/72是机构信息采集记录类型已在以上两个地方进行了处理，73/74是机构批量删除记录类型也不许处理}
+							insert into ECR_TRANSFERFILTER(MainBusinessNo,RecordScope,FilterCause,Note) 
+							select distinct MainBusinessNo,'B','F','Feed Business' from ECR_FEEDBACK 
+							where RECORDTYPE not in('71', '72', '73', '74');&#xA;
+							
+							commit;&#xA;
+							disconnect;"
+						/>
+					</extendProperties>
+				</executeUnit>
+			
+				<!-- 报文数据迁移单元用于把正确的客户信息记录转移到待上报池中，使用的主要是TransferSession。迁移过程收到ECR_TRANSFERFILTER影响
+					* messageConfigFile-报文的配置文件，可以选择是客户、业务和不良信贷资产三种
+				-->
+				<executeUnit name="TransferCustomerRecord" describe="迁移新增/变更的客户记录" executeClass="com.amarsoft.app.datax.ecr.session.TransferUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="com.amarsoft.app.datax.ecr.session.TransferSession.messageConfigFile" 
+							value="{$ARE.ECR_HOME}/etc/ecr_message_customerinfo.xml" />
+					</extendProperties>
+				</executeUnit>			
+			
+				<!-- 报文数据迁移单元用于把正确的业务信息记录转移到待上报池中，使用的主要是TransferSession。迁移过程收到ECR_TRANSFERFILTER影响
+					* messageConfigFile-报文的配置文件，可以选择是客户、业务和不良信贷资产三种
+				-->
+				<executeUnit name="TransferBusinessRecord" describe="迁移新增/变更的业务记录" executeClass="com.amarsoft.app.datax.ecr.session.TransferUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="com.amarsoft.app.datax.ecr.session.TransferSession.messageConfigFile" 
+							value="{$ARE.ECR_HOME}/etc/ecr_message_businessinfo.xml" />
+					</extendProperties>
+				</executeUnit>
+				
+				<!-- 报文数据迁移单元用于把正确的业务信息记录转移到待上报池中，使用的主要是TransferSession。迁移过程收到ECR_TRANSFERFILTER影响
+					* messageConfigFile-报文的配置文件，可以选择是客户、业务和不良信贷资产三种
+				-->
+				<executeUnit name="TransferAssetsDisposeRecord" describe="迁移新增/变更的不良信贷资产处置信息记录" executeClass="com.amarsoft.app.datax.ecr.session.TransferUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="com.amarsoft.app.datax.ecr.session.TransferSession.messageConfigFile" 
+							value="{$ARE.ECR_HOME}/etc/ecr_message_assetssaving.xml" />
+					</extendProperties>
+				</executeUnit>
+				
+			 	<executeUnit name="TransferOrganizationRecord" describe="迁移新增/变更的机构信息记录" executeClass="com.amarsoft.app.datax.ecr.session.TransferUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="com.amarsoft.app.datax.ecr.session.TransferSession.messageConfigFile" 
+							value="{$ARE.ECR_HOME}/etc/ecr_message_organizationinfo.xml" />
+					</extendProperties>
+				</executeUnit>
+				
+			 <!--本单元的作用是将已经结清的数据的incrementflag置为6,这样数据发生变化之后征信将不再上报任何的变更。
+			     此单元应谨慎使用。如之前上报的数据质量较差，设置此单元之后，修改了数据也不会产生任何变更。
+			     最好是在上线稳定之后方使用此单元。
+			 -->
+			 <executeUnit name="updateClosedData" describe="设置数据结清标志" executeClass="com.amarsoft.task.units.dpx.SQLProcess" allowManualExecute="true" >
+					<extendProperties>
+						<property name="unit.onErrorAction" value="rollback_break"/>
+						<property name="unit.logLevel" value="debug"/>
+						<property name="unit.script" value="
+							{#准备工作}
+							connect to ecr;&#xA;
+							set autocommit false;&#xA;
+							update ecr_loancontract set incrementflag='6' where incrementflag='8' and availabstatus='2' and guarantyflag='2';&#xA;
+							update ecr_loanduebill set incrementflag='6' where incrementflag='8' and balance=0;&#xA;
+							update ecr_finainfo set incrementflag='6' where incrementflag='8' and availabstatus='2' and guarantyflag='2';&#xA;
+							update ecr_finaduebill set incrementflag='6' where incrementflag='8' and balance=0;&#xA;
+							update ecr_guaranteebill set incrementflag='6' where incrementflag='8' and guaranteestatus='2' and guarantyflag='2';&#xA;
+							update ecr_factoring set incrementflag='6' where incrementflag='8' and balance=0 and guarantyflag='2';&#xA;
+							update ecr_discount set incrementflag='6' where incrementflag='8' and billstatus='3';&#xA;
+							update ecr_acceptance set incrementflag='6' where incrementflag='8' and draftstatus='3' and guarantyflag='2';&#xA;
+							update ecr_creditletter set incrementflag='6' where incrementflag='8' and creditstatus='6' and guarantyflag='2';&#xA;
+							update ecr_customercredit set incrementflag='6' where incrementflag='8' and ('{$ARE.businessOccurDate}'>=CreditEndDate or CreditLogoutDate>='{$ARE.businessOccurDate}');&#xA;
+							update ecr_assurecont set incrementflag='6' where incrementflag='8' and availabstatus='2';&#xA;
+							update ecr_guarantycont set incrementflag='6' where incrementflag='8' and availabstatus='2';&#xA;
+							update ecr_impawncont set incrementflag='6' where incrementflag='8' and availabstatus='2';&#xA;
+							update ecr_interestdue set incrementflag='6' where incrementflag='8' and interestbalance=0;&#xA;
+							commit;&#xA;
+							disconnect;"
+						/>
+					</extendProperties>
+				</executeUnit>
+			 
+			 
+			</executeUnits>
+			<routeTable>
+				<route unit="SetTransferFilter"		executeStatus="unexecute"	nextUnit="SetTransferFilter"/>
+				<route unit="SetTransferFilter"		executeStatus="successful"	nextUnit="TransferCustomerRecord"/> 
+				<route unit="TransferCustomerRecord"		executeStatus="successful"	nextUnit="TransferBusinessRecord"/> 
+				<route unit="TransferBusinessRecord"		executeStatus="successful"	nextUnit="TransferAssetsDisposeRecord"/> 
+				<route unit="TransferAssetsDisposeRecord"		executeStatus="successful"	nextUnit="TransferOrganizationRecord"/>
+			</routeTable>
+		</target>
+		
+		<!-- 1.适用于批删后重报、漏报补报、迟报的贷款和贸易融资数据。
+			 2.该类数据的特点是：新增，业务发生日期不等于贷款发放日期，（贷款余额可能小于放款金额）。
+		     3.根据2.1规范(及优化说明)和人行的要求，回推如下：报送合同+担保，每次还款，报送借据+还款；每次展期，报送借据+展期。 -->
+	  	<target name="BackstepLoanStatus" describe="回推贷款状态" enabled="false">
+			<!-- 根据还款和展期信息回推借据中间状态 -->
+			<executeUnits>
+				<executeUnit name="BackstepLoanStatus" describe="回推贷款状态" executeClass="com.amarsoft.task.units.dpx.SQLProcess" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.onErrorAction" value="break"/>
+						<property name="unit.logLevel" value="debug"/>
+						<property name="unit.script" value="
+							connect to ecr;&#xA;
+							{#----更新还款的业务发生日期}
+							update his_loanreturn set occurdate =returndate where incrementflag='1' and sessionid='0000000000';&#xA;
+							{#----更新借据新增的业务发生日期}
+							update his_loanduebill set occurdate=putoutdate,balance=putoutamount where incrementflag='1' and sessionid='0000000000';&#xA;
+							{#----还款回推历史借据信息}
+							INSERT INTO
+									    HIS_LOANDUEBILL
+									    (
+									        LCONTRACTNO,
+									        LDUEBILLNO,
+									        OCCURDATE,
+									        CURRENCY,
+									        PutoutAmount,
+									        BALANCE,
+									        PUTOUTDATE,
+									        PUTOUTENDDATE,
+									        BUSINESSTYPE,
+									        FORM,
+									        LOANCHARACTER,
+									        WAY,
+									        KIND,
+									        EXTENFLAG,
+									        CLASSIFY4,
+									        CLASSIFY5,
+									        SESSIONID,
+									        INCREMENTFLAG,
+									        TRACENUMBER
+									    )
+									SELECT
+									    EL.LCONTRACTNO  AS LCONTRACTNO,
+									    EL.LDUEBILLNO   AS LDUEBILLNO,
+									    LR.Returndate   AS OCCURDATE,
+									    EL.CURRENCY     AS CURRENCY,
+									    EL.PutoutAmount AS PutoutAmount,
+									    (EL.PutoutAmount-(
+									    (
+									        SELECT
+									            SUM(LR1.ReturnSum)
+									        FROM
+									            HIS_LOANRETURN LR1
+									        WHERE
+									            LR1.LDuebillno=EL.Lduebillno
+									        AND LR1.OCCURDATE &lt;=LR.OCCURDATE)) ) AS BALANCE,
+									    EL.PUTOUTDATE                            AS PUTOUTDATE,
+									    EL.PUTOUTENDDATE                         AS PUTOUTENDDATE,
+									    EL.BUSINESSTYPE                          AS BUSINESSTYPE,
+									    EL.FORM                                  AS FORM,
+									    EL.LOANCHARACTER                         AS LOANCHARACTER,
+									    EL.WAY                                   AS WAY,
+									    EL.KIND                                  AS KIND,
+									    CASE
+									        WHEN EL.Extenflag='1'
+									        THEN '1'
+									        ELSE '2'
+									    END            AS EXTENFLAG,
+									    EL.CLASSIFY4   AS CLASSIFY4,
+									    EL.CLASSIFY5   AS CLASSIFY5,
+									    EL.SESSIONID   AS SESSIONID,
+									    '2'            AS INCREMENTFLAG,
+									    EL.TRACENUMBER AS TRACENUMBER
+									FROM
+									    HIS_LOANDUEBILL EL,
+									    HIS_LOANRETURN LR
+									WHERE
+									    EL.LDuebillno = LR.LDuebillno
+									AND LR.INCREMENTFLAG='1'
+									AND EL.PUTOUTDATE &lt;&gt; LR.RETURNDATE
+									AND LR.sessionid='0000000000'
+									AND EL.sessionid='0000000000';&#xA;
+							{#----展期回推历史借据信息 }
+							INSERT INTO
+							    HIS_LOANDUEBILL
+							    (
+							        LCONTRACTNO,
+							        LDUEBILLNO,
+							        OCCURDATE,
+							        CURRENCY,
+							        PutoutAmount,
+							        BALANCE,
+							        PUTOUTDATE,
+							        PUTOUTENDDATE,
+							        BUSINESSTYPE,
+							        FORM,
+							        LOANCHARACTER,
+							        WAY,
+							        KIND,
+							        EXTENFLAG,
+							        CLASSIFY4,
+							        CLASSIFY5,
+							        SESSIONID,
+							        INCREMENTFLAG,
+							        TRACENUMBER
+							    )
+							SELECT
+							    DB.LContractno   AS LContractno,
+							    DB.LDuebillNo    AS LDuebillNo,
+							    LE.OCCURDATE     AS OCCURDATE,
+							    DB.CURRENCY      AS CURRENCY,
+							    DB.PutoutAmount  AS PutoutAmount,
+							    LE.EXTENSUM      AS BALANCE,
+							    DB.PUTOUTDATE    AS PUTOUTDATE,
+							    DB.PUTOUTENDDATE AS PUTOUTENDDATE,
+							    DB.BUSINESSTYPE  AS BUSINESSTYPE,
+							    DB.FORM          AS FORM,
+							    DB.LOANCHARACTER AS LOANCHARACTER,
+							    DB.WAY           AS WAY,
+							    DB.KIND          AS KIND,
+							    '1'              AS EXTENFLAG,
+							    DB.CLASSIFY4     AS CLASSIFY4,
+							    DB.CLASSIFY5     AS CLASSIFY5,
+							    DB.SESSIONID     AS SESSIONID,
+							    '2'              AS INCREMENTFLAG,
+							    DB.TRACENUMBER   AS TRACENUMBER
+							FROM
+							    HIS_LOANDUEBILL DB,
+							    HIS_LOANEXTENSION LE
+							WHERE
+							    (
+							        DB.LDuebillNo = LE.LDuebillNo
+							    AND LE.INCREMENTFLAG='1'
+							    AND DB.INCREMENTFLAG='1')
+							AND LE.OCCURDATE NOT IN
+							    (
+							        SELECT
+							            OCCURDATE
+							        FROM
+							            HIS_LOANDUEBILL HLD_T
+							        WHERE
+							            HLD_T.LDUEBILLNO=LE.LDUEBILLNO);&#xA;
+							{#----更新展期标志}
+							update HIS_LOANDUEBILL SET EXTENFLAG='1' WHERE LDUEBILLNO IN (SELECT LDUEBILLNO FROM HIS_LOANEXTENSION) AND OCCURDATE &gt;= (SELECT MIN(OCCURDATE) FROM HIS_LOANEXTENSION HLE WHERE HLE.LDUEBILLNO=HIS_LOANDUEBILL.LDUEBILLNO);&#xA; 
+							{#----更新合同信息}
+							update his_loancontract set occurdate=startdate where incrementflag='1' and sessionid='0000000000' and startdate is not null and startdate &lt;&gt; '';&#xA;  
+							{#----更加合同更新担保的业务发生日期}
+							update his_assurecont set occurdate=(select occurdate from his_loancontract where his_loancontract.lcontractno=his_assurecont.contractno and his_loancontract.lcontractno in(select contractno from his_assurecont )) where businesstype='1';&#xA;  
+							update his_guarantycont set occurdate=(select occurdate from his_loancontract where his_loancontract.lcontractno=his_guarantycont.contractno) where businesstype='1';&#xA;  
+							update his_impawncont set occurdate=(select occurdate from his_loancontract where his_loancontract.lcontractno=his_impawncont.contractno) where businesstype='1';&#xA;
+							disconnect;"
+						/>
+					</extendProperties>
+				</executeUnit>	
+			</executeUnits>
+			<routeTable>
+				<route unit="BackstepLoanStatus"		executeStatus="unexecute"	nextUnit="BackstepLoanStatus"/> 
+			</routeTable>
+		</target>
+		
+		<target name="BackstepFinanceStatus" describe="回推贸易融资状态" enabled="false">
+			<!-- 根据还款和展期信息回推贸易融资的中间状态 -->
+			<executeUnits>
+				<executeUnit name="BackstepFinanceStatus" describe="回推贸易融资状态" executeClass="com.amarsoft.task.units.dpx.SQLProcess" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.onErrorAction" value="break"/>
+						<property name="unit.logLevel" value="debug"/>
+						<property name="unit.script" value="
+							connect to ecr;&#xA;
+							{#------更新还款的业务发生日期}
+							update his_finareturn set occurdate =returndate where incrementflag='1' and sessionid='0000000000';&#xA;
+							{#------更新借据新增的业务发生日期}
+							update his_finaduebill set occurdate=putoutdate,balance=putoutamount where incrementflag='1' and sessionid='0000000000';&#xA;
+							{#------还款回推历史借据信息}
+							INSERT INTO
+								    HIS_FINADUEBILL
+								    (
+								        FCONTRACTNO,
+								        FDUEBILLNO,
+								        OCCURDATE,
+								        CURRENCY,
+								        PutoutAmount,
+								        BALANCE,
+								        PUTOUTDATE,
+								        PUTOUTENDDATE,
+								        BUSINESSTYPE,
+								        FORM,
+								        LOANCHARACTER,
+								        WAY,
+								        KIND,
+								        EXTENFLAG,
+								        CLASSIFY4,
+								        CLASSIFY5,
+								        SESSIONID,
+								        INCREMENTFLAG,
+								        TRACENUMBER
+								    )
+								SELECT
+								    EL.FCONTRACTNO  AS FCONTRACTNO,
+								    EL.FDUEBILLNO   AS FDUEBILLNO,
+								    LR.Returndate   AS OCCURDATE,
+								    EL.CURRENCY     AS CURRENCY,
+								    EL.PutoutAmount AS PutoutAmount,
+								    (EL.PutoutAmount-(
+								    (
+								        SELECT
+								            SUM(LR1.ReturnSum)
+								        FROM
+								            HIS_FINARETURN LR1
+								        WHERE
+								            LR1.FDuebillno=EL.Fduebillno
+								        AND LR1.OCCURDATE &lt;= LR.OCCURDATE)) ) AS BALANCE,
+								    EL.PUTOUTDATE                            AS PUTOUTDATE,
+								    EL.PUTOUTENDDATE                         AS PUTOUTENDDATE,
+								    EL.BUSINESSTYPE                          AS BUSINESSTYPE,
+								    EL.FORM                                  AS FORM,
+								    EL.LOANCHARACTER                         AS LOANCHARACTER,
+								    EL.WAY                                   AS WAY,
+								    EL.KIND                                  AS KIND,
+								    CASE
+								        WHEN EL.Extenflag='1'
+								        THEN '1'
+								        ELSE '2'
+								    END            AS EXTENFLAG,
+								    EL.CLASSIFY4   AS CLASSIFY4,
+								    EL.CLASSIFY5   AS CLASSIFY5,
+								    EL.SESSIONID   AS SESSIONID,
+								    '2'            AS INCREMENTFLAG,
+								    EL.TRACENUMBER AS TRACENUMBER
+								FROM
+								    HIS_FINADUEBILL EL,
+								    HIS_FINARETURN LR
+								WHERE
+								    EL.FDuebillno = LR.FDuebillno
+								AND LR.INCREMENTFLAG='1'
+								AND EL.PUTOUTDATE &lt;&gt; LR.RETURNDATE
+								AND LR.sessionid='0000000000'
+								AND EL.sessionid='0000000000';&#xA;
+							{#----展期回推历史借据信息 }
+							INSERT INTO
+							    HIS_FINADUEBILL
+							    (
+							        FCONTRACTNO,
+							        FDUEBILLNO,
+							        OCCURDATE,
+							        CURRENCY,
+							        PutoutAmount,
+							        BALANCE,
+							        PUTOUTDATE,
+							        PUTOUTENDDATE,
+							        BUSINESSTYPE,
+							        FORM,
+							        LOANCHARACTER,
+							        WAY,
+							        KIND,
+							        EXTENFLAG,
+							        CLASSIFY4,
+							        CLASSIFY5,
+							        SESSIONID,
+							        INCREMENTFLAG,
+							        TRACENUMBER
+							    )
+							SELECT
+							    DB.FContractno   AS FContractno,
+							    DB.FDuebillNo    AS FDuebillNo,
+							    LE.OCCURDATE     AS OCCURDATE,
+							    DB.CURRENCY      AS CURRENCY,
+							    DB.PutoutAmount  AS PutoutAmount,
+							    LE.EXTENSUM      AS BALANCE,
+							    DB.PUTOUTDATE    AS PUTOUTDATE,
+							    DB.PUTOUTENDDATE AS PUTOUTENDDATE,
+							    DB.BUSINESSTYPE  AS BUSINESSTYPE,
+							    DB.FORM          AS FORM,
+							    DB.LOANCHARACTER AS LOANCHARACTER,
+							    DB.WAY           AS WAY,
+							    DB.KIND          AS KIND,
+							    '1'              AS EXTENFLAG,
+							    DB.CLASSIFY4     AS CLASSIFY4,
+							    DB.CLASSIFY5     AS CLASSIFY5,
+							    DB.SESSIONID     AS SESSIONID,
+							    '2'              AS INCREMENTFLAG,
+							    DB.TRACENUMBER   AS TRACENUMBER
+							FROM
+							    HIS_FINADUEBILL DB,
+							    HIS_FINAEXTENSION LE
+							WHERE
+							    (
+							        DB.FDuebillNo = LE.FDuebillNo
+							    AND LE.INCREMENTFLAG='1'
+							    AND DB.INCREMENTFLAG='1')
+							AND LE.OCCURDATE NOT IN
+							    (
+							        SELECT
+							            OCCURDATE
+							        FROM
+							            HIS_FINADUEBILL HLD_T
+							        WHERE
+							            HLD_T.FDUEBILLNO=LE.FDUEBILLNO);&#xA;
+							{#----更新展期标志}
+							update HIS_FINADUEBILL SET EXTENFLAG='1' WHERE FDUEBILLNO IN (SELECT FDUEBILLNO FROM HIS_FINAEXTENSION) AND OCCURDATE &gt;= (SELECT MIN(OCCURDATE) FROM HIS_FINAEXTENSION HLE WHERE HLE.FDUEBILLNO=HIS_FINADUEBILL.FDUEBILLNO);&#xA;
+							{#----更新合同信息}
+							update his_FINAINFO set occurdate=startdate where incrementflag='1' and sessionid='0000000000' and startdate is not null and startdate &lt;&gt; '';&#xA;
+							{#----更加合同更新担保的业务发生日期}
+							update his_assurecont set occurdate=(select occurdate from his_finainfo where his_finainfo.Fcontractno=his_assurecont.contractno ) where businesstype='4';&#xA;
+							update his_guarantycont set occurdate=(select occurdate from his_finainfo where his_finainfo.Fcontractno=his_guarantycont.contractno) where businesstype='4';&#xA;
+							update his_impawncont set occurdate=(select occurdate from his_finainfo where his_finainfo.Fcontractno=his_impawncont.contractno) where businesstype='4';&#xA; 
+							disconnect;"
+						/>
+					</extendProperties>
+				</executeUnit>	
+			</executeUnits>
+			<routeTable>
+				<route unit="BackstepFinanceStatus"		executeStatus="unexecute"	nextUnit="BackstepFinanceStatus"/> 
+			</routeTable>
+		</target>
+	</targets>
+</task>
+

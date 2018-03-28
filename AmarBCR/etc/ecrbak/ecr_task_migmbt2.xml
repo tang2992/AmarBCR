@@ -1,0 +1,950 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!-- 任务定义文件,每个任务有一个文件构成，任务构造器可以根据此文件构造一个任务出来 -->
+
+<task name="ECRDataPrepare" describe="原始数据抽取" parallelRun="false" traceOn="true">
+	<name>ECRDataPrepare</name>
+	<describe>原始数据抽取</describe>
+	<extendProperties>
+		<property name="runGUIMode" value="false" />
+	</extendProperties>
+	<targets>
+		<target name="CustomerImport" describe="借款人信息抽取" enabled="true">
+			<executeUnits>
+				<executeUnit name="BaseInfo" describe="导入借款人基本信息表" executeClass="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:ecr_data:select * from ECR_CUSTOMERINFO:etc/ecr_are.xml:,"/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider.dataSource" 
+							value="datasource:db:loan:select
+							bs.Card_no as CUSTOMERID{#客户号},
+							bs.country as COUNTRYCODE{#借款人国别},
+							bs.Name_cn as CHINANAME{#借款人中文名称},
+							bs.Name_ucn as FOREIGNNAME{#借款人外文名称},
+							bs.certify_code as ORGANIZATIONCODE{#组织机构代码},
+							bs.Jkr_create_year as SETUPDATE{#成立年份},
+							bs.Regist_type as REGISTTYPE{#登记注册类型},
+							bs.Regist_code as REGISTNO{#出资方登记注册号},
+							bs.Regist_date as REGISTDATE{#注册登记日期},
+							bs.Licence_maturity as REGISTENDDATE{#营业执照到期日期},
+							bs.Gsh_login_no as COUNTRYTAXNO{#国税登记证号码},
+							bs.Dsh_login_n as LOCATIONTAXNO{#地税登记证号码},
+							bs.Jkr_kind as ATTRIBUTE{#借款人性质},
+							bs.Trade_code as INDUSTRYTYPE{#行业分类},
+							bs.Intrade_num as EMPLOYEENUMBER{#从业人数},
+							bs.District_code as REGIONCODE{#行政区划},
+							bs.Jkr_inpress as CUSTOMERCHARACTER{#借款人特征},
+							bs.Jkr_phone as TEL{#借款人联系电话},
+							bs.Jkr_regist_addr as ADDR{#借款人注册地址},
+							bs.Jkr_fax as FAX{#借款人传真号码},
+							bs.Jkr_email as EMAIL{#借款人EMAIL地址},
+							bs.Jkr_url as WEBSITE{#借款人网址},
+							bs.Jkr_comm_addr as ADDRESS{#借款人通讯地址},
+							bs.Postcode as POSTNO{#邮政编码},
+							bs.MainProducts as MAINPRODUCT{#主要产品情况},
+							bs.Field_area as LOCALEAREA{#经营场地面积},
+							'' as LOCALEDROIT{#经营场地所有权?},
+							bs.Group_flag as GROUPFLAG{#集团客户标志},
+							bs.ownership as INOUTFLAG{#进出口权标志},
+							bs.Inmarket_flag as MARKETFLAG{#上市公司标志},
+							bs.Jkr_phone as FINANCECONTACT{#财务部联系方式},
+							bs.orgcode as FINANCEID{#金融机构代码},
+							bs.Card_no as LOANCARDNO{#贷款卡编号}
+							from borrowers bs,(select Card_no as Card_no,max(ywdate) as ywdate from borrowers group by Card_no) bc
+						where bs.Card_no = bc.Card_no and bs.ywdate = bc.ywdate
+					" 
+						/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.table" value="ECR_CUSTOMERINFO" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.keyColumns" value="CustomerID" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.updateColumns" 
+							value="FINANCEID,OCCURDATE,OLDFINANCEID,INCREMENTFLAG,REGISTDATE,REGISTENDDATE,ORGANIZATIONCODE,CHINANAME,INDUSTRYTYPE" />
+					</extendProperties>
+				</executeUnit>
+				
+				<executeUnit name="StockInfo" describe="导入借款人股票信息表" executeClass="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:ecr_data:select * from ECR_CUSTOMERSTOCK:etc/ecr_are.xml:,"/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider.dataSource" 
+							value="datasource:db:loan:select
+							EO.Card_no as CUSTOMERID{#客户号},
+							EO.Stock_code as STOCKNO{#股票代码},
+							EO.Market_addr as MARKETPLACE{#上市地}
+							from stocks EO
+							where 1=1 " 
+						/>
+						<!--缺省值配置  property name="com.amarsoft.are.dpx.recordset.DefaultDataSourceProvider.sourceEncoding" value="ISO8859-1" /-->     
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.table" value="ECR_CUSTOMERSTOCK" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.keyColumns" value="CustomerID,StockNo" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.updateColumns" value="OCCURDATE,IncrementFlag" />
+					</extendProperties>
+				</executeUnit>
+				
+				<executeUnit name="CustomerCapitalInfo" describe="导入借款人注册信息表" executeClass="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:ecr_data:select * from ECR_CUSTCAPIINFO:etc/ecr_are.xml:,"/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider.dataSource" 
+							value="datasource:db:loan:select
+							EC.Card_no as CUSTOMERID{#客户号},
+							EC.Currency as CURRENCY{#注册资本币种币种},
+							EC.LoanCardNo as LOANCARDNO{#贷款卡编号},
+							EC.FinanceID as FINANCEID{#金融机构代码},
+							EC.RegistSum  as REGISTSUM{#注册资本金额},
+							EC.SuperName as SUPERNAME{#上级公司名称},
+							EC.SuperDownCardNo as SLOANCARDNO{#上级公司贷款卡},
+							EC.SuperOtherID as SORGCODE{#上级公司组织机构代码}
+							from ECR_CUSTOMERINFO EC
+							where 1=1 {#暂存标志：1=暂存，2=保存}" 
+						/>
+						<!--缺省值配置  property name="com.amarsoft.are.dpx.recordset.DefaultDataSourceProvider.sourceEncoding" value="ISO8859-1" /-->     
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.table" value="ECR_CUSTCAPIINFO" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.keyColumns" value="CUSTOMERID" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.updateColumns" 
+							value="OCCURDATE,CURRENCY,REGISTSUM,SUPERNAME,SLOANCARDNO,SORGCODE,INCREMENTFLAG" />
+					</extendProperties>
+				</executeUnit>				
+				
+				<executeUnit name="CapitalComposition" describe="企业客户资本构成信息表" executeClass="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:ecr_data:select * from ECR_CUSTOMERCAPI:etc/ecr_are.xml:,"/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider.dataSource" 
+							value="datasource:db:loan:select distinct 
+							EC.Card_no as CUSTOMERID{#客户号},
+							'9999' as CAPINO{#出资记录序号},							
+							EC.toinvest as CONTRIBNAME{#出资方},
+							EC.Toinvest_card as CLOANCARDNO{#出资方贷款卡编码CR.LoanCardNo},
+							EC.Toinvest_orgcode as CORGCODE{#出资方组织机构代码},
+							EC.regcode as CREGISTNO{#getECRInfo(CR.RelativeID,'01')出资方登记注册号},
+							EC.certifytype as CERTTYPE{#证件类型},
+							EC.certifycode as CERTNO{#证件号码},
+							EC.Money_kind as CURRENCY{#出资币种},
+							EC.money as CONTRIBSUM{#出资金额}
+							from invcapitals EC
+						  " 
+						/>
+						<!--and CR.EffStatus = '1' {#有效标志：1=有效，2=无效}-->
+						<!--缺省值配置  property name="com.amarsoft.are.dpx.recordset.DefaultDataSourceProvider.sourceEncoding" value="ISO8859-1" /-->     
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.table" value="ECR_CUSTOMERCAPI" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.keyColumns" value="CUSTOMERID,CAPINO,CONTRIBNAME" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.commitNumber" value="1" />						
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.updateColumns" 
+							value="OCCURDATE,INCREMENTFLAG,CONTRIBNAME,CORGCODE,CREGISTNO,CERTTYPE,CERTNO,CURRENCY,CONTRIBSUM" />
+					</extendProperties>
+				</executeUnit>
+				
+				<executeUnit name="InvestmentInfo" describe="企业客户对外投资信息表" executeClass="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:ecr_data:select * from ECR_CUSTOMERINVEST:etc/ecr_are.xml:,"/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider.dataSource" 
+							value="datasource:db:loan:select		
+							CR.card_no as CUSTOMERID{#客户号},
+							CR.ID as INVESTNO{#投资记录编号},
+							CR.investor as INVESTCORPNAME{#被投资单位名称},
+							CR.Investor_card as ILOANCARDNO{#被投资人的贷款卡编码CR.LoanCardNo},
+							CR.Investor_orgcode as IORGCODE{#被投资人组织机构代码},
+							CR.money_kind as CURRENCY1{#币种1},
+							CR.money as INVESTSUM1{#投资金额1}		
+							from binvcapitals
+							"	
+						/>
+						<!--and CR.EffStatus = '1' {#有效标志：1=有效，2=无效}-->
+						<!--缺省值配置  property name="com.amarsoft.are.dpx.recordset.DefaultDataSourceProvider.sourceEncoding" value="ISO8859-1" /-->     
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.table" value="ECR_CUSTOMERINVEST" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.keyColumns" value="CUSTOMERID,INVESTNO" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.commitNumber" value="1" />	
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.updateColumns" 
+							value="OCCURDATE,INCREMENTFLAG,INVESTCORPNAME,ILOANCARDNO,IORGCODE,CURRENCY1,INVESTSUM1" />
+					</extendProperties>
+				</executeUnit>
+				<executeUnit name="CustomerKeeper" describe="企业客户高级管理人员信息表" executeClass="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:ecr_data:select * from ECR_CUSTOMERKEEPER:etc/ecr_are.xml:,"/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider.dataSource" 
+							value="datasource:db:loan:select		
+							CR.Card_no as CUSTOMERID{#客户号},
+							CR.Certify_code   as KEEPERNO{#高管序号},
+							CR.Super_name as KEEPERNAME{#高管人员姓名},
+							CR.Certify_type as CERTTYPE{#证件类型},
+							CR.Certify_code as CERTNO{#证件号码},
+							CR.Super_kind as KEEPERTYPE{#高管人员类别},
+							CR.Super_sex as SEX{#性别},
+							CR.Super_birthday as BIRTHDATE{#高管人员出生日期},
+							CR.Super_Edu as DEGREE{#高管人员最高学历},
+							CR.Super_Exp as JOBRESUME
+							from supermans CR
+							"	
+						/>
+						<!--and CR.EffStatus = '1' {#有效标志：1=有效，2=无效}-->
+						<!--缺省值配置  property name="com.amarsoft.are.dpx.recordset.DefaultDataSourceProvider.sourceEncoding" value="ISO8859-1" /-->     
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.table" value="ECR_CUSTOMERKEEPER" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.keyColumns" value="CUSTOMERID,KEEPERNO" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.commitNumber" value="1" />	
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.updateColumns" 
+							value="OCCURDATE,INCREMENTFLAG" />
+					</extendProperties>
+				</executeUnit>
+				
+				<executeUnit name="FamilyCorp" describe="企业客户法人代表家族成员企业信息表" executeClass="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:ecr_data:select * from ECR_CUSTOMERFAMILY:etc/ecr_are.xml:,"/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider.dataSource" 
+							value="datasource:db:loan:select
+							CR.card_no as CUSTOMERID{#客户号},
+							CR.mainid as FAMILYCORPNO{#家族企业序号},
+							CR.membername as FAMILYNAME{#家族成员姓名},
+							CR.Certify_type as CERTTYPE{#证件类型},
+							CR.Certify_code as CERTNO{#证件号码},
+							CR.relation as RELATION{#家族关系},
+							CR.in_corp as FAMILYCORPNAME{#家族成员所在企业名称},
+							CR.corp_card as FLOANCARDNO{#家族企业贷款卡编号CR.LoanCardNo}
+							from familymembers
+							" 
+						/>
+						<!-- and CR.EffStatus = '1' {#有效标志：1=有效，2=无效} -->
+						<!--缺省值配置  property name="com.amarsoft.are.dpx.recordset.DefaultDataSourceProvider.sourceEncoding" value="ISO8859-1" /-->     
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.table" value="ECR_CUSTOMERFAMILY" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.keyColumns" value="CUSTOMERID,FAMILYCORPNO" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.updateColumns" 
+							value="OCCURDATE,INCREMENTFLAG" />
+					</extendProperties>
+				</executeUnit>
+				
+				<executeUnit name="LawCase" describe="企业客户涉讼信息表" executeClass="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:ecr_data:select * from ECR_CUSTOMERlAW:etc/ecr_are.xml:,"/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider.dataSource" 
+							value="datasource:db:loan:select
+							CM.card_no as CUSTOMERID{#客户号},
+							CM.card_no as LOANCARDNO{#贷款卡编号},
+							CM.serial_no as LAWNO{#起诉流水号},
+							CM.Lawname as PLAINTIFFNAME{#起诉人名称},
+							CM.Money_kind as CURRENCY{#币种},
+							CM.Judge_money as EXECUTESUM{#判决执行金额},
+							CM.Judge_date as EXECUTEDATE{#判决执行日期},
+							CM.Result as EXECUTERESULT{#执行结果},
+							CM.Reason as APPELLCAUSE{#被起诉原因}
+							from lawinformation CM
+						  "	
+						/>
+						<!--缺省值配置  property name="com.amarsoft.are.dpx.recordset.DefaultDataSourceProvider.sourceEncoding" value="ISO8859-1" /-->     
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.table" value="ECR_CUSTOMERlAW" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.keyColumns" value="CUSTOMERID,LAWNO" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.updateColumns" 
+							value="OCCURDATE,INCREMENTFLAG,PLAINTIFFNAME,CURRENCY,EXECUTESUM,EXECUTEDATE,EXECUTERESULT,APPELLCAUSE" />
+					</extendProperties>
+				</executeUnit>
+				
+				<executeUnit name="CustomerFact" describe="借款人大事记" executeClass="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:ecr_data:select * from ECR_CUSTOMERFACT:etc/ecr_are.xml:,"/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider.dataSource" 
+							value="datasource:db:loan:select
+							CM.card_no as CUSTOMERID{#客户号},
+							CM.card_no as LOANCARDNO{#贷款卡编号},
+							CM.serial_no as FACTNO{#大事记录流水号},
+							CM.description as DESCRIBE
+							from eventinformation CM,(select Card_no as Card_no,max(ywdate) as ywdate from eventinformation group by Card_no) en
+  						where em.card_no = en.Card_no and em.ywdate = en.ywdate
+						  " 
+						/>
+						<!--缺省值配置  property name="com.amarsoft.are.dpx.recordset.DefaultDataSourceProvider.sourceEncoding" value="ISO8859-1" /-->     
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.table" value="ECR_CUSTOMERFACT" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.keyColumns" value="CUSTOMERID,FACTNO" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.updateColumns" 
+							value="OCCURDATE,INCREMENTFLAG,DESCRIBE" />
+					</extendProperties>
+				</executeUnit>
+			</executeUnits>	
+			
+			<routeTable>
+				<route unit="BaseInfo" executeStatus="unexecute" nextUnit="BaseInfo"/>
+				<route unit="BaseInfo" executeStatus="successful" nextUnit="StockInfo"/>
+				<route unit="StockInfo" executeStatus="successful" nextUnit="CustomerCapitalInfo"/>
+				<route unit="CustomerCapitalInfo"	executeStatus="successful" nextUnit="CapitalComposition"/>
+				<route unit="CapitalComposition" executeStatus="successful" nextUnit="InvestmentInfo"/>
+				<route unit="InvestmentInfo" executeStatus="successful" nextUnit="CustomerKeeper"/>
+				<route unit="CustomerKeeper" executeStatus="successful" nextUnit="FamilyCorp"/>
+				<route unit="FamilyCorp" executeStatus="successful" nextUnit="LawCase"/>
+				<route unit="LawCase" executeStatus="successful" nextUnit="CustomerFact"/>
+			</routeTable>
+		</target>
+		
+		
+		<target name="FinanceReportImport" describe="借款人财务报表抽取" enabled="false">
+			<executeUnits>			
+			</executeUnits>	
+			<routeTable>
+			</routeTable>
+		</target>
+			
+		<target name="ComplexBusinessImport" describe="借款人复杂业务抽取(贷款和贸易融资)" enabled="true">
+			<executeUnits>
+				<executeUnit name="LoanContract" describe="导入贷款合同信息表" executeClass="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:ecr_data:select * from ECR_LOANCONTRACT:etc/ecr_are.xml:,"/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider.dataSource" 
+							value="datasource:db:loan:select distinct 
+							lc.loanCont_no as LCONTRACTNO{#合同流水号},
+							lc.card_no as CUSTOMERID{#客户号},
+							lc.name as CUSTOMERNAME{#客户名称},
+							lc.card_no as LOANCARDNO{#贷款卡编号},
+							lc.orgcode as FINANCEID{#金融机构代码},
+							lc.trust as CREDITNO{#授信协议编号},
+							lc.Start_date as STARTDATE{#生效日期},
+							lc.End_date as ENDDATE{#中止日期},
+							lc.Yintuan_flag as BANKFLAG{#银团标志1=是，2=否},
+							lc.Assure_flag as GUARANTYFLAG{#担保标志1=是，2=否getECRInfo(EL.SerialNo,'05')},
+							lc.Effect_flag as AVAILABSTATUS{#有效状态1=有效，2=无效},
+							lm.Money_kind as CURRENCY{#币种},
+							lm.Money as BUSINESSSUM{#合同金额}
+							from loancontracts lc,loanmoneys lm,(select loanCont_no as loanCont_no,max(ywdate) as ywdate from loancontracts group by loanCont_no) ls
+   						where lc.loanCont_no = lm.loanCont_no and lc.loanCont_no = ls.loanCont_no and lc.ywdate = ls.ywdate
+   						and lc.Card_no = lm.Card_no and lm.Operation_type != '5'
+						  	" 
+						/>
+						<!--  property name="com.amarsoft.are.dpx.recordset.DefaultDataSourceProvider.sourceEncoding" value="ISO8859-1" /-->     
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.database" value="ecr" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.table" value="ECR_LOANCONTRACT" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.keyColumns" value="LCONTRACTNO" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.insertColumns" value="*" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.updateColumns" 
+							value="INCREMENTFLAG,OCCURDATE,FINANCEID,OLDFINANCEID,CREDITNO,GUARANTYFLAG,AVAILABSTATUS" />
+					</extendProperties>
+				</executeUnit>
+				
+				<executeUnit name="LoanDuebill" describe="导入贷款借据信息表" executeClass="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:ecr_data:select * from ECR_LOANDUEBILL:etc/ecr_are.xml:,"/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider.dataSource" 
+							value="datasource:db:loan:select
+							lb.Bill_no as LDUEBILLNO{#借据号},
+							lb.loanCont_no as LCONTRACTNO{#合同号},
+							lb.Money_kind as CURRENCY{#币种},
+							lb.Bill_money as PUTOUTAMOUNT{#发放金额},
+							lb.Bill_ye as BALANCE{#余额},
+							lb.Create_date as PUTOUTDATE{#放款日期},
+							lb.Maturity_date as PUTOUTENDDATE{#借据到期日},
+							lb.Loan_oper_kind as BUSINESSTYPE{#业务种类},
+							lb.Loan_type as FORM{#贷款形式},
+							lb.Loan_property as LOANCHARACTER{#贷款性质},
+							lb.Loan_kind as WAY{#贷款投向},
+							lb.Exp_flag as EXTENFLAG{#展期标志},
+							lb.Loan_kind as KIND{#贷款种类getECRInfo(EL.BusinessType,'03')},
+							lb.Four_class as CLASSIFY4{#四级分类},
+							lb.Five_class as CLASSIFY5{#五级分类}
+							from loanbills lb,(select Bill_no as Bill_no,max(ywdate) as ywdate from loanbills group by Bill_no) ls
+							where lb.Bill_no = ls.Bill_no and lb.ywdate = ls.ywdate
+   						 "
+						/>
+						<!--  property name="com.amarsoft.are.dpx.recordset.DefaultDataSourceProvider.sourceEncoding" value="ISO8859-1" /-->     
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.database" value="ecr" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.table" value="ECR_LOANDUEBILL" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.keyColumns" value="LDUEBILLNO" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.insertColumns" value="*" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.updateColumns" 
+							value="INCREMENTFLAG,OCCURDATE,BALANCE,BUSINESSTYPE,FORM,LOANCHARACTER,WAY,KIND,EXTENFLAG,CLASSIFY4,CLASSIFY5" />
+					</extendProperties>
+				</executeUnit>
+				
+				<executeUnit name="LoanReturn" describe="导入贷款还款信息表" executeClass="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:ecr_data:select * from ECR_LOANRETURN:etc/ecr_are.xml:,"/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider.dataSource" 
+							value="datasource:db:loan:select lr.card_no as CustomerID,
+							lr.loanCont_no as  LCONTRACTNO{#合同号},
+							lr.Bill_no as LDUEBILLNO{#借据流水号},
+							lr.Return_mode as RETURNMODE{#还款方式BW.ReturnType},
+							lr.Return_date as ReturnDate{#还款日期},
+							lr.Return_times as  ReturnTimes{#还款次数},
+							lr.return_money as RETURNSUM{#还款金额}
+							from loanreturns lr,(select Bill_no as Bill_no,max(ywdate) as ywdate from loanreturns group by Bill_no) ls
+							where lr.Bill_no = ls.Bill_no and lr.ywdate = ls.ywdate
+   						"
+						/>
+						<!--  property name="com.amarsoft.are.dpx.recordset.DefaultDataSourceProvider.sourceEncoding" value="ISO8859-1" /-->     
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.database" value="ecr" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.table" value="ECR_LOANRETURN" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.keyColumns" value="LDUEBILLNO,ReturnTimes" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.insertColumns" value="*" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.updateColumns" 
+							value="INCREMENTFLAG,OCCURDATE,ReturnDate,RETURNMODE,RETURNSUM" />
+					</extendProperties>
+				</executeUnit>
+				
+				<!-- 
+					本单元根据借据状态自动修正还款流水，如果没有倒入还款流水，本单元同样完成还款流水自动计算 
+					参数database，确定修正的数据库(default=ecr)
+					参数business，确定修正的业务，可以取值loan和trade，分别对应贷款和贸易融资(default="loan")
+				-->
+				
+				<executeUnit name="LoanExtension" describe="导入贷款展期信息表" executeClass="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:ecr_data:select * from ECR_LOANEXTENSION:etc/ecr_are.xml:,"/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider.dataSource" 
+							value="datasource:db:loan:select
+							bl.Bill_no as LDUEBILLNO{#借据流水号},
+							bl.Exp_money as EXTENSUM{#展期金额},
+							bl.Start_date as EXTENSTARTDATE{#展期起始日期},
+							bl.End_date as EXTENENDDATE{#展期到期日期},
+							bl.Exp_times as EXTENTIMES
+							from billexps bl,(select Bill_no as Bill_no,max(ywdate) as ywdate from billexps group by Bill_no) bs
+							where bl.Bill_no = bs.Bill_no and bl.ywdate = bs.ywdate
+   						 "
+						/>
+						<!--  property name="com.amarsoft.are.dpx.recordset.DefaultDataSourceProvider.sourceEncoding" value="ISO8859-1" /-->     
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.database" value="ecr" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.table" value="ECR_LOANEXTENSION" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.keyColumns" value="LDUEBILLNO,EXTENSTARTDATE" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.updateDifference" value="false" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.insertColumns" value="*" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.updateColumns" 
+							value="OCCURDATE,INCREMENTFLAG,EXTENSUM,EXTENSTARTDATE,EXTENENDDATE" />
+					</extendProperties>
+				</executeUnit>
+												
+				<executeUnit name="TradeContract" describe="导入贸易融资合同信息表" executeClass="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:ecr_data:select * from ECR_FINAINFO:etc/ecr_are.xml:,"/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider.dataSource" 
+							value="datasource:db:loan:select
+							fc.Proto_no as FContractNo{#合同流水号},
+							fc.Card_no as LOANCARDNO{#贷款卡编号},
+							fc.Card_no as CUSTOMERID{#客户号},
+							fc.name as CUSTOMERNAME{#客户名称},
+							fc.orgcode as FINANCEID{#金融机构代码},
+							'' as CREDITNO{#授信协议编号},
+							fc.Start_date as STARTDATE{#生效日期},
+							fc.End_date  as ENDDATE{#中止日期},
+							'' as BANKFLAG{#银团标志1=是，2=否},
+							fc.Assure_flag as GUARANTYFLAG{#担保标志1=是，2=否getECRInfo(EF.SerialNo,'05')},
+							fc.Proto_status as AVAILABSTATUS{#有效状态1=有效，2=无效},
+							fs.Money_kind as CURRENCY{#币种},
+							fs.Proto_money as BUSINESSSUM{#合同金额}
+   						from financeprotos fc,financemoneys fs,(select Proto_no as Proto_no,max(ywdate) as ywdate from financeprotos group by Proto_no) fi
+						where fc.Proto_no = fi.Proto_no and fc.ywdate = fi.ywdate and fc.Proto_no = fs.Proto_no"
+						/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.database" value="ecr" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.table" value="ECR_FINAINFO" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.keyColumns" value="FCONTRACTNO" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.insertColumns" value="*" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.updateColumns" 
+							value="INCREMENTFLAG,OCCURDATE,FINANCEID,OLDFINANCEID,CREDITNO,GUARANTYFLAG,AVAILABSTATUS" />
+					</extendProperties>
+				</executeUnit>
+				
+				<executeUnit name="TradeDuebill" describe="导入贸易融资借据信息表" executeClass="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:ecr_data:select * from ECR_FINADUEBILL:etc/ecr_are.xml:,"/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider.dataSource" 
+							value="datasource:db:loan:select
+							fb.Yw_no  as FDUEBILLNO{#借据号},
+							fb.Proto_no as FCONTRACTNO{#合同号},
+							fb.Money_kind as CURRENCY{#币种},
+							fb.Finance_money  as PUTOUTAMOUNT{#发放金额},
+							fb.Finance_balance as BALANCE{#余额},
+							fb.Start_date as PUTOUTDATE{#放款日期},
+							fb.End_date as PUTOUTENDDATE{#借据到期日},
+							fb.Yw_kind as BUSINESSTYPE{#业务种类},
+							fb.Exp_flag as EXTENFLAG{#展期标志},
+							fb.four_class as CLASSIFY4{#四级分类},
+							fb.five_class as CLASSIFY5{#五级分类}
+							from financebusiness fb,(select Proto_no as Proto_no,max(ywdate) as ywdate from financebusiness group by Proto_no) fi
+						  where fb.Proto_no = fi.Proto_no and fb.ywdate = fi.ywdate	"
+						/>
+						<!--  property name="com.amarsoft.are.dpx.recordset.DefaultDataSourceProvider.sourceEncoding" value="ISO8859-1" /-->     
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.database" value="ecr" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.table" value="ECR_FINADUEBILL" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.keyColumns" value="FDUEBILLNO" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.insertColumns" value="*" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.updateColumns" 
+							value="OCCURDATE,IncrementFlag,BALANCE,WAY,KIND,LOANCHARACTER,CLASSIFY5" />
+					</extendProperties>
+				</executeUnit>
+				
+				<executeUnit name="TradeReturn" describe="导入贸易融资还款信息表" executeClass="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit" allowManualExecute="true">
+					<executeClass>com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit</executeClass>
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:ecr_data:select * from ECR_FINARETURN:etc/ecr_are.xml:,"/>
+						<property name="prh.provider" value="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider"/>
+						<property name="prh.handlers" value="com.amarsoft.app.datax.ecr.prepare.dataimport.LFReturnHandler"/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider.dataSource"
+							value="datasource:db:loan:select fc.Card_no as CustomerID{#客户号},
+							fc.Proto_no as LCONTRACTNO{#合同号},
+							fc.Yw_no as FDuebillNo{#借据流水号},
+							fc.Return_date as ReturnDate{#还款日期},
+							fc.Return_times as  ReturnTimes{#还款次数},
+							fc.Return_way as RETURNMODE{#还款方式BW.ReturnType},
+							fc.Return_money as RETURNSUM{#还款金额}
+							from financereturns fc,(select Proto_no as Proto_no,max(ywdate) as ywdate from financereturns group by Proto_no) fi
+   						where fc.Proto_no = fi.Proto_no and fc.ywdate = fi.ywdate
+						"
+						/>
+						<!--  property name="com.amarsoft.are.dpx.recordset.DefaultDataSourceProvider.sourceEncoding" value="ISO8859-1" /-->     
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.database" value="ecr" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.table" value="ECR_FINARETURN" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.keyColumns" value="FDUEBILLNO,ReturnDate" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.insertColumns" value="*" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.updateColumns" 
+							value="INCREMENTFLAG,OCCURDATE,RETURNMODE,RETURNSUM" />
+					</extendProperties>
+				</executeUnit>
+				
+				<executeUnit name="TradeExtension" describe="导入贸易融资展期信息表" executeClass="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:ecr_data:select * from ECR_FINAEXTENSION:etc/ecr_are.xml:,"/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider.dataSource" 
+							value="datasource:db:loan:select
+							fc.Yw_no as FDUEBILLNO{#融资业务借据流水号},
+							fc.Exp_money as EXTENSUM{#展期金额},
+							fc.Start_date as EXTENSTARTDATE{#展期起始日期},
+							fc.End_date as EXTENENDDATE{#展期到期日期},
+							fc.Exp_times as EXTENTIMES
+							from financeexps fc,(select Proto_no as Proto_no,max(ywdate) as ywdate from financeexps group by Proto_no) fi
+   						where fc.Proto_no = fi.Proto_no and fc.ywdate = fi.ywdate
+						 "									
+						/>
+						<!--  property name="com.amarsoft.are.dpx.recordset.DefaultDataSourceProvider.sourceEncoding" value="ISO8859-1" /-->     
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.database" value="ecr" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.table" value="ECR_FINAEXTENSION" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.keyColumns" value="FDuebillNo,EXTENSTARTDATE" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.insertColumns" value="*" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.updateColumns" 
+							value="OCCURDATE,IncrementFlag,EXTENSUM,EXTENSTARTDATE,EXTENENDDATE" />
+					</extendProperties>
+				</executeUnit>
+			</executeUnits>
+				
+			<routeTable>
+				<route unit="LoanContract"			executeStatus="unexecute"  	  	  nextUnit="LoanContract"/>
+				<route unit="LoanContract"			executeStatus="successful"  	  nextUnit="LoanDuebill"/>
+				<route unit="LoanDuebill"			executeStatus="successful"  	  nextUnit="LoanReturn"/>
+				<route unit="LoanReturn"			executeStatus="successful"  	   nextUnit="LoanExtension"/>
+				<route unit="LoanExtension"			executeStatus="successful"  	  nextUnit="TradeContract"/>
+				<route unit="TradeContract"			executeStatus="successful"  	  nextUnit="TradeDuebill"/>
+				<route unit="TradeDuebill"			executeStatus="successful"  	  nextUnit="TradeReturn"/>
+				<route unit="TradeReturn"			executeStatus="successful"  	   nextUnit="TradeExtension"/>
+			</routeTable>
+		</target>
+		
+		<target name="OtherBusinessImport" describe="简单业务抽取(除去贷款和贸易融资外的业务)" enabled="true">
+			<executeUnits>
+				<executeUnit name="FactoringInfo" describe="导入保理基本信息表" executeClass="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:ecr_data:select * from ECR_FACTORING:etc/ecr_are.xml:,"/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider.dataSource" 
+							value="datasource:db:loan:select
+							bl.Card_no as CUSTOMERID{#客户号},      
+							bl.Card_no as LOANCARDNO{#贷款卡编号},  
+							bl.name as CUSTOMERNAME{#客户名称},                                                                      
+							bl.loanCont_no as FACTORINGNO{#保理协议编号},  
+							'' as CREDITNO{#授信协议号码},  									                                                                                
+							bl.orgcode as FINANCEID{#金融机构代码},                                                                                                                                                         
+							bl.Baoli_type as FACTORINGTYPE{#保理产品类型},                                                                        
+							bl.Baoli_status  as FACTORINGSTATUS{#保理业务状态}, 
+							bl.Money_kind as CURRENCY{#币种},                                                                          
+							bl.Money as BUSINESSSUM{#叙做金额},                                                                           
+							bl.loanCont_date as BUSINESSDATE{#叙做日期mod},                                                                           
+							bl.loanCont_balance as BALANCE{#叙做余额},                                                                                   
+							bl.Balance_date as BALANCECHANGEDATE{#余额变化日期},                                                                       
+							bl.diankuanflag as FLOORFLAG{#垫款标志},                                                                                        
+							bl.Assure_flag as GUARANTYFLAG{#getECRInfo(BC.SerialNo,'05')担保标志},                         
+							bl.Four_class as CLASSIFY4{#四级分类},                                                                          
+							bl.Five_class as CLASSIFY5{#五级分类}                                                
+							from baolis bl,(select loanCont_no as loanCont_no,max(ywdate) as ywdate from baolis group by loanCont_no) bs
+							where bl.loanCont_no = bs.loanCont_no and bl.ywdate = bs.ywdate
+   						"
+						/>
+						<!--  property name="com.amarsoft.are.dpx.recordset.DefaultDataSourceProvider.sourceEncoding" value="ISO8859-1" /-->     
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.database" value="ecr" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.table" value="ECR_FACTORING" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.keyColumns" value="FACTORINGNO" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.insertColumns" value="*" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.updateColumns" 
+							value="OCCURDATE,FINANCEID,FACTORINGTYPE,FACTORINGSTATUS,BUSINESSDATE,BALANCECHANGEDATE,FLOORFLAG,GUARANTYFLAG,CLASSIFY5,IncrementFlag" />
+					</extendProperties>
+				</executeUnit>
+				
+				<executeUnit name="DiscountInfo" describe="导入票据贴现基本信息表" executeClass="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit" allowManualExecute="true">
+					<executeClass>com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit</executeClass>
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:ecr_data:select * from ECR_DISCOUNT:etc/ecr_are.xml:,"/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider.dataSource" 
+							value="datasource:db:loan:select
+							bd.Card_no as CUSTOMERID{#客户号},
+							bd.Card_no as LOANCARDNO{#贷款卡编号},
+							'' as CUSTOMERNAME{#客户名称},
+							bd.bill_no as BILLNO{#票据流水号},
+							bd.orgcode as FINANCEID{#金融机构代码},
+							bd.Bill_kind as BILLTYPE{#票据种类},
+							bd.Proposer_name as ACCEPTERNAME{#承兑人/行名称},
+							bd.Card_no as ALOANCARDNO{#CI.LoanCardNo承兑人/行贷款卡号},
+							bd.Money_kind as CURRENCY{#币种},
+							bd.Discount_money as DISCOUNTSUM{#贴现金额},
+							bd.Discount_date as DISCOUNTDATE{#贴现日},
+							bd.Accept_date as ACCEPTMATURITY{#承兑到期日},
+							bd.Bill_money as BILLSUM{#票面金额},
+							bd.Bill_status  as BILLSTATUS{#票据状态},
+							bd.Four_class as CLASSIFY4{#四级分类},
+							bd.Five_class as CLASSIFY5{#五级分类},
+							'' as CREDITNO{#授信协议号码}
+							from billdiscounts bd,(select bill_no as bill_no,max(ywdate) as ywdate from billdiscounts group by bill_no) bs
+							where bd.bill_no = bs.bill_no and bd.ywdate = bs.ywdate"
+						/>
+						<!--  property name="com.amarsoft.are.dpx.recordset.DefaultDataSourceProvider.sourceEncoding" value="ISO8859-1" /-->     
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.database" value="ecr" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.table" value="ECR_DISCOUNT" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.keyColumns" value="BILLNO" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.insertColumns" value="*" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.updateColumns" 
+							value="FINANCEID,OCCURDATE,BILLTYPE,DISCOUNTSUM,BILLSUM,DISCOUNTDATE,BILLSTATUS,CLASSIFY5,IncrementFlag" />
+					</extendProperties>
+				</executeUnit>
+				
+			
+				<executeUnit name="LetterOfCredit" describe="导入信用证基本信息表" executeClass="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit" allowManualExecute="true">
+					<executeClass>com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit</executeClass>
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:ecr_data:select * from ECR_CREDITLETTER:etc/ecr_are.xml:,"/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider.dataSource" 
+							value="datasource:db:loan:select
+							cb.Card_no as CUSTOMERID{#客户号},
+							cb.Card_no as LOANCARDNO{#贷款卡编号},
+							cb.Name as CUSTOMERNAME{#客户名称},
+							cb.Credit_no as CREDITLETTERNO{#信用证号码},
+							cb.orgcode as FINANCEID{#金融机构代码},
+							'' as CREDITNO{#授信协议编号},
+							cb.Money_kind as CURRENCY{#币种},
+							cb.Init_money as CREATESUM{#开证金额},
+							cb.Init_date as CREATEDATE{#开证日期},
+							cb.Validity_period as AVAILABTERM{#信用证有效期},
+							cb.Pay_limit as PAYTERM{#信用证付款期限},
+							cb.Deposit_scale as DEPOSITSCALE{#保证金比例},
+							cb.Assure_flag as GUARANTYFLAG{#担保标志getECRInfo(BC.SerialNo,'05') },
+							cb.diankuanflag as FLOORFLAG{#垫款标志},
+							cb.Credit_status as CREDITSTATUS{#信用证状态},
+							cb.Logout_date as LOGOUTDATE{#信用证注销日期},
+							cb.Credit_balance as BALANCE{#信用证余额},
+							cb.Balance_report_date as BALANCEREPORTDATE{#余额报告日期},
+							cb.Five_class as CLASSIFY5{#五级分类}
+							from creditbusiness cb,(select Credit_no as Credit_no,max(ywdate) as ywdate from creditbusiness group by Credit_no) cs
+   						where cb.Credit_no = cs.Credit_no and cb.ywdate = cs.ywdate "
+						/>
+						<!--  property name="com.amarsoft.are.dpx.recordset.DefaultDataSourceProvider.sourceEncoding" value="ISO8859-1" /-->     
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.database" value="ecr" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.table" value="ECR_CREDITLETTER" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.keyColumns" value="CREDITLETTERNO" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.insertColumns" value="*" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.updateColumns" 
+							value="FINANCEID,OCCURDATE,CREATESUM,GUARANTYFLAG,FLOORFLAG,CREDITSTATUS,LOGOUTDATE,BALANCE,BALANCEREPORTDATE,CLASSIFY5,IncrementFlag" />
+					</extendProperties>
+				</executeUnit>
+				
+				<executeUnit name="LetterOfGuarantee" describe="导入保函基本信息表" executeClass="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit" allowManualExecute="true">
+					<executeClass>com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit</executeClass>
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:ecr_data:select * from ECR_GUARANTEEBILL:etc/ecr_are.xml:,"/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider.dataSource" 
+							value="datasource:db:loan:select
+							bh.Card_no as CUSTOMERID{#客户号},
+							bh.Card_no as LOANCARDNO{#贷款卡编号},
+							bh.Name as CUSTOMERNAME{#客户名称},
+							bh.orgcode as FINANCEID{#金融机构代码},
+							bh.Baohan_no as GUARANTEEBILLNO{#保函号码},
+							'' as CREDITNO{#授信协议编号},
+							bh.Baohan_kind as GUARANTEETYPE{#保函种类},
+							bh.Baohan_status as GUARANTEESTATUS{#保函状态}, 
+							bh.Money_kind as CURRENCY{#币种},
+							bh.Baohan_money as GUARANTEESUM{#保函金额},
+							bh.Start_date as CREATEDATE{#保函开立日期},
+							bh.End_date as ENDDATE{#保函到期日},
+							bh.Deposit_scale as ASSURESCALE{#保证金比例},
+							bh.Assure_flag as GUARANTYFLAG{#担保标志},
+							bh.diankuanflag  as FLOORFLAG{#垫款标志},
+							bh.Baohan_balance as BALANCE{#保函余额},
+							bh.Balance_date as BALANCEOCCURDATE{#保函余额发生日期},
+							bh.Five_class as CLASSIFY5{#五级分类}
+						  from baohans bh,(select Baohan_no as Baohan_no,max(ywdate) as ywdate from baohans group by Baohan_no) bs
+   						where bh.Baohan_no = bs.Baohan_no and bh.ywdate = bs.ywdate "
+						/>
+						<!--  property name="com.amarsoft.are.dpx.recordset.DefaultDataSourceProvider.sourceEncoding" value="ISO8859-1" /-->    
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.database" value="ecr" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.table" value="ECR_GUARANTEEBILL" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.keyColumns" value="GUARANTEEBILLNO" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.insertColumns" value="*" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.updateColumns" 
+							value="FINANCEID,OCCURDATE,GUARANTEESTATUS,GUARANTYFLAG,FLOORFLAG,BALANCE,BALANCEOCCURDATE,CLASSIFY5,IncrementFlag" />
+					</extendProperties>
+				</executeUnit>
+				
+				<executeUnit name="AcceptanceBill" describe="导入承兑汇票基本信息表" executeClass="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit" allowManualExecute="true">
+					<executeClass>com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit</executeClass>
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:ecr_data:select * from ECR_ACCEPTANCE:etc/ecr_are.xml:,"/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider.dataSource" 
+							value="datasource:db:loan:select
+							bc.Card_no as CUSTOMERID{#客户号},
+							bc.Card_no as LOANCARDNO{#贷款卡编号},
+							bc.Remitter_name as CUSTOMERNAME{#客户名称},
+							bc.Bill_no as ACONTRACTNO{#承兑协议流水号},
+							bc.Bill_no  as ACCEPTNO{#汇票号码},
+							bc.orgcode as FINANCEID{#金融机构代码},
+							bc.Money_kind as CURRENCY{#币种},
+							bc.Proto_no as CREDITNO{#授信协议编号},
+							bc.Bill_money  as ACCEPSUM{#汇票金额},
+							bc.Accept_date as ACCEPDATE{#汇票承兑日},
+							bc.Maturity_date as ACCEPENDDATE{#汇票到期日},
+							bc.Pay_date as ACCEPPAYDATE{#汇票付款日期},
+							bc.Deposit_scale as ASSURESCALE{#保证金比例},
+							bc.diankuanflag as FLOORFLAG{#垫款标志},
+							bc.Assure_flag as GUARANTYFLAG{#担保标志},
+							bc.Bill_status as DRAFTSTATUS{#汇票状态},
+							bc.Five_class as CLASSIFY5{#五级分类}
+							from  bankaccepts bc,(select Proto_no as Proto_no,max(ywdate) as ywdate from bankaccepts group by Proto_no) bs
+   						where bc.Proto_no = bs.Proto_no and bc.ywdate = bs.ywdate "
+						/>
+						<!--  property name="com.amarsoft.are.dpx.recordset.DefaultDataSourceProvider.sourceEncoding" value="ISO8859-1" /-->     
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.database" value="ecr" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.table" value="ECR_ACCEPTANCE" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.keyColumns" value="ACONTRACTNO,ACCEPTNO" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.insertColumns" value="*" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.updateColumns" 
+							value="FINANCEID,OCCURDATE,FLOORFLAG,GUARANTYFLAG,DRAFTSTATUS,CLASSIFY5,IncrementFlag" />
+					</extendProperties>
+				</executeUnit>
+				
+				<executeUnit name="CreditExtension" describe="导入公开授信基本信息表" executeClass="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit" allowManualExecute="true">
+					<executeClass>com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit</executeClass>
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:ecr_data:select * from ECR_CUSTOMERCREDIT:etc/ecr_are.xml:,"/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider.dataSource" 
+							value="datasource:db:loan:select
+							EC.CustomerID as CUSTOMERID{#客户号},   
+							EC.Customername as CUSTOMERNAME{#客户名称},
+							EC.LoanCardID as LOANCARDNO{#贷款卡编号},                             
+							EC.SerialNo as CCONTRACTNO{#授信合同号},                                    
+							EC.FinanceID as FINANCEID{#金融机构代码},                                                         
+							EC.Currency as CURRENCY{#币种},                           
+							EC.CreditLimit as CREDITLIMIT{#授信额度},                                
+							EC.CreditStartDate as CREDITSTARTDATE{#授信生效起始日期},                             
+							EC.CreditEndDate as CREDITENDDATE{#授信终止日期},                                
+							EC.CreditLogOnDate as CREDITLOGONDATE{#授信额度注销生效日期},                       
+							EC.CreditLogOnCause as CREDITLOGONCAUSE{#授信额度注销原因}                      
+							from ECR_CUSTOMERCREDIT EC                         
+							where 1=1 "
+						/>
+						<!--  property name="com.amarsoft.are.dpx.recordset.DefaultDataSourceProvider.sourceEncoding" value="ISO8859-1" /-->     
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.database" value="ecr" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.table" value="ECR_CUSTOMERCREDIT" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.keyColumns" value="CCONTRACTNO" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.insertColumns" value="*" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.updateColumns" 
+							value="OCCURDATE,CreditLimit,IncrementFlag" />
+					</extendProperties>
+				</executeUnit>
+				
+				<executeUnit name="AdvancePayment" describe="导入垫款信息表" executeClass="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:ecr_data:select * from ECR_FLOORFUND:etc/ecr_are.xml:,"/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider.dataSource" 
+							value="datasource:db:loan:select
+							da.card_no as CUSTOMERID{#客户号},
+							da.card_no as LOANCARDNO{#贷款卡编号},
+							da.name as CUSTOMERNAME{#客户名称},
+							da.dkyw_no as FLOORFUNDNO{#垫款流水号},
+							da.orgcode as FINANCEID{#金融机构代码},
+							da.dkkind as FLOORTYPE{#垫款种类},
+							da.oldyw_no as BUSINESSNO{#原业务号},
+							da.money_kind as CURRENCY{#币种},
+							da.dkmoney as FLOORSUM{#垫款金额},
+							da.dkdate as FLOORDATE{#垫款日期},
+							dk_balance as FLOORBALANCE{#垫款余额},
+							da.balance_date as BALANCEOCCURDATE{#金额发生日期},
+							da.return_type as RETURNMODE{#还款方式},
+							da.four_class as CLASSIFY4{#四级分类},
+							da.five_class as CLASSIFY5{#五级分类}
+							from dkmessages da,(select dkyw_no as dkyw_no,max(ywdate) as ywdate from dkmessages group by dkyw_no) ds
+   						where da.dkyw_no = ds.dkyw_no and da.ywdate = ds.ywdate"
+						/>
+						<!--  property name="com.amarsoft.are.dpx.recordset.DefaultDataSourceProvider.sourceEncoding" value="ISO8859-1" /-->     
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.database" value="ecr" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.table" value="ECR_FLOORFUND" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.keyColumns" value="FLOORFUNDNO" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.insertColumns" value="*" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.updateColumns" 
+							value="OCCURDATE,FINANCEID,FLOORBALANCE,IncrementFlag" />
+					</extendProperties>
+				</executeUnit>
+				
+				<executeUnit name="DebitInterest" describe="导入欠息信息表" executeClass="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:ecr_data:select * from ECR_INTERESTDUE:etc/ecr_are.xml:,"/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider.dataSource" 
+							value="datasource:db:loan:select
+							lf.card_no as CustomerID{#客户号},
+							lf.card_no as LOANCARDNO{#贷款卡编号},
+							lf.orgcode as FinanceID{#金融机构代码},
+							lf.money_kind as Currency{#币种},
+							lf.qxyu as InterestBalance{#欠息余额},
+							lf.qxtype as InterestType{#欠息类型},
+							lf.change_date as ChangeDate{#欠息余额改变日期}
+							from lackofinterests lf,(select qxyw_no as qxyw_no,max(ywdate) as ywdate from lackofinterests group by qxyw_no) ls
+   						where lf.qxyw_no = ls.qxyw_no and lf.ywdate = ls.ywdate "
+						/>
+						<!--  property name="com.amarsoft.are.dpx.recordset.DefaultDataSourceProvider.sourceEncoding" value="ISO8859-1" /--> 
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.database" value="ecr" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.table" value="ECR_INTERESTDUE" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.keyColumns" value="CustomerID,Currency,FinanceID,InterestType" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.insertColumns" value="*" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.updateColumns" 
+							value="OCCURDATE,FINANCEID,InterestBalance,CHANGEDATE,IncrementFlag" />
+					</extendProperties>
+				</executeUnit>
+				<executeUnit name="ECRCODEMAP" describe="导入数据字典信息表" executeClass="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:ecr_data:select * from ECR_INTERESTDUE:etc/ecr_are.xml:,"/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider.dataSource" 
+							value="datasource:db:loan:select
+							EI.COLNAME as COLNAME{#标识号},
+							EI.CTCODE as CTCODE{#商行代码},
+							EI.PBCODE as PBCODE{#人行代码},
+							EI.NOTE as NOTE{#说明}
+							from ECR_CODEMAP EI
+							where 1=1 "
+						/>
+						<!--  property name="com.amarsoft.are.dpx.recordset.DefaultDataSourceProvider.sourceEncoding" value="ISO8859-1" /--> 
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.database" value="ecr" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.table" value="ECR_CODEMAP" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.keyColumns" value="COLNAME,CTCODE,PBCODE" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.insertColumns" value="*" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.updateColumns" 
+							value="OCCURDATE" />
+					</extendProperties>
+				</executeUnit>
+			</executeUnits>	
+			<routeTable>
+				<route unit="FactoringInfo"					executeStatus="unexecute"  	  	nextUnit="FactoringInfo"/>
+				<route unit="FactoringInfo"					executeStatus="successful"  	  nextUnit="DiscountInfo"/>
+				<route unit="DiscountInfo"					executeStatus="successful"  	  nextUnit="LetterOfCredit"/>
+				<route unit="LetterOfCredit"				executeStatus="successful"  	  nextUnit="LetterOfGuarantee"/>
+				<route unit="LetterOfGuarantee"			executeStatus="successful"  	  nextUnit="AcceptanceBill"/>
+				<route unit="AcceptanceBill"			  executeStatus="successful"  	  nextUnit="AdvancePayment"/>
+				<route unit="CreditExtension"			  executeStatus="successful"  	  nextUnit="AdvancePayment"/>
+				<route unit="AdvancePayment"			  executeStatus="successful"  	  nextUnit="DebitInterest"/>
+			</routeTable>
+		</target>
+		
+		<target name="GuarrantyInfoImport" describe="担保信息抽取" enabled="true">
+			<executeUnits>
+				<executeUnit name="GuarantyContract" describe="导入保证信息表" executeClass="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:ecr_data:select * from ECR_ASSURECONT:etc/ecr_are.xml:,"/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider.dataSource" 
+							value="datasource:db:loan:select
+							ec.Card_no as CustomerID{#客户编号},
+							ec.card_no as LOANCARDNO{#贷款卡编号},
+							ec.contract_no as CONTRACTNO{#主合同流水号},
+							ec.ensure_no as ASSURECONTNO{#保证合同流水号},
+							ec.name as ASSURERNAME{#保证人名称},
+							ec.trustloan_type as BUSINESSTYPE{#信贷业务种类getECRInfo(BC.BusinessType,'04')},
+							ec.money_kind as ASSURECURRENCY{#保证币种},
+							ec.ensure_money as ASSURESUM{#保证金额},
+							ec.sign_date as CREATEDATE{#合同签订日期},
+							ec.ensure_style as ASSUREFORM{#保证担保形式GC.GuaranteeForm},
+							ec.valid_status as AVAILABSTATUS{#合同有效状态},
+							ec.ensure_card as ALOANCARDNO{#保证人贷款卡编码GC.LoanCardNo}
+						 	from ensurecontracts ec,(select contract_no as contract_no,max(ywdate) as ywdate from ensurecontracts group by contract_no) es
+   							where ec.contract_no = es.contract_no and ec.ywdate = es.ywdate"
+						/>
+						<!--  property name="com.amarsoft.are.dpx.recordset.DefaultDataSourceProvider.sourceEncoding" value="ISO8859-1" /-->    
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.database" value="ecr" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.table" value="ECR_ASSURECONT" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.keyColumns" value="CONTRACTNO,ASSURECONTNO" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.insertColumns" value="*" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.updateColumns" 
+							value="OCCURDATE,ASSURESUM,AVAILABSTATUS,ALOANCARDNO,IncrementFlag" />
+					</extendProperties>
+				</executeUnit>
+				<executeUnit name="MortgageContract" describe="导入抵押信息表" executeClass="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="allowManualExecute" value="true"/>
+						<property name="unit.recordSet" value="datasource:ndb:ecr_data:select * from ECR_GUARANTYCONT:etc/ecr_are.xml:,"/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider.dataSource" 
+							value="datasource:db:loan:select
+							pc.Card_no as CustomerID,
+							pc.contract_no as CONTRACTNO{#主合同流水号},
+							pc.Card_no as LOANCARDNO{#贷款卡编号},
+							pc.pledge_no as GUARANTYCONTNO{#抵押合同编号},
+							pc.pledge_name as PLEDGORNAME{#抵押人名称},
+							pc.sign_date as CREATEDATE{#合同签订日期},
+							pc.trustloan_type as BUSINESSTYPE{#信贷业务种类getECRInfo(BC.BusinessType,'04')},
+							pc.valid_status as AVAILABSTATUS{#合同有效状态},
+							pc.pledge_card as GLOANCARDNO{#抵押人贷款卡GC.LoanCardNo},
+							pc.eval_money_kind as EVALUATECURRENCY{#评估币种GI.EvalCurrency},
+							pc.pledge_val as EVALUATESUM{#抵押物评估价值},
+							pc.eval_date as EVALUATEDATE{#评估日期},
+							pc.eval_orgname as EVALUATEOFFICE{#评估机构名称},
+							pc.eval_orgcode as EVALUATEOFFICEID{#评估机构组织机构代码},
+							pc.pledge_kind as GUARANTYTYPE{#抵押物种类},
+							pc.money_kind as GUARANTYCURRENCY{#抵押币种GI.GuarantyCurrency},
+							pc.pledge_money as GUARANTYSUM{#抵押金额},
+							pc.login_org as REGISTORGNAME{#登记机关},
+							pc.login_date as REGISTDATE{#登记日期},
+							pc.pledge_desc as GUARANTYEXPLAIN{#抵押物说明},
+							pc.pledge_num as guarantyserialno,
+							'' as guarantyno
+							from pledgecontracts pc,(select pledge_no as pledge_no,max(ywdate) as ywdate from pledgecontracts group by pledge_no) ps
+   						where pc.pledge_no = ps.pledge_no and pc.ywdate = ps.ywdate"
+							
+						/>
+						<!--  property name="com.amarsoft.are.dpx.recordset.DefaultDataSourceProvider.sourceEncoding" value="ISO8859-1" /-->     
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.database" value="ecr" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.table" value="ECR_GUARANTYCONT" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.keyColumns" value="CONTRACTNO,GUARANTYCONTNO,guarantyserialno" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.insertColumns" value="*" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.updateColumns" 
+								value="OCCURDATE,AVAILABSTATUS,GLOANCARDNO,EVALUATESUM,GUARANTYSUM,IncrementFlag" />
+					</extendProperties>
+				</executeUnit>
+				<executeUnit name="ImpawnContract" describe="导入质押信息表" executeClass="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit" allowManualExecute="true">
+					<executeClass>com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit</executeClass>
+					<extendProperties>
+						<property name="allowManualExecute" value="true"/>
+						<property name="unit.recordSet" value="datasource:ndb:ecr_data:select * from ECR_IMPAWNCONT:etc/ecr_are.xml:,"/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider.dataSource" 
+							value="datasource:db:loan:select
+								it.Card_no as CustomerID{#客户编号},
+								it.Card_no as LOANCARDNO{#贷款卡编号},
+								it.contract_no as CONTRACTNO{#主合同流水号},
+								it.impawn_no as IMPAWNCONTNO{#质押合同流水号},
+								it.impawn_name as IMPAWNNAME{#出质人名称},
+								it.trustloan_type as BUSINESSTYPE{#信贷业务种类getECRInfo(BC.BusinessType,'04')},
+								it.sign_date as CREATEDATE{#合同签订日期},
+								it.valid_status as AVAILABSTATUS{#合同有效状态},
+								it.impawn_card as ILOANCARDNO{#出质人贷款卡编码GC.LoanCardNo},
+								it.money_kind as VALUECURRENCY{#质押物币种GI.EvalCurrency},
+								it.eval_val as VALUESUM{#质押物价值},
+								it.impawn_kind as IMPAWNTYPE{#质押物种类},								
+								it.money_kind as IMPAWNCURRENCY{#质押币种GI.GuarantyCurrency},
+								it.impawn_money as IMPAWNSUM{#质押金额},
+								it.impawn_num as IMPAWSERIALNO,
+								it.impawn_no as IMPAWNO
+							  from impawncontract it,(select impawn_no as impawn_no,max(ywdate) as ywdate from impawncontract group by impawn_no) ic
+	   						where it.impawn_no = ic.impawn_no and it.ywdate = ic.ywdate"
+						/>
+						<!--  property name="com.amarsoft.are.dpx.recordset.DefaultDataSourceProvider.sourceEncoding" value="ISO8859-1" /-->
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.database" value="ecr" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.table" value="ECR_IMPAWNCONT" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.keyColumns" value="CONTRACTNO,IMPAWNCONTNO,IMPAWSERIALNO" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.insertColumns" value="*" />
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRUpdateHandler.updateColumns" 
+							value="OCCURDATE,AVAILABSTATUS,IMPAWNSUM,ILOANCARDNO,IncrementFlag" />
+					</extendProperties>
+				</executeUnit>
+
+			</executeUnits>	
+			<routeTable>
+				<route unit="GuarantyContract"			executeStatus="unexecute"  	  	nextUnit="GuarantyContract"/>
+				<route unit="GuarantyContract"			executeStatus="successful"  	  nextUnit="MortgageContract"/>
+				<route unit="MortgageContract"			executeStatus="successful"  	  nextUnit="ImpawnContract"/>
+			</routeTable>
+		</target>
+		
+	</targets>
+</task>

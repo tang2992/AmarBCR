@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="GB2312" ?>
+<!--Amarsoft Runtime Environmen Config File-->
+<ARE>
+	<!--系统属性可以做为多种用途的扩展之用,可以放置任意多的属性在此-->
+	<!-- 将批删报文生成任务和正常报文生成任务统一放在report当中，不再加以区分 -->
+	<SystemProperties>
+		<!-- 企业征信主目录 -->
+		<Property name="BCR_HOME" value="F:/workspace/SVN/AmarBCR" />
+		<Property name="APP_HOME" value="{$ARE.BCR_HOME}" />
+		<!-- 下面的属性是程序启动任务属性，用于确定使用哪个任务文件 -->
+		<Property name="initTaskFile" value="{$ARE.BCR_HOME}/etc/bcr_task_init.xml" />
+		<Property name="prepareTaskFile" value="{$ARE.BCR_HOME}/etc/bcr_task_prepare.xml" />
+		<Property name="validateTaskFile" value="{$ARE.BCR_HOME}/etc/bcr_task_validate.xml" />
+		<Property name="transferTaskFile" value="{$ARE.BCR_HOME}/etc/bcr_task_transfer.xml" />
+		<Property name="reportTaskFile" value="{$ARE.BCR_HOME}/etc/bcr_task_report.xml" />
+		<Property name="batchdelTaskFile" value="{$ARE.BCR_HOME}/etc/bcr_task_batchdel.xml" />
+		<Property name="changeTaskFile" value="{$ARE.BCR_HOME}/etc/bcr_task_change.xml" />
+		<Property name="feedbackTaskFile" value="{$ARE.BCR_HOME}/etc/bcr_task_feedback.xml" />
+		
+		<!-- businessOccurDate定义的是业务发生日起，程序中可以通过ARE.getProperty("businessOccurDate")或者
+			ARE.getProperty("occurDate")获取"yyyy/MM/dd"ALS标准格式的日期字符串。同样可以在ARE变量中使用。
+			ARE中的设置可以使用几种形式来确定，注意大写：
+			TODAY,运行程序当天
+			YESTERDAY,运行程序昨天
+			AUTOSELECT,自动选择，根据当前运行的时间点确定。如果是在22:00之后运行，认为是当天(TODAY)，否则是昨天(YESTERDAY)
+			具体日期,形式如"yyyy/MM/dd"的一个具体日期
+			USERINPUT，提示用户输入
+			注意如果程序启动参数中设置了businessOccurDate=yyyy/MM/dd，则此处的配置不起作用。
+		 -->
+		<Property name="businessOccurDate" value="AUTOSELECT"/>
+		
+		<!-- 确定每天生成报文的顺序号的基础，缺省情况下，报文从1开始，如果要改变顺序，设置下面的参数 -->
+		<Property name="baseMessageNumber" value="1" />
+		
+		<!-- 报文生成单位金融机构代码，用于生成报文头 -->
+		<Property name="baseFinanceId" value="4580T011016" />
+		
+		<!-- 文件上报单位的金融机构代码，用于生成文件名 -->
+		<Property name="fileFinanceId" value="4580T011016" />
+		<!-- 报送机构联系人，用于生成机构基本信息报文头 -->
+		<Property name="contactPerson" value="xxx" />
+		<!-- 报送机构联系电话，用于生成机构基本信息报文头 -->
+		<Property name="contactPhone" value="xxxxxxxxxxx" />
+		<!-- 批量删除报文的记录数限制 -->
+		<Property name="deleteNumber" value="1000" />
+		
+		<!-- 数据库类型 1-ORACLE 2-DB2 3-MSSQL 大小写字母在不同数据库里面的排序顺序是不同的，通过此处配置程序采用不同的抵质押序号计算逻辑-->
+		<Property name="dbType" value="1" />
+		
+		<!-- 征信数据库的连接事务隔离级别属性，用-1表示没有使用此属性。如果需要设置属性，参考jdk的JDBC文档 -->
+		<Property name="connection.ecr.isolation" value="-1" />
+	</SystemProperties>
+
+	<!-- ARE 服务将在初始化时，被装载-->
+	<AREServices>
+		<!-- 日志服务-->
+		<Service id="LOG"  enabled="true" initOnStart="true">
+			<Provider>Amarsoft</Provider>
+			<Version>1.0</Version>
+			<Describe>日志服务</Describe>
+			<ServiceClass>com.amarsoft.are.log.impl.DefaultLogFactory</ServiceClass>
+			<Properties>
+				<!-- logType属性用于决定使用此工厂产生的日志类型。可以取值是：SIMPLE,DUMMY,JDK,LOG4J-->
+				<Property name="com.amarsoft.are.log.impl.DefaultLogFactory.logType" value="SIMPLE" />
+				<Property name="com.amarsoft.are.log.impl.DefaultLogFactory.logProperties" value="{$ARE.BCR_HOME}/etc/simplelog.properties" />
+			</Properties>
+		</Service>
+
+		<!-- 元数据服务 -->
+		<Service id="METADATA"  enabled="true" initOnStart="false">
+			<Provider>Amarsoft</Provider>
+			<Version>1.0</Version>
+			<Describe>元数据服务</Describe>
+			<ServiceClass>com.amarsoft.are.metadata.XMLMetaDataFactory</ServiceClass>
+			<Properties>
+				<Property name="com.amarsoft.are.metadata.XMLMetaDataFactory.schemas"
+						  value="{$ARE.BCR_HOME}/etc/bcr_metadata.xml,{$ARE.BCR_HOME}/etc/bcr_init_metadata.xml" />
+			</Properties>
+		</Service>
+
+		<!-- 数据库连接服务 -->
+		<Service id="DBCONNECTION"  enabled="true"  initOnStart="false">
+			<Provider>Amarsoft</Provider>
+			<Version>1.0</Version>
+			<Describe>数据库连接服务</Describe>
+			<ServiceClass>com.amarsoft.are.sql.PooledConnectionFactory</ServiceClass>
+			<Properties>
+				<Property name="com.amarsoft.are.sql.PooledConnectionFactory.resourceFile" 
+					value="{$ARE.BCR_HOME}/etc/bcr_dbconfig.xml"/>
+			</Properties>
+		</Service>
+	</AREServices>
+</ARE>

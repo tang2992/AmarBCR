@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="GB18030"?>
+<task name="BCRDataInit" parallelRun="false" traceOn="true"  describe="担保业务信息抽取任务">
+	<!-- 任务级别的属性 -->
+	<extendProperties>
+		<property name="dataFolder" value="{$ARE.BCR_HOME}/data/" />
+		<property name="backupFolder" value="{$ARE.BCR_HOME}/backup/" />
+		<property name="exportFolder" value="{$ARE.BCR_HOME}/log/" />
+	</extendProperties>
+	<listeners>
+		<listener listenerClass="com.amarsoft.app.datax.bcr.common.BCRTaskListener" enabled="true">
+			<extendProperties>
+				<property name="taskEventEnabled" value="false" />
+				<property name="targetEventEnabled" value="false" />
+				<property name="unitEventEnabled" value="true" />
+				<property name="routeEventEnabled" value="false" />
+				<property name="database" value="bcr"/>
+			</extendProperties>
+		</listener>
+	</listeners>
+	<targets>
+        <target name="GCI" describe="BCR标准批量任务处理" enabled="true">
+        	<executeUnits>
+				<executeUnit name="ImpGuaranteeInfo" describe="导入担保基础信息临时表" executeClass="com.amarsoft.task.units.dpx.PRHUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:bcr_init_data:select GBUSINESSNO,GCONTRACTNO,ORGID,INSUREDTYPE,INSUREDNAME,CERTTYPE,CERTID,GATHERDATE,ATTRIBUTE1,UPDATEDATE from INIT_GUARANTEEINFO:etc/bcr_are.xml:,"/>
+						<property name="unit.provider"  value="com.amarsoft.are.dpx.recordset.DefaultDataSourceProvider"/>
+						<property name="unit.handlers" value="com.amarsoft.are.dpx.recordset.UpdateDBHandler"/>
+						<property name="com.amarsoft.are.dpx.recordset.DefaultDataSourceProvider.dataSource" 
+							value="datasource:db:loan:select  
+												info.project_id as GBUSINESSNO{#担保业务编号},
+												info.project_id as GCONTRACTNO{#担保合同号码},
+												'58043228-X' as ORGID{#管理行代码(金融机构代码)},
+												decode(cust.cust_type,'root.cust_type.1','2','1') as INSUREDTYPE{#被担保人类型},
+												ltrim(cust.cust_name) as INSUREDNAME{#被担保人名称},
+												decode(cust.cust_type,'root.cust_type.1','0','a') as CERTTYPE{#被担保人证件类型},
+												replace(replace(replace(replace(cust.id_number,'Ｘ','X'),' ',''),'—','-'),'－','-') as CERTID{#被担保人证件号码},
+												to_char(sysdate,'yyyy/MM/dd') as GATHERDATE{#数据报告日期},
+												'' as ATTRIBUTE1{#预留字段},
+												to_char(sysdate,'yyyy/MM/dd') as UpdateDate{#业务发生日期}          
+												from contract_info info 
+												left join vi_cust_id cust on info.cust_id=cust.cust_id  
+												where info.contract_status is not null   and nvl(info.contract_status_id,'1') &lt;&gt; 'root.contract_status.80'
+												{#and nvl(info.contract_status_id,'1') not in ('root.contract_status.90','root.contract_status.100') }
+												" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.database" value="bcr" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.table" value="INIT_GUARANTEEINFO" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.keyColumns" value="GBUSINESSNO" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.insertColumns" value="GBUSINESSNO,GCONTRACTNO,ORGID,INSUREDTYPE,INSUREDNAME,CERTTYPE,CERTID,GATHERDATE,ATTRIBUTE1,UPDATEDATE  " />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.updateColumns" value="GBUSINESSNO,GCONTRACTNO,ORGID,INSUREDTYPE,INSUREDNAME,CERTTYPE,CERTID,GATHERDATE,ATTRIBUTE1,UPDATEDATE  " />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.startSql" 
+						value="truncate table  INIT_GUARANTEEINFO" />
+					</extendProperties>
+				</executeUnit>
+				
+				<executeUnit name="ImpGuaranteeCont" describe="导入担保合同信息信息临时表" executeClass="com.amarsoft.task.units.dpx.PRHUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:bcr_init_data:select GBUSINESSNO,BUSINESSTYPE,GUARANTYTYPE,GUARANTYSUM,GSTARTDATE,GENDDATE,DEPOSITSCALE,COUNTERTYPE,COMPENSATION,RATE,ANNUALRATE,ATTRIBUTE1,UPDATEDATE from INIT_GUARANTEECONT:etc/bcr_are.xml:,"/>
+						<property name="unit.provider"  value="com.amarsoft.are.dpx.recordset.DefaultDataSourceProvider"/>
+						<property name="unit.handlers" value="com.amarsoft.are.dpx.recordset.UpdateDBHandler"/>
+						<property name="com.amarsoft.are.dpx.recordset.DefaultDataSourceProvider.dataSource" 
+							value="datasource:db:loan:select  
+												info.project_id as GBUSINESSNO{#担保业务编号},
+												'06' as BUSINESSTYPE{#担保业务种类},
+												'1'  as GUARANTYTYPE{#担保方式},
+												round(cc.lease_money,0)  as GUARANTYSUM{#担保金额},
+												to_char(info.sign_date,'yyyy/MM/dd')  as GSTARTDATE{#担保起始日期},
+												to_char(add_months(ffp.plan_date,24),'yyyy/MM/dd')  as GENDDATE{#担保到期日期},
+												''  as DEPOSITSCALE{#存出保证金比例},
+												case gtr.gtr_type when '法人' then '1' when '自然人' then '0' else '' end   as COUNTERTYPE{#反担保方式},
+												''  as COMPENSATION{#约定再担保补偿比例},
+												round(cc.guarantee_money/cc.lease_money,2) as RATE{#费率},
+												''  as ANNUALRATE{#年化费率},
+												''  as ATTRIBUTE1{#预留字段},
+												to_char(sysdate,'yyyy/MM/dd')  as UpdateDate{#业务发生日期}   
+												from contract_info info  
+												left join contract_condition cc on cc.contract_id=info.contract_id  
+												left join (select contract_id,max(plan_date) plan_date from fund_rent_plan group by contract_id) ffp on ffp.contract_id=info.contract_id  
+												left join contract_guarantor_info cgi on cgi.contract_id=info.contract_id  
+												left join vi_legal_ast_gtr gtr on instr(';' || cgi.guarantor_id || ';',';' || gtr.id || ';')&gt;0  and instr(';' || cgi.guarantor_name || ';',';' || gtr.gtr_name || ';')&gt;0  
+												where info.contract_status is not null   and nvl(info.contract_status_id,'1') &lt;&gt; 'root.contract_status.80'
+												{#and nvl(info.contract_status_id,'1') not in ('root.contract_status.90','root.contract_status.100') }
+												" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.database" value="bcr" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.table" value="INIT_GUARANTEECONT" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.keyColumns" value="GBUSINESSNO" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.commitNumber" value="1" />
+						<!--<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.checkDBRecord" value="false" /> -->
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.insertColumns" value="GBUSINESSNO,BUSINESSTYPE,GUARANTYTYPE,GUARANTYSUM,GSTARTDATE,GENDDATE,DEPOSITSCALE,COUNTERTYPE,COMPENSATION,RATE,ANNUALRATE,ATTRIBUTE1,UPDATEDATE " />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.updateColumns" value="GBUSINESSNO,BUSINESSTYPE,GUARANTYTYPE,GUARANTYSUM,GSTARTDATE,GENDDATE,DEPOSITSCALE,COUNTERTYPE,COMPENSATION,RATE,ANNUALRATE,ATTRIBUTE1,UPDATEDATE " />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.startSql" 
+						value="truncate table  INIT_GUARANTEECONT" />
+					</extendProperties>
+				</executeUnit>
+				
+				<executeUnit name="ImpInsureds" describe="导入被担保人信息临时表" executeClass="com.amarsoft.task.units.dpx.PRHUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:bcr_init_data:select GBUSINESSNO,INSUREDTYPE,INSUREDNAME,CertType,CERTID,INSUREDSTATE,UPDATEDATE from INIT_INSUREDS:etc/bcr_are.xml:,"/>
+						<property name="unit.provider"  value="com.amarsoft.are.dpx.recordset.DefaultDataSourceProvider"/>
+						<property name="unit.handlers" value="com.amarsoft.are.dpx.recordset.UpdateDBHandler"/>
+						<property name="com.amarsoft.are.dpx.recordset.DefaultDataSourceProvider.dataSource" 
+							value="datasource:db:loan:select 
+									info.project_id as GBUSINESSNO{#担保业务编号},
+									decode(cust.cust_type,'root.cust_type.1','2','1') as INSUREDTYPE{#被担保人类型},
+									ltrim(cust.cust_name) as INSUREDNAME{#被担保人名称},
+									decode(cust.cust_type,'root.cust_type.1','0','a') as CERTTYPE{#被担保人证件类型},
+									replace(replace(replace(replace(cust.id_number,'Ｘ','X'),' ',''),'—','-'),'－','-')  as CERTID{#被担保人证件号码},
+									'1'  as INSUREDSTATE{#状态位},
+									to_char(sysdate,'yyyy/MM/dd') as UpdateDate{#业务发生日期}                
+									from contract_info info  left join vi_cust_id cust on info.cust_id=cust.cust_id  
+									where info.contract_status is not null   and nvl(info.contract_status_id,'1') &lt;&gt; 'root.contract_status.80'
+									{#and nvl(info.contract_status_id,'1') not in ('root.contract_status.90','root.contract_status.100') }
+									" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.database" value="bcr" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.table" value="INIT_INSUREDS" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.keyColumns" value="GBUSINESSNO,CERTTYPE,CERTID" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.insertColumns" value="GBUSINESSNO,CERTTYPE,CERTID,INSUREDTYPE,INSUREDNAME,INSUREDSTATE,UPDATEDATE" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.updateColumns" value="GBUSINESSNO,CERTTYPE,CERTID,INSUREDTYPE,INSUREDNAME,INSUREDSTATE,UPDATEDATE" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.startSql" 
+						value="truncate table  INIT_INSUREDS" />
+					</extendProperties>
+				</executeUnit>
+				
+				<executeUnit name="ImpCreditorInfo" describe="导入债权人及主合同信息临时表" executeClass="com.amarsoft.task.units.dpx.PRHUnit" allowManualExecute="true">
+					<extendProperties>
+						<!-- 下面三个unit.属性是PRH单元的属性 -->
+						<property name="unit.recordSet" value="datasource:ndb:bcr_init_data:select GBUSINESSNO,GCONTRACTNO,CREDITORTYPE,CREDITORNAME,CERTTYPE,CERTID,WAY,CONTRACTFLAG,UPDATEDATE from INIT_CREDITORINFO:etc/bcr_are.xml:,"/>
+						<property name="unit.provider"  value="com.amarsoft.are.dpx.recordset.DefaultDataSourceProvider"/>
+						<property name="unit.handlers"  value="com.amarsoft.are.dpx.recordset.UpdateDBHandler"/>						
+						<!-- 构成处理过程的数据源 -->
+						<property name="com.amarsoft.are.dpx.recordset.DefaultDataSourceProvider.dataSource" 
+							value="datasource:db:loan:select 
+										info.project_id as GBUSINESSNO{#担保业务编号},
+										info.contract_id as GCONTRACTNO{#主合同号码},
+										'2'  as CREDITORTYPE{#债权人类型},
+										'汇银融资租赁有限公司' as CREDITORNAME{#债权人名称},
+										'a'  as CERTTYPE{#债权人证件类型},
+										'69540636-4' as CERTID{#债权人证件号码},
+										'' as WAY{#投向},
+										'1' as CONTRACTFLAG{#状态位},
+										to_char(sysdate,'yyyy/MM/dd') as updatedate {#业务发生日期}    
+										from contract_info info  where info.contract_status is not null   and nvl(info.contract_status_id,'1') &lt;&gt; 'root.contract_status.80'
+										{#and nvl(info.contract_status_id,'1') not in ('root.contract_status.90','root.contract_status.100') }
+										" />
+						
+						<!-- 下面的属性确定更新数据库的条件，含义如属性名字所表达的  --> 
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.startSql" 
+						value="truncate table  INIT_CREDITORINFO" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.database" value="bcr" /> 				
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.table" value="INIT_CREDITORINFO" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.keyColumns" value="GBUSINESSNO,GCONTRACTNO,CREDITORTYPE,CERTTYPE,CERTID" />
+						<!-- commitNumber是指批量处理数据的时候多少条记录做一次batchUpdate。此值和事务无关，只是影响性能，缺省2000 -->
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.commitNumber" value="1" />
+						<!-- Insert和update字段可以用*表示全部，或者逐个写出。如果没有设置，默认为* -->
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.insertColumns" value="GBUSINESSNO,GCONTRACTNO,CREDITORTYPE,CREDITORNAME,CERTTYPE,CERTID,WAY,CONTRACTFLAG,UPDATEDATE" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.updateColumns" value="GBUSINESSNO,GCONTRACTNO,CREDITORTYPE,CREDITORNAME,CERTTYPE,CERTID,WAY,CONTRACTFLAG,UPDATEDATE" />
+					</extendProperties>
+				</executeUnit>
+				
+				<executeUnit name="ImpCounterGuarantor" describe="导入反担保人信息临时表" executeClass="com.amarsoft.task.units.dpx.PRHUnit" allowManualExecute="true">
+					<extendProperties>
+						<!-- 下面三个unit.属性是PRH单元的属性 -->
+						<property name="unit.recordSet" value="datasource:ndb:bcr_init_data:select GBUSINESSNO,COUNTERGTYPE,COUNTERGNAME,CERTTYPE,CERTID,COUNTERGSUM,COUNTERGFLAG,UPDATEDATE from INIT_COUNTERGUARANTOR:etc/bcr_are.xml:,"/>
+						<property name="unit.provider"  value="com.amarsoft.are.dpx.recordset.DefaultDataSourceProvider"/>
+						<property name="unit.handlers"  value="com.amarsoft.are.dpx.recordset.UpdateDBHandler"/>						
+						<!-- 构成处理过程的数据源 -->
+						<property name="com.amarsoft.are.dpx.recordset.DefaultDataSourceProvider.dataSource" 
+							value="datasource:db:loan:select 
+										info.project_id as GBUSINESSNO{#担保业务编号},
+										case gtr.gtr_type when '法人' then '1' when '自然人' then '2' else '' end as COUNTERGTYPE{#反担保人类型},
+										ltrim(gtr.gtr_name)  as COUNTERGNAME{#反担保人名称},
+										case gtr.gtr_type when '法人' then 'a' when '自然人' then '0' else '' end as CERTTYPE{#反担保人证件类型},
+										replace(replace(replace(replace(gtr.gtr_code,'Ｘ','X'),' ',''),'—','-'),'－','-')  as CERTID{#反担保人证件号码},
+										round(cc.lease_money,0) as COUNTERGSUM{#反担保责任金额},
+										'1' as COUNTERGFLAG{#状态位},
+										to_char(sysdate,'yyyy/MM/dd')  as UpdateDate{#业务发生日期}
+										from contract_info info   left join contract_condition cc on cc.contract_id=info.contract_id   
+										left join (select * from (with tmp as (select t.*,  length(guarantor_id) -length(regexp_replace(guarantor_id, ';', '')) + 1 len   from contract_guarantor_info t) select a.id,a.contract_id,regexp_substr(guarantor_id, '[^;]+', 1, rn) guarantor_id   ,regexp_substr(guarantor_type, '[^;]+', 1, rn) type from tmp a,(select rownum rn      from dual  connect by level &lt;= (select max(len) from tmp x)) b  where a.len &gt;= b.rn  order by a.id)) cgi on cgi.contract_id=info.contract_id   
+										left join vi_legal_ast_gtr gtr on  cgi.type=gtr.gtr_type and gtr.id=cgi.guarantor_id 
+										where info.contract_status is not null 
+										 and cgi.id is not null  and gtr.gtr_type is not null and nvl(contract_status_id,'1') &lt;&gt; 'root.contract_status.80'
+										{#and nvl(info.contract_status_id,'1') not in ('root.contract_status.90','root.contract_status.100') }
+										" />
+						
+						<!-- 下面的属性确定更新数据库的条件，含义如属性名字所表达的  --> 
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.startSql" 
+						value="truncate table  INIT_COUNTERGUARANTOR" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.database" value="bcr" /> 				
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.table" value="INIT_COUNTERGUARANTOR" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.keyColumns" value="GBUSINESSNO,COUNTERGTYPE,CERTTYPE,CERTID" />
+						<!-- commitNumber是指批量处理数据的时候多少条记录做一次batchUpdate。此值和事务无关，只是影响性能，缺省2000 -->
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.commitNumber" value="1" />
+						<!-- Insert和update字段可以用*表示全部，或者逐个写出。如果没有设置，默认为* -->
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.insertColumns" value="GBUSINESSNO,COUNTERGTYPE,COUNTERGNAME,CERTTYPE,CERTID,COUNTERGSUM,COUNTERGFLAG,UPDATEDATE" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.updateColumns" value="GBUSINESSNO,COUNTERGTYPE,COUNTERGNAME,CERTTYPE,CERTID,COUNTERGSUM,COUNTERGFLAG,UPDATEDATE" />
+					</extendProperties>
+				</executeUnit>
+				
+				<executeUnit name="ImpGuaranteeDuty" describe="导入实际在保（代偿）责任信息临时表" executeClass="com.amarsoft.task.units.dpx.PRHUnit" allowManualExecute="true">
+					<extendProperties>
+						<!-- 下面三个unit.属性是PRH单元的属性 -->
+						<property name="unit.recordSet" value="datasource:ndb:bcr_init_data:select GBUSINESSNO,GCONTRACTFLAG,GCONTRACTENDDATE,GCONTRACTBALANCE,BALANCECHANGEDATE,UPDATEDATE from INIT_GUARANTEEDUTY:etc/bcr_are.xml:,"/>
+						<property name="unit.provider"  value="com.amarsoft.are.dpx.recordset.DefaultDataSourceProvider"/>
+						<property name="unit.handlers"  value="com.amarsoft.are.dpx.recordset.UpdateDBHandler"/>						
+						<!-- 构成处理过程的数据源 -->
+						<property name="com.amarsoft.are.dpx.recordset.DefaultDataSourceProvider.dataSource" 
+							value="datasource:db:loan:select 
+									info.project_id as GBUSINESSNO{#担保合同号码},
+									case when (nvl(fgp.contract_id,'')&lt;&gt;'' or info.contract_status_id='root.contract_status.100' or info.contract_status_id='root.contract_status.90' )  then '2' else '1' end  as GCONTRACTFLAG{#担保合同状态},
+									frp.plan_date  as GCONTRACTENDDATE{#担保责任解除日期},
+									case when (nvl(fgp.contract_id,'')&lt;&gt;'' or info.contract_status_id='root.contract_status.100' or info.contract_status_id='root.contract_status.90' )  then 0  else round(nvl(frp.corpus,0)-nvl(fri.corpus,0),2) end  as GCONTRACTBALANCE{#在保余额},
+									to_char(fri.hire_date,'yyyy/MM/dd') as BALANCECHANGEDATE{#余额变化日期},
+									to_char(sysdate,'yyyy/MM/dd')  as updatedate{#业务发生日期}   
+									from contract_info info  
+									left join (select distinct contract_id from finance_gathering_putup where cust_bank like '%回购%') fgp on fgp.contract_id=info.contract_id 
+									left join (select contract_id,sum(corpus) corpus,max(plan_date) plan_date from fund_rent_plan group by contract_id ) frp on frp.contract_id=info.contract_id  
+									left join (select contract_id,sum(corpus) corpus,max(hire_date) hire_date from fund_rent_income group by contract_id) fri on fri.contract_id=info.contract_id  
+									where info.contract_status is not null  and nvl(contract_status_id,'1') &lt;&gt; 'root.contract_status.80'
+									{#and nvl(info.contract_status_id,'1') not in ('root.contract_status.90','root.contract_status.100') }
+									" />
+						
+						<!-- 下面的属性确定更新数据库的条件，含义如属性名字所表达的  --> 
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.startSql" 
+						value="truncate table  INIT_GUARANTEEDUTY" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.database" value="bcr" /> 				
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.table" value="INIT_GUARANTEEDUTY" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.keyColumns" value="GBUSINESSNO" />
+						<!-- commitNumber是指批量处理数据的时候多少条记录做一次batchUpdate。此值和事务无关，只是影响性能，缺省2000 -->
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.commitNumber" value="1" />
+						<!-- Insert和update字段可以用*表示全部，或者逐个写出。如果没有设置，默认为* -->
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.insertColumns" value="GBUSINESSNO,GCONTRACTFLAG,GCONTRACTENDDATE,GCONTRACTBALANCE,BALANCECHANGEDATE,UPDATEDATE" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.updateColumns" value="GBUSINESSNO,GCONTRACTFLAG,GCONTRACTENDDATE,GCONTRACTBALANCE,BALANCECHANGEDATE,UPDATEDATE" />
+					</extendProperties>
+				</executeUnit>
+				
+				<executeUnit name="ImpCompensatoryInfo" describe="导入代偿概况信息临时表" executeClass="com.amarsoft.task.units.dpx.PRHUnit" allowManualExecute="true">
+					<extendProperties>
+						<!-- 下面三个unit.属性是PRH单元的属性 -->
+						<property name="unit.recordSet" value="datasource:ndb:bcr_init_data:select GBUSINESSNO,BILLINGDATE,RecoveryFlag,LASTCDATE,CSum,OwnCSum,LastRecoveryDate,CBalance,OwnCBalance,RECOVERYSUM,LOSSSUM,ATTRIBUTE1,UPDATEDATE from INIT_COMPENSATORYINFO:etc/bcr_are.xml:,"/>
+						<property name="unit.provider"  value="com.amarsoft.are.dpx.recordset.DefaultDataSourceProvider"/>
+						<property name="unit.handlers"  value="com.amarsoft.are.dpx.recordset.UpdateDBHandler"/>						
+						<!-- 构成处理过程的数据源 -->
+						<property name="com.amarsoft.are.dpx.recordset.DefaultDataSourceProvider.dataSource" 
+							value="datasource:db:loan:select 
+									info.project_id as GBUSINESSNO{#担保合同号码},
+									to_char(fgp.insert_date,'yyyy/MM/dd') as BILLINGDATE{#记账日期},
+									'2' as RECOVERYFLAG{#继续追偿标志},
+									to_char(fgp.insert_date,'yyyy/MM/dd') as LASTCDATE{#最近一次代偿日期},
+									round(nvl(fgp.insert_money,0)-nvl(cc.margin_money,0),0) as CSUM{#累计代偿金额},
+									0 as OWNCSUM{#本机构承担代偿金额},
+									'' as LASTRECOVERYDATE{#最近一次追偿日期},
+									round(nvl(fgp.insert_money,0)-nvl(cc.margin_money,0),0) as CBALANCE{#代偿余额},
+									0 as OWNCBALANCE{#本机构承担代偿余额},
+									round(nvl(fgp.insert_money,0)-nvl(cc.margin_money,0),0) as RECOVERYSUM{#累计追偿金额},
+									0 as LOSSSUM{#累计损失金额},
+									'' as ATTRIBUTE1{#预留字段},						
+									to_char(sysdate,'yyyy/MM/dd') as updatedate{#业务发生日期}                
+									from contract_info info  
+									left join (select contract_id,max(insert_date) insert_date,sum(insert_money) insert_money from finance_gathering_putup where cust_bank like '%回购%' group by contract_id) fgp on info.contract_id=fgp.contract_id   
+									left join contract_condition cc on cc.contract_id=info.contract_id   
+									where info.contract_status is not null   and fgp.contract_id is not null and nvl(contract_status_id,'1') &lt;&gt; 'root.contract_status.80'
+									{#and nvl(info.contract_status_id,'1') not in ('root.contract_status.90','root.contract_status.100') }
+									 " />
+						
+						<!-- 下面的属性确定更新数据库的条件，含义如属性名字所表达的  --> 
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.startSql" 
+						value="truncate table  INIT_COMPENSATORYINFO" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.database" value="bcr" /> 				
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.table" value="INIT_COMPENSATORYINFO" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.keyColumns" value="GBUSINESSNO" />
+						<!-- commitNumber是指批量处理数据的时候多少条记录做一次batchUpdate。此值和事务无关，只是影响性能，缺省2000 -->
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.commitNumber" value="1" />
+						<!-- Insert和update字段可以用*表示全部，或者逐个写出。如果没有设置，默认为* -->
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.insertColumns" value="GBUSINESSNO,BILLINGDATE,RecoveryFlag,LASTCDATE,CSum,OwnCSum,LastRecoveryDate,CBalance,OwnCBalance,RECOVERYSUM,LOSSSUM,ATTRIBUTE1,UPDATEDATE" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.updateColumns" value="GBUSINESSNO,BILLINGDATE,RecoveryFlag,LASTCDATE,CSum,OwnCSum,LastRecoveryDate,CBalance,OwnCBalance,RECOVERYSUM,LOSSSUM,ATTRIBUTE1,UPDATEDATE" />
+					</extendProperties>
+				</executeUnit>
+				
+				<executeUnit name="ImpCompensatoryDetail" describe="导入代偿明细信息临时表" executeClass="com.amarsoft.task.units.dpx.PRHUnit" allowManualExecute="true">
+					<extendProperties>
+						<!-- 下面三个unit.属性是PRH单元的属性 -->
+						<property name="unit.recordSet" value="datasource:ndb:bcr_init_data:select GBUSINESSNO,COMPENSATORDATE,COMPENSATORYSUM,UPDATEDATE from INIT_COMPENSATORYDETAIL:etc/bcr_are.xml:,"/>
+						<property name="unit.provider"  value="com.amarsoft.are.dpx.recordset.DefaultDataSourceProvider"/>
+						<property name="unit.handlers"  value="com.amarsoft.are.dpx.recordset.UpdateDBHandler"/>						
+						<!-- 构成处理过程的数据源 -->
+						<property name="com.amarsoft.are.dpx.recordset.DefaultDataSourceProvider.dataSource" 
+							value="datasource:db:loan:select 
+												info.project_id as GBUSINESSNO{#担保合同号码},
+												to_char(fgp.insert_date,'yyyy/MM/dd') as COMPENSATORDATE{#代偿日期},
+												sum(round(nvl(fgp.insert_money,0)-nvl(cc.margin_money,0),0)) as COMPENSATORYSUM{#代偿金额},				
+												max(to_char(sysdate,'yyyy/MM/dd')) as updatedate{#业务发生日期}        
+												from contract_info info  
+												left join finance_gathering_putup fgp on info.contract_id=fgp.contract_id  
+												left join contract_condition cc on cc.contract_id=info.contract_id  
+												where info.contract_status is not null  and fgp.cust_bank like '%回购%'  
+												and nvl(contract_status_id,'1') &lt;&gt; 'root.contract_status.80'
+												{#and nvl(info.contract_status_id,'1') not in ('root.contract_status.90','root.contract_status.100') }
+												group by info.project_id,to_char(fgp.insert_date,'yyyy/MM/dd')" />
+						
+						<!-- 下面的属性确定更新数据库的条件，含义如属性名字所表达的  --> 
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.startSql" 
+						value="truncate table  INIT_COMPENSATORYDETAIL" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.database" value="bcr" /> 				
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.table" value="INIT_COMPENSATORYDETAIL" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.keyColumns" value="GBUSINESSNO,COMPENSATORDATE" />
+						<!-- commitNumber是指批量处理数据的时候多少条记录做一次batchUpdate。此值和事务无关，只是影响性能，缺省2000 -->
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.commitNumber" value="1" />
+						<!-- Insert和update字段可以用*表示全部，或者逐个写出。如果没有设置，默认为* -->
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.insertColumns" value="GBUSINESSNO,COMPENSATORDATE,COMPENSATORYSUM,UPDATEDATE" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.updateColumns" value="GBUSINESSNO,COMPENSATORDATE,COMPENSATORYSUM,UPDATEDATE" />
+					</extendProperties>
+				</executeUnit>
+				
+				<!-- 追偿明细信息,元数据逻辑无，暂不抽取  --> 
+				<executeUnit name="ImpRecoveryDetail" describe="导入追偿明细信息" executeClass="com.amarsoft.task.units.dpx.PRHUnit" allowManualExecute="true">
+					<extendProperties>
+						<!-- 下面三个unit.属性是PRH单元的属性 -->
+						<property name="unit.recordSet" value="datasource:ndb:bcr_init_data:select GBUSINESSNO,RECOVERYDATE,RECOVERYSUM,UPDATEDATE from INIT_RECOVERYDETAIL:etc/bcr_are.xml:,"/>
+						<property name="unit.provider"  value="com.amarsoft.are.dpx.recordset.DefaultDataSourceProvider"/>
+						<property name="unit.handlers"  value="com.amarsoft.are.dpx.recordset.UpdateDBHandler"/>						
+						<!-- 构成处理过程的数据源 -->
+						<property name="com.amarsoft.are.dpx.recordset.DefaultDataSourceProvider.dataSource" 
+							value="datasource:ndb:bcr_init_data:select GBUSINESSNO,RECOVERYDATE,RECOVERYSUM,UPDATEDATE from INIT_RECOVERYDETAIL:data/RECOVERYDETAIL_{$TASK.bcr_bizDate}.dat:\,"/>
+						<!-- 下面的属性确定更新数据库的条件，含义如属性名字所表达的  --> 
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.database" value="bcr" /> 				
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.table" value="INIT_RECOVERYDETAIL" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.keyColumns" value="GBUSINESSNO,RECOVERYDATE" />
+						<!-- commitNumber是指批量处理数据的时候多少条记录做一次batchUpdate。此值和事务无关，只是影响性能，缺省2000 -->
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.commitNumber" value="1" />
+						<!-- Insert和update字段可以用*表示全部，或者逐个写出。如果没有设置，默认为* -->
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.insertColumns" value="GBUSINESSNO,RECOVERYDATE,RECOVERYSUM,UPDATEDATE" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.updateColumns" value="GBUSINESSNO,RECOVERYDATE,RECOVERYSUM,UPDATEDATE" />
+					</extendProperties>
+				</executeUnit>
+				
+				
+				<!-- 保费缴纳概况信息,元数据逻辑无，暂不抽取  --> 
+				<executeUnit name="ImpPremiumInfo" describe="导入保费缴纳概况信息" executeClass="com.amarsoft.task.units.dpx.PRHUnit" allowManualExecute="true">
+					<extendProperties>
+						<!-- 下面三个unit.属性是PRH单元的属性 -->
+						<property name="unit.recordSet" value="datasource:ndb:bcr_init_data:select GBUSINESSNO,PAYTYPE,BILLINGDATE,PREMIUMSUM,PREMIUMMODE,PREMIUMFREQUENCY,CHARGINGSTARTDATE,PREMIUMSTATE,CHARGINGENDDATE,PremiumBalance,UNPAIDSUM,ATTRIBUTE1,UPDATEDATE from INIT_PREMIUMINFO:etc/bcr_are.xml:,"/>
+						<property name="unit.provider"  value="com.amarsoft.are.dpx.recordset.DefaultDataSourceProvider"/>
+						<property name="unit.handlers"  value="com.amarsoft.are.dpx.recordset.UpdateDBHandler"/>						
+						<!-- 构成处理过程的数据源 -->
+						<property name="com.amarsoft.are.dpx.recordset.DefaultDataSourceProvider.dataSource" 
+							value="datasource:ndb:bcr_init_data:select GBUSINESSNO,PAYTYPE,BILLINGDATE,PREMIUMSUM,PREMIUMMODE,PREMIUMFREQUENCY,CHARGINGSTARTDATE,PREMIUMSTATE,CHARGINGENDDATE,PremiumBalance,UNPAIDSUM,ATTRIBUTE1,UPDATEDATE from INIT_PREMIUMINFO:data/PREMIUMINFO_{$TASK.bcr_bizDate}.dat:\,"/>
+						<!-- 下面的属性确定更新数据库的条件，含义如属性名字所表达的  --> 
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.database" value="bcr" /> 				
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.table" value="INIT_PREMIUMINFO" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.keyColumns" value="GBUSINESSNO" />
+						<!-- commitNumber是指批量处理数据的时候多少条记录做一次batchUpdate。此值和事务无关，只是影响性能，缺省2000 -->
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.commitNumber" value="1" />
+						<!-- Insert和update字段可以用*表示全部，或者逐个写出。如果没有设置，默认为* -->
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.insertColumns" value="GBUSINESSNO,PAYTYPE,BILLINGDATE,PREMIUMSUM,PREMIUMMODE,PREMIUMFREQUENCY,CHARGINGSTARTDATE,PREMIUMSTATE,CHARGINGENDDATE,PremiumBalance,UNPAIDSUM,ATTRIBUTE1,UPDATEDATE" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.updateColumns" value="GBUSINESSNO,PAYTYPE,BILLINGDATE,PREMIUMSUM,PREMIUMMODE,PREMIUMFREQUENCY,CHARGINGSTARTDATE,PREMIUMSTATE,CHARGINGENDDATE,PremiumBalance,UNPAIDSUM,ATTRIBUTE1,UPDATEDATE" />
+					</extendProperties>
+				</executeUnit>
+				<!-- 保费缴纳明细信息,元数据逻辑无，暂不抽取  --> 
+				<executeUnit name="ImpPremiumDetail" describe="导入保费缴纳明细信息" executeClass="com.amarsoft.task.units.dpx.PRHUnit" allowManualExecute="true">
+					<extendProperties>
+						<!-- 下面三个unit.属性是PRH单元的属性 -->
+						<property name="unit.recordSet" value="datasource:ndb:bcr_init_data:select GBUSINESSNO,PAYABLEDATE,PAYABLESUM,PAIDDATE,UNPAIDSUM,PERIODPREMIUMSTATE,ATTRIBUTE1,UPDATEDATE from INIT_PREMIUMDETAIL:etc/bcr_are.xml:,"/>
+						<property name="unit.provider"  value="com.amarsoft.are.dpx.recordset.DefaultDataSourceProvider"/>
+						<property name="unit.handlers"  value="com.amarsoft.are.dpx.recordset.UpdateDBHandler"/>						
+						<!-- 构成处理过程的数据源 -->
+						<property name="com.amarsoft.are.dpx.recordset.DefaultDataSourceProvider.dataSource" 
+							value="datasource:ndb:bcr_init_data:select GBUSINESSNO,PAYABLEDATE,PAYABLESUM,PAIDDATE,UNPAIDSUM,PERIODPREMIUMSTATE,ATTRIBUTE1,UPDATEDATE from INIT_PREMIUMDETAIL:data/PREMIUMDETAIL_{$TASK.bcr_bizDate}.dat:\,"/>
+						<!-- 下面的属性确定更新数据库的条件，含义如属性名字所表达的  --> 
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.database" value="bcr" /> 				
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.table" value="INIT_PREMIUMDETAIL" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.keyColumns" value="GBUSINESSNO,PAYABLEDATE" />
+						<!-- commitNumber是指批量处理数据的时候多少条记录做一次batchUpdate。此值和事务无关，只是影响性能，缺省2000 -->
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.commitNumber" value="1" />
+						<!-- Insert和update字段可以用*表示全部，或者逐个写出。如果没有设置，默认为* -->
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.insertColumns" value="GBUSINESSNO,PAYABLEDATE,PAYABLESUM,PAIDDATE,UNPAIDSUM,PERIODPREMIUMSTATE,ATTRIBUTE1,UPDATEDATE" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.updateColumns" value="GBUSINESSNO,PAYABLEDATE,PAYABLESUM,PAIDDATE,UNPAIDSUM,PERIODPREMIUMSTATE,ATTRIBUTE1,UPDATEDATE" />
+					</extendProperties>
+				</executeUnit>
+			</executeUnits>
+            <routeTable>
+                <route unit="ImpGuaranteeInfo"		    executeStatus="unexecute"	nextUnit="ImpGuaranteeInfo"/>
+                <route unit="ImpGuaranteeInfo"		    executeStatus="successful"	nextUnit="ImpGuaranteeCont"/>
+                <route unit="ImpGuaranteeCont"		    executeStatus="successful"	nextUnit="ImpInsureds"/>
+                <route unit="ImpInsureds"		    	executeStatus="successful"	nextUnit="ImpCreditorInfo"/>
+                <route unit="ImpCreditorInfo"		    executeStatus="successful"	nextUnit="ImpCounterGuarantor"/>
+                <route unit="ImpCounterGuarantor"		executeStatus="successful"	nextUnit="ImpGuaranteeDuty"/>
+                <route unit="ImpGuaranteeDuty"		    executeStatus="successful"	nextUnit="ImpCompensatoryInfo"/>
+                <route unit="ImpCompensatoryInfo"		executeStatus="successful"	nextUnit="ImpCompensatoryDetail"/>
+                <!-- <route unit="ImpCompensatoryDetail"		executeStatus="successful"	nextUnit="ImpPremiumInfo"/>
+                <route unit="ImpPremiumInfo"		    executeStatus="successful"	nextUnit="ImpPremiumDetail"/> -->
+            </routeTable>
+        </target>
+    </targets>
+</task>

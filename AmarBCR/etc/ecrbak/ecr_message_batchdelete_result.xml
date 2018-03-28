@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="GB2312"?>
+
+<configuration>
+<!--?	批量信贷业务数据删除结果报文文件  -->
+<messageList 
+	type="35"
+	name="delresult" 
+	direction="0"
+	chineseName="批量信贷业务数据删除结果报文文件" 
+	description="文件包含批量信贷业务数据删除结果报文一个"
+>
+
+<message type="52"
+	id="52"   
+	name="delresult" 
+	chineseName="批量信贷业务数据删除结果报文" 
+	headerLength="63" 
+	version="2.0"
+	readerVersion="1.1" 
+	charset="GB18030"
+>  	
+		<record id="header" name="header" type="0" > 
+		<segment segmentFlag="A" id="0" name="messagehead" chineseName="报文头" description="" segmentLength="63" optional="false" unique="true">			
+			<field id="8519" dataType="char" name="HeadFlag"  chineseName="报文头标识"  type="AN" startPosition="0" endPosition="0" optional="false"  defaultValue="A"  /> 	    
+			<field id="8517" dataType="char" name="Version"    chineseName="报文格式版本号"  type="AN" startPosition="1" endPosition="3" optional="false"/> 	    
+			<field id="6501" dataType="char" name="FinanceCode" chineseName="金融机构代码"   type="AN" startPosition="4" endPosition="14" optional="false"/>
+			<field id="2585" dataType="datetime" name="CreatedTime"  chineseName="报文生成时间"  type="N" startPosition="15" endPosition="28" optional="false"/>	
+			<field id="8523" dataType="char" name="MsgType"      chineseName="报文类型"   type="N" startPosition="29" endPosition="30" optional="false"  defaultValue="52"  />		                 
+			<field id="8535" dataType="char" name="MsgResult"    chineseName="报文处理结果"  type="AN" startPosition="31" endPosition="32" optional="false"  defaultValue="90" />			
+			<field id="8515" dataType="char" name="ReserveField" chineseName="预留字段" type="ANC" startPosition="33" endPosition="62" optional="false"/>
+		</segment> 
+	</record>
+	<record id="1" 
+		name="DeleteResult" 
+		type="0"
+		mainBusinessNo="B.7695" 
+		keyFields="B.7695"
+		chineseName="批量信贷业务数据删除结果报文信息记录" 
+	>    
+		<segment segmentFlag="B" id="1"  name="basesegment" type="8005" chineseName="基础段" description="仅有一个段" segmentLength="74"  optional="false" unique="true">	
+			<field id="7605" dataType="char" name="BusinessType" chineseName="信贷业务种类" type="N" startPosition="0" endPosition="1" optional="false"/>   
+			<field id="6501" dataType="char" name="financeid" chineseName="金融机构代码" type="N" startPosition="2" endPosition="12" optional="false"/>             
+			<field id="7695" dataType="char" name="ContractNo" chineseName="主合同编号" type="ANC" startPosition="13" endPosition="72" optional="false"/>            
+			<field id="8537" dataType="char" name="DeleteResult" chineseName="删除结果" type="ANC" startPosition="73" endPosition="73" optional="false"/>                                   
+		</segment> 	 	   	 
+	</record>
+	<record id="tail" name="tail" type="-1"> 
+		<segment segmentFlag="Z" id="1" name="TailSegment" chineseName="报文尾" description="" segmentLength="11" optional="false" unique="true">
+			<field id="8521" dataType="char" name="TailFlag"         chineseName="报文尾标识"   type="AN"   startPosition="0" endPosition="0" optional="false" defaultValue="Z"  />				
+			<field id="4513" dataType="int" name="RecordNum"        chineseName="信息记录数"  type="N"   startPosition="1" endPosition="10" optional="false"   />							
+		</segment>
+	</record>
+</message> 
+</messageList>
+</configuration>

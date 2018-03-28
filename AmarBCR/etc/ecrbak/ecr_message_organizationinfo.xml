@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="GB2312"?>
+<configuration>
+<!--?	借款人基本信息文件  -->
+<messageList
+	type="51"
+	name="OrgBaseData"
+	direction="0"
+	chineseName="机构基本信息"
+	description="包括：机构基本信息报文,家族成员信息报文"
+>
+<!-- 报文名字：机构基本信息报文 -->
+<message type="7" id="1" name="OrgBase" chineseName="机构基本信息" headerLength="127" version="2.2" readerVersion="1.1" charset="GB18030">
+	<record id="header" type="0" name="Head">
+		<segment segmentFlag="A" id="0" name="MessageHead" chineseName="报文头"  segmentLength="127" optional="false" unique="true">
+			<field id="1001" dataType="char" name="HeadFlag" chineseName="报文头标识" type="AN" startPosition="0" endPosition="0" optional="false" defaultValue="A"/>
+			<field id="1002" dataType="char" name="Version" chineseName="报文格式版本号" type="AN" startPosition="1" endPosition="3" optional="false" />
+			<!-- 报送机构代码:11位金融机构代码+空格 -->
+			<field id="1003" dataType="char" name="FinanceCode" chineseName="报送机构代码" type="AN" startPosition="4" endPosition="23" optional="false" />
+			<field id="1004" dataType="datetime" name="CreatedTime" chineseName="报文生成时间" type="N" startPosition="24" endPosition="37" optional="false" />
+			<!-- 报文信息类别: 51-机构基本信息采集报文;32-机构基本信息删除报文 -->
+			<field id="1005" dataType="int" name="MsgType" chineseName="报文信息类别" type="AN" startPosition="38" endPosition="39" optional="false"  defaultValue="51"/>
+			<!-- 报文类型:  0-机构基本信息报文;1-家族成员信息报文 -->
+			<field id="1006" dataType="int" name="OrgMsgType" chineseName="报文类型" type="N" startPosition="40" endPosition="40" optional="false"   defaultValue="0"/>
+			<!-- 反馈标志:  0-非反馈报文;1-反馈报文 -->
+			<field id="1007" dataType="int" name="FeedBackFlag" chineseName="反馈标志" type="N" startPosition="41" endPosition="41" optional="false"  defaultValue="0"/>
+			<field id="1008" dataType="char" name="ContactPerson" chineseName="联系人" type="ANC" startPosition="42" endPosition="71" optional="true" status="O" />
+			<field id="1009" dataType="char" name="ContactPhone" chineseName="联系电话" type="ANC" startPosition="72" endPosition="96" optional="true" status="O" />
+			<field id="1010" dataType="char" name="ReserveField" chineseName="预留字段" type="ANC" startPosition="97" endPosition="126" optional="true" status="O"/>
+		</segment>
+	</record>
+	<record id="1" type="71" name="OrgBaseRecord" mainBusinessNo="B.1102" keyFields="B.1102" briefFields="B.1102,B.1106,B.1112" chineseName="机构基本信息记录">
+		<segment segmentFlag="B" id="1" name="BaseSegment" chineseName="基础段" segmentLength="236" optional="false" unique="true">
+		        <field id="1101" dataType="char" name="MessageType" chineseName="信息类别" type="AN" startPosition="0" endPosition="0" optional="false"  defaultValue="B"/>
+		        <field id="1102" dataType="char" name="CIFCustomerId" chineseName="客户号" type="AN" startPosition="1" endPosition="40" optional="false" />
+		        <field id="1103" dataType="char" name="FinanceId" chineseName="管理行代码(金融机构代码)" type="AN" startPosition="41" endPosition="60" optional="false" />
+		        <field id="1104" dataType="char" name="CustomerType" chineseName="客户类型" type="AN" startPosition="61" endPosition="61" optional="false" />
+		        <field id="1105" dataType="char" name="CreditCode" chineseName="机构信用代码" type="AN" startPosition="62" endPosition="79" optional="true" status="O"/>
+		        <field id="1106" dataType="char" name="CorpId" chineseName="组织机构代码" type="AN" startPosition="80" endPosition="89" optional="true" status="O"/>
+		        <field id="1107" dataType="char" name="RegisterType" chineseName="登记注册号类型" type="AN" startPosition="90" endPosition="91" optional="true" status="O"/>
+		        <field id="1108" dataType="char" name="RegisterNo" chineseName="登记注册号码" type="ANC" startPosition="92" endPosition="111" optional="true" status="O"/>
+		        <field id="1109" dataType="char" name="NationalTaxNo" chineseName="纳税人识别号（国税）" type="ANC" startPosition="112" endPosition="131" optional="true" status="O"/>
+		        <field id="1110" dataType="char" name="LocalTaxNo" chineseName="纳税人识别号（地税）" type="ANC" startPosition="132" endPosition="151" optional="true" status="O"/>
+		        <field id="1111" dataType="char" name="AccountPermitNo" chineseName="开户许可证核准号" type="AN" startPosition="152" endPosition="171" optional="false" status="C"/>
+		        <field id="1112" dataType="char" name="LoancardNo" chineseName="贷款卡编码" type="AN" startPosition="172" endPosition="187" optional="false" status="C"/>
+		        <field id="1113" dataType="date" name="GatherDate" chineseName="数据提取日期" type="N" startPosition="188" endPosition="195" optional="false" />
+		        <field id="1114" dataType="char" name="Attribute1" chineseName="预留字段" type="ANC" startPosition="196" endPosition="235" optional="true" status="O"/>
+		        <field id="9993" dataType="date" name="occurDate" chineseName="发生日期" type="N" startPosition="236" endPosition="243" optional="true"  />
+		</segment>
+		<segment segmentFlag="C" id="2" name="BasicAttrSegment" chineseName="基本属性段"  segmentLength="737" optional="true" unique="true">
+		        <field id="1201" dataType="char" name="MessageType" chineseName="信息类别" type="AN" startPosition="0" endPosition="0" optional="false"  defaultValue="C"/>
+		        <field id="1202" dataType="char" name="ChineseName" chineseName="机构中文名称" type="ANC" startPosition="1" endPosition="80" optional="false" status="C"/>
+		        <field id="1203" dataType="char" name="EnglishName" chineseName="机构英文名称" type="ANC" startPosition="81" endPosition="160" optional="false" status="C"/>
+		        <field id="1204" dataType="char" name="RegisterAdd" chineseName="注册（登记）地址" type="ANC" startPosition="161" endPosition="240" optional="true" status="O"/>
+		        <field id="1205" dataType="char" name="RegisterCountry" chineseName="国别" type="AN" startPosition="241" endPosition="243" optional="true" status="O"/>
+		        <field id="1206" dataType="char" name="RegisterAreaCode" chineseName="注册（登记）地行政区划" type="N" startPosition="244" endPosition="249" optional="true" status="O"/>
+		        <field id="1207" dataType="date" name="RegisterDate" chineseName="成立日期" type="N" startPosition="250" endPosition="257" optional="true" status="O"/>
+		        <field id="1208" dataType="date" name="RegisterDueDate" chineseName="证书到期日" type="N" startPosition="258" endPosition="265" optional="true" status="O"/>
+		        <field id="1209" dataType="char" name="BusinessScope" chineseName="经营（业务）范围" type="ANC" startPosition="266" endPosition="665" optional="true" status="O"/>
+		        <field id="1210" dataType="char" name="CapitalCurrency" chineseName="注册资本币种" type="AN" startPosition="666" endPosition="668" optional="true" status="O"/>
+		        <field id="1211" dataType="double" name="CapitalFund" chineseName="注册资本（万元）" type="AN" startPosition="669" endPosition="678" optional="true" status="O"/>
+		        <field id="1212" dataType="char" name="OrgType" chineseName="组织机构类别" type="AN" startPosition="679" endPosition="679" optional="true" status="O"/>
+		        <field id="1213" dataType="char" name="OrgTypeSub" chineseName="组织机构类别细分" type="AN" startPosition="680" endPosition="681" optional="true" status="O"/>
+		        <field id="1214" dataType="char" name="Industry" chineseName="经济行业分类" type="AN" startPosition="682" endPosition="686" optional="true" status="O"/>
+		        <field id="1215" dataType="char" name="OrgNature" chineseName="经济类型" type="AN" startPosition="687" endPosition="688" optional="true" status="O"/>
+		        <field id="1216" dataType="date" name="UpdateDate" chineseName="信息更新日期" type="N" startPosition="689" endPosition="696" optional="false" />
+		        <field id="1217" dataType="char" name="Attribute1" chineseName="预留字段" type="ANC" startPosition="697" endPosition="736" optional="true" status="O"/>
+		</segment>
+		<segment segmentFlag="D" id="3" name="OrgStatusSegment" chineseName="机构状态段"  segmentLength="52" optional="false" unique="true">
+		        <field id="1301" dataType="char" name="MessageType" chineseName="信息类别" type="AN" startPosition="0" endPosition="0" optional="false"  defaultValue="D"/>
+		        <field id="1302" dataType="char" name="AccountStatus" chineseName="基本户状态" type="AN" startPosition="1" endPosition="1" optional="false" status="C"/>
+		        <field id="1303" dataType="char" name="Scope" chineseName="企业规模" type="AN" startPosition="2" endPosition="2" optional="true" status="O"/>
+		        <field id="1304" dataType="char" name="OrgStatus" chineseName="机构状态" type="AN" startPosition="3" endPosition="3" optional="true" status="O"/>
+		        <field id="1305" dataType="date" name="UpdateDate" chineseName="信息更新日期" type="N" startPosition="4" endPosition="11" optional="false" />
+		        <field id="1306" dataType="char" name="Attribute1" chineseName="预留字段" type="ANC" startPosition="12" endPosition="51" optional="true" status="O"/>
+		</segment>
+		<segment segmentFlag="E" id="4"  name="ContactSegment" chineseName="联络信息段"  segmentLength="199" optional="true" unique="true">
+		        <field id="1401" dataType="char" name="MessageType" chineseName="信息类别" type="AN" startPosition="0" endPosition="0" optional="false"  defaultValue="E"/>
+		        <field id="1402" dataType="char" name="OfficeAdd" chineseName="办公（生产、经营）地址" type="ANC" startPosition="1" endPosition="80" optional="true" status="O"/>
+		        <field id="1403" dataType="char" name="OfficeContact" chineseName="联系电话" type="AN" startPosition="81" endPosition="115" optional="true" status="O"/>
+		        <field id="1404" dataType="char" name="FinanceContact" chineseName="财务部联系电话" type="AN" startPosition="116" endPosition="150" optional="true" status="O"/>
+		        <field id="1405" dataType="date" name="UpdateDate" chineseName="信息更新日期" type="N" startPosition="151" endPosition="158" optional="false" />
+		        <field id="1406" dataType="char" name="Attribute1" chineseName="预留字段" type="ANC" startPosition="159" endPosition="198" optional="true" status="O"/>
+		</segment>
+		
+		<segment segmentFlag="F" id="5" name="ManagerSegment" chineseName="高管及主要关系人段"  segmentLength="152" optional="true" unique="false">
+		        <field id="1501" dataType="char" name="MessageType" chineseName="信息类别" type="AN" startPosition="0" endPosition="0" optional="false"  defaultValue="F"/>
+		        <field id="1502" dataType="char" name="ManagerType" chineseName="关系人类型" type="AN" startPosition="1" endPosition="1" optional="false" />
+		        <field id="1503" dataType="char" name="ManagerName" chineseName="姓名" type="ANC" startPosition="2" endPosition="81" optional="false" />
+		        <field id="1504" dataType="char" name="CertType" chineseName="证件类型" type="AN" startPosition="82" endPosition="83" optional="false" />
+		        <field id="1505" dataType="char" name="CertId" chineseName="证件号码" type="ANC" startPosition="84" endPosition="103" optional="false" />
+		        <field id="1506" dataType="date" name="updateDate" chineseName="信息更新日期" type="N" startPosition="104" endPosition="111" optional="false" />
+		        <field id="1507" dataType="char" name="Attribute1" chineseName="预留字段" type="ANC" startPosition="112" endPosition="151" optional="true" status="O"/>
+		</segment>
+		<segment segmentFlag="G" id="6"  name="StockHolderSegment" chineseName="重要股东段"  segmentLength="190" optional="true" unique="false">
+		        <field id="1601" dataType="char" name="MessageType" chineseName="信息类别" type="AN" startPosition="0" endPosition="0" optional="false"  defaultValue="G"/>
+		        <field id="1602" dataType="char" name="StockHolderType" chineseName="股东类型" type="AN" startPosition="1" endPosition="1" optional="false" />
+		        <field id="1603" dataType="char" name="StockHolderName" chineseName="股东名称" type="ANC" startPosition="2" endPosition="81" optional="false" />
+		        <field id="1604" dataType="char" name="CertType" chineseName="证件类型/登记注册号类型" type="AN" startPosition="82" endPosition="83" optional="false" status="C"/>
+		        <field id="1605" dataType="char" name="CertId" chineseName="证件号码/登记注册号码" type="ANC" startPosition="84" endPosition="103" optional="false" status="C"/>
+		        <field id="1606" dataType="char" name="CorpId" chineseName="组织机构代码" type="AN" startPosition="104" endPosition="113" optional="false" status="C"/>
+		        <field id="1607" dataType="char" name="CreditCode" chineseName="机构信用代码" type="AN" startPosition="114" endPosition="131" optional="true" status="O"/>
+		        <field id="1608" dataType="double" name="StockHodingRatio" chineseName="持股比例" type="AN" startPosition="132" endPosition="141" optional="false" />
+		        <field id="1609" dataType="date" name="updateDate" chineseName="信息更新日期" type="N" startPosition="142" endPosition="149" optional="false" />
+		        <field id="1610" dataType="char" name="Attribute1" chineseName="预留字段" type="ANC" startPosition="150" endPosition="189" optional="true" status="O"/>
+		</segment>
+		<segment segmentFlag="H" id="7" name="RelativeSegment" chineseName="主要关联企业段"  segmentLength="181" optional="true" unique="false">
+		        <field id="1701" dataType="char" name="MessageType" chineseName="信息类别" type="AN" startPosition="0" endPosition="0" optional="false"  defaultValue="H"/>
+		        <field id="1702" dataType="char" name="RelationShip" chineseName="关联类型" type="AN" startPosition="1" endPosition="2" optional="false" />
+		        <field id="1703" dataType="char" name="RelativeEntName" chineseName="关联企业名称" type="ANC" startPosition="3" endPosition="82" optional="false" />
+		        <field id="1704" dataType="char" name="RegisterType" chineseName="登记注册号类型" type="AN" startPosition="83" endPosition="84" optional="false" status="C"/>
+		        <field id="1705" dataType="char" name="RegisterNo" chineseName="登记注册号码" type="ANC" startPosition="85" endPosition="104" optional="false" status="C"/>
+		        <field id="1706" dataType="char" name="CorpId" chineseName="组织机构代码" type="AN" startPosition="105" endPosition="114" optional="false" status="C"/>
+		        <field id="1707" dataType="char" name="CreditCode" chineseName="机构信用代码" type="AN" startPosition="115" endPosition="132" optional="false" status="C"/>
+		        <field id="1708" dataType="date" name="updateDate" chineseName="信息更新日期" type="N" startPosition="133" endPosition="140" optional="false" />
+		        <field id="1709" dataType="char" name="Attribute1" chineseName="预留字段" type="ANC" startPosition="141" endPosition="180" optional="true" status="O"/>
+		</segment>
+		<segment segmentFlag="I" id="8" name="ManageOrgSegment" chineseName="上级机构（主管单位）段"  segmentLength="179" optional="true" unique="true">
+		        <field id="1801" dataType="char" name="MessageType" chineseName="信息类别" type="AN" startPosition="0" endPosition="0" optional="false"  defaultValue="I"/>
+		        <field id="1802" dataType="char" name="SuperiorName" chineseName="上级机构名称" type="ANC" startPosition="1" endPosition="80" optional="false" />
+		        <field id="1803" dataType="char" name="RegisterType" chineseName="登记注册号类型" type="AN" startPosition="81" endPosition="82" optional="false" status="C"/>
+		        <field id="1804" dataType="char" name="RegisterNo" chineseName="登记注册号" type="ANC" startPosition="83" endPosition="102" optional="false" status="C"/>
+		        <field id="1805" dataType="char" name="CorpId" chineseName="组织机构代码" type="AN" startPosition="103" endPosition="112" optional="false" status="C"/>
+		        <field id="1806" dataType="char" name="CreditCode" chineseName="机构信用代码" type="AN" startPosition="113" endPosition="130" optional="false" status="C"/>
+		        <field id="1807" dataType="date" name="updateDate" chineseName="信息更新日期" type="N" startPosition="131" endPosition="138" optional="false" />
+		        <field id="1808" dataType="char" name="Attribute1" chineseName="预留字段" type="ANC" startPosition="139" endPosition="178" optional="true" status="O"/>
+		</segment>
+	</record>
+	<record id="Tail" type="-1" name="Tail">
+		<segment segmentFlag="Z" id="-1" name="Tail" chineseName="报文尾"  segmentLength="11" optional="false" unique="true">
+			<field id="2201" dataType="char" name="TailFlag" chineseName="报文尾标识" type="AN" startPosition="0" endPosition="0" optional="false"  defaultValue="Z"/>
+			<field id="2202" dataType="int" name="RecordNum" chineseName="信息记录数" type="N" startPosition="1" endPosition="10" optional="false" />
+		</segment>
+	</record>
+</message>
+
+<!-- 报文名字：家族成员信息报文 -->
+<message
+	type="8" 
+	id="2" 
+	name="OrgMember" 
+	chineseName="家族成员信息" 
+	tasktype="4"  version="2.2" 
+	headerLength="127" 
+	readerVersion="1.1" 
+	charset="GB18030"
+>  	
+	<record id="header" type="0" name="Head">
+		<segment segmentFlag="A" id="0" name="MessageHead" chineseName="报文头"  segmentLength="127" optional="false" unique="true">
+			<field id="1001" dataType="char" name="HeadFlag" chineseName="报文头标识" type="AN" startPosition="0" endPosition="0" optional="false"  defaultValue="A"/>
+			<field id="1002" dataType="char" name="Version" chineseName="报文格式版本号" type="AN" startPosition="1" endPosition="3" optional="false" />
+			<!-- 报送机构代码:11位金融机构代码+空格 -->
+			<field id="1003" dataType="char" name="FinanceCode" chineseName="报送机构代码" type="AN" startPosition="4" endPosition="23" optional="false" />
+			<field id="1004" dataType="datetime" name="CreatedTime" chineseName="报文生成时间" type="N" startPosition="24" endPosition="37" optional="false" />
+			<!-- 报文信息类别: 51-机构基本信息采集报文;32-机构基本信息删除报文 -->
+			<field id="1005" dataType="int" name="MsgType" chineseName="报文信息类别" type="AN" startPosition="38" endPosition="39" optional="false"  defaultValue="51"/>
+			<!-- 报文类型:  0-机构基本信息报文;1-家族成员信息报文 -->
+			<field id="1006" dataType="int" name="OrgMsgType" chineseName="报文类型" type="N" startPosition="40" endPosition="40" optional="false"   defaultValue="1"/>
+			<!-- 反馈标志:  0-非反馈报文;1-反馈报文 -->
+			<field id="1007" dataType="int" name="FeedBackFlag" chineseName="反馈标志" type="N" startPosition="41" endPosition="41" optional="false"  defaultValue="0"/>
+			<field id="1008" dataType="char" name="ContactPerson" chineseName="联系人" type="ANC" startPosition="42" endPosition="71" optional="true" status="O" />
+			<field id="1009" dataType="char" name="ContactPhone" chineseName="联系电话" type="ANC" startPosition="72" endPosition="96" optional="true" status="O" />
+			<field id="1010" dataType="char" name="ReserveField" chineseName="预留字段" type="ANC" startPosition="97" endPosition="126" optional="true" status="O"/>
+		</segment>
+	</record>
+	<record 
+		id="1" 
+		type="72" 
+		name="OrgMemberRecord" 
+		mainBusinessNo="B.9992" 
+		keyFields="B.9992,B.1903,B.1904,B.1905,B.1907,B.1908"
+		briefFields="B.9992,B.1903,B.1904,B.1905,B.1907,B.1908" 
+		chineseName="家族成员信息记录"
+	>    
+		<segment segmentFlag="B" id="1" name="BaseSegment" chineseName="基础段" segmentLength="254" optional="false" unique="true">
+		        <field id="1901" dataType="char" name="MessageType" chineseName="信息类别" type="AN" startPosition="0" endPosition="0" optional="false"  defaultValue="B"/>
+		        <field id="1902" dataType="char" name="ManagerName" chineseName="主要关系人姓名" type="ANC" startPosition="1" endPosition="80" optional="false" />
+		        <field id="1903" dataType="char" name="ManagerCertType" chineseName="主要关系人证件类型" type="AN" startPosition="81" endPosition="82" optional="false" />
+		        <field id="1904" dataType="char" name="ManagerCertId" chineseName="证件号码" type="ANC" startPosition="83" endPosition="102" optional="false" />
+		        <field id="1905" dataType="char" name="MemberRelaType" chineseName="家族关系" type="AN" startPosition="103" endPosition="103" optional="false" />
+		        <field id="1906" dataType="char" name="MemberName" chineseName="家族成员姓名" type="ANC" startPosition="104" endPosition="183" optional="false" />
+		        <field id="1907" dataType="char" name="MemberCertType" chineseName="家族成员证件类型" type="AN" startPosition="184" endPosition="185" optional="false" />
+		        <field id="1908" dataType="char" name="MemberCertId" chineseName="证件号码" type="ANC" startPosition="186" endPosition="205" optional="false" />
+		        <field id="1909" dataType="date" name="updateDate" chineseName="信息更新日期" type="N" startPosition="206" endPosition="213" optional="false" />
+		        <field id="1910" dataType="char" name="Attribute1" chineseName="预留字段" type="ANC" startPosition="214" endPosition="253" optional="true" status="O"/>
+				<field id="9992" dataType="char" name="CIFCustomerID" chineseName="客户号" type="AN" startPosition="254" endPosition="293" optional="false" />
+				<field id="9993" dataType="date" name="occurDate" chineseName="发生日期" type="N" startPosition="294" endPosition="301" optional="true"  />
+		 </segment> 	
+	</record>
+	<record id="Tail" type="-1" name="Tail">
+		<segment segmentFlag="Z" id="-1" name="Tail" chineseName="报文尾"  segmentLength="11" optional="false" unique="true">
+			<field id="2201" dataType="char" name="TailFlag" chineseName="报文尾标识" type="AN" startPosition="0" endPosition="0" optional="false"  defaultValue="Z"/>
+			<field id="2202" dataType="int" name="RecordNum" chineseName="信息记录数" type="N" startPosition="1" endPosition="10" optional="false" />
+		</segment>
+	</record>
+</message> 
+
+</messageList>
+</configuration>

@@ -1,0 +1,22 @@
+为何使用后置单元更新变更数据而不使用FIDChangeHandler会导致金融机构变更出问题呢？
+		主要是FIDChangeHandler会处理与金融机构变更的复杂逻辑：当数据集中的金融机构与
+表中的金融机构不一致时，将数据集的金融机构放在FinanceID中，并将原FinanceID加到
+oldFinanceID后，如下图：
+    OldFinanceID       FinanceID
+     null								  A
+     A                    B
+     A#B 									C
+     A#B#C                D
+     A#B#C#D							E
+需要说明的是金融机构变更为单向的，不允许循环变更。即不允许B-->C-->B
+OldFinanceID长度也是有限的，当变更次数足够多时，超出OldFinanceID的长度，OldFinanceID自动丢掉
+第一个金融机构的备份,如上图中,当金融机构变为F时出现:
+    OldFinanceID      FinanceID
+    B#C#D#E							F
+在生成报文时,程序判断OldFinanceID是否以FinanceID为结尾,如果否则生成变更段.
+所以FIDchangeHandler还应该将已经生成过变更段的信息的FinanceID加到OldFinanceID之后,如图
+    OldFinanceID      FinanceID
+    null									A
+    A											B
+    A#B										B
+所以如果用后置单元绕过FIDChangeHandler后出现频繁变更的情况的.

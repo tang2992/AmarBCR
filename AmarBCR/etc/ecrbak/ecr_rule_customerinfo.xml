@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!--?	借款人基本信息校验规则文件  -->
+<!--?	校验规则说明：messageType 表示报文类型，recordType表示记录类型 segmentFlag表示段的类型（段的标识符）
+					  level 表示规则的类型（0 文件级1 报文级2 记录级3 段级4 字段级）
+					  checkType 表示校验的类型
+							D  日期
+							N  数值(顶多有两位小数)
+							DL 清单
+							DE 值相当
+							DR Data Range 数据范围
+							NA 非空
+							ID 身份证号码校验
+							SN 段的个数校验（即一条记录中只允许一条或指定数的几条段）
+							SD 重复段的校验（即同内容性质的段中某些字段不能重复，比如股票信息不允许有重复的股票代码）
+							SP 段的位置校验（即记录的第一个字段都是基础段，由于段的位置是由程序控置，故此校验默认真值
+							S  非汉字的字符串校验（即字符串中不能含有汉字）
+							DS 数据长度校验 datalength
+							ZD 组织机构代码校验
+							PC 邮编
+							DKK 贷款卡
+							M  金额型
+							AN 包括ASICII码中小于127的可见字符，即“空格”到“~”的所有可见字符
+							ANC 包括ASICII码中小于127的可见字符和所有GBK汉字
+							EMAIL 邮箱地址
+							DIC 数据字典
+							FI  金融机构代码校验
+					  checkedFieldName 表示欲校验的字段名
+					  errorMsg 表示校验后错误的提示信息，本信息会记录在ECR_HISTORY表中
+					  datalist 表示校验类型为DL时，校验字段的取值列表
+					  precondition 表示校验规则的前提条件，即满足前提条件时，规则有效
+  -->
+<!--    本文档的修改记录：
+					  2005-09-14  create by ghe  2005-11-18  modify by jshen
+ -->
+<configuration>
+	<rulemap Type="11">
+		<rulelist>
+			<!-- 根据2.2规范，对于删除的两种报文，删除对应的校验规则 -->
+			<!--?	借款人财务报表信息报文规则 -->
+			<!-- 
+			-->
+			<rule name="rule03-01" messageType="3" errorCode="4308" recordType="03" segmentFlag="B" checkType="DIC" checkedFieldName="ReportType" dataList="报表类型" errorMsg="财务报表信息段[报表类型]字段不在数据字典列表中">
+			</rule>
+			<rule name="rule03-02" messageType="3" errorCode="4308" recordType="03" segmentFlag="B" checkType="DIC" checkedFieldName="ReportSubType" dataList="报表类型细分" errorMsg="财务报表信息段[报表类型细分]字段不在数据字典列表中">
+			</rule>
+			<!-- V4.0
+			<rule name="rule03-03" messageType="3" errorCode="4068" recordType="03" segmentFlag="D" checkType="DE" compareWay="number" Level="4" checkedFieldName="m9537" dataList="{$m9501}+{$m9503}+{$m9505}+{$m9507}+{$m9509}+{$m9511}+{$m9513}+{$m9515}+{$m9517}+{$m9519}+{$m9521}+{$m9523}+{$m9529}+{$m9531}+{$m9533}+{$m9535}" errorMsg="数据项9501+9503+9505+9507+9509+9511+9513+9515+9517+9519+9521+9523+9529+9531+9533+9535=9537">
+			</rule> 
+			<rule name="rule03-04" messageType="3" errorCode="4072" recordType="03" segmentFlag="D" checkType="DE" compareWay="number" Level="4" checkedFieldName="m9547" dataList="{$m9545}+{$m9539}" errorMsg="数据项9547=9545+9539">
+			</rule>
+		    <rule name="rule03-05" messageType="3" errorCode="4074" recordType="03" segmentFlag="D" checkType="DE" compareWay="number" Level="4" checkedFieldName="m9553" dataList="{$m9549}-{$m9551}" errorMsg="数据项9553=9549-9551">
+			</rule>		
+			<rule name="rule03-06" messageType="3" errorCode="4076" recordType="03" segmentFlag="D" checkType="DE" compareWay="number" Level="4" checkedFieldName="m9557" dataList="{$m9553}-{$m9555}" errorMsg="数据项9557=9553-9555">
+			</rule>
+			<rule name="rule03-07" messageType="3" errorCode="4078" recordType="03" segmentFlag="D" checkType="DE" compareWay="number" Level="4" checkedFieldName="m9567" dataList="{$m9557}+{$m9559}+{$m9561}+{$m9563}+{$m9565}" errorMsg="数据项9567=9557+9559+9561+9563+9565">
+			</rule>
+			<rule name="rule03-08" messageType="3" errorCode="4086" recordType="03" segmentFlag="D" checkType="DE" compareWay="number" Level="4" checkedFieldName="m9583" dataList="{$m9569}+{$m9573}+{$m9579}" errorMsg="数据项9569+9573+9579=9583">
+			</rule>
+			<rule name="rule03-09" messageType="3" errorCode="4088" recordType="03" segmentFlag="D" checkType="DE" compareWay="number" Level="4" checkedFieldName="m9587" dataList="{$m9537}+{$m9547}+{$m9567}+{$m9583}+{$m9585}" errorMsg="数据项9587=9537+9547+9567+9583+9585">
+			</rule>
+			<rule name="rule03-10" messageType="3" errorCode="4090" recordType="03" segmentFlag="D" checkType="DE" compareWay="number" Level="4" checkedFieldName="m9617" dataList="{$m9589}+{$m9591}+{$m9593}+{$m9595}+{$m9597}+{$m9599}+{$m9601}+{$m9603}+{$m9605}+{$m9607}+{$m9609}+{$m9611}+{$m9613}+{$m9615}" errorMsg="数据项9589+9591+9593+9595+9597+9599+9601+9603+9605+9607+9609+9611+9613+9615=9617">
+			</rule>
+			<rule name="rule03-11" messageType="3" errorCode="4094" recordType="03" segmentFlag="D" checkType="DE" compareWay="number" Level="4" checkedFieldName="m9631" dataList="{$m9619}+{$m9621}+{$m9623}+{$m9625}+{$m9627}" errorMsg="数据项9619+9621+9623+9625+9627=9631">
+			</rule>
+			<rule name="rule03-12" messageType="3" errorCode="4096" recordType="03" segmentFlag="D" checkType="DE" compareWay="number" Level="4" checkedFieldName="m9635" dataList="{$m9617}+{$m9631}+{$m9633}" errorMsg="数据项9635=9617+9631+9633">
+			</rule>
+			<rule name="rule03-13" messageType="3" errorCode="4104" recordType="03" segmentFlag="D" checkType="DE" compareWay="number" Level="4" checkedFieldName="m9671" dataList="{$m9639}+{$m9655}+{$m9657}+{$m9665}+{$m9667}+{$m9669}" errorMsg="数据项9671=9639+9655+9657+9665+9667+9669">
+			</rule>
+			-->
+			<rule name="rule03-14" messageType="3" errorCode="4106" recordType="03" segmentFlag="D" checkType="DE" compareWay="number" Level="4" checkedFieldName="m9673" dataList="{$m9635}+{$m9637}+{$m9671}" errorMsg="数据项9635+9637+9671=9673">
+			</rule>
+			<rule name="rule03-15" messageType="3" errorCode="4108" recordType="03" segmentFlag="D" checkType="DE" compareWay="number" Level="4" checkedFieldName="m9673" dataList="{$m9587}" errorMsg="数据项9673=9587">
+			</rule>
+			<!-- V4.0
+			<rule name="rule03-16" messageType="3" errorCode="4110" recordType="04" segmentFlag="E" checkType="DE" compareWay="number" Level="4" checkedFieldName="m9683" dataList="{$m9675}-{$m9681}" errorMsg="数据项9683=9675-9681">
+			</rule>
+			<rule name="rule03-17" messageType="3" errorCode="4112" recordType="04" segmentFlag="E" checkType="DE" compareWay="number" Level="4" checkedFieldName="m9701" dataList="{$m9683}-{$m9685}-{$m9689}-{$m9693}-{$m9691}+{$m9695}+{$m9697}+{$m9699}" errorMsg="数据项9701=9683-9685-9689-9693-9691+9695+9697+9699">
+			</rule>
+			<rule name="rule03-18" messageType="3" errorCode="4114" recordType="04" segmentFlag="E" checkType="DE" compareWay="number" Level="4" checkedFieldName="m9711" dataList="{$m9701}+{$m9703}-{$m9705}-{$m9707}-{$m9709}-{$m9907}" errorMsg="数据项9711=9701+9703-9705-9707-9709-9907">
+			</rule>
+			<rule name="rule03-19" messageType="3" errorCode="4126" recordType="04" segmentFlag="E" checkType="DE" compareWay="number" Level="4" checkedFieldName="m9747" dataList="{$m9711}+{$m9713}+{$m9715}+{$m9717}+{$m9721}+{$m9909}-{$m9733}-{$m9743}" errorMsg="数据项9747=9711+9713+9715+9717+9721+9909-9733-9743">
+			</rule>
+			<rule name="rule03-20" messageType="3" errorCode="4128" recordType="04" segmentFlag="E" checkType="DE" compareWay="number" Level="4" checkedFieldName="m9755" dataList="{$m9747}-{$m9749}-{$m9751}+{$m9753}" errorMsg="数据项9755=9747-9749-9751+9753">
+			</rule>
+			<rule name="rule03-21" messageType="3" errorCode="4130" recordType="04" segmentFlag="E" checkType="DE" compareWay="number" Level="4" checkedFieldName="m9763" dataList="{$m9755}+{$m9757}+{$m9759}+{$m9761}" errorMsg="数据项9763=9755+9757+9759+9761">
+			</rule>
+			<rule name="rule03-22" messageType="3" errorCode="4132" recordType="04" segmentFlag="E" checkType="DE" compareWay="number" Level="4" checkedFieldName="m9781" dataList="{$m9763}-{$m9765}-{$m9767}-{$m9769}-{$m9771}-{$m9773}-{$m9775}-{$m9777}-{$m9779}-{$m9911}" errorMsg="数据项9781=9763-9765-9767-9769-9771-9773-9775-9777-9779-9911">
+			</rule>
+			<rule name="rule03-23" messageType="3" errorCode="4134" recordType="04" segmentFlag="E" checkType="DE" compareWay="number" Level="4" checkedFieldName="m9791" dataList="{$m9781}-{$m9783}-{$m9785}-{$m9787}-{$m9789}-{$m9913}" errorMsg="数据项9791=9781-9783-9785-9787-9789-9913">
+			</rule>
+			<rule name="rule03-24" messageType="3" errorCode="4138" recordType="05" segmentFlag="F" checkType="DE" compareWay="number" Level="4" checkedFieldName="m9823" dataList="{$m9795}+{$m9797}+{$m9799}" errorMsg="数据项9823=9795+9797+9799">
+			</rule>
+			<rule name="rule03-25" messageType="3" errorCode="4140" recordType="05" segmentFlag="F" checkType="DE" compareWay="number" Level="4" checkedFieldName="m9831" dataList="{$m9803}+{$m9805}+{$m9807}+{$m9809}" errorMsg="数据项9831=9803+9805+9807+9809">
+			</rule>
+			-->
+			<rule name="rule03-26" messageType="3" errorCode="4142" recordType="05" segmentFlag="F" checkType="DE" compareWay="number" Level="4" checkedFieldName="m9813" dataList="{$m9823}-{$m9831}" errorMsg="数据项9813=9823-9831">
+			</rule>
+			<!-- V4.0
+			<rule name="rule03-27" messageType="3" errorCode="4144" recordType="05" segmentFlag="F" checkType="DE" compareWay="number" Level="4" checkedFieldName="m9917" dataList="{$m9815}+{$m9817}+{$m9819}+{$m9821}" errorMsg="数据项9917=9815+9817+9819+9821">
+			</rule>
+			<rule name="rule03-28" messageType="3" errorCode="4146" recordType="05" segmentFlag="F" checkType="DE" compareWay="number" Level="4" checkedFieldName="m9919" dataList="{$m9825}+{$m9827}+{$m9829}" errorMsg="数据项9919=9825+9827+9829">
+			</rule>
+			-->
+			<rule name="rule03-29" messageType="3" errorCode="4148" recordType="05" segmentFlag="F" checkType="DE" compareWay="number" Level="4" checkedFieldName="m9833" dataList="{$m9917}-{$m9919}" errorMsg="数据项9833=9917-9919">
+			</rule>
+			<!-- V4.0
+			<rule name="rule03-30" messageType="3" errorCode="4150" recordType="05" segmentFlag="F" checkType="DE" compareWay="number" Level="4" checkedFieldName="m9921" dataList="{$m9835}+{$m9837}+{$m9839}" errorMsg="数据项9921=9835+9837+9839">
+			</rule>
+			<rule name="rule03-31" messageType="3" errorCode="4152" recordType="05" segmentFlag="F" checkType="DE" compareWay="number" Level="4" checkedFieldName="m9923" dataList="{$m9843}+{$m9845}+{$m9847}" errorMsg="数据项9923=9843+9845+9847">
+			</rule>
+			-->
+			<rule name="rule03-32" messageType="3" errorCode="4154" recordType="05" segmentFlag="F" checkType="DE" compareWay="number" Level="4" checkedFieldName="m9851" dataList="{$m9921}-{$m9923}" errorMsg="数据项9851=9921-9923">
+			</rule>
+			<rule name="rule03-33" messageType="3" errorCode="4156" recordType="05" segmentFlag="F" checkType="DE" compareWay="number" Level="4" checkedFieldName="m9855" dataList="{$m9851}+{$m9853}+{$m9813}+{$m9833}" errorMsg="数据项9855=9851+9853+9813+9833">
+			</rule>
+			<!-- V4.0
+			<rule name="rule03-34" messageType="3" errorCode="4158" recordType="05" segmentFlag="F" checkType="DE" compareWay="number" Level="4" checkedFieldName="m9813" dataList="{$m9857}+{$m9859}+{$m9861}+{$m9863}+{$m9865}+{$m9867}+{$m9869}+{$m9871}+{$m9873}+{$m9925}+{$m9877}+{$m9879}+{$m9881}+{$m9883}+{$m9885}+{$m9915}" errorMsg="数据项9813=9857+9859+9861+9863+9865+9867+9869+9871+9873+9925+9877+9879+9881+9883+9885+9915">
+			</rule>
+			<rule name="rule03-35" messageType="3" errorCode="4160" recordType="05" segmentFlag="F" checkType="DE" compareWay="number" Level="4" checkedFieldName="m9855" dataList="{$m9899}-{$m9901}+{$m9903}-{$m9905}" errorMsg="数据项9855=9899-9901+9903-9905">
+			</rule>
+			-->
+			
+			<!--2007版财报校验规则 -->
+			<rule name="rule03-36" messageType="3" errorCode="4324" recordType="43" segmentFlag="G" checkType="DE" compareWay="number" Level="4" checkedFieldName="m9159" dataList="{$m9152}+{$m9158}" errorMsg="数据项9159=9152+9158">
+			</rule>
+			<rule name="rule03-37" messageType="3" errorCode="4326" recordType="43" segmentFlag="G" checkType="DE" compareWay="number" Level="4" checkedFieldName="m9130" dataList="{$m9159}" errorMsg="数据项9130=9159">
+			</rule>
+			<rule name="rule03-38" messageType="3" errorCode="4338" recordType="45" segmentFlag="I" checkType="DE" compareWay="number" Level="4" checkedFieldName="m9208" dataList="{$m9202}-{$m9207}" errorMsg="数据项9208=9202-9207">
+			</rule>
+			<rule name="rule03-39" messageType="3" errorCode="4344" recordType="45" segmentFlag="I" checkType="DE" compareWay="number" Level="4" checkedFieldName="m9220" dataList="{$m9214}-{$m9219}" errorMsg="数据项9220=9214-9219">
+			</rule>
+			<rule name="rule03-40" messageType="3" errorCode="4350" recordType="45" segmentFlag="I" checkType="DE" compareWay="number" Level="4" checkedFieldName="m9229" dataList="{$m9224}-{$m9228}" errorMsg="数据项9229=9224-9228">
+			</rule>
+			<rule name="rule03-41" messageType="3" errorCode="4352" recordType="45" segmentFlag="I" checkType="DE" compareWay="number" Level="4" checkedFieldName="m9231" dataList="{$m9208}+{$m9220}+{$m9230}" errorMsg="数据项9231=9208+9220+9230">
+			</rule>
+			<rule name="rule03-42" messageType="3" errorCode="4354" recordType="45" segmentFlag="I" checkType="DE" compareWay="number" Level="4" checkedFieldName="m9233" dataList="{$m9231}+{$m9232}" errorMsg="数据项9233=9231+9232">
+			</rule>
+			
+			<!--事业单位财报校验规则 -->
+			<rule name="rule03-43" messageType="3" errorCode="4364" recordType="46" segmentFlag="J" checkType="DE" compareWay="number" Level="4" checkedFieldName="m9294" dataList="{$m9282}+{$m9293}" errorMsg="数据项9294=9282+9293">
+			</rule>
+			<rule name="rule03-44" messageType="3" errorCode="4372" recordType="46" segmentFlag="J" checkType="DE" compareWay="number" Level="4" checkedFieldName="m9320" dataList="{$m9303}+{$m9311}+{$m9319}" errorMsg="数据项9320=9303+9311+9319">
+			</rule>
+			
+			<rule name="rule03-45" messageType="3" errorCode="4380" recordType="47" segmentFlag="K" checkType="DE" compareWay="number" Level="4" checkedFieldName="m9341" dataList="{$m9336}+{$m9338}+{$m9340}" errorMsg="数据项9341=9336+9338+9340">
+			</rule>
+			<rule name="rule03-46" messageType="3" errorCode="4388" recordType="47" segmentFlag="K" checkType="DE" compareWay="number" Level="4" checkedFieldName="m9357" dataList="{$m9350}+{$m9353}+{$m9356}" errorMsg="数据项9357=9350+9353+9356">
+			</rule>
+			<rule name="rule03-47" messageType="3" errorCode="4394" recordType="47" segmentFlag="K" checkType="DE" compareWay="number" Level="4" checkedFieldName="m9358" dataList="{$m9336}-{$m9350}" errorMsg="数据项9358=9336-9350">
+			</rule>
+			<rule name="rule03-48" messageType="3" errorCode="4396" recordType="47" segmentFlag="K" checkType="DE" compareWay="number" Level="4" checkedFieldName="m9361" dataList="{$m9338}-{$m9353}" errorMsg="数据项9361=9338-9353">
+			</rule>
+
+			<!--?	借款人关注信息报文规则 -->
+			<rule name="rule04-01" messageType="4" errorCode="4016" recordType="06" segmentFlag="D" checkType="DR" Level="4" checkedFieldName="ExecuteDate" dataStartValue="19010101" errorMsg="判决执行日期大于等于19010101" >
+			</rule>
+			<rule name="rule04-02" messageType="4" errorCode="4308" recordType="06" segmentFlag="D" checkType="ANC" Level="4" checkedFieldName="ExecuteResult" errorMsg="执行结果错" >
+			</rule>
+			<rule name="rule04-03" messageType="4" errorCode="4308" recordType="06" segmentFlag="D" checkType="ANC" Level="4" checkedFieldName="AppellCause"	errorMsg="被起诉原因错" >
+			</rule>
+			<rule name="rule04-04" messageType="4" errorCode="4308" recordType="06" segmentFlag="D" checkType="ANC" Level="4" checkedFieldName="PlaintiffNam" errorMsg="起诉人名称错" >
+			</rule>
+			<rule name="rule04-05" messageType="4" errorCode="4034" recordType="06" segmentFlag="B" checkType="DKK" Level="4" checkedFieldName="LoanCardNo" errorMsg="起诉信息客户贷款卡编码错" >
+			</rule>
+			<rule name="rule04-06" messageType="4" errorCode="4308" recordType="07" segmentFlag="E" checkType="ANC" Level="4" checkedFieldName="Describe" errorMsg="大事描述错" >
+			</rule>
+			<rule name="rule04-07" messageType="4" errorCode="4002" recordType="07" segmentFlag="B" checkType="DKK" Level="4" checkedFieldName="LoanCardNo" errorMsg="贷款卡编码错" >
+			</rule>
+			<rule name="rule04-08" messageType="4" errorCode="4308" recordType="06" segmentFlag="B" checkType="FI" Level="4" checkedFieldName="FinanceID"	errorMsg="金融机构代码不符合人行规范">
+			</rule>
+			<rule name="rule04-09" messageType="4" errorCode="4308" recordType="07" segmentFlag="B" checkType="FI" Level="4" checkedFieldName="FinanceID"	errorMsg="金融机构代码不符合人行规范">
+			</rule>
+			<rule name="rule04-10" messageType="4" errorCode="4015" recordType="06" segmentFlag="D" checkType="DR" Level="4" checkedFieldName="ExecuteSum"  dataStartValue="1" errorMsg="判决执行金额应大于0" >
+  	  		</rule>
+		</rulelist>
+	</rulemap>
+</configuration>

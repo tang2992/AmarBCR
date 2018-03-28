@@ -1,0 +1,693 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!--?	借款人信贷业务信息校验规则文件  -->
+<!--?	校验规则说明：messageType 表示报文类型，recordType表示记录类型 segmentFlag表示段的类型（段的标识符）
+					  level 表示规则的类型（0 文件级1 报文级2 记录级3 段级4 字段级）
+					  checkType 表示校验的类型
+							D     日期
+							N     数值(顶多有两位小数)
+							DL    清单
+							DE    值相当
+							DR    Data Range 数据范围（闭区间）
+							DRNE  Data Range 数据范围（开区间）
+							NA    非空
+							ID    身份证号码校验
+							SN    段的个数校验（即一条记录中只允许一条或指定数的几条段）
+							SD    重复段的校验（即同内容性质的段中某些字段不能重复，比如股票信息不允许有重复的股票代码）
+							SP    段的位置校验（即记录的第一个字段都是基础段，由于段的位置是由程序控置，故此校验默认真值
+							S     非汉字的字符串校验（即字符串中不能含有汉字）
+							DS    数据长度校验 datalength
+							ZD    组织机构代码校验
+							PC    邮编
+							DKK   贷款卡
+							M     金额型
+							AN    包括ASICII码中小于127的可见字符，即“空格”到“~”的所有可见字符
+							ANC   包括ASICII码中小于127的可见字符和所有GBK汉字
+							EMAIL 邮箱地址
+							DIC   数据字典
+							DJ	  判断联动
+							FI    金融机构代码校验
+					  checkedFieldName 表示欲校验的字段名
+					  errorMsg 表示校验后错误的提示信息，本信息会记录在ECR_HISTORY表中
+					  datalist 表示校验类型为DL时，校验字段的取值列表
+					  precondition 表示校验规则的前提条件，即满足前提条件时，规则有效
+  -->
+<!--    本文档的修改记录：
+					  2005-09-15  create by ghe  2005-11-18  modify by jshen
+ -->
+<configuration>
+	<rulemap Type="12">
+		<rulelist>
+			<!--?	贷款业务信息采集报文规则 -->
+			<rule name="rule11-01" messageType="11" errorCode="4308" recordType="08" segmentFlag="D" checkType="DIC" Level="4" checkedFieldName="BankFlag" errorMsg="合同信息段[银团标志]字段不在数据字典列表中" dataList="银团标志" >
+			</rule>
+			<rule name="rule11-02" messageType="11" errorCode="4308" recordType="08" segmentFlag="D" checkType="DIC" Level="4" checkedFieldName="GuarantyFlag" errorMsg="合同信息段[担保标志]字段不在数据字典列表中" dataList="担保标志" >
+			</rule>
+			<rule name="rule11-03" messageType="11" errorCode="4308" recordType="08" segmentFlag="D" checkType="DIC" Level="4" checkedFieldName="AvailabStatus" errorMsg="合同信息段[合同有效状态]字段不在数据字典列表中" dataList="合同有效状态" >
+			</rule>
+			<rule name="rule11-04" messageType="11" errorCode="4016" recordType="08" segmentFlag="D" checkType="DR" Level="4" checkedFieldName="EndDate" dataStartValue="19010101" errorMsg="贷款合同终止日期格式错" >
+			</rule>
+			<rule name="rule11-05" messageType="11" errorCode="4016" recordType="08" segmentFlag="D" checkType="DR" Level="4" checkedFieldName="StartDate" dataStartValue="19010101" errorMsg="贷款合同生效日期错" >
+			</rule>
+			<rule name="rule11-06" messageType="11" errorCode="4034" recordType="08" segmentFlag="B" checkType="DKK" Level="4" checkedFieldName="LoanCardNo" errorMsg="贷款业务信息贷款卡编码错"  >
+			</rule>
+			<rule name="rule11-07" messageType="11" errorCode="4168" recordType="08" segmentFlag="D" checkType="DR" Level="4" checkedFieldName="StartDate" dataEndValue="{$EndDate}" errorMsg="贷款合同生效日期≤贷款合同终止日期" >
+			</rule>						
+			<rule name="rule11-08" messageType="11" errorCode="4166" recordType="08" segmentFlag="E" checkType="DR" Level="4" checkedFieldName="AvailabBalance" dataEndValue="{$BusinessSum}" errorMsg="可用余额≤贷款合同金额" >
+			</rule>
+			<rule name="rule11-09" messageType="11" errorCode="4016" recordType="09" segmentFlag="F" checkType="DR" Level="4" checkedFieldName="PutOutDate" dataStartValue="19010101" errorMsg="借据放款日期错" >
+			</rule>
+			<rule name="rule11-10" messageType="11" errorCode="4016" recordType="09" segmentFlag="F" checkType="DR" Level="4" checkedFieldName="PutOutEndDate" dataStartValue="19010101" errorMsg="借据放款到期日错" >
+			</rule>
+			<rule name="rule11-11" messageType="11" errorCode="5016" recordType="09" segmentFlag="F" checkType="DR" Level="4" checkedFieldName="PutOutDate" dataEndValue="{$B.OccurDate}" errorMsg="业务发生日期应大于等于贷款借据放款日期" >
+			</rule>			
+			<rule name="rule11-12" messageType="11" errorCode="4178" recordType="09" segmentFlag="F" checkType="DR" Level="4" checkedFieldName="PutOutDate" dataEndValue="{$PutOutEndDate}" errorMsg="借据放款日期≤借据到期日期">
+			</rule>
+			<rule name="rule11-13" messageType="11" errorCode="4182" recordType="09" segmentFlag="F" checkType="DR" Level="4" checkedFieldName="Balance" dataEndValue="{$BusinessSum}" errorMsg="贷款借据余额≤贷款借据金额" >
+			</rule>
+			<rule name="rule11-14" messageType="11" errorCode="4308" recordType="09"  segmentFlag="F" checkType="DIC" Level="4" checkedFieldName="BusinessType" errorMsg="借据信息段[贷款业务种类]字段不在数据字典列表中" dataList="贷款业务种类" >
+			</rule>
+			<rule name="rule11-15" messageType="11" errorCode="4308" recordType="09"  segmentFlag="F" checkType="DIC" Level="4" checkedFieldName="Form" errorMsg="借据信息段[贷款形式]字段不在数据字典列表中" dataList="贷款形式" >
+			</rule>
+			<rule name="rule11-16" messageType="11" errorCode="4308" recordType="09" segmentFlag="F" checkType="DIC" Level="4" checkedFieldName="LoanCharacter" errorMsg="借据信息段[贷款性质]字段不在数据字典列表中" dataList="贷款性质">
+			</rule>
+			<rule name="rule11-17" messageType="11" errorCode="4308" recordType="09" segmentFlag="F" checkType="DIC" Level="4" checkedFieldName="Kind" errorMsg="借据信息段[贷款种类]字段不在数据字典列表中" dataList="贷款种类">
+			</rule>
+			<rule name="rule11-43" messageType="11" errorCode="4308" recordType="09" segmentFlag="F" checkType="DIC" Level="4" checkedFieldName="Way" errorMsg="借据信息段[贷款投向]字段不在数据字典列表中" dataList="贷款投向">
+			</rule>
+			<rule name="rule11-18" messageType="11" errorCode="4308" recordType="09" segmentFlag="F" checkType="DIC" Level="4" checkedFieldName="ExtenFlag" errorMsg="借据信息段[展期标志]字段不在数据字典列表中" dataList="展期标志">
+			</rule>
+			<rule name="rule11-19" messageType="11" errorCode="4308" recordType="09" segmentFlag="F" checkType="DIC" Level="4" checkedFieldName="Classify5" errorMsg="借据信息段[五级分类]字段不在数据字典列表中" dataList="五级分类">
+			</rule>
+			<rule name="rule11-20" messageType="11" errorCode="4308" recordType="10" segmentFlag="G" checkType="DIC" Level="4" checkedFieldName="ReturnMode" errorMsg="还款信息段[还款方式]字段不在数据字典列表中" dataList="还款方式">
+			</rule>
+			<rule name="rule11-21" messageType="11" errorCode="4016" recordType="10" segmentFlag="G" checkType="DR" Level="4" checkedFieldName="ReturnDate" dataStartValue="19010101" errorMsg="还款日期错" >
+			</rule>
+			<rule name="rule11-22" messageType="11" errorCode="5116" recordType="10" segmentFlag="G" checkType="DR" Level="4" checkedFieldName="ReturnDate" dataEndValue="{$B.OccurDate}" errorMsg="业务发生日期应大于等于贷款还款日期" >
+			</rule>
+			<rule name="rule11-23" messageType="11" errorCode="4016" recordType="11" segmentFlag="H" checkType="DR" Level="4" checkedFieldName="ExtenStartDate" dataStartValue="19010101" errorMsg="展期起始日期错" >
+			</rule>
+			<rule name="rule11-24" messageType="11" errorCode="4016" recordType="11" segmentFlag="H" checkType="DR" Level="4" checkedFieldName="ExtenEndDate" dataStartValue="19010101" errorMsg="展期到期日期错" >
+			</rule>
+			<rule name="rule11-25" messageType="11" errorCode="4170" recordType="11" segmentFlag="H" checkType="DR" Level="4" checkedFieldName="ExtenEndDate" dataStartValue="{$ExtenStartDate}" errorMsg="展期到期日期应不小于展期起始日期" >
+			</rule>
+			<rule name="rule11-27" messageType="11" errorCode="4015" recordType="11" segmentFlag="H" checkType="DR" Level="4" checkedFieldName="ExtenSum" dataStartValue="1" errorMsg="展期金额应大于0" >
+			</rule>
+			<rule name="rule11-26" messageType="11" errorCode="4015" recordType="09" segmentFlag="F" checkType="DR" Level="4" checkedFieldName="BusinessSum"  dataStartValue="1" errorMsg="贷款借据金额应大于0" >
+  	  		</rule>
+			<!-- V4.0
+			<rule name="rule11-27" messageType="11" errorCode="3004_1" recordType="08" segmentFlag="D" checkType="check3004_1" Level="4" checkedFieldName="GuarantyFlag" errorMsg="对含有担保标志的信息记录，当担保标志为1 是,在本次上报的担保报文和以前上报的最新担保信息中至少存在一条对应的担保信息记录,其合同有效状态为:1 是"  dataList="1" >
+			</rule>
+		
+			<rule name="rule11-28" messageType="11" errorCode="3005_1" recordType="08" segmentFlag="B" checkType="check3005_1" Level="4" checkedFieldName="RecordOperateType" errorMsg="对含有担保标志的信息记录，当信息记录操作类型为1－新增且担保标志为2－否时，在信贷业务信息报文文件中的担保业务信息采集报文中不能存在与上述信息记录相对应的担保信息记录。"  dataList="1" >
+			</rule>
+			-->
+			<rule name="rule11-29" messageType="11" errorCode="3012" recordType="09" segmentFlag="F" checkType="check3012_1" Level="4" checkedFieldName="ExtenFlag" errorMsg="对含有展期标志的信息记录，当数据项展期标志为：2－否时，那么在信贷业务信息报文文件中的贷款业务信息采集报文中以及数据库中不能有与上述记录相对应的展期信息记录存在。"  dataList="2" >
+			</rule>
+			<rule name="rule11-30" messageType="11" errorCode="4172" recordType="09" segmentFlag="B" checkType="check4172" Level="4" checkedFieldName="DuebillNo" errorMsg="对于同一借据，借据金额－借据余额＝∑借据还款金额。" >
+			</rule>
+			<rule name="rule11-31" messageType="11" errorCode="4212" recordType="09" segmentFlag="F" checkType="check4212" Level="4" checkedFieldName="ContractNo" errorMsg="贷款业务借据信息记录对应的合同信息记录必须在数据库中已存在。"  >
+			</rule>
+			<rule name="rule11-32" messageType="11" errorCode="4214" recordType="10" segmentFlag="G" checkType="check4214" Level="4" checkedFieldName="DuebillNo" errorMsg="贷款业务还款信息记录所对应的借据信息记录必须在数据库中已存在。"  >
+			</rule>
+			<rule name="rule11-33" messageType="11" errorCode="4184" recordType="11" segmentFlag="H" checkType="check4184" Level="4" checkedFieldName="ExtenSum" errorMsg="借据金额必须大于等于该借据信息记录对应的展期信息记录的展期金额"  >
+			</rule>
+			<rule name="rule11-35" messageType="11" errorCode="4188" recordType="11" segmentFlag="H" checkType="check4188" Level="4" checkedFieldName="ExtenTimes" errorMsg="对于贷款业务展期信息记录，当展期次数为1，同时该展期信息记录的对应的贷款业务借据信息记录下无还款信息记录时，展期金额等于该展期信息记录对应的最新贷款业务借据记录的借据余额。"  dataList="1" > 
+			</rule>
+			<rule name="rule11-36" messageType="11" errorCode="4216" recordType="11" segmentFlag="H" checkType="check4216" Level="4" checkedFieldName="DuebillNo" errorMsg="贷款业务展期信息记录所对应的借据信息记录必须在数据库中已存在。"  > 
+			</rule>
+			<rule name="rule11-37" messageType="11" errorCode="4186" recordType="11" segmentFlag="H" checkType="check4186" Level="4" checkedFieldName="ExtenStartDate" errorMsg="借据放款日期应该小于等于展期起始日期"  > 
+			</rule>
+			<rule name="rule11-38" messageType="11" errorCode="4180" recordType="10" segmentFlag="G" checkType="check4180" Level="4" checkedFieldName="ReturnDate" errorMsg="借据放款日期≤还款日期。即对于贷款业务还款信息记录，还款日期大于等于对应的最新贷款业务借据信息记录的放款日期。"  >
+			</rule>
+			<!--rule name="rule11-41" messageType="11" errorCode="4174" recordType="11" segmentFlag="H" checkType="check4174" Level="4" checkedFieldName="ExtenTimes" errorMsg="借据展期次数>1时，展期次数＝历史展期次数＋1。" >
+			</rule-->
+			<rule name="rule11-42" messageType="11" errorCode="4015" recordType="08" segmentFlag="E" checkType="DR" Level="4" checkedFieldName="BusinessSum"  dataStartValue="1" errorMsg="贷款合同金额应大于0" >
+  	  		</rule>
+			<rule name="rule11-43" messageType="11" errorCode="4308" recordType="08" segmentFlag="B" checkType="FI" Level="4" checkedFieldName="FinanceID"  errorMsg="金融机构代码不符合人行规范" >
+  	  </rule>
+  	  <rule name="rule11-44" messageType="11" errorCode="4308" recordType="09" segmentFlag="B" checkType="FI" Level="4" checkedFieldName="FinanceID"  errorMsg="金融机构代码不符合人行规范" >
+  	  </rule>
+  	  <rule name="rule11-45" messageType="11" errorCode="4308" recordType="10" segmentFlag="B" checkType="FI" Level="4" checkedFieldName="FinanceID"  errorMsg="金融机构代码不符合人行规范" >
+  	  </rule>
+  	  <rule name="rule11-46" messageType="11" errorCode="4308" recordType="11" segmentFlag="B" checkType="FI" Level="4" checkedFieldName="FinanceID"  errorMsg="金融机构代码不符合人行规范" >
+  	  </rule>
+			<!-- <rule name="rule11-42" messageType="11" errorCode="4176" recordType="10" segmentFlag="G" checkType="check4176" Level="4" checkedFieldName="ReturnTimes" errorMsg="同一借据本次上报还款次数 >历史最新还款次数。" >
+			</rule> -->
+
+			
+			<!--?	保理业务信息采集报文规则 -->
+			<rule name="rule12-01" messageType="12" errorCode="4308" recordType="12" segmentFlag="D" checkType="DIC" Level="4" checkedFieldName="FactoringType" errorMsg="保理信息段[保理产品类型]字段不在数据字典列表中" dataList="保理产品类型">
+			</rule>
+			<rule name="rule12-02" messageType="12" errorCode="4308" recordType="12" segmentFlag="D" checkType="DIC" Level="4" checkedFieldName="FactoringStatus" errorMsg="保理信息段[保理业务状态]字段不在数据字典列表中" dataList="保理业务状态">
+			</rule>
+			<rule name="rule12-03" messageType="12" errorCode="4308" recordType="12" segmentFlag="D" checkType="DIC" Level="4" checkedFieldName="GuarantyFlag" errorMsg="保理信息段[担保标志]字段不在数据字典列表中" dataList="担保标志">
+			</rule>
+			<rule name="rule12-04" messageType="12" errorCode="4308" recordType="12" segmentFlag="D" checkType="DIC" Level="4" checkedFieldName="FloorFlag" errorMsg="保理信息段[垫款标志]字段不在数据字典列表中" dataList="垫款标志">
+			</rule>
+			<rule name="rule12-06" messageType="12" errorCode="4308" recordType="12" segmentFlag="D" checkType="DIC" Level="4" checkedFieldName="Classify5" errorMsg="保理信息段[五级分类]字段不在数据字典列表中" dataList="五级分类">
+			</rule>
+			<rule name="rule12-07" messageType="12" errorCode="4218" recordType="12" segmentFlag="D" checkType="DR" Level="4" checkedFieldName="Balance" dataEndValue="{$BusinessSum}" errorMsg="叙做余额≤叙做金额">
+			</rule>
+			<rule name="rule12-10" messageType="12" errorCode="4016" recordType="12" segmentFlag="D" checkType="DR" Level="4" checkedFieldName="BusinessDate" dataStartValue="19010101" errorMsg="叙做日期错" >
+			</rule>
+			<!--<rule name="rule12-11" messageType="12" errorCode="5216" recordType="12" segmentFlag="D" checkType="DR" Level="4" checkedFieldName="BusinessDate" dataEndValue="{$B.OccurDate}" errorMsg="业务发生日期应大于等于保理叙做日期" >
+			</rule>-->
+			<rule name="rule12-12" messageType="12" errorCode="4016" recordType="12" segmentFlag="D" checkType="DR" Level="4" checkedFieldName="BalanceChangeDate" dataStartValue="19010101" errorMsg="余额变化日期错" >
+			</rule>
+			<!--<rule name="rule12-13" messageType="12" errorCode="4016" recordType="12" segmentFlag="D" checkType="DR" Level="4" checkedFieldName="BalanceChangeDate" dataEndValue="{$B.OccurDate}" errorMsg="业务发生日期应大于等于余额变化日期" >
+			</rule>-->
+			<rule name="rule12-14" messageType="12" errorCode="4220" recordType="12" segmentFlag="D" checkType="DR" Level="4" checkedFieldName="BusinessDate" dataEndValue="{$BalanceChangeDate}" errorMsg="叙做日期≤余额变动日期">
+			</rule>
+			<rule name="rule12-21" messageType="12" errorCode="4015" recordType="12" segmentFlag="D" checkType="DR" Level="4" checkedFieldName="BusinessSum"  dataStartValue="1" errorMsg="叙做金额应大于0" >
+  	        </rule>
+			<!-- V4.0
+			<rule name="rule12-17" messageType="12" errorCode="3004_2" recordType="12" segmentFlag="D" checkType="check3004_2" Level="4" checkedFieldName="GuarantyFlag" errorMsg="对含有担保标志的信息记录，当担保标志为1 是,在本次上报的担保报文和以前上报的最新担保信息中至少存在一条对应的担保信息记录,其合同有效状态为:1 是"  dataList="1" >
+			</rule>
+			<rule name="rule12-18" messageType="12" errorCode="3005_2" recordType="12" segmentFlag="B" checkType="check3005_2" Level="4" checkedFieldName="RecordOperateType" errorMsg="对含有担保标志的信息记录，当信息记录操作类型为1－新增且担保标志为2－否时，在信贷业务信息报文文件中的担保业务信息采集报文中不能存在与上述信息记录相对应的担保信息记录。"  dataList="1" >
+			</rule>
+			-->
+			<rule name="rule12-19" messageType="12" errorCode="4034" recordType="12" segmentFlag="D" checkType="DKK" Level="4" checkedFieldName="LoanCardNo" errorMsg="保理业务信息贷款卡编码错"  >
+			</rule>
+			<rule name="rule12-20" messageType="12" errorCode="4308" recordType="12" segmentFlag="B" checkType="FI" Level="4" checkedFieldName="FinanceID"  errorMsg="金融机构代码不符合人行规范" >
+  	    </rule>
+			<!--?	票据贴现业务信息采集报文规则-->
+			<rule name="rule13-01" messageType="13" errorCode="4308" recordType="13" segmentFlag="D" checkType="DIC" Level="4" checkedFieldName="BillType" errorMsg="票据贴现信息段[票据种类]字段不在数据字典列表中" dataList="票据种类">
+			</rule>
+			<rule name="rule13-02" messageType="13" errorCode="4308" recordType="13" segmentFlag="D" checkType="DIC" Level="4" checkedFieldName="BillStatus" errorMsg="票据贴现信息段[票据状态]字段不在数据字典列表中" dataList="票据状态">
+			</rule>
+			<rule name="rule13-04" messageType="13" errorCode="4308" recordType="13" segmentFlag="D" checkType="DIC" Level="4" checkedFieldName="Classify5" errorMsg="票据贴现信息段[五级分类]字段不在数据字典列表中" dataList="五级分类">
+			</rule>
+			<rule name="rule13-05" messageType="13" errorCode="4222" recordType="13" segmentFlag="D" checkType="DR" Level="4" checkedFieldName="BillSum" dataStartValue="{$DiscountSum}" errorMsg="票面金额≥贴现金额">
+			</rule>
+			<rule name="rule13-16" messageType="13" errorCode="4015" recordType="13" segmentFlag="D" checkType="DR" Level="4" checkedFieldName="BillSum" dataStartValue="1" errorMsg="票面金额应大于0">
+			</rule>
+			<rule name="rule13-09" messageType="13" errorCode="4016" recordType="13" segmentFlag="D" checkType="DR" Level="4" checkedFieldName="DiscountDate" dataStartValue="19010101" errorMsg="贴现日错" >
+			</rule>
+			<!--<rule name="rule13-10" messageType="13" errorCode="5316" recordType="13" segmentFlag="D" checkType="DR" Level="4" checkedFieldName="DiscountDate" dataEndValue="{$B.OccurDate}" errorMsg="业务发生日期应大于等于贴现日期" >
+			</rule>-->
+			<rule name="rule13-11" messageType="13" errorCode="4016" recordType="13" segmentFlag="D" checkType="DR" Level="4" checkedFieldName="AcceptMaturity" dataStartValue="19010101" errorMsg="承兑到期日错" >
+			</rule>
+			<rule name="rule13-12" messageType="13" errorCode="4224" recordType="13" segmentFlag="D" checkType="DR" Level="4" checkedFieldName="AcceptMaturity" dataStartValue="{$DiscountDate}" errorMsg="承兑到期日≥贴现日">
+			</rule>
+			<rule name="rule13-13" messageType="13" errorCode="4015" recordType="13" segmentFlag="D" checkType="DR" Level="4" checkedFieldName="DiscountSum"  dataStartValue="1" errorMsg="贴现金额应大于0" >
+  	        </rule>
+  	        <rule name="rule13-14" messageType="13" errorCode="4034" recordType="13" segmentFlag="D" checkType="DKK" Level="4" checkedFieldName="LoanCardNo" errorMsg="票据贴现业务信息贷款卡编码错"  >
+			</rule>
+			<rule name="rule13-15" messageType="13" errorCode="4308" recordType="13" segmentFlag="B" checkType="FI" Level="4" checkedFieldName="FinanceID"  errorMsg="金融机构代码不符合人行规范" >
+  	  </rule>
+			<!--?	贸易融资业务信息采集报文规则-->
+			<rule name="rule14-01" messageType="14" errorCode="4226" recordType="14" segmentFlag="E" checkType="DR" Level="4" checkedFieldName="Amount" dataStartValue="{$Balance}" errorMsg="融资协议金额≥融资协议余额">
+			</rule>
+			<rule name="rule14-02" messageType="14" errorCode="4016" recordType="14" segmentFlag="D" checkType="DR" Level="4" checkedFieldName="StartDate" dataStartValue="19010101" errorMsg="融资协议生效日期错" >
+			</rule>
+			<rule name="rule14-03" messageType="14" errorCode="4016" recordType="14" segmentFlag="D" checkType="DR" Level="4" checkedFieldName="EndDate" dataStartValue="19010101" errorMsg="融资协议终止日期" >
+			</rule>
+			<rule name="rule14-04" messageType="14" errorCode="4228" recordType="14" segmentFlag="D" checkType="DR" Level="4" checkedFieldName="StartDate" dataEndValue="{$EndDate}" errorMsg="融资协议生效日期≤融资协议终止日期">
+			</rule>
+			<rule name="rule14-05" messageType="14" errorCode="4230" recordType="15" segmentFlag="F" checkType="DR" Level="4" checkedFieldName="Balance" dataEndValue="{$BusinessSum}" errorMsg="融资余额≤融资金额">
+			</rule>
+			<!--<rule name="rule14-06" messageType="14" errorCode="5416" recordType="15" segmentFlag="F" checkType="DR" Level="4" checkedFieldName="PutOutDate" dataEndValue="{$B.OccurDate}" errorMsg="业务发生日期应大于等于融资业务发放日期" >
+			</rule>-->
+			<rule name="rule14-07" messageType="14" errorCode="4016" recordType="15" segmentFlag="F" checkType="DR" Level="4" checkedFieldName="PutOutDate" dataStartValue="19010101" errorMsg="融资业务发放日期错" >
+			</rule>
+			<rule name="rule14-08" messageType="14" errorCode="4016" recordType="15" segmentFlag="F" checkType="DR" Level="4" checkedFieldName="PutOutEndDate" dataStartValue="19010101" errorMsg="融资业务结束日期错" >
+			</rule>
+			<!--<rule name="rule14-09" messageType="14" errorCode="4240" recordType="15" segmentFlag="F" checkType="DR" Level="4" checkedFieldName="PutOutDate" dataEndValue="{$PutOutEndDate}" errorMsg="融资业务发放日期≤还款日期">
+			</rule>-->
+			<rule name="rule14-10" messageType="14" errorCode="4308" recordType="14" segmentFlag="D" checkType="DIC" Level="4" checkedFieldName="GuarantyFlag" errorMsg="融资协议信息段[担保标志]字段不在数据字典列表中" dataList="担保标志">
+			</rule>
+			<rule name="rule14-11" messageType="14" errorCode="4308" recordType="14" segmentFlag="D" checkType="DIC" Level="4" checkedFieldName="AvailabStatus" errorMsg="融资协议信息段[协议有效状态]字段不在数据字典列表中" dataList="协议有效状态">
+			</rule>
+			<rule name="rule14-12" messageType="14" errorCode="4308" recordType="15" segmentFlag="F" checkType="DIC" Level="4" checkedFieldName="BusinessType" errorMsg="融资业务信息段[融资业务种类]字段不在数据字典列表中" dataList="融资业务种类">
+			</rule>
+			<rule name="rule14-13" messageType="14" errorCode="4308" recordType="15" segmentFlag="F" checkType="DIC" Level="4" checkedFieldName="ExtenFlag" errorMsg="融资业务信息段[展期标志]字段不在数据字典列表中" dataList="展期标志">
+			</rule>
+			<rule name="rule14-14" messageType="14" errorCode="4308" recordType="15" segmentFlag="F" checkType="DIC" Level="4" checkedFieldName="Classify5" errorMsg="融资业务信息段[五级分类]字段不在数据字典列表中" dataList="五级分类">
+			</rule>
+			<rule name="rule14-15" messageType="14" errorCode="4308" recordType="16" segmentFlag="G" checkType="DIC" Level="4" checkedFieldName="ReturnMode" errorMsg="融资业务还款信息段[还款方式]字段不在数据字典列表中" dataList="还款方式">
+			</rule>
+			<!-- V4.0
+			<rule name="rule14-16" messageType="14" errorCode="3004_4" recordType="14" segmentFlag="D" checkType="check3004_4" Level="4" checkedFieldName="GuarantyFlag" errorMsg="对含有担保标志的信息记录，当担保标志为1 是,在本次上报的担保报文和以前上报的最新担保信息中至少存在一条对应的担保信息记录,其合同有效状态为:1 是"  dataList="1" >
+			</rule>
+			<rule name="rule14-17" messageType="14" errorCode="3005_4" recordType="14" segmentFlag="B" checkType="check3005_4" Level="4" checkedFieldName="RecordOperateType" errorMsg="对含有担保标志的信息记录，当信息记录操作类型为1－新增且担保标志为2－否时，在信贷业务信息报文文件中的担保业务信息采集报文中不能存在与上述信息记录相对应的担保信息记录。"  dataList="1" >
+			</rule>
+			-->
+			<rule name="rule14-18" messageType="14" errorCode="4016" recordType="16" segmentFlag="G" checkType="DR" Level="4" checkedFieldName="ReturnDate" dataStartValue="19010101" errorMsg="还款日期错" >
+			</rule>
+			<!--<rule name="rule14-19" messageType="14" errorCode="5516" recordType="16" segmentFlag="G" checkType="DR" Level="4" checkedFieldName="ReturnDate" dataEndValue="{$B.OccurDate}" errorMsg="业务发生日期应大于等于贸易融资还款日期" >
+			</rule>	-->		
+			<rule name="rule14-20" messageType="14" errorCode="4016" recordType="17" segmentFlag="H" checkType="DR" Level="4" checkedFieldName="ExtenStartDate" dataStartValue="19010101" errorMsg="展期起始日期错" >
+			</rule>
+			<rule name="rule14-21" messageType="14" errorCode="4016" recordType="17" segmentFlag="H" checkType="DR" Level="4" checkedFieldName="ExtenEndDate" dataStartValue="19010101" errorMsg="展期到期日期错" >
+			</rule>
+			<rule name="rule14-22" messageType="14" errorCode="4242" recordType="17" segmentFlag="H" checkType="DR" Level="4" checkedFieldName="ExtenEndDate" dataStartValue="{$ExtenStartDate}" errorMsg="展期到期日期应不小于展期起始日期" >
+			</rule>
+			<rule name="rule14-43" messageType="14" errorCode="4015" recordType="17" segmentFlag="H" checkType="DR" Level="4" checkedFieldName="ExtenSum" dataStartValue="1" errorMsg="展期金额必须大于0" >
+			</rule>
+			<rule name="rule14-44" messageType="14" errorCode="4015" recordType="14" segmentFlag="E" checkType="DR" Level="4" checkedFieldName="Amount" dataStartValue="1" errorMsg="融资协议金额必须大于0" >
+			</rule>
+			<rule name="rule14-45" messageType="14" errorCode="4015" recordType="15" segmentFlag="F" checkType="DR" Level="4" checkedFieldName="BusinessSum" dataStartValue="1" errorMsg="融资金额必须大于0" >
+			</rule>
+			<rule name="rule14-23" messageType="14" errorCode="4002" recordType="15" segmentFlag="F" checkType="DR" Level="4" checkedFieldName="Balance"  dataStartValue="0" errorMsg="贸易融资余额应大于等于0" >
+  	        </rule>
+			<rule name="rule14-42" messageType="14" errorCode="3012" recordType="15" segmentFlag="F" checkType="check3012_2" Level="4" checkedFieldName="ExtenFlag" errorMsg="对含有展期标志的信息记录，当数据项展期标志为：2－否时，那么在融资业务信息报文文件中的贷款业务信息采集报文中以及数据库中不能有与上述记录相对应的展期信息记录存在。"  dataList="2" >
+			</rule>
+			<rule name="rule14-24" messageType="14" errorCode="4232" recordType="15" segmentFlag="F" checkType="check4232" Level="4" checkedFieldName="BusinessSum" errorMsg="还款金额≤融资金额。" >
+			</rule>
+			<rule name="rule14-25" messageType="14" errorCode="4234" recordType="15" segmentFlag="F" checkType="check4234" Level="4" checkedFieldName="DuebillNo" errorMsg="对于同一融资业务，融资余额＝融资金额－∑融资还款金额。" >
+			</rule>
+			<rule name="rule14-26" messageType="14" errorCode="4240" recordType="16" segmentFlag="G" checkType="check4240" Level="4" checkedFieldName="ReturnDate" errorMsg="融资业务发放日期≤还款日期。" >
+			</rule>
+			<rule name="rule14-27" messageType="14" errorCode="4242" recordType="15" segmentFlag="F" checkType="check4242" Level="4" checkedFieldName="PutOutDate" errorMsg="融资业务发放日期≤展期起始日期≤展期到期日。" >
+			</rule>
+			<rule name="rule14-28" messageType="14" errorCode="4244" recordType="17" segmentFlag="H" checkType="check4244" Level="4" checkedFieldName="ExtenSum" errorMsg="展期金额≤融资金额。" >
+			</rule>
+			<rule name="rule14-30" messageType="14" errorCode="4248" recordType="14" segmentFlag="D" checkType="check4248" Level="4" checkedFieldName="StartDate" errorMsg="融资协议生效日期≤融资业务发放时间。" >
+			</rule>
+			<rule name="rule14-31" messageType="14" errorCode="4250" recordType="17" segmentFlag="H" checkType="check4250" Level="4" checkedFieldName="ExtenTimes" errorMsg="对于融资业务信息记录,当数据库中最新的融资业务展期信息记录的展期次数为1,数据库中该融资业务信息记录没有还款信息记录时，融资余额等于最新融资业务展期信息记录的展期金额。"  dataList="1">
+			</rule>
+			<rule name="rule14-32" messageType="14" errorCode="4274" recordType="15" segmentFlag="F" checkType="check4274" Level="4" checkedFieldName="DuebillNo" errorMsg="融资业务信息记录对应的融资协议信息记录必须在数据库中已存在。" >
+			</rule>
+			<rule name="rule14-33" messageType="14" errorCode="4276" recordType="16" segmentFlag="G" checkType="check4276" Level="4" checkedFieldName="DuebillNo" errorMsg="融资业务还款信息记录对应的融资业务信息记录必须在数据库中已存在。" >
+			</rule>
+			<rule name="rule14-34" messageType="14" errorCode="4278" recordType="17" segmentFlag="H" checkType="check4278" Level="4" checkedFieldName="DuebillNo" errorMsg="融资业务展期信息记录对应的融资业务信息记录必须在数据库中已存在。" >
+			</rule>
+			<rule name="rule14-35" messageType="14" errorCode="4236" recordType="17" segmentFlag="H" checkType="check4236" Level="4" checkedFieldName="ExtenTimes" errorMsg="融资业务展期次数>1时，融资展期次数＝历史展期次数＋1。" >
+			</rule>
+			<!--rule name="rule14-36" messageType="14" errorCode="4238" recordType="16" segmentFlag="G" checkType="check4238" Level="4" checkedFieldName="ReturnTimes" errorMsg="同一融资业务，本次上报还款次数 >历史最新还款次数。" >
+			</rule-->
+			<rule name="rule14-37" messageType="14" errorCode="4034" recordType="14" segmentFlag="B" checkType="DKK" Level="4" checkedFieldName="LoanCardNo" errorMsg="贸易融资业务信息贷款卡编码错"  >
+			</rule>
+			<rule name="rule14-38" messageType="14" errorCode="4308" recordType="14" segmentFlag="B" checkType="FI" Level="4" checkedFieldName="FinanceID"  errorMsg="金融机构代码不符合人行规范" >
+  	  </rule>
+  	  <rule name="rule14-39" messageType="14" errorCode="4308" recordType="15" segmentFlag="B" checkType="FI" Level="4" checkedFieldName="FinanceID"  errorMsg="金融机构代码不符合人行规范" >
+  	  </rule>
+  	  <rule name="rule14-40" messageType="14" errorCode="4308" recordType="16" segmentFlag="B" checkType="FI" Level="4" checkedFieldName="FinanceID"  errorMsg="金融机构代码不符合人行规范" >
+  	  </rule>
+  	  <rule name="rule14-41" messageType="14" errorCode="4308" recordType="17" segmentFlag="B" checkType="FI" Level="4" checkedFieldName="FinanceID"  errorMsg="金融机构代码不符合人行规范" >
+  	  </rule>
+			<!--?	信用证业务信息采集报文规则-->
+			<rule name="rule15-01" messageType="15" errorCode="4282" recordType="18" segmentFlag="D" checkType="NA" checkedFieldName="LogOutDate" errorMsg="信用证状态为2－注销时，信用证注销日期为必填项">
+				<precondition>
+					<rule name="rule1" messageType="15" recordType="18" segmentFlag="D" checkType="DL" checkedFieldName="CresitStatus" dataList="2;"/>
+				</precondition>
+			</rule>			
+			<rule name="rule15-02" messageType="15" errorCode="4016" recordType="18" segmentFlag="D" checkType="DR" Level="4" checkedFieldName="LogOutDate" dataStartValue="19010101" errorMsg="信用证注销日期错" >
+				<precondition>
+					<rule name="rule1" messageType="15" recordType="18" segmentFlag="D" checkType="NA" checkedFieldName="LogOutDate" />
+				</precondition>
+			</rule>
+			<rule name="rule15-03" messageType="15" errorCode="5616" recordType="18" segmentFlag="D" checkType="DR" Level="4" checkedFieldName="LogOutDate" dataEndValue="{$B.OccurDate}" errorMsg="业务发生日期应大于等于信用证注销日期" >
+				<precondition>
+					<rule name="rule1" messageType="15" recordType="18" segmentFlag="D" checkType="NA" checkedFieldName="LogOutDate" />
+				</precondition>
+			</rule>
+			<rule name="rule15-04" messageType="15" errorCode="4286" recordType="18" segmentFlag="D" checkType="DR" checkedFieldName="LogOutDate" dataStartValue="{$ReportDate}" errorMsg="信用证注销日期应大于等于余额报告日期">
+				<precondition>
+					<rule name="rule1" messageType="15" recordType="18" segmentFlag="D" checkType="NA" checkedFieldName="LogOutDate" />
+				</precondition>
+			</rule>
+			<rule name="rule15-05" messageType="15" errorCode="5716" recordType="18" segmentFlag="D" checkType="DR" checkedFieldName="ReportDate" dataStartValue="{$CreateDate}" errorMsg="余额报告日期应大于等于开证日期">
+			</rule>
+			<rule name="rule15-06" messageType="15" errorCode="5816" recordType="18" segmentFlag="D" checkType="DR" checkedFieldName="ReportDate" dataEndValue="{$B.OccurDate}" errorMsg="业务发生日期应大于等于余额报告日期">
+			</rule>
+			<rule name="rule15-07" messageType="15" errorCode="4015" recordType="18" segmentFlag="D" checkType="DRNE" Level="4" checkedFieldName="CreateSum" dataStartValue="1" errorMsg="信用证开证金额应大于0">
+			</rule>
+			<rule name="rule15-08" messageType="15" errorCode="4016" recordType="18" segmentFlag="D" checkType="DR" Level="4" checkedFieldName="CreateDate" dataStartValue="19010101" errorMsg="开证日期错" >
+			</rule>
+			<!--<rule name="rule15-09" messageType="15" errorCode="5916" recordType="18" segmentFlag="D" checkType="DR" Level="4" checkedFieldName="CreateDate" dataEndValue="{$B.OccurDate}" errorMsg="业务发生日期应大于等于开证日期" >
+			</rule>	-->	
+			<rule name="rule15-10" messageType="15" errorCode="4016" recordType="18" segmentFlag="D" checkType="DR" Level="4" checkedFieldName="AvailabTerm" dataStartValue="19010101" errorMsg="信用证有效期错" >
+			</rule>
+			<rule name="rule15-12" messageType="15" errorCode="4308" recordType="18" segmentFlag="D" checkType="DIC" Level="4" checkedFieldName="GuarantyFlag" errorMsg="信用证业务信息段[担保标志]字段不在数据字典列表中" dataList="担保标志">
+			</rule>
+			<rule name="rule15-13" messageType="15" errorCode="4308" recordType="18" segmentFlag="D" checkType="DIC" Level="4" checkedFieldName="FloorFlag" errorMsg="信用证业务信息段[垫款标志]字段不在数据字典列表中" dataList="垫款标志">
+			</rule>
+			<rule name="rule15-14" messageType="15" errorCode="4308" recordType="18" segmentFlag="D" checkType="DIC" Level="4" checkedFieldName="CresitStatus" errorMsg="信用证业务信息段[信用证状态]字段不在数据字典列表中" dataList="信用证状态">
+			</rule>
+			<rule name="rule15-15" messageType="15" errorCode="4308" recordType="18" segmentFlag="D" checkType="DIC" Level="4" checkedFieldName="Classify5" errorMsg="信用证业务信息段[五级分类]字段不在数据字典列表中" dataList="五级分类">
+			</rule>
+			<rule name="rule15-16" messageType="15" errorCode="4308" recordType="18" segmentFlag="D" checkType="DIC" Level="4" checkedFieldName="PayTerm" errorMsg="信用证业务信息段[信用证付款期限]字段不在数据字典列表中" dataList="信用证付款期限">
+			</rule>
+			<!-- V4.0
+			<rule name="rule15-17" messageType="15" errorCode="3004_5" recordType="18" segmentFlag="D" checkType="check3004_5" Level="4" checkedFieldName="GuarantyFlag" errorMsg="对含有担保标志的信息记录，当担保标志为1 是,在本次上报的担保报文和以前上报的最新担保信息中至少存在一条对应的担保信息记录,其合同有效状态为:1 是"  dataList="1" >
+			</rule>
+			<rule name="rule15-18" messageType="15" errorCode="3005_5" recordType="18" segmentFlag="B" checkType="check3005_5" Level="4" checkedFieldName="RecordOperateType" errorMsg="对含有担保标志的信息记录，当信息记录操作类型为1－新增且担保标志为2－否时，在信贷业务信息报文文件中的担保业务信息采集报文中不能存在与上述信息记录相对应的担保信息记录。"  dataList="1" >
+			</rule>
+			-->
+			<rule name="rule15-19" messageType="15" errorCode="4284" recordType="18" segmentFlag="D" checkType="DR" Level="4" checkedFieldName="AvailabTerm" dataStartValue="{CreateDate}" errorMsg="信用证有效期≥开证日期">
+			</rule>
+			<rule name="rule15-20" messageType="15" errorCode="4034" recordType="18" segmentFlag="D" checkType="DKK" Level="4" checkedFieldName="LoanCardNo" errorMsg="信用证业务信息贷款卡编码错"  >
+			</rule>
+			<rule name="rule15-21" messageType="15" errorCode="4308" recordType="18" segmentFlag="B" checkType="FI" Level="4" checkedFieldName="FinanceID"  errorMsg="金融机构代码不符合人行规范" >
+  	  </rule>
+			<!--?	保函业务信息采集报文规则-->
+			<rule name="rule16-01" messageType="16" errorCode="4288" recordType="19" segmentFlag="D" checkType="DR" Level="4" checkedFieldName="Balance" dataEndValue="{$GuaranteeSum}" errorMsg="保函余额≤保函金额">
+			</rule>
+			<rule name="rule16-21" messageType="16" errorCode="4015" recordType="19" segmentFlag="D" checkType="DR" Level="4" checkedFieldName="GuaranteeSum" dataStartValue="1" errorMsg="保函金额应大于0">
+			</rule>
+			<rule name="rule16-04" messageType="16" errorCode="4290" recordType="19" segmentFlag="D" checkType="DR" Level="4" checkedFieldName="BalanceOccurDate" dataStartValue="19010101" errorMsg="余额发生日期错" >
+			</rule>		
+			<rule name="rule16-06" messageType="16" errorCode="4290" recordType="19" segmentFlag="D" checkType="DR" Level="4" checkedFieldName="CreateDate" dataEndValue="{$EndDate}" errorMsg="保函开立日期小于等于保函到期日" >
+			</rule>
+			<rule name="rule16-07" messageType="16" errorCode="4308" recordType="19" segmentFlag="D" checkType="DIC" Level="4" checkedFieldName="GuaranteeType" errorMsg="保函业务信息段[保函种类]字段不在数据字典列表中" dataList="保函种类">
+			</rule>
+			<rule name="rule16-08" messageType="16" errorCode="4308" recordType="19" segmentFlag="D" checkType="DIC" Level="4" checkedFieldName="GuaranteeStatus" errorMsg="保函业务信息段[保函状态]字段不在数据字典列表中" dataList="保函状态">
+			</rule>
+			<rule name="rule16-09" messageType="16" errorCode="4308" recordType="19" segmentFlag="D" checkType="DIC" Level="4" checkedFieldName="FloorFlag" errorMsg="保函业务信息段[垫款标志]字段不在数据字典列表中" dataList="垫款标志">
+			</rule>
+			<rule name="rule16-10" messageType="16" errorCode="4308" recordType="19" segmentFlag="D" checkType="DIC" Level="4" checkedFieldName="GuarantyFlag" errorMsg="保函业务信息段[担保标志]字段不在数据字典列表中" dataList="担保标志">
+			</rule>
+			<rule name="rule16-11" messageType="16" errorCode="4308" recordType="19" segmentFlag="D" checkType="DIC" Level="4" checkedFieldName="Classify5" errorMsg="保函业务信息段[五级分类]字段不在数据字典列表中" dataList="五级分类">
+			</rule>
+			<rule name="rule16-12" messageType="16" errorCode="4034" recordType="19" segmentFlag="D" checkType="DKK" Level="4" checkedFieldName="LoanCardNO" errorMsg="保函业务信息贷款卡编码错"  >
+			</rule>
+					
+			
+			<!--<rule name="rule16-12" messageType="16" errorCode="4016" recordType="19" segmentFlag="D" checkType="DR" Level="4" checkedFieldName="EndDate" dataStartValue="19010101" errorMsg="保函到期日错">
+			</rule>-->
+			<rule name="rule16-13" messageType="16" errorCode="4016" recordType="19" segmentFlag="D" checkType="DR" Level="4" checkedFieldName="CreateDate" dataStartValue="19010101" errorMsg="保函开立日期错" >
+			</rule>
+			<!--<rule name="rule16-14" messageType="16" errorCode="6016" recordType="19" segmentFlag="D" checkType="DR" Level="4" checkedFieldName="CreateDate" dataEndValue="{$B.OccurDate}" errorMsg="业务发生日期应大于等于保函开立日期" >
+			</rule>	-->	
+			<rule name="rule16-15" messageType="16" errorCode="4022" recordType="19" segmentFlag="D" checkType="DR" Level="4" checkedFieldName="AssureScale" dataStartValue="0" dataEndValue="100" errorMsg="保证金比例应大于0小于100" >
+			</rule>
+			<!-- V4.0
+			<rule name="rule16-17" messageType="16" errorCode="3004_6" recordType="19" segmentFlag="D" checkType="check3004_6" Level="4" checkedFieldName="GuarantyFlag" errorMsg="对含有担保标志的信息记录，当担保标志为1 是,在本次上报的担保报文和以前上报的最新担保信息中至少存在一条对应的担保信息记录,其合同有效状态为:1 是"  dataList="1" >
+			</rule>
+			<rule name="rule16-18" messageType="16" errorCode="3005_6" recordType="19" segmentFlag="B" checkType="check3005_6" Level="4" checkedFieldName="RecordOperateType" errorMsg="对含有担保标志的信息记录，当信息记录操作类型为1－新增且担保标志为2－否时，在信贷业务信息报文文件中的担保业务信息采集报文中不能存在与上述信息记录相对应的担保信息记录。"  dataList="1" >
+			</rule
+			-->
+			<rule name="rule16-19" messageType="16" errorCode="4034" recordType="19" segmentFlag="D" checkType="DKK" Level="4" checkedFieldName="LoanCardNo" errorMsg="保函业务信息贷款卡编码错"  >
+			</rule>
+			<rule name="rule16-20" messageType="16" errorCode="4308" recordType="19" segmentFlag="B" checkType="FI" Level="4" checkedFieldName="FinanceID"  errorMsg="金融机构代码不符合人行规范" >
+  	  </rule>
+			<!--?	银行承兑汇票业务信息采集报文规则-->
+			<rule name="rule17-01" messageType="17" errorCode="4016" recordType="20" segmentFlag="D" checkType="DR" Level="4" checkedFieldName="AccepDate" dataStartValue="19010101" errorMsg="汇票承兑日错">
+			</rule>
+			<rule name="rule17-02" messageType="17" errorCode="4016" recordType="20" segmentFlag="D" checkType="DR" Level="4" checkedFieldName="AccepEndDate" dataStartValue="19010101" errorMsg="汇票到期日错">
+			</rule>	
+		    <rule name="rule17-21" messageType="17" errorCode="4015" recordType="20" segmentFlag="D" checkType="DR" Level="4" checkedFieldName="AccepSum" dataStartValue="1" errorMsg="汇票金额应大于0">
+			</rule>	
+			<!--<rule name="rule17-02" messageType="17" errorCode="6116" recordType="20" segmentFlag="D" checkType="DR" Level="4" checkedFieldName="AccepEndDate" dataEndValue="{$B.OccurDate}" errorMsg="业务发生日期应大于等于汇票承兑日期" >
+			</rule>	-->							
+			<!--<rule name="rule17-09" messageType="17" errorCode="4016" recordType="20" segmentFlag="D" checkType="DR" Level="4" checkedFieldName="AccepPayDate" dataStartValue="19010101" errorMsg="汇票付款日期错" >
+				<precondition>
+					<rule name="rule1" messageType="17" recordType="20" segmentFlag="D" checkType="NA" checkedFieldName="AccepPayDate" />
+				</precondition>
+			</rule>	
+			<rule name="rule17-10" messageType="17" errorCode="4294" recordType="20" segmentFlag="D" checkType="DR" Level="4" checkedFieldName="AccepPayDate" dataStartValue="{$AccepDate}" dataEndValue="{$AccepEndDate}" errorMsg="汇票付款日期应大于等于汇票承兑日且小于等于汇票到期日" >
+				<precondition>
+					<rule name="rule1" messageType="17" recordType="20" segmentFlag="D" checkType="NA" checkedFieldName="AccepPayDate" />
+				</precondition>
+			</rule>	-->
+			<rule name="rule17-11" messageType="17" errorCode="4308" recordType="20" segmentFlag="D" checkType="DIC" Level="4" checkedFieldName="DraftStatus" errorMsg="汇票业务信息段[汇票状态]字段不在数据字典列表中" dataList="汇票状态">
+			</rule>
+			<rule name="rule17-12" messageType="17" errorCode="4308" recordType="20" segmentFlag="D" checkType="DIC" Level="4" checkedFieldName="FloorFlag" errorMsg="汇票业务信息段[垫款标志]字段不在数据字典列表中" dataList="垫款标志">
+			</rule>
+			<rule name="rule17-13" messageType="17" errorCode="4308" recordType="20" segmentFlag="D" checkType="DIC" Level="4" checkedFieldName="GuarantyFlag" errorMsg="汇票业务信息段[担保标志]字段不在数据字典列表中" dataList="担保标志">
+			</rule>
+			<rule name="rule17-14" messageType="17" errorCode="4308" recordType="20" segmentFlag="D" checkType="DIC" Level="4" checkedFieldName="Classify5" errorMsg="汇票业务信息段[五级分类]字段不在数据字典列表中" dataList="五级分类">
+			</rule>
+			<rule name="rule17-15" messageType="17" errorCode="4022" recordType="20" segmentFlag="D" checkType="DR" Level="4" checkedFieldName="AssureScale"  dataStartValue="0" dataEndValue="100" errorMsg="保证金比例应大于0小于100" >
+			</rule>
+			<rule name="rule17-17" messageType="17" errorCode="3004_7" recordType="20" segmentFlag="D" checkType="check3004_7" Level="4" checkedFieldName="GuarantyFlag" errorMsg="对含有担保标志的信息记录，当担保标志为1 是,在本次上报的担保报文和以前上报的最新担保信息中至少存在一条对应的担保信息记录,其合同有效状态为:1 是"  dataList="1" >
+			</rule>
+			<rule name="rule17-18" messageType="17" errorCode="3005_7" recordType="20" segmentFlag="B" checkType="check3005_7" Level="4" checkedFieldName="RecordOperateType" errorMsg="对含有担保标志的信息记录，当信息记录操作类型为1－新增且担保标志为2－否时，在信贷业务信息报文文件中的担保业务信息采集报文中不能存在与上述信息记录相对应的担保信息记录。"  dataList="1" >
+			</rule>
+			<rule name="rule17-19" messageType="17" errorCode="4034" recordType="20" segmentFlag="D" checkType="DKK" Level="4" checkedFieldName="LoanCardNo" errorMsg="承兑汇票业务信息贷款卡编码错"  >
+			</rule>
+			<rule name="rule17-20" messageType="17" errorCode="4308" recordType="20" segmentFlag="B" checkType="FI" Level="4" checkedFieldName="FinanceID"  errorMsg="金融机构代码不符合人行规范" >
+  	  </rule>
+			<!--?	公开授信信息采集报文规则-->
+			<rule name="rule18-02" messageType="18" errorCode="4016" recordType="21" segmentFlag="D" checkType="DR" Level="4" checkedFieldName="CreditStartDate" dataStartValue="19010101" errorMsg="授信生效起始日期错" >
+			</rule>
+			<rule name="rule18-09" messageType="18" errorCode="4016" recordType="21" segmentFlag="D" checkType="DR" Level="4" checkedFieldName="CreditEndDate" dataStartValue="19010101" errorMsg="授信终止日期错" >
+			</rule>
+			<rule name="rule18-09" messageType="18" errorCode="6216" recordType="21" segmentFlag="D" checkType="DR" Level="4" checkedFieldName="CreditStartDate" dataEndValue="{$B.OccurDate}" errorMsg="业务发生日期应大于等于授信生效起始日期" >
+			</rule>
+			<rule name="rule18-11" messageType="18" errorCode="4016" recordType="21" segmentFlag="D" checkType="DR" Level="4" checkedFieldName="CreditLogOnDate" dataStartValue="19010101" errorMsg="授信额度注销生效日期错" >
+				<precondition>
+					<rule name="rule1" messageType="18" recordType="21" segmentFlag="D" checkType="NA" checkedFieldName="CreditLogOnDate" />
+				</precondition>
+			</rule>	
+			<rule name="rule18-13" messageType="18" errorCode="4294" recordType="21" segmentFlag="D" checkType="DR" Level="4" checkedFieldName="CreditLogOnDate" dataStartValue="{$CreditStartDate}" dataEndValue="{$CreditEndDate}" errorMsg="授信额度注销生效日期应大于等于授信生效起始日期且小于等于授信终止日期" >
+				<precondition>
+					<rule name="rule1" messageType="18" recordType="21" segmentFlag="D" checkType="NA" checkedFieldName="CreditLogOnDate" />
+				</precondition>
+			</rule>	
+			<rule name="rule18-14" messageType="18" errorCode="4308" recordType="21" segmentFlag="D" checkType="DIC" Level="4" checkedFieldName="CreditLogOnCause" errorMsg="授信业务信息段[授信额度注销原因]字段不在数据字典列表中" dataList="授信额度注销原因" >
+				<precondition>
+					<rule name="rule1" messageType="18" recordType="21" segmentFlag="D" checkType="NA" checkedFieldName="CreditLogOnCause" />
+				</precondition>
+			</rule>			
+			<rule name="rule18-15" messageType="18" errorCode="0000" recordType="21" segmentFlag="D" checkType="DJ" Level="4" checkedFieldName="CreditLogOnCause" dataStartValue="{$CreditLogOnDate}" errorMsg="授信额度注销生效日期和授信额度注销原因必须同时为空或同时不为空">
+			</rule>
+			<rule name="rule18-16" messageType="18" errorCode="4015" recordType="21" segmentFlag="D" checkType="DR" Level="4" checkedFieldName="CreditLimit"  dataStartValue="1" errorMsg="授信额度应大于0" >
+  	  </rule>
+  	  <rule name="rule18-17" messageType="18" errorCode="4034" recordType="21" segmentFlag="D" checkType="DKK" Level="4" checkedFieldName="LoanCardNo" errorMsg="公开授信业务信息贷款卡编码错"  >
+			</rule>
+			<rule name="rule18-18" messageType="18" errorCode="4308" recordType="21" segmentFlag="B" checkType="FI" Level="4" checkedFieldName="FinanceID"  errorMsg="金融机构代码不符合人行规范" >
+  	  </rule>
+			<!--?	担保业务信息采集报文规则-->			
+			<rule name="rule19-01" messageType="19" errorCode="4308" recordType="22" segmentFlag="D" checkType="DIC" Level="4" checkedFieldName="AssureForm" errorMsg="保证合同信息段[保证担保形式]字段不在数据字典列表中" dataList="保证担保形式">
+			</rule>
+			<rule name="rule19-02" messageType="19" errorCode="4308" recordType="22" segmentFlag="D" checkType="DIC" Level="4" checkedFieldName="AvailabStatus" errorMsg="保证合同信息段[合同有效状态]字段不在数据字典列表中" dataList="合同有效状态">
+			</rule>
+			<rule name="rule19-03" messageType="19" errorCode="4308" recordType="22" segmentFlag="B" checkType="DIC" Level="4" checkedFieldName="BusinessType" errorMsg="保证合同基础段[信贷业务种类]字段不在数据字典列表中" dataList="信贷业务种类">
+			</rule>
+			<rule name="rule19-04" messageType="19" errorCode="4016" recordType="22" segmentFlag="D" checkType="DR" Level="4" checkedFieldName="CreateDate" dataStartValue="19010101" errorMsg="合同签订日期错" >
+			</rule>
+			<rule name="rule19-10" messageType="19" errorCode="6316" recordType="22" segmentFlag="D" checkType="DR" Level="4" checkedFieldName="CreateDate" dataEndValue="{$B.OccurDate}" errorMsg="业务发生日期应大于等于保证合同签订日期" >
+			</rule>
+			<rule name="rule19-12" messageType="19" errorCode="4016" recordType="23" segmentFlag="E" checkType="DR" Level="4" checkedFieldName="CreateDate" dataStartValue="19010101" errorMsg="合同签订日期错" >
+			</rule>
+			<rule name="rule19-13" messageType="19" errorCode="6416" recordType="23" segmentFlag="E" checkType="DR" Level="4" checkedFieldName="CreateDate" dataEndValue="{$B.OccurDate}" errorMsg="业务发生日期应大于等于合同签订日期" >
+			</rule>
+			<!--rule name="rule19-14" messageType="19" errorCode="0000" recordType="23" segmentFlag="E" checkType="DR" Level="4" checkedFieldName="SerialNo" dataStartValue="01" errorMsg="抵押合同序号必须大于零">
+		  </rule-->
+			<rule name="rule19-15" messageType="19" errorCode="4308" recordType="23" segmentFlag="E" checkType="DIC" Level="4" checkedFieldName="GuarantyType" errorMsg="抵押合同信息段[抵押物种类]字段不在数据字典列表中" dataList="抵押物种类">
+			</rule>
+			<rule name="rule19-16" messageType="19" errorCode="4308" recordType="23" segmentFlag="E" checkType="DIC" Level="4" checkedFieldName="AvailabStatus" errorMsg="抵押合同信息段[合同有效状态]字段不在数据字典列表中" dataList="合同有效状态">
+			</rule>
+			<!--<rule name="rule19-17" messageType="19" errorCode="4016" recordType="23" segmentFlag="E" checkType="DR" Level="4" checkedFieldName="InputDate" dataStartValue="19010101" errorMsg="登记日期错" >			
+			</rule>-->
+			<!--rule name="rule19-18" messageType="19" errorCode="0000" recordType="24" segmentFlag="F" checkType="DR" Level="4" checkedFieldName="SerialNo" dataStartValue="01" errorMsg="质押合同序号必须大于零">
+			</rule-->
+			<rule name="rule19-19" messageType="19" errorCode="4308" recordType="24" segmentFlag="F" checkType="DIC" Level="4" checkedFieldName="ImpawnType" errorMsg="质押合同信息段[质押物种类]字段不在数据字典列表中" dataList="质押物种类">
+			</rule>
+			<rule name="rule19-20" messageType="19" errorCode="4308" recordType="24" segmentFlag="F" checkType="DIC" Level="4" checkedFieldName="AvailabStatus" errorMsg="质押合同信息段[合同有效状态]字段不在数据字典列表中" dataList="合同有效状态">
+			</rule>
+			<rule name="rule19-21" messageType="19" errorCode="4016" recordType="24" segmentFlag="F" checkType="DR" Level="4" checkedFieldName="CreateDate" dataStartValue="19010101" errorMsg="合同签订日期错" >
+			</rule>
+			<rule name="rule19-22" messageType="19" errorCode="6516" recordType="24" segmentFlag="F" checkType="DR" Level="4" checkedFieldName="CreateDate" dataEndValue="{$B.OccurDate}" errorMsg="业务发生日期应大于等于合同签订日期" >
+			</rule>
+			<rule name="rule19-24" messageType="19" errorCode="9038_1" recordType="22" segmentFlag="B" checkType="check9038_1" Level="4" checkedFieldName="BusinessType" errorMsg="保证合同信息记录所对应的贷款合同信息记录必须在数据库中已存在。" dataList="1">
+			</rule>
+			<rule name="rule19-25" messageType="19" errorCode="9038_1" recordType="23" segmentFlag="B" checkType="check9038_1" Level="4" checkedFieldName="BusinessType" errorMsg="抵押合同信息记录所对应的贷款合同信息记录必须在数据库中已存在。" dataList="1">
+			</rule>
+			<rule name="rule19-26" messageType="19" errorCode="9038_1" recordType="24" segmentFlag="B" checkType="check9038_1" Level="4" checkedFieldName="BusinessType" errorMsg="质押合同信息记录所对应的贷款合同信息记录必须在数据库中已存在。" dataList="1">
+			</rule>
+			<rule name="rule19-27" messageType="19" errorCode="9038_2" recordType="22" segmentFlag="B" checkType="check9038_2" Level="4" checkedFieldName="BusinessType" errorMsg="保证合同信息记录所对应的保理业务信息记录必须在数据库中已存在。" dataList="2">
+			</rule>
+			<rule name="rule19-28" messageType="19" errorCode="9038_2" recordType="23" segmentFlag="B" checkType="check9038_2" Level="4" checkedFieldName="BusinessType" errorMsg="抵押合同信息记录所对应的保理业务信息记录必须在数据库中已存在。" dataList="2">
+			</rule>
+			<rule name="rule19-29" messageType="19" errorCode="9038_2" recordType="24" segmentFlag="B" checkType="check9038_2" Level="4" checkedFieldName="BusinessType" errorMsg="质押合同信息记录所对应的保理业务信息记录必须在数据库中已存在。" dataList="2">
+			</rule>
+			<rule name="rule19-30" messageType="19" errorCode="9038_4" recordType="22" segmentFlag="B" checkType="check9038_4" Level="4" checkedFieldName="BusinessType" errorMsg="保证合同信息记录所对应的融资协议信息记录必须在数据库中已存在。" dataList="4">
+			</rule>
+			<rule name="rule19-31" messageType="19" errorCode="9038_4" recordType="23" segmentFlag="B" checkType="check9038_4" Level="4" checkedFieldName="BusinessType" errorMsg="抵押合同信息记录所对应的融资协议信息记录必须在数据库中已存在。" dataList="4">
+			</rule>
+			<rule name="rule19-32" messageType="19" errorCode="9038_4" recordType="24" segmentFlag="B" checkType="check9038_4" Level="4" checkedFieldName="BusinessType" errorMsg="质押合同信息记录所对应的融资协议信息记录必须在数据库中已存在。" dataList="4">
+			</rule>
+			<rule name="rule19-33" messageType="19" errorCode="9038_5" recordType="22" segmentFlag="B" checkType="check9038_5" Level="4" checkedFieldName="BusinessType" errorMsg="保证合同信息记录所对应的信用证业务信息记录必须在数据库中已存在。" dataList="5">
+			</rule>
+			<rule name="rule19-34" messageType="19" errorCode="9038_5" recordType="23" segmentFlag="B" checkType="check9038_5" Level="4" checkedFieldName="BusinessType" errorMsg="抵押合同信息记录所对应的信用证业务信息记录必须在数据库中已存在。" dataList="5">
+			</rule>
+			<rule name="rule19-35" messageType="19" errorCode="9038_5" recordType="24" segmentFlag="B" checkType="check9038_5" Level="4" checkedFieldName="BusinessType" errorMsg="质押合同信息记录所对应的信用证业务信息记录必须在数据库中已存在。" dataList="5">
+			</rule>
+			<rule name="rule19-36" messageType="19" errorCode="9038_6" recordType="22" segmentFlag="B" checkType="check9038_6" Level="4" checkedFieldName="BusinessType" errorMsg="保证合同信息记录所对应的保函业务信息记录必须在数据库中已存在。" dataList="6">
+			</rule>
+			<rule name="rule19-37" messageType="19" errorCode="9038_6" recordType="23" segmentFlag="B" checkType="check9038_6" Level="4" checkedFieldName="BusinessType" errorMsg="抵押合同信息记录所对应的保函业务信息记录必须在数据库中已存在。" dataList="6">
+			</rule>
+			<rule name="rule19-38" messageType="19" errorCode="9038_6" recordType="24" segmentFlag="B" checkType="check9038_6" Level="4" checkedFieldName="BusinessType" errorMsg="质押合同信息记录所对应的保函业务信息记录必须在数据库中已存在。" dataList="6">
+			</rule>
+			<rule name="rule19-39" messageType="19" errorCode="9038_7" recordType="22" segmentFlag="B" checkType="check9038_7" Level="4" checkedFieldName="BusinessType" errorMsg="保证合同信息记录所对应的银行承兑汇票业务信息记录必须在数据库中已存在。" dataList="7">
+			</rule>
+			<rule name="rule19-40" messageType="19" errorCode="9038_7" recordType="23" segmentFlag="B" checkType="check9038_7" Level="4" checkedFieldName="BusinessType" errorMsg="抵押合同信息记录所对应的银行承兑汇票业务信息记录必须在数据库中已存在。" dataList="7">
+			</rule>
+			<rule name="rule19-41" messageType="19" errorCode="9038_7" recordType="24" segmentFlag="B" checkType="check9038_7" Level="4" checkedFieldName="BusinessType" errorMsg="质押合同信息记录所对应的银行承兑汇票业务信息记录必须在数据库中已存在。" dataList="7">
+			</rule>
+			<rule name="rule19-42" messageType="19" errorCode="4034" recordType="22" segmentFlag="D" checkType="DKK" Level="4" checkedFieldName="LoanCardNo" errorMsg="保证人信息记录保证人贷款卡编码错" >
+			</rule>
+			<rule name="rule19-43" messageType="19" errorCode="4034" recordType="23" segmentFlag="E" checkType="DKK" Level="4" checkedFieldName="LoanCardNo" errorMsg="抵押物信息记录抵押人贷款卡编码错" >
+			</rule>
+			<rule name="rule19-44" messageType="19" errorCode="4034" recordType="24" segmentFlag="F" checkType="DKK" Level="4" checkedFieldName="LoanCardNo" errorMsg="质押物信息记录质押人贷款卡编码错" >
+			</rule>
+			<!-- 屏蔽校验担保对应的主业务的贷款卡编码错误信息，因为这些在对应的主业务时已经校验过
+			<rule name="rule19-45" messageType="19" errorCode="4034" recordType="22" segmentFlag="B" checkType="DKK" Level="4" checkedFieldName="LoanCardNo" errorMsg="保证合同信息记录借款人贷款卡编码错" >
+			</rule>
+			<rule name="rule19-46" messageType="19" errorCode="4034" recordType="23" segmentFlag="B" checkType="DKK" Level="4" checkedFieldName="LoanCardNo" errorMsg="抵押合同信息记录借款人贷款卡编码错" >
+			</rule>
+			<rule name="rule19-47" messageType="19" errorCode="4034" recordType="24" segmentFlag="B" checkType="DKK" Level="4" checkedFieldName="LoanCardNo" errorMsg="质押合同信息记录借款人贷款卡编码错" >
+			</rule>
+			-->
+			<rule name="rule19-48" messageType="19" errorCode="4015" recordType="24" segmentFlag="F" checkType="DR" Level="4" checkedFieldName="ImpawnSum"  dataStartValue="1"  errorMsg="质押金额应大于0" >
+   			</rule>
+			<rule name="rule19-49" messageType="19" errorCode="4015" recordType="22" segmentFlag="D" checkType="DR" Level="4" checkedFieldName="AssureSum"  dataStartValue="1" errorMsg="保证金额应大于0" >
+  	 		</rule>
+			<rule name="rule19-53" messageType="19" errorCode="4015" recordType="23" segmentFlag="E" checkType="DR" Level="4" checkedFieldName="GuarantySum"  dataStartValue="1" errorMsg="抵押金额应大于0" >
+  	  		</rule>
+			<rule name="rule19-59" messageType="19" errorCode="4015" recordType="23" segmentFlag="E" checkType="DR" Level="4" checkedFieldName="EvaluateSum"  dataStartValue="1" errorMsg="抵押物评估价值应大于0" >
+				<precondition>
+					<rule name="rule19-59_pre" messageType="19" recordType="23" segmentFlag="E" checkType="NA" checkedFieldName="EvaluateSum" />
+				</precondition>
+  	  		</rule>
+			<rule name="rule19-54" messageType="19" errorCode="4015" recordType="24" segmentFlag="F" checkType="DR" Level="4" checkedFieldName="ImpawnValue"  dataStartValue="1" errorMsg="质押物价值应大于0" >
+  	  		</rule>
+  	  <rule name="rule19-55" messageType="19" errorCode="4002" recordType="23" segmentFlag="E" checkType="NA" checkedFieldName="GUARANTYEXPLAIN" errorMsg="抵押物说明为空" >
+			</rule>
+  	 	<rule name="rule19-56" messageType="19" errorCode="4308" recordType="22" segmentFlag="B" checkType="FI" Level="4" checkedFieldName="FinanceID"  errorMsg="金融机构代码不符合人行规范" >
+  	  </rule> 	
+  	  <rule name="rule19-57" messageType="19" errorCode="4308" recordType="23" segmentFlag="B" checkType="FI" Level="4" checkedFieldName="FinanceID"  errorMsg="金融机构代码不符合人行规范" >
+  	  </rule> 	
+  	  <rule name="rule19-58" messageType="19" errorCode="4308" recordType="24" segmentFlag="B" checkType="FI" Level="4" checkedFieldName="FinanceID"  errorMsg="金融机构代码不符合人行规范" >
+  	  </rule> 		
+  	  		
+			<!--?	垫款业务信息采集报文规则-->
+			<rule name="rule20-01" messageType="20" errorCode="4300" recordType="25" segmentFlag="D" checkType="DR" Level="4" checkedFieldName="FloorBlance" dataEndValue="{$FloorSum}" errorMsg="垫款余额≤垫款金额">
+			</rule>
+			<rule name="rule20-10" messageType="20" errorCode="4015" recordType="25" segmentFlag="D" checkType="DR" Level="4" checkedFieldName="FloorSum" dataStartValue="1" errorMsg="垫款金额应大于0">
+			</rule>
+			<rule name="rule20-02" messageType="20" errorCode="4302" recordType="25" segmentFlag="D" checkType="DR" Level="4" checkedFieldName="FloorDate" dataEndValue="{$BalanceOccurDate}" errorMsg="垫款日期≤余额发生日期">
+			</rule>
+			<rule name="rule20-03" messageType="20" errorCode="4308" recordType="25" segmentFlag="D" checkType="DIC" Level="4" checkedFieldName="FloorType" errorMsg="垫款业务信息段[垫款种类]字段不在数据字典列表中" dataList="垫款种类">
+			</rule>
+			<rule name="rule20-04" messageType="20" errorCode="4308" recordType="25" segmentFlag="D" checkType="DIC" Level="4" checkedFieldName="ReturnMode" errorMsg="垫款业务信息段[还款方式]字段不在数据字典列表中" dataList="还款方式">
+			</rule>
+			<rule name="rule20-05" messageType="20" errorCode="4308" recordType="25" segmentFlag="D" checkType="DIC" Level="4" checkedFieldName="Currency" errorMsg="币种错" dataList="币种">
+			</rule>
+			<rule name="rule20-06" messageType="20" errorCode="4308" recordType="25" segmentFlag="D" checkType="DIC" Level="4" checkedFieldName="Classify5" errorMsg="垫款业务信息段[五级分类]字段不在数据字典列表中" dataList="五级分类">
+			</rule>
+			<rule name="rule20-07" messageType="20" errorCode="4016" recordType="25" segmentFlag="D" checkType="DR" Level="4" checkedFieldName="FloorDate" dataStartValue="19010101" errorMsg="垫款日期错" >
+			</rule>
+			<rule name="rule20-08" messageType="20" errorCode="4034" recordType="25" segmentFlag="D" checkType="DKK" Level="4" checkedFieldName="LoanCardNO" errorMsg="垫款业务客户贷款卡编码错"  >
+			</rule>
+			<rule name="rule20-09" messageType="20" errorCode="4308" recordType="25" segmentFlag="B" checkType="FI" Level="4" checkedFieldName="FinanceID"  errorMsg="金融机构代码不符合人行规范" >
+  	  </rule> 	
+			<!--?	欠息信息采集报文规则  -->
+			<rule name="rule21-01" messageType="21" errorCode="4308" recordType="26" segmentFlag="D" checkType="DIC" Level="4" checkedFieldName="INTERESTTYPE" errorMsg="欠息业务信息段[欠息类型]字段不在数据字典列表中" dataList="欠息类型">
+			</rule>			
+			<rule name="rule21-02" messageType="21" errorCode="4016" recordType="26" segmentFlag="D" checkType="DR" Level="4" checkedFieldName="ChangeDate" dataStartValue="19010101" errorMsg="欠息余额改变日期错" >	
+			</rule>
+			<rule name="rule21-04" messageType="21" errorCode="4308" recordType="26" segmentFlag="D" checkType="DIC" Level="4" checkedFieldName="Currency" errorMsg="币种错" dataList="币种">
+			</rule>
+			<rule name="rule21-05" messageType="21" errorCode="4034" recordType="26" segmentFlag="B" checkType="DKK" Level="4" checkedFieldName="LoanCardNO" errorMsg="欠息信息客户贷款卡编码错">
+			</rule>
+			<rule name="rule21-06" messageType="21" errorCode="4308" recordType="26" segmentFlag="B" checkType="FI" Level="4" checkedFieldName="FinanceID"  errorMsg="金融机构代码不符合人行规范" >
+  	  </rule> 	
+     <!--?	自然人担保业务信息采集报文规则-->			
+			<rule name="rule19-01" messageType="19" errorCode="4308" recordType="32" segmentFlag="G" checkType="DIC" Level="4" checkedFieldName="AssureForm" errorMsg="保证合同信息段[保证担保形式]字段不在数据字典列表中" dataList="保证担保形式">
+			</rule>
+			<rule name="rule19-02" messageType="19" errorCode="4308" recordType="32" segmentFlag="G" checkType="DIC" Level="4" checkedFieldName="AvailabStatus" errorMsg="保证合同信息段[合同有效状态]字段不在数据字典列表中" dataList="合同有效状态">
+			</rule>
+			<rule name="rule19-03" messageType="19" errorCode="4308" recordType="32" segmentFlag="B" checkType="DIC" Level="4" checkedFieldName="BusinessType" errorMsg="保证合同基础段[信贷业务种类]字段不在数据字典列表中" dataList="信贷业务种类">
+			</rule>
+			<rule name="rule19-04" messageType="19" errorCode="4016" recordType="32" segmentFlag="G" checkType="DR" Level="4" checkedFieldName="CreateDate" dataStartValue="19010101" errorMsg="合同签订日期错" >
+			</rule>
+			<rule name="rule19-10" messageType="19" errorCode="6316" recordType="32" segmentFlag="G" checkType="DR" Level="4" checkedFieldName="CreateDate" dataEndValue="{$B.OccurDate}" errorMsg="业务发生日期应大于等于保证合同签订日期" >
+			</rule>
+			<rule name="rule19-12" messageType="19" errorCode="4016" recordType="33" segmentFlag="H" checkType="DR" Level="4" checkedFieldName="CreateDate" dataStartValue="19010101" errorMsg="合同签订日期错" >
+			</rule>
+			<rule name="rule19-13" messageType="19" errorCode="6416" recordType="33" segmentFlag="H" checkType="DR" Level="4" checkedFieldName="CreateDate" dataEndValue="{$B.OccurDate}" errorMsg="业务发生日期应大于等于合同签订日期" >
+			</rule>
+			<!--rule name="rule19-14" messageType="19" errorCode="0000" recordType="33" segmentFlag="H" checkType="DR" Level="4" checkedFieldName="SerialNo" dataStartValue="01" errorMsg="抵押合同序号必须大于零">
+		  </rule-->
+			<rule name="rule19-15" messageType="19" errorCode="4308" recordType="33" segmentFlag="H" checkType="DIC" Level="4" checkedFieldName="GuarantyType" errorMsg="抵押合同信息段[抵押物种类]字段不在数据字典列表中" dataList="抵押物种类">
+			</rule>
+			<rule name="rule19-16" messageType="19" errorCode="4308" recordType="33" segmentFlag="H" checkType="DIC" Level="4" checkedFieldName="AvailabStatus" errorMsg="抵押合同信息段[合同有效状态]字段不在数据字典列表中" dataList="合同有效状态">
+			</rule>
+			<!--rule name="rule19-18" messageType="19" errorCode="0000" recordType="34" segmentFlag="I" checkType="DR" Level="4" checkedFieldName="SerialNo" dataStartValue="01" errorMsg="质押合同序号必须大于零">
+			</rule-->
+			<rule name="rule19-19" messageType="19" errorCode="4308" recordType="34" segmentFlag="I" checkType="DIC" Level="4" checkedFieldName="ImpawnType" errorMsg="质押合同信息段[质押物种类]字段不在数据字典列表中" dataList="质押物种类">
+			</rule>
+			<rule name="rule19-20" messageType="19" errorCode="4308" recordType="34" segmentFlag="I" checkType="DIC" Level="4" checkedFieldName="AvailabStatus" errorMsg="质押合同信息段[合同有效状态]字段不在数据字典列表中" dataList="合同有效状态">
+			</rule>
+			<rule name="rule19-21" messageType="19" errorCode="4016" recordType="34" segmentFlag="I" checkType="DR" Level="4" checkedFieldName="CreateDate" dataStartValue="19010101" errorMsg="合同签订日期错" >
+			</rule>
+			<rule name="rule19-22" messageType="19" errorCode="6516" recordType="34" segmentFlag="I" checkType="DR" Level="4" checkedFieldName="CreateDate" dataEndValue="{$B.OccurDate}" errorMsg="业务发生日期应大于等于合同签订日期" >
+			</rule>
+			<rule name="rule19-24" messageType="19" errorCode="9038_1" recordType="32" segmentFlag="B" checkType="check9038_1" Level="4" checkedFieldName="BusinessType" errorMsg="保证合同信息记录所对应的贷款合同信息记录必须在数据库中已存在。" dataList="1">
+			</rule>
+			<rule name="rule19-25" messageType="19" errorCode="9038_1" recordType="33" segmentFlag="B" checkType="check9038_1" Level="4" checkedFieldName="BusinessType" errorMsg="抵押合同信息记录所对应的贷款合同信息记录必须在数据库中已存在。" dataList="1">
+			</rule>
+			<rule name="rule19-26" messageType="19" errorCode="9038_1" recordType="34" segmentFlag="B" checkType="check9038_1" Level="4" checkedFieldName="BusinessType" errorMsg="质押合同信息记录所对应的贷款合同信息记录必须在数据库中已存在。" dataList="1">
+			</rule>
+			<rule name="rule19-27" messageType="19" errorCode="9038_2" recordType="32" segmentFlag="B" checkType="check9038_2" Level="4" checkedFieldName="BusinessType" errorMsg="保证合同信息记录所对应的保理业务信息记录必须在数据库中已存在。" dataList="2">
+			</rule>
+			<rule name="rule19-28" messageType="19" errorCode="9038_2" recordType="33" segmentFlag="B" checkType="check9038_2" Level="4" checkedFieldName="BusinessType" errorMsg="抵押合同信息记录所对应的保理业务信息记录必须在数据库中已存在。" dataList="2">
+			</rule>
+			<rule name="rule19-29" messageType="19" errorCode="9038_2" recordType="34" segmentFlag="B" checkType="check9038_2" Level="4" checkedFieldName="BusinessType" errorMsg="质押合同信息记录所对应的保理业务信息记录必须在数据库中已存在。" dataList="2">
+			</rule>
+			<rule name="rule19-30" messageType="19" errorCode="9038_4" recordType="32" segmentFlag="B" checkType="check9038_4" Level="4" checkedFieldName="BusinessType" errorMsg="保证合同信息记录所对应的融资协议信息记录必须在数据库中已存在。" dataList="4">
+			</rule>
+			<rule name="rule19-31" messageType="19" errorCode="9038_4" recordType="33" segmentFlag="B" checkType="check9038_4" Level="4" checkedFieldName="BusinessType" errorMsg="抵押合同信息记录所对应的融资协议信息记录必须在数据库中已存在。" dataList="4">
+			</rule>
+			<rule name="rule19-32" messageType="19" errorCode="9038_4" recordType="34" segmentFlag="B" checkType="check9038_4" Level="4" checkedFieldName="BusinessType" errorMsg="质押合同信息记录所对应的融资协议信息记录必须在数据库中已存在。" dataList="4">
+			</rule>
+			<rule name="rule19-33" messageType="19" errorCode="9038_5" recordType="32" segmentFlag="B" checkType="check9038_5" Level="4" checkedFieldName="BusinessType" errorMsg="保证合同信息记录所对应的信用证业务信息记录必须在数据库中已存在。" dataList="5">
+			</rule>
+			<rule name="rule19-34" messageType="19" errorCode="9038_5" recordType="33" segmentFlag="B" checkType="check9038_5" Level="4" checkedFieldName="BusinessType" errorMsg="抵押合同信息记录所对应的信用证业务信息记录必须在数据库中已存在。" dataList="5">
+			</rule>
+			<rule name="rule19-35" messageType="19" errorCode="9038_5" recordType="34" segmentFlag="B" checkType="check9038_5" Level="4" checkedFieldName="BusinessType" errorMsg="质押合同信息记录所对应的信用证业务信息记录必须在数据库中已存在。" dataList="5">
+			</rule>
+			<rule name="rule19-36" messageType="19" errorCode="9038_6" recordType="32" segmentFlag="B" checkType="check9038_6" Level="4" checkedFieldName="BusinessType" errorMsg="保证合同信息记录所对应的保函业务信息记录必须在数据库中已存在。" dataList="6">
+			</rule>
+			<rule name="rule19-37" messageType="19" errorCode="9038_6" recordType="33" segmentFlag="B" checkType="check9038_6" Level="4" checkedFieldName="BusinessType" errorMsg="抵押合同信息记录所对应的保函业务信息记录必须在数据库中已存在。" dataList="6">
+			</rule>
+			<rule name="rule19-38" messageType="19" errorCode="9038_6" recordType="34" segmentFlag="B" checkType="check9038_6" Level="4" checkedFieldName="BusinessType" errorMsg="质押合同信息记录所对应的保函业务信息记录必须在数据库中已存在。" dataList="6">
+			</rule>
+			<rule name="rule19-39" messageType="19" errorCode="9038_7" recordType="32" segmentFlag="B" checkType="check9038_7" Level="4" checkedFieldName="BusinessType" errorMsg="保证合同信息记录所对应的银行承兑汇票业务信息记录必须在数据库中已存在。" dataList="7">
+			</rule>
+			<rule name="rule19-40" messageType="19" errorCode="9038_7" recordType="33" segmentFlag="B" checkType="check9038_7" Level="4" checkedFieldName="BusinessType" errorMsg="抵押合同信息记录所对应的银行承兑汇票业务信息记录必须在数据库中已存在。" dataList="7">
+			</rule>
+			<rule name="rule19-41" messageType="19" errorCode="9038_7" recordType="34" segmentFlag="B" checkType="check9038_7" Level="4" checkedFieldName="BusinessType" errorMsg="质押合同信息记录所对应的银行承兑汇票业务信息记录必须在数据库中已存在。" dataList="7">
+			</rule>
+			<rule name="rule19-48" messageType="19" errorCode="4015" recordType="34" segmentFlag="I" checkType="DR" Level="4" checkedFieldName="ImpawnSum"  dataStartValue="1"  errorMsg="质押金额应大于0" >
+   			</rule>
+			<rule name="rule19-49" messageType="19" errorCode="4015" recordType="32" segmentFlag="G" checkType="DR" Level="4" checkedFieldName="AssureSum"  dataStartValue="1" errorMsg="保证金额应大于0" >
+  	 		</rule>
+			<rule name="rule19-53" messageType="19" errorCode="4015" recordType="33" segmentFlag="H" checkType="DR" Level="4" checkedFieldName="GuarantySum"  dataStartValue="1" errorMsg="抵押金额应大于0" >
+  	  		</rule>
+			<rule name="rule19-59" messageType="19" errorCode="4015" recordType="33" segmentFlag="H" checkType="DR" Level="4" checkedFieldName="EvaluateSum"  dataStartValue="1" errorMsg="抵押物评估价值应大于0" >
+  	  		</rule>
+			<rule name="rule19-54" messageType="19" errorCode="4015" recordType="34" segmentFlag="I" checkType="DR" Level="4" checkedFieldName="ImpawnValue"  dataStartValue="1" errorMsg="质押物价值应大于0" >
+  	  		</rule>
+  	        <rule name="rule19-55" messageType="19" errorCode="4002" recordType="33" segmentFlag="H" checkType="NA" checkedFieldName="GUARANTYEXPLAIN" errorMsg="抵押物说明为空" >
+			</rule>
+  	 	    <rule name="rule19-56" messageType="19" errorCode="4308" recordType="32" segmentFlag="B" checkType="FI" Level="4" checkedFieldName="FinanceID"  errorMsg="金融机构代码不符合人行规范" >
+  	        </rule> 	
+  	        <rule name="rule19-57" messageType="19" errorCode="4308" recordType="33" segmentFlag="B" checkType="FI" Level="4" checkedFieldName="FinanceID"  errorMsg="金融机构代码不符合人行规范" >
+  	        </rule> 	
+  	        <rule name="rule19-58" messageType="19" errorCode="4308" recordType="34" segmentFlag="B" checkType="FI" Level="4" checkedFieldName="FinanceID"  errorMsg="金融机构代码不符合人行规范" >
+  	        </rule> 
+            <rule name="rule19-59" messageType="19" errorCode="4308" recordType="34" segmentFlag="B" checkType="FI" Level="4" checkedFieldName="FinanceID"  errorMsg="金融机构代码不符合人行规范" >
+  	        </rule> 			
+	  		<rule name="rule19-61" messageType="19" errorCode="4008" recordType="32" segmentFlag="G" checkType="ID" Level="4" checkedFieldName="CertID" errorMsg="自然人保证信息段[证件号码]字段不符合检查规则：[证件类型]字段为身份证，[证件号码]字段不为有效身份证号码">
+	    		<precondition>
+	     			<rule name="rule1" messageType="19" recordType="32" segmentFlag="G" checkType="DL" checkedFieldName="CertType" dataList="0;"/>
+	    		</precondition>
+		   	</rule>
+		   	<rule name="rule19-61" messageType="19" errorCode="4008" recordType="33" segmentFlag="H" checkType="ID" Level="4" checkedFieldName="CertID" errorMsg="自然人抵押信息段[证件号码]字段不符合检查规则：[证件类型]字段为身份证，[证件号码]字段不为有效身份证号码">
+	    		<precondition>
+	     			<rule name="rule1" messageType="19" recordType="33" segmentFlag="H" checkType="DL" checkedFieldName="CertType" dataList="0;"/>
+	    		</precondition>
+		   	</rule>
+		   	<rule name="rule19-61" messageType="19" errorCode="4008" recordType="34" segmentFlag="I" checkType="ID" Level="4" checkedFieldName="CertID" errorMsg="自然人质押信息段[证件号码]字段不符合检查规则：[证件类型]字段为身份证，[证件号码]字段不为有效身份证号码">
+				<precondition>
+	     			<rule name="rule1" messageType="19" recordType="34" segmentFlag="I" checkType="DL" checkedFieldName="CertType" dataList="0;"/>
+	    		</precondition>
+		   	</rule>
+		</rulelist>
+	</rulemap>
+</configuration>

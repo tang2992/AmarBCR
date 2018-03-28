@@ -1,0 +1,727 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!-- 任务定义文件,每个任务有一个文件构成，任务构造器可以根据此文件构造一个任务出来 -->
+
+<task name="BANKDataExport" describe="征信核对文件汇总" parallelRun="false" traceOn="true">
+	<name>BANKDataExport</name>
+	<describe>征信核对文件汇总</describe>
+	<targets>	
+		<target name="UpdateDataCheck" describe="同步征信数据" enabled="true">
+			<executeUnits>						
+				  <executeUnit name="ChooseEndDate" describe="获取截止日期" allowManualExecute="true" executeClass="com.amarsoft.app.datacheck.FileDateUnit"/>
+	
+				<executeUnit name="updateloancontract" describe="更新贷款合同" executeClass="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:datacheck:select * from ECR_ALSDATACHECK:etc/ecr_are.xml:,"/>
+						<property name="unit.handlers" value="com.amarsoft.are.dpx.recordset.UpdateDBHandler"/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider.dataSource" 
+							value="datasource:db:ecr:select
+							BL.LoanCardNo as LoanCardNo,
+							BL.FINANCEID as FinanceID,
+							'{$ARE.businessOccurDate}' as OccurDate,
+							count(BL.Lcontractno) as LoanContractNum					
+							from BANK_LOANCONTRACT BL
+							where BL.AvailabStatus = '1'
+							and BL.Lcontractno in(select lcontractno from ecr_LOANCONTRACT where incrementflag='8')
+							group by BL.LoanCardNo,BL.FINANCEID
+							"/>
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.database" value="ecr" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.table" value="ECR_ALSDATACHECK" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.keyColumns" value="LoanCardNo" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.startSql" value="delete from ECR_ALSDATACHECK" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.updateColumns" 
+							value="LoanContractNum" />
+					</extendProperties>
+				</executeUnit>
+				
+				<executeUnit name="updateloanduebill" describe="更新贷款借据" executeClass="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:datacheck:select * from ECR_ALSDATACHECK:etc/ecr_are.xml:,"/>
+						<property name="unit.handlers" value="com.amarsoft.are.dpx.recordset.UpdateDBHandler"/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider.dataSource" 
+							value="datasource:db:ecr:select
+							BL.LoanCardNo as LoanCardNo,
+							BL.FINANCEID as FinanceID,
+							'{$ARE.businessOccurDate}' as OccurDate,
+							sum(BD.PutOutAmount) as LoanSum,
+							sum(BD.Balance) as LoanBalance,
+							count(BD.Lduebillno) as LoanDuebillNum			
+							from BANK_LOANDUEBILL BD,BANK_LOANCONTRACT BL
+							where BL.LContractno = BD.LContractno
+							and BD.Balance > 0
+							and BD.lduebillno in(select lduebillno from ecr_loanduebill where incrementflag='8')
+							group by BL.LoanCardNo,BL.FINANCEID
+							"/>
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.database" value="ecr" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.table" value="ECR_ALSDATACHECK" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.keyColumns" value="LoanCardNo" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.insertUnexists" value="true" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.updateColumns" 
+							value="LoanSum,LoanBalance,LoanDuebillNum" />
+					</extendProperties>
+				</executeUnit>
+				
+				<executeUnit name="updateFactoringInfo" describe="更新保理业务" executeClass="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:datacheck:select * from ECR_ALSDATACHECK:etc/ecr_are.xml:,"/>
+						<property name="unit.handlers" value="com.amarsoft.are.dpx.recordset.UpdateDBHandler"/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider.dataSource" 
+							value="datasource:db:ecr:select
+							LoanCardNo as LoanCardNo,
+							'{$ARE.businessOccurDate}' as OccurDate,
+							sum(BusinessSum) as FactoringOutSum,
+							sum(Balance) as FactoringBalance,
+							count(FactoringNO) as FactoringNum			
+							from BANK_FACTORING
+							where Balance > 0
+						group by LoanCardNo
+							"/>
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.database" value="ecr" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.table" value="ECR_ALSDATACHECK" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.keyColumns" value="LoanCardNo" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.updateColumns" 
+							value="FactoringOutSum,FactoringBalance,FactoringNum" />
+					</extendProperties>
+				</executeUnit>
+				
+				<executeUnit name="updateDiscount" describe="更新票据贴现" executeClass="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:datacheck:select * from ECR_ALSDATACHECK:etc/ecr_are.xml:,"/>
+						<property name="unit.handlers" value="com.amarsoft.are.dpx.recordset.UpdateDBHandler"/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider.dataSource" 
+							value="datasource:db:ecr:select
+							LoanCardNo as LoanCardNo,
+							FINANCEID as FinanceID,
+							'{$ARE.businessOccurDate}' as OccurDate,
+							sum(DisCountSum) as DisCountOutSum,
+							sum(DisCountSum) as DisCountBalance,
+							count(Billno) as DisCountNum			
+							from BANK_DISCOUNT
+							where BillStatus in ('1','3')
+							and Billno in(select Billno from ecr_DISCOUNT where incrementflag='8')
+							group by LoanCardNo,FINANCEID
+							"/>
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.database" value="ecr" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.table" value="ECR_ALSDATACHECK" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.keyColumns" value="LoanCardNo" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.updateColumns" 
+							value="DisCountOutSum,DisCountBalance,DisCountNum" />
+					</extendProperties>
+				</executeUnit>
+				
+				<executeUnit name="updatefinainfo" describe="更新贸易融资合同" executeClass="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:datacheck:select * from ECR_ALSDATACHECK:etc/ecr_are.xml:,"/>
+						<property name="unit.handlers" value="com.amarsoft.are.dpx.recordset.UpdateDBHandler"/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider.dataSource" 
+							value="datasource:db:ecr:select
+							BF.LoanCardNo as LoanCardNo,
+							BF.FINANCEID as FINANCEID,
+							'{$ARE.businessOccurDate}' as OccurDate,
+							count(BF.Fcontractno) as FinaInfoNum					
+							from BANK_FINAINFO BF
+							where BF.AvailabStatus = '1'
+							and BF.Fcontractno in(select Fcontractno from ecr_FINAINFO where incrementflag='8')
+							group by BF.LoanCardNo,BF.FINANCEID
+							"/>
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.database" value="ecr" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.table" value="ECR_ALSDATACHECK" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.keyColumns" value="LoanCardNo" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.updateColumns" 
+							value="FinaInfoNum" />
+					</extendProperties>
+				</executeUnit>
+				
+				<executeUnit name="updatefinaduebill" describe="更新贸易融资借据" executeClass="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:datacheck:select * from ECR_ALSDATACHECK:etc/ecr_are.xml:,"/>
+						<property name="unit.handlers" value="com.amarsoft.are.dpx.recordset.UpdateDBHandler"/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider.dataSource" 
+							value="datasource:db:ecr:select
+							BF.LoanCardNo as LoanCardNo,
+							BF.FINANCEID as FINANCEID,
+							'{$ARE.businessOccurDate}' as OccurDate,
+							sum(BD.PutOutAmount) as FinaOutSum,
+							sum(BD.Balance) as FinaBalance,
+							count(BD.Fduebillno) as FinaDuebillNum			
+							from BANK_FINADUEBILL BD,BANK_FINAINFO BF
+							where BD.FContractno = BF.FContractno
+							and BD.Balance > 0
+							and BD.Fduebillno in(select Fduebillno from ecr_FINADUEBILL where incrementflag='8')
+							group by BF.LoanCardNo,BF.FINANCEID
+							"/>
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.database" value="ecr" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.table" value="ECR_ALSDATACHECK" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.keyColumns" value="LoanCardNo" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.updateColumns" 
+							value="FinaOutSum,FinaBalance,FinaDuebillNum" />
+					</extendProperties>
+				</executeUnit>
+				
+				<executeUnit name="updateCreditLetter" describe="更新信用证业务" executeClass="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:datacheck:select * from ECR_ALSDATACHECK:etc/ecr_are.xml:,"/>
+						<property name="unit.handlers" value="com.amarsoft.are.dpx.recordset.UpdateDBHandler"/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider.dataSource" 
+							value="datasource:db:ecr:select
+							LoanCardNo as LoanCardNo,
+							FINANCEID as FINANCEID,
+							'{$ARE.businessOccurDate}' as OccurDate,
+							sum(CreateSum) as CreditLetterOutSum,
+							sum(Balance) as CreditLetterBalance,
+							count(CreditLetterNO) as CreditLetterNum			
+							from BANK_CREDITLETTER
+							where CreditStatus = '1'
+							and CreditLetterNO in (select CreditLetterNO from ecr_CREDITLETTER where incrementflag='8')
+							group by LoanCardNo,FINANCEID
+							"/>
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.database" value="ecr" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.table" value="ECR_ALSDATACHECK" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.keyColumns" value="LoanCardNo" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.updateColumns" 
+							value="CreditLetterOutSum,CreditLetterBalance,CreditLetterNum" />
+					</extendProperties>
+				</executeUnit>
+				
+				<executeUnit name="updateGuarantyBill" describe="更新保函业务" executeClass="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:datacheck:select * from ECR_ALSDATACHECK:etc/ecr_are.xml:,"/>
+						<property name="unit.handlers" value="com.amarsoft.are.dpx.recordset.UpdateDBHandler"/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider.dataSource" 
+							value="datasource:db:ecr:select
+							LoanCardNo as LoanCardNo,
+							FINANCEID as FINANCEID,
+							'{$ARE.businessOccurDate}' as OccurDate,
+							sum(GuaranteeSum) as GuaranteeBillOutSum,
+							sum(Balance) as GuaranteeBillBalance,
+							count(GuaranteeBillno) as GuaranteeBillNum			
+							from BANK_GUARANTEEBILL
+							where GuaranteeStatus ='1'
+							and  GuaranteeBillno in (select GuaranteeBillno from ecr_GUARANTEEBILL where incrementflag='8' )
+							group by LoanCardNo,FINANCEID
+							"/>
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.database" value="ecr" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.table" value="ECR_ALSDATACHECK" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.keyColumns" value="LoanCardNo" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.updateColumns" 
+							value="GuaranteeBillOutSum,GuaranteeBillBalance,GuaranteeBillNum" />
+					</extendProperties>
+				</executeUnit>
+				
+				<executeUnit name="updateAcceptance" describe="更新承兑汇票业务" executeClass="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:datacheck:select * from ECR_ALSDATACHECK:etc/ecr_are.xml:,"/>
+						<property name="unit.handlers" value="com.amarsoft.are.dpx.recordset.UpdateDBHandler"/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider.dataSource" 
+							value="datasource:db:ecr:select
+							LoanCardNo as LoanCardNo,
+							FINANCEID as FINANCEID,
+							'{$ARE.businessOccurDate}' as OccurDate,
+							sum(AccepSum) as AcceptOutSum,
+							sum(AccepSum) as AcceptBalance,
+							count(AcceptNO) as AcceptNum			
+							from BANK_ACCEPTANCE
+							where DraftStatus in ('1','2')
+							and AcceptNO in(select AcceptNO from ecr_ACCEPTANCE where incrementflag='8')
+							group by LoanCardNo,FINANCEID
+							"/>
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.database" value="ecr" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.table" value="ECR_ALSDATACHECK" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.keyColumns" value="LoanCardNo" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.updateColumns" 
+							value="AcceptOutSum,AcceptBalance,AcceptNum,FINANCEID" />
+					</extendProperties>
+				</executeUnit>
+				
+				<executeUnit name="updateCustomerCredit" describe="更新公开授信业务" executeClass="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:datacheck:select * from ECR_ALSDATACHECK:etc/ecr_are.xml:,"/>
+						<property name="unit.handlers" value="com.amarsoft.are.dpx.recordset.UpdateDBHandler"/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider.dataSource" 
+							value="datasource:db:ecr:select
+							LoanCardNo as LoanCardNo,
+							FINANCEID as FINANCEID,
+							'{$ARE.businessOccurDate}' as OccurDate,
+							sum(CreditLimit) as CustomerCreditOutSum,
+							count(CContractNO) as CustomerCreditNum			
+							from BANK_CUSTOMERCREDIT
+							where CreditLogOutCause is null or CreditLogOutCause = '' or 
+							CreditLogOutDate > substr('{$ARE.businessOccurDate}',1,4)||'/'||substr('{$ARE.businessOccurDate}',6,2)||'/'||substr('{$ARE.businessOccurDate}',9,2)
+							group by LoanCardNo,FINANCEID
+							"/>
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.database" value="ecr" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.table" value="ECR_ALSDATACHECK" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.keyColumns" value="LoanCardNo" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.updateColumns" 
+							value="CustomerCreditOutSum,CustomerCreditNum" />
+					</extendProperties>
+				</executeUnit>
+				
+				<executeUnit name="updateAssureCont1" describe="更新机构保证担保信息" executeClass="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:datacheck:select * from ECR_ALSDATACHECK:etc/ecr_are.xml:,"/>
+						<property name="unit.handlers" value="com.amarsoft.are.dpx.recordset.UpdateDBHandler"/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider.dataSource" 
+							value="datasource:db:ecr:select
+							IB.ALoanCardNo as LoanCardNo,
+							IB.financeID as FinanceID,
+							'' as CorpID,
+							'{$ARE.businessOccurDate}' as OccurDate,
+							count(IB.AssurecontNO) as AssureContNum		
+							from (select AssurecontNO,ALoanCardNo,financeID from BANK_ASSURECONT where ALoanCardNo is not null and ALoanCardNo &lt;>' ' and ReportType='1' and availabstatus='1' group by assurecontno,aloancardno,financeID) IB
+							where IB.AssurecontNO in(select AssurecontNO from ecr_ASSURECONT where incrementflag='8')
+							group by IB.ALoanCardNo,IB.financeID    
+							"/>
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.database" value="ecr" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.table" value="ECR_ALSDATACHECK" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.keyColumns" value="LoanCardNo" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.updateColumns" 
+							value="AssureContNum" />
+					</extendProperties>
+				</executeUnit>
+				<executeUnit name="updateAssureCont2" describe="更新自然人保证担保" executeClass="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:datacheck:select * from ECR_ALSDATACHECK:etc/ecr_are.xml:,"/>
+						<property name="unit.handlers" value="com.amarsoft.are.dpx.recordset.UpdateDBHandler"/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider.dataSource" 
+							value="datasource:db:ecr:select
+							IB.CertType as LoanCardNo,
+							IB.CertID as CorpID,
+							IB.financeID as FinanceID,
+							'{$ARE.businessOccurDate}' as OccurDate,
+							count(IB.AssurecontNO) as AssureContNum		
+							from (select AssurecontNO,CertType,CertID,financeID from BANK_ASSURECONT where ReportType='2' and availabstatus='1' group by assurecontno,CertType,CertID,financeID) IB
+							where IB.AssurecontNO in(select AssurecontNO from ecr_ASSURECONT where incrementflag='8')
+							group by IB.CertType,IB.CertID,IB.financeID
+							"/>
+							
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.database" value="ecr" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.table" value="ECR_ALSDATACHECK1" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.startSql" value="delete from ECR_ALSDATACHECK1" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.keyColumns" value="LoanCardNo,CorpID" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.commitNumber" value="1" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.updateColumns" 
+							value="AssureContNum" />
+					</extendProperties>
+				</executeUnit>
+			<executeUnit name="updateGuarantyCont1" describe="更新机构抵押担保" executeClass="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:datacheck:select * from ECR_ALSDATACHECK:etc/ecr_are.xml:,"/>
+						<property name="unit.handlers" value="com.amarsoft.are.dpx.recordset.UpdateDBHandler"/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider.dataSource" 
+							value="datasource:db:ecr:select
+							IB.GLoanCardNo as LoanCardNo,
+							IB.financeID as FinanceID,
+							'' as CorpID,
+							'{$ARE.businessOccurDate}' as OccurDate,
+							count(IB.GuarantycontNO) as GuarantyContNum		
+							from (select GuarantycontNO,GLoanCardNo,FinanceID from BANK_GUARANTYCONT where GLoanCardNo is not null and GLoanCardNo &lt;>' ' and ReportType='1' and availabstatus='1' group by GuarantycontNO,GLoanCardNo,FinanceID) IB
+							where IB.GuarantycontNO in(select GuarantycontNO from ecr_GUARANTYCONT where incrementflag='8')
+							group by IB.GLoanCardNo,IB.financeID
+							"/>
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.database" value="ecr" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.table" value="ECR_ALSDATACHECK" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.keyColumns" value="LoanCardNo" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.updateColumns" 
+							value="GuarantyContNum" />
+					</extendProperties>
+				</executeUnit>
+				<executeUnit name="updateGuarantyCont2" describe="更新自然人抵押担保" executeClass="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:datacheck:select * from ECR_ALSDATACHECK:etc/ecr_are.xml:,"/>
+						<property name="unit.handlers" value="com.amarsoft.are.dpx.recordset.UpdateDBHandler"/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider.dataSource" 
+							value="datasource:db:ecr:select
+							IB.CertType as LoanCardNo,
+							IB.CertID as CorpID,
+							IB.financeID as FinanceID,
+							'{$ARE.businessOccurDate}' as OccurDate,
+							count(IB.GuarantycontNO) as GuarantyContNum		
+							from (select GuarantycontNO,CertType,CertID,FinanceID from BANK_GUARANTYCONT where ReportType='2' and availabstatus='1' group by GuarantycontNO,GLoanCardNo,CertType,CertID,FinanceID) IB
+							where IB.GuarantycontNO in(select GuarantycontNO from ecr_GUARANTYCONT where incrementflag='8')
+							group by IB.CertType,IB.CertID,IB.financeID
+							"/>
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.database" value="ecr" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.table" value="ECR_ALSDATACHECK1" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.keyColumns" value="LoanCardNo,CorpID" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.updateColumns" 
+							value="GuarantyContNum" />
+					</extendProperties>
+				</executeUnit>
+				
+			<executeUnit name="updateImpawnCont1" describe="更新机构质押担保" executeClass="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:datacheck:select * from ECR_ALSDATACHECK:etc/ecr_are.xml:,"/>
+						<property name="unit.handlers" value="com.amarsoft.are.dpx.recordset.UpdateDBHandler"/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider.dataSource" 
+							value="datasource:db:ecr:select
+							IB.ILoanCardNo as LoanCardNo,
+							'' as CorpID,
+							IB.financeID as FinanceID,
+							'{$ARE.businessOccurDate}' as OccurDate,
+							count(IB.ImpawnContNO) as ImpawnContNum		
+							from (select ImpawnContNO,ILoanCardNo,FinanceID from BANK_IMPAWNCONT where ILoanCardNo is not null and ILoanCardNo &lt;>' ' and ReportType='1' and availabstatus='1' group by ImpawnContNO,ILoanCardNo,FinanceID) IB
+							where IB.ImpawnContNO in(select ImpawnContNO from ecr_IMPAWNCONT where incrementflag='8')
+							group by IB.ILoanCardNo,IB.financeID
+							"/>
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.database" value="ecr" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.table" value="ECR_ALSDATACHECK" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.keyColumns" value="LoanCardNo" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.updateColumns" 
+							value="ImpawnContNum" />
+					</extendProperties>
+				</executeUnit>
+				<executeUnit name="updateImpawnCont2" describe="更新自然人质押担保" executeClass="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:datacheck:select * from ECR_ALSDATACHECK:etc/ecr_are.xml:,"/>
+						<property name="unit.handlers" value="com.amarsoft.are.dpx.recordset.UpdateDBHandler"/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider.dataSource" 
+							value="datasource:db:ecr:select distinct
+							IB.CertType as LoanCardNo,
+							IB.CertID as CorpID,
+							IB.financeID as FinanceID,
+							'{$ARE.businessOccurDate}' as OccurDate,
+							count(IB.ImpawnContNO) as ImpawnContNum		
+							from (select ImpawnContNO,CertType,CertID,FinanceID from BANK_IMPAWNCONT where ReportType='2' and availabstatus='1' group by ImpawnContNO,CertType,CertID,FinanceID) IB
+							where IB.ImpawnContNO in(select ImpawnContNO from ecr_IMPAWNCONT where incrementflag='8')
+							group by CertType,CertID,IB.financeID
+							"/>
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.database" value="ecr" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.table" value="ECR_ALSDATACHECK1" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.keyColumns" value="LoanCardNo,CorpID" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.updateColumns" 
+							value="ImpawnContNum" />
+					</extendProperties>
+				</executeUnit>
+				
+			<executeUnit name="UpdateGuarantySum" describe="更新担保金额及余额" executeClass="com.amarsoft.app.datacheck.UpdateGuarantySum" allowManualExecute="true" />	
+				
+				<executeUnit name="updateFloorFund" describe="更新垫款业务" executeClass="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:datacheck:select * from ECR_ALSDATACHECK:etc/ecr_are.xml:,"/>
+						<property name="unit.handlers" value="com.amarsoft.are.dpx.recordset.UpdateDBHandler"/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider.dataSource" 
+							value="datasource:db:ecr:select
+							LoanCardNo as LoanCardNo,
+							FinanceID as FinanceID,
+							'{$ARE.businessOccurDate}' as OccurDate,
+							sum(FloorSum) as FloorFundOutSum,
+							sum(FloorBalance) as FloorFundBalance,
+							count(FloorFundNO) as FloorFundNum			
+							from BANK_FLOORFUND
+							where FloorBalance > 0
+							and FloorFundNO in(select FloorFundNO from ecr_FLOORFUND where incrementflag='8')
+							group by LoanCardNo,FinanceID
+							"/>
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.database" value="ecr" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.table" value="ECR_ALSDATACHECK" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.keyColumns" value="LoanCardNo" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.updateColumns" 
+							value="FloorFundOutSum,FloorFundBalance,FloorFundNum" />
+					</extendProperties>
+				</executeUnit>
+				
+				<executeUnit name="updateInterestDue1" describe="更新表内欠息余额" executeClass="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:datacheck:select * from ECR_ALSDATACHECK:etc/ecr_are.xml:,"/>
+						<property name="unit.handlers" value="com.amarsoft.are.dpx.recordset.UpdateDBHandler"/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider.dataSource" 
+							value="datasource:db:ecr:select
+							LoanCardNo as LoanCardNo,
+							FinanceID as FinanceID,
+							'{$ARE.businessOccurDate}' as OccurDate,
+							sum(InterestBalance) as InterestBalance1	
+							from BANK_INTERESTDUE
+							where InterestType ='1'
+							and InterestBalance > 0
+							group by LoanCardNo,FinanceID
+							"/>
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.database" value="ecr" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.table" value="ECR_ALSDATACHECK" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.keyColumns" value="LoanCardNo" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.updateColumns" 
+							value="InterestBalance1" />
+					</extendProperties>
+				</executeUnit>
+				
+			<executeUnit name="updateInterestDue2" describe="更新表外欠息余额" executeClass="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRImportUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:datacheck:select * from ECR_ALSDATACHECK:etc/ecr_are.xml:,"/>
+						<property name="unit.handlers" value="com.amarsoft.are.dpx.recordset.UpdateDBHandler"/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider.dataSource" 
+							value="datasource:db:ecr:select
+							LoanCardNo as LoanCardNo,
+							FinanceID as FinanceID,
+							'{$ARE.businessOccurDate}' as OccurDate,
+							sum(InterestBalance) as InterestBalance2	
+							from BANK_INTERESTDUE
+							where InterestType ='2'
+							and InterestBalance > 0
+							group by LoanCardNo,FinanceID
+							"/>
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.database" value="ecr" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.table" value="ECR_ALSDATACHECK" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.keyColumns" value="LoanCardNo" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.updateColumns" 
+							value="InterestBalance2" />
+					</extendProperties>
+				</executeUnit>
+								
+			<executeUnit name="CheckTable1" describe="同步企业征信数据核对表1" executeClass="com.amarsoft.task.units.dpx.PRHUnit" allowManualExecute="true">
+				<extendProperties>
+					<property name="unit.recordSet" value="datasource:ndb:datacheck:select * from ECR_ALSDATACHECK:etc/are.xml:,"/>
+					<property name="unit.provider" value="com.amarsoft.are.dpx.recordset.DefaultDataSourceProvider"/>
+					<property name="unit.handlers" value="com.amarsoft.are.dpx.recordset.UpdateDBHandler"/>
+					<property name="com.amarsoft.are.dpx.recordset.DefaultDataSourceProvider.dataSource" 
+						value="datasource:db:ecr:select distinct
+						BC.LoanCardNo as LoanCardNo,
+						'{$ARE.businessOccurDate}' as OccurDate,
+						BC.CHINANAME as CustomerName,
+						BC.OrganizationCode as CorpID
+						from BANK_CUSTOMERINFO BC where OrganizationType='Ent01'
+				    " />
+				  <property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.database" value="ecr" />
+					<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.table" value="ECR_ALSDATACHECK" />
+					<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.keyColumns" value="LoanCardNo" />
+					<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.commitNumber" value="1" />	
+					<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.insertUnexists" value="false" />
+					<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.updateColumns" value="CorpID,CustomerName,OccurDate" />
+				</extendProperties>
+			</executeUnit>
+			<executeUnit name="CheckTable2" describe="同步企业征信数据核对表2" executeClass="com.amarsoft.task.units.dpx.PRHUnit" allowManualExecute="true">
+				<extendProperties>
+					<property name="unit.recordSet" value="datasource:ndb:datacheck:select * from ECR_ALSDATACHECK:etc/are.xml:,"/>
+					<property name="unit.provider" value="com.amarsoft.are.dpx.recordset.DefaultDataSourceProvider"/>
+					<property name="unit.handlers" value="com.amarsoft.are.dpx.recordset.UpdateDBHandler"/>
+					<property name="com.amarsoft.are.dpx.recordset.DefaultDataSourceProvider.dataSource" 
+						value="datasource:db:ecr:select distinct
+						BC.LoanCardNo as LoanCardNo,
+						'{$ARE.businessOccurDate}' as OccurDate,
+						BC.CHINANAME as CustomerName,
+						BC.OrganizationCode as CorpID
+						from BANK_CUSTOMERINFO1 BC
+						where OrganizationType &lt;>'Ent01'
+				    " />
+				  <property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.database" value="ecr" />
+					<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.table" value="ECR_ALSDATACHECK1" />
+					<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.keyColumns" value="LoanCardNo,CorpID" />
+					<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.commitNumber" value="1" />	
+					<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.insertUnexists" value="false" />
+					<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.updateColumns" value="CorpID,CustomerName,OccurDate" />
+				</extendProperties>
+			</executeUnit>
+			
+		</executeUnits>	
+			<routeTable>
+			 <route unit="ChooseEndDate"			executeStatus="unexecute"  	  	nextUnit="ChooseEndDate"/>
+		        <route unit="ChooseEndDate"			executeStatus="successful"  	  	nextUnit="updateloancontract"/>
+				<route unit="updateloancontract"			executeStatus="successful"  	  nextUnit="updateloanduebill"/>
+				<route unit="updateloanduebill"			executeStatus="successful"  	  nextUnit="updateFactoringInfo"/>
+				<route unit="updateFactoringInfo"			executeStatus="successful"  	  nextUnit="updateDiscount"/>
+				<route unit="updateDiscount"			executeStatus="successful"  	  nextUnit="updatefinainfo"/>
+				<route unit="updatefinainfo"			executeStatus="successful"  	  nextUnit="updatefinaduebill"/>
+				<route unit="updatefinaduebill"			executeStatus="successful"  	  nextUnit="updateCreditLetter"/>
+				<route unit="updateCreditLetter"			executeStatus="successful"  	  nextUnit="updateGuarantyBill"/>
+				<route unit="updateGuarantyBill"			executeStatus="successful"  	  nextUnit="updateAcceptance"/>
+				<route unit="updateAcceptance"			executeStatus="successful"  	  nextUnit="updateCustomerCredit"/>
+				<route unit="updateCustomerCredit"			executeStatus="successful"  	  nextUnit="updateAssureCont1"/>
+				<route unit="updateAssureCont1"			executeStatus="successful"  	  nextUnit="updateAssureCont2"/>
+				<route unit="updateAssureCont2"			executeStatus="successful"  	  nextUnit="updateGuarantyCont1"/>
+				<route unit="updateGuarantyCont1"			executeStatus="successful"  	  nextUnit="updateGuarantyCont2"/>
+				<route unit="updateGuarantyCont2"			executeStatus="successful"  	  nextUnit="updateImpawnCont1"/>
+				<route unit="updateImpawnCont1"			executeStatus="successful"  	  nextUnit="updateImpawnCont2"/>
+				<route unit="updateImpawnCont2"			executeStatus="successful"  	  nextUnit="UpdateGuarantySum"/>
+				<route unit="UpdateGuarantySum"			executeStatus="successful"  	  nextUnit="updateFloorFund"/>
+				<route unit="updateFloorFund"			executeStatus="successful"  	  nextUnit="updateInterestDue1"/>
+				<route unit="updateInterestDue1"			executeStatus="successful"  	  nextUnit="updateInterestDue2"/>
+				<route unit="updateInterestDue2"			executeStatus="successful"  	  nextUnit="CheckTable1"/>
+				<route unit="CheckTable1"			executeStatus="successful"  	  nextUnit="CheckTable2"/> 
+			</routeTable>
+		</target>
+		
+		<target name="ExportFile" describe="文件输出" enabled="true">
+			<executeUnits>		
+					<!--校验贷款卡编码信息-->
+			<executeUnit name="CheckLoanCardNo" describe="校验贷款卡编码信息" executeClass="com.amarsoft.app.datacheck.CheckLoanCardNo" allowManualExecute="true">
+			   <extendProperties>
+					  <property name="unit.updateTable" value="ECR_ALSDATACHECK"/>
+				 </extendProperties>
+			</executeUnit>
+			
+			<executeUnit name="NextOrg" describe="循环机构控制" allowManualExecute="true" executeClass="com.amarsoft.app.datax.ecr.common.OrgListUnit">
+				<extendProperties>
+					<property name="unit.orgListSource" 
+					value="datasource:db:ecr:select ORGCODE,ORGNAME from ORG_TASK_INFO where orgid in(select financeid from ecr_alsdatacheck union
+                                select financeid from ecr_alsdatacheck1) order by sortno"/>
+				</extendProperties>
+			</executeUnit>
+			<!-- 输出文件 -->
+			<executeUnit name="ExportDataList" describe="输出数据核对表" executeClass="com.amarsoft.task.units.dpx.PRHUnit" allowManualExecute="true">
+				<extendProperties>
+					<property name="unit.recordSet" value="datasource:ndb:datacheck:select * from ecr_alsdatacheck:etc/are.xml:,"/>
+					<property name="unit.provider" value="com.amarsoft.are.dpx.recordset.DefaultDataSourceProvider"/>
+					<property name="unit.handlers" value="com.amarsoft.are.dpx.recordset.ExportFileHandler"/>
+					<property name="com.amarsoft.are.dpx.recordset.DefaultDataSourceProvider.dataSource"
+					  value="datasource:db:ecr:select loancardno,
+					  corpid,
+					  customername,
+					  case when loancontractnum=0 then null else loancontractnum end as loancontractnum,
+					  loansum,
+					  loanbalance,
+					  case when loanduebillnum=0 then null else loanduebillnum end as loanduebillnum,
+					  case when factoringnum=0 then null else factoringnum end as factoringnum,
+					  case when factoringoutsum=0 then null else factoringoutsum end as factoringoutsum,
+					  case when factoringbalance=0 then null else factoringbalance end as factoringbalance,
+					  case when discountnum=0 then null else discountnum end as discountnum,
+					  case when discountoutsum=0 then null else discountoutsum end as discountoutsum,
+					  case when discountbalance=0 then null else discountbalance end as discountbalance,
+					  case when finainfonum=0 then null else finainfonum end as finainfonum,
+					  case when finaoutsum=0 then null else finaoutsum end as finaoutsum,
+					  case when finabalance=0 then null else finabalance end as finabalance,
+				  	case when finaduebillnum=0 then null else finaduebillnum end as finaduebillnum,
+				  	case when creditletternum=0 then null else creditletternum end as creditletternum,
+				  	case when creditletteroutsum=0 then null else creditletteroutsum end as creditletteroutsum,
+				  	case when creditletterbalance=0 then null else creditletterbalance end as creditletterbalance,
+					  case when guaranteebillnum=0 then null else guaranteebillnum end as guaranteebillnum,
+				  	case when guaranteebilloutsum=0 then null else guaranteebilloutsum end as guaranteebilloutsum,
+					  case when guaranteebillbalance=0 then null else guaranteebillbalance end as guaranteebillbalance,
+					  case when acceptnum=0 then null else acceptnum end as acceptnum,
+				  	case when acceptoutsum=0 then null else acceptoutsum end as acceptoutsum,
+				  	case when acceptbalance=0 then null else acceptbalance end as acceptbalance,
+				  	case when customercreditnum=0 then null else customercreditnum end as customercreditnum,
+					  case when customercreditoutsum=0 then null else customercreditoutsum end as customercreditoutsum,
+					  case when assurecontnum=0 then null else assurecontnum end as assurecontnum,
+				  	case when assurecontoutsum=0 then null else assurecontoutsum end as assurecontoutsum,
+				  	case when assurecontbalance=0 then null else assurecontoutsum end as assurecontbalance,
+				  	case when guarantycontnum=0 then null else guarantycontnum end as guarantycontnum,
+				  	case when guarantycontoutsum=0 then null else guarantycontoutsum end as guarantycontoutsum,
+				  	case when guarantycontbalance=0 then null else guarantycontoutsum end as guarantycontbalance,
+					  case when impawncontnum=0 then null else impawncontnum end as impawncontnum,
+				   	case when impawncontoutsum=0 then null else impawncontoutsum end as impawncontoutsum,
+				  	case when impawncontbalance=0 then null else impawncontoutsum end as impawncontbalance,
+				  	case when floorfundnum=0 then null else floorfundnum end as floorfundnum,
+				  	case when floorfundoutsum=0 then null else floorfundoutsum end as floorfundoutsum,
+				  	case when floorfundbalance=0 then null else floorfundbalance end as floorfundbalance,
+				  	case when interestbalance1=0 then null else interestbalance1 end as interestbalance1,
+				  	case when interestbalance2=0 then null else interestbalance2 end as interestbalance2,
+				  	oldfinanceid,
+				  	to_char(to_date(occurdate,'yyyy/mm/dd'),'yyyy-mm-dd') as occurdate
+					  from ecr_alsdatacheck where (status is null or status &lt;>'01') and financeid in (select orgid from ORG_TASK_INFO where ORGCODE= '{$TARGET.BankID}')
+					  union
+					  select loancardno,
+					  corpid,
+					  customername,
+					  case when loancontractnum=0 then null else loancontractnum end as loancontractnum,
+					  loansum,
+					  loanbalance,
+					  case when loanduebillnum=0 then null else loanduebillnum end as loanduebillnum,
+					  case when factoringnum=0 then null else factoringnum end as factoringnum,
+					  case when factoringoutsum=0 then null else factoringoutsum end as factoringoutsum,
+					  case when factoringbalance=0 then null else factoringbalance end as factoringbalance,
+					  case when discountnum=0 then null else discountnum end as discountnum,
+					  case when discountoutsum=0 then null else discountoutsum end as discountoutsum,
+					  case when discountbalance=0 then null else discountbalance end as discountbalance,
+					  case when finainfonum=0 then null else finainfonum end as finainfonum,
+					  case when finaoutsum=0 then null else finaoutsum end as finaoutsum,
+					  case when finabalance=0 then null else finabalance end as finabalance,
+				  	case when finaduebillnum=0 then null else finaduebillnum end as finaduebillnum,
+				  	case when creditletternum=0 then null else creditletternum end as creditletternum,
+				  	case when creditletteroutsum=0 then null else creditletteroutsum end as creditletteroutsum,
+				  	case when creditletterbalance=0 then null else creditletterbalance end as creditletterbalance,
+					  case when guaranteebillnum=0 then null else guaranteebillnum end as guaranteebillnum,
+				  	case when guaranteebilloutsum=0 then null else guaranteebilloutsum end as guaranteebilloutsum,
+					  case when guaranteebillbalance=0 then null else guaranteebillbalance end as guaranteebillbalance,
+					  case when acceptnum=0 then null else acceptnum end as acceptnum,
+				  	case when acceptoutsum=0 then null else acceptoutsum end as acceptoutsum,
+				  	case when acceptbalance=0 then null else acceptbalance end as acceptbalance,
+				  	case when customercreditnum=0 then null else customercreditnum end as customercreditnum,
+					  case when customercreditoutsum=0 then null else customercreditoutsum end as customercreditoutsum,
+					  case when assurecontnum=0 then null else assurecontnum end as assurecontnum,
+				  	case when assurecontoutsum=0 then null else assurecontoutsum end as assurecontoutsum,
+				  	case when assurecontbalance=0 then null else assurecontoutsum end as assurecontbalance,
+				  	case when guarantycontnum=0 then null else guarantycontnum end as guarantycontnum,
+				  	case when guarantycontoutsum=0 then null else guarantycontoutsum end as guarantycontoutsum,
+				  	case when guarantycontbalance=0 then null else guarantycontoutsum end as guarantycontbalance,
+					  case when impawncontnum=0 then null else impawncontnum end as impawncontnum,
+				   	case when impawncontoutsum=0 then null else impawncontoutsum end as impawncontoutsum,
+				  	case when impawncontbalance=0 then null else impawncontoutsum end as impawncontbalance,
+				  	case when floorfundnum=0 then null else floorfundnum end as floorfundnum,
+				  	case when floorfundoutsum=0 then null else floorfundoutsum end as floorfundoutsum,
+				  	case when floorfundbalance=0 then null else floorfundbalance end as floorfundbalance,
+				  	case when interestbalance1=0 then null else interestbalance1 end as interestbalance1,
+				  	case when interestbalance2=0 then null else interestbalance2 end as interestbalance2,
+				  	oldfinanceid,
+				  	to_char(to_date(occurdate,'yyyy/mm/dd'),'yyyy-mm-dd') as occurdate
+					  from ecr_alsdatacheck1 where (status is null or status &lt;>'01') and financeid in (select orgid from ORG_TASK_INFO where ORGCODE= '{$TARGET.BankID}')"/>
+					<!-- 如果源数据编码不能自然转换成Unicode，可以设置编码，引起系统强制转码 
+					<property name="com.amarsoft.are.dpx.recordset.DefaultDataSourceProvider.sourceEncoding" value="ISO8859-1"	/>
+					-->
+					<!-- 输出文件名，必须要求 --> 
+					<property name="com.amarsoft.are.dpx.recordset.ExportFileHandler.fileName" value="export/{$TARGET.BankID}B{$TASK.exportFileDate}.txt" /> 				
+					<!-- 输出文件是否包含头行，头行是每个字段的名称，缺省：false --> 
+					<property name="com.amarsoft.are.dpx.recordset.ExportFileHandler.includeHeader" value="false" />
+					<!-- 输出文件是否使用后续附加模式，缺省：false --> 
+					<property name="com.amarsoft.are.dpx.recordset.ExportFileHandler.appendMode" value="false" />
+					<!-- 输出文件字符集，缺省：运行平台的缺省字符集 --> 
+					<property name="com.amarsoft.are.dpx.recordset.ExportFileHandler.charSet" value="GBK" />
+					<!-- 输出文件分隔符，缺省：, --> 
+					<property name="com.amarsoft.are.dpx.recordset.ExportFileHandler.splitToken" value="," />		
+					<!-- 输出文件是否使用格式限制 --> 	
+					<property name="com.amarsoft.are.dpx.recordset.ExportFileHandler.useFieldFormat" value="true" />															
+					<!-- 输出文件的字段和顺序，缺省：*所有字段，自然顺序 --> 
+				  <property name="com.amarsoft.are.dpx.recordset.ExportFileHandler.exportFields" value="loancardno,
+										  corpid,
+										  customername,
+										  loancontractnum,
+										  loansum,
+										  loanbalance,
+										  loanduebillnum,
+										  factoringnum,
+										  factoringoutsum,
+										  factoringbalance,
+											discountnum,
+											discountoutsum,
+											discountbalance,
+											finainfonum,
+											finaoutsum,
+											finabalance,
+											finaduebillnum,
+											creditletternum,
+											creditletteroutsum,
+											creditletterbalance,
+											guaranteebillnum,
+											guaranteebilloutsum,
+											guaranteebillbalance,
+											acceptnum,
+											acceptoutsum,
+											acceptbalance,
+											customercreditnum,
+											customercreditoutsum,
+											assurecontnum,
+											assurecontoutsum,
+											assurecontoutsum,
+											guarantycontnum,
+											guarantycontoutsum,
+											guarantycontoutsum,
+											impawncontnum,
+											impawncontoutsum,
+											impawncontoutsum,
+											floorfundnum,
+											floorfundoutsum,
+											floorfundbalance,
+											interestbalance1,
+											interestbalance2,
+											oldfinanceid,
+											occurdate										
+										" />
+					</extendProperties>
+				</executeUnit>
+			</executeUnits>	
+			<routeTable>
+				<route unit="CheckLoanCardNo"						executeStatus="unexecute"  	  	nextUnit="CheckLoanCardNo"/>
+				<route unit="CheckLoanCardNo"					executeStatus="successful"  	  nextUnit="NextOrg"/>
+				<route unit="NextOrg"					executeStatus="successful"  	  nextUnit="ExportDataList"/>
+				<route unit="ExportDataList"					executeStatus="successful"  	  nextUnit="NextOrg"/>
+			</routeTable>
+		</target>		
+	</targets>
+</task>

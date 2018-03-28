@@ -1,0 +1,2268 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!-- 任务定义文件,每个任务有一个文件构成，任务构造器可以根据此文件构造一个任务出来 -->
+
+<task parallelRun="false" traceOn="true" >
+	<name>ecr_task_prepare</name>
+	<describe>企业征信系统迁移任务定义</describe>
+	<extendProperties>
+		<property name="property1-name" value="property1-name" />
+	</extendProperties>
+	<targets>
+		<target enabled="true">
+			<name>main_flow</name>
+			<describe>导入非接口数据库数据</describe>
+			<extendProperties>
+				<property name="bufferSize" value="0" />
+				<property name="database" value="ecr_data" />
+				<property name="batchUpdateNumber" value="1" />
+				<property name="runFlag" value="2" />
+				<property name="codeRunFlag" value="1" />
+			</extendProperties>
+			<executeUnits>
+				<!-- 客户信息倒入单元，根据情况确定插入和更新的字段 -->
+	<executeUnit>
+		<name>ImportCustomerInfo</name>
+		<describe>导入客户信息表</describe>
+		<executeClass>com.amarsoft.are.task.units.dpx.GeneralDataTransferUnit</executeClass>
+		<extendProperties>
+			<property name="recordSet.metadata.database" value="ecr_data"/>
+			<property name="recordSet.metadata.table" value="ECR_CUSTOMERINFO"/>
+			<property name="handlers.class" value="com.amarsoft.are.dpx.recordset.WriteTableHandler"/>
+			
+			<property name="table.database" value="ecr"/>
+			<property name="table.table" value="ECR_CUSTOMERINFO"/>
+			<property name="table.keyFields" value="CustomerID"/>
+			<property name="table.insertFields" 
+					  value="CustomerID,            	    
+						financeid,                                
+						occurdate,                                
+						UpdateDate,                               
+						DeleteDate,                               
+						LoanCardNo,                               
+						ChinaName,                                
+						ForeignName,                              
+						CountryCode,                              
+						CreateDate,                               
+						RegistType,                               
+						RegistNo,                                 
+						RegistDate,                               
+						RegistEndDate,                            
+						CountryTaxNo,                             
+						LocationTaxNo,                            
+						Attribute,                               
+						IndustryType,                             
+						EmployeeNumber,                           
+						RegionCode,                               
+						customercharacter,                    
+						Tel,                                      
+						Addr,                                     
+						Fax,                                      
+						Email,                                    
+						WebSite,                                  
+						Address,                                  
+						PostNo,                                   
+						MainProduct,                              
+						LocaleArea,                               
+						LocaleDroit,                              
+						GroupFlag,                                
+						InOutFlag,                                
+						MarketFlag,                               
+						FinanceContact,                           
+						Currency,                                 
+						RegistSum,                                
+						SuperName,                                
+						SuperDownCardNo,                      
+						SuperOtherID,                             
+						OrganizationCode                       
+						"/>
+			<property name="table.updateFields" 
+					  value="CustomerID,            	    
+						financeid,                                
+						occurdate,                                
+						UpdateDate,                               
+						DeleteDate,                               
+						LoanCardNo,                               
+						ChinaName,                                
+						ForeignName,                              
+						CountryCode,                              
+						CreateDate,                               
+						RegistType,                               
+						RegistNo,                                 
+						RegistDate,                               
+						RegistEndDate,                            
+						CountryTaxNo,                             
+						LocationTaxNo,                            
+						Attribute,                               
+						IndustryType,                             
+						EmployeeNumber,                           
+						RegionCode,                               
+						customercharacter,                    
+						Tel,                                      
+						Addr,                                     
+						Fax,                                      
+						Email,                                    
+						WebSite,                                  
+						Address,                                  
+						PostNo,                                   
+						MainProduct,                              
+						LocaleArea,                               
+						LocaleDroit,                              
+						GroupFlag,                                
+						InOutFlag,                                
+						MarketFlag,                               
+						FinanceContact,                           
+						Currency,                                 
+						RegistSum,                                
+						SuperName,                                
+						SuperDownCardNo,                      
+						SuperOtherID,                             
+						OrganizationCode
+						"/>
+			<property name="table.checkExists" value="true"/>
+			<property name="table.skipExists" value="true"/>
+			<property name="table.commitNumber" value="1000"/>
+			<property name="table.useTransaction" value="false"/>
+			<property name="table.startSql" value=""/>
+			<property name="table.endSql" value=""/>
+			
+			<property name="provider.dataSource" 
+			 value="datasource:db:rh_qyzx:select bs.Card_no as CustomerID,        	    
+						bs.orgcode as financeid,                            
+						bs.Ywdate  as occurdate,                            
+						''               as UpdateDate,                           
+						''                as DeleteDate,                           
+						bs.Card_no    as LoanCardNo,                           
+						Name_cn          as ChinaName,                            
+						Name_ucn         as ForeignName,                          
+						country          as CountryCode,                          
+						Jkr_create_year  as CreateDate,                           
+						Regist_type      as RegistType,                           
+						Regist_code      as RegistNo,                             
+						Regist_date      as RegistDate,                           
+						Licence_maturity as RegistEndDate,                        
+						Gsh_login_no     as CountryTaxNo,                         
+						Dsh_login_n      as LocationTaxNo,                        
+						Jkr_kind         as Attribute,                           
+						Trade_code       as IndustryType,                         
+						Intrade_num      as EmployeeNumber,                       
+						District_code    as RegionCode,                           
+						Jkr_inpress      as customercharacter,                    
+						Jkr_phone        as Tel,                                  
+						Jkr_regist_addr  as Addr,                                 
+						Jkr_fax          as Fax,                                  
+						Jkr_email        as Email,                                
+						Jkr_url          as WebSite,                              
+						Jkr_comm_addr    as Address,                              
+						Postcode         as PostNo,                               
+						MainProducts     as MainProduct,                          
+						Field_area       as LocaleArea,                           
+						ownership        as LocaleDroit,                          
+						Group_flag       as GroupFlag,                            
+						bs.ImpExp_flag      as InOutFlag,                            
+						bs.Inmarket_flag    as MarketFlag,                            
+						''               as FinanceContact,                       
+						''       as Currency,                             
+						0            as RegistSum,                            
+						''       as SuperName,                            
+						''       as SuperDownCardNo,                      
+						''    as SuperOtherID,                         
+						''  as OrganizationCode
+						from borrowers bs,(select Card_no as Card_no,max(ywdate) as ywdate from borrowers group by Card_no) bc
+						where bs.Card_no = bc.Card_no and bs.ywdate = bc.ywdate
+						" />
+							
+			<property name="displayInGUI" value="false"/>
+			<property name="allowManualExecute" value="true"/>
+		</extendProperties>
+	</executeUnit>
+	
+	
+	
+	<!-- 客户信息倒入单元，根据情况确定插入和更新的字段 -->
+	<executeUnit>
+		<name>ImportCustomerStock</name>
+		<describe>导入客户股票信息表</describe>
+		<executeClass>com.amarsoft.are.task.units.dpx.GeneralDataTransferUnit</executeClass>
+		<extendProperties>
+			<property name="recordSet.metadata.database" value="ecr_data"/>
+			<property name="recordSet.metadata.table" value="ECR_CUSTOMERSTOCK"/>
+			<property name="handlers.class" value="com.amarsoft.are.dpx.recordset.WriteTableHandler"/>
+			
+			<property name="table.database" value="ecr"/>
+			<property name="table.table" value="ECR_CUSTOMERSTOCK"/>
+			<property name="table.keyFields" value="CustomerID,StockNo"/>
+			<property name="table.insertFields" 
+					  value="CustomerID,
+						SerialNo,
+						FinanceID,
+						occurdate, 
+						UpdateDate,
+						DeleteDate,
+						StockNo,
+						MartketPlace
+                       				"/>
+			<property name="table.updateFields" 
+					  value="CustomerID,
+						SerialNo,
+						FinanceID,
+						occurdate, 
+						UpdateDate,
+						DeleteDate,
+						StockNo,
+						MartketPlace
+						"/>
+			<property name="table.checkExists" value="true"/>
+			<property name="table.skipExists" value="true"/>
+			<property name="table.commitNumber" value="1000"/>
+			<property name="table.useTransaction" value="false"/>
+			<property name="table.startSql" value=""/>
+			<property name="table.endSql" value=""/>
+			
+			<property name="provider.dataSource" 
+			 value="datasource:db:rh_qyzx:select Card_no as CustomerID,                           
+						 '' as SerialNo,                             
+						 orgcode as FinanceID,                            
+						 '' as occurdate,                            
+						 '' as UpdateDate,                           
+						 '' as DeleteDate,                           
+						 Stock_code as StockNo,                              
+						 Market_addr as MartketPlace
+						 from stocks
+						"/>
+							
+			<property name="displayInGUI" value="false"/>
+			<property name="allowManualExecute" value="true"/>
+		</extendProperties>
+	</executeUnit>
+	
+	
+	<!-- 客户信息倒入单元，根据情况确定插入和更新的字段 -->
+	<executeUnit>
+		<name>ImportCustomerCapi</name>
+		<describe>导入客户资本构成信息表</describe>
+		<executeClass>com.amarsoft.are.task.units.dpx.GeneralDataTransferUnit</executeClass>
+		<extendProperties>
+			<property name="recordSet.metadata.database" value="ecr_data"/>
+			<property name="recordSet.metadata.table" value="ECR_CUSTOMERCAPI"/>
+			<property name="handlers.class" value="com.amarsoft.are.dpx.recordset.WriteTableHandler"/>
+			
+			<property name="table.database" value="ecr"/>
+			<property name="table.table" value="ECR_CUSTOMERCAPI"/>
+			<property name="table.keyFields" value="CustomerID,ContribCustomerID"/>
+			<property name="table.insertFields" 
+					  value="CustomerID,
+						ContribCustomerID,
+						FinanceID,
+						OccurDate,
+						UpdateDate,
+						DeleteDate,
+						LoanCardNo,
+						ContribName,
+						OtherCustomerID,
+						RegistNo,
+						CertType,
+						CertNo,
+						Currency,
+						ContribSum
+						"/>
+			<property name="table.updateFields" 
+					  value="CustomerID,
+						ContribCustomerID,
+						FinanceID,
+						OccurDate,
+						UpdateDate,
+						DeleteDate,
+						LoanCardNo,
+						ContribName,
+						OtherCustomerID,
+						RegistNo,
+						CertType,
+						CertNo,
+						Currency,
+						ContribSum
+						"/>
+			<property name="table.checkExists" value="true"/>
+			<property name="table.skipExists" value="true"/>
+			<property name="table.commitNumber" value="1000"/>
+			<property name="table.useTransaction" value="false"/>
+			<property name="table.startSql" value=""/>
+			<property name="table.endSql" value=""/>
+			
+			<property name="provider.dataSource" 
+			 value="datasource:db:rh_qyzx:select Card_no as CustomerID,       
+						  '' as ContribCustomerID,
+						  orgcode as FinanceID,        
+						  '' as OccurDate,        
+						  '' as UpdateDate,       
+						  '' as DeleteDate,       
+						  Toinvest_card as LoanCardNo,       
+						  toinvest as ContribName,      
+						  Toinvest_orgcode as OtherCustomerID,  
+						  regcode as RegistNo,         
+						  certifytype as CertType,         
+						  certifycode as CertNo,           
+						  Money_kind as Currency,         
+						  money as ContribSum 
+						  from invcapitals 
+						  "/>
+							
+			<property name="displayInGUI" value="false"/>
+			<property name="allowManualExecute" value="true"/>
+		</extendProperties>
+	</executeUnit>
+	
+	
+	
+	<!-- 客户信息倒入单元，根据情况确定插入和更新的字段 -->
+	<executeUnit>
+		<name>ImportCustomerInvest</name>
+		<describe>导入客户对外投资信息表</describe>
+		<executeClass>com.amarsoft.are.task.units.dpx.GeneralDataTransferUnit</executeClass>
+		<extendProperties>
+			<property name="recordSet.metadata.database" value="ecr_data"/>
+			<property name="recordSet.metadata.table" value="ECR_CUSTOMERINVEST"/>
+			<property name="handlers.class" value="com.amarsoft.are.dpx.recordset.WriteTableHandler"/>
+			
+			<property name="table.database" value="ecr"/>
+			<property name="table.table" value="binvcapitals"/>
+			<property name="table.keyFields" value="Card_no,orgcode,mainid"/>
+			<property name="table.insertFields" 
+					  value="CustomerID,
+						InvestCustomerID,
+						OccurDate,
+						UpdateDate,
+						DeleteDate,
+						InvestEntpName,
+						LoanCardNo,
+						OtherCustomerID,
+						Currency1,
+						InvestSum1,
+						Currency2,
+						InvestSum2,
+						Currency3,
+						InvestSum3
+						"/>
+			<property name="table.updateFields" 
+					  value="CustomerID,
+						InvestCustomerID,
+						OccurDate,
+						UpdateDate,
+						DeleteDate,
+						InvestEntpName,
+						LoanCardNo,
+						OtherCustomerID,
+						Currency1,
+						InvestSum1,
+						Currency2,
+						InvestSum2,
+						Currency3,
+						InvestSum3
+						"/>
+			<property name="table.checkExists" value="true"/>
+			<property name="table.skipExists" value="true"/>
+			<property name="table.commitNumber" value="1000"/>
+			<property name="table.useTransaction" value="false"/>
+			<property name="table.startSql" value=""/>
+			<property name="table.endSql" value=""/>
+			
+			<property name="provider.dataSource" 
+			 value="datasource:db:rh_qyzx:select '' as CustomerID,      
+							mainid as InvestCustomerID,
+							'' as OccurDate,       
+							'' as UpdateDate,      
+							'' as DeleteDate,      
+							investor as InvestEntpName,  
+							Investor_card as LoanCardNo,      
+							Investor_orgcode as OtherCustomerID, 
+							'' as Currency1,       
+							100 as InvestSum1,      
+							'' as Currency2,       
+							0 as InvestSum2,      
+							'' as Currency3,       
+							0 as InvestSum3  
+						  	from binvcapitals 
+						  "/>
+							
+			<property name="displayInGUI" value="false"/>
+			<property name="allowManualExecute" value="true"/>
+		</extendProperties>
+	</executeUnit>
+	
+	
+	
+	<!-- 客户信息倒入单元，根据情况确定插入和更新的字段 -->
+	<executeUnit>
+		<name>ImportCustomerKeeper</name>
+		<describe>导入客户高管信息表</describe>
+		<executeClass>com.amarsoft.are.task.units.dpx.GeneralDataTransferUnit</executeClass>
+		<extendProperties>
+			<property name="recordSet.metadata.database" value="ecr_data"/>
+			<property name="recordSet.metadata.table" value="ECR_CUSTOMERKEEPER"/>
+			<property name="handlers.class" value="com.amarsoft.are.dpx.recordset.WriteTableHandler"/>
+			
+			<property name="table.database" value="ecr"/>
+			<property name="table.table" value="ECR_CUSTOMERKEEPER"/>
+			<property name="table.keyFields" value="CustomerID,KeeperID,KeeperType"/>
+			<property name="table.insertFields" 
+					  value="CustomerID,
+						KeeperID,
+						FinanceID,
+						OccurDate,
+						UpdateDate,
+						DeleteDate,
+						KeeperName,
+						CertType,
+						CertNo,
+						KeeperType,
+						Sex,
+						Birthdate,
+						Degree,
+						JobResume
+						"/>
+			<property name="table.updateFields" 
+					  value="CustomerID,
+						KeeperID,
+						FinanceID,
+						OccurDate,
+						UpdateDate,
+						DeleteDate,
+						KeeperName,
+						CertType,
+						CertNo,
+						KeeperType,
+						Sex,
+						Birthdate,
+						Degree,
+						JobResume
+						"/>
+			<property name="table.checkExists" value="true"/>
+			<property name="table.skipExists" value="true"/>
+			<property name="table.commitNumber" value="1000"/>
+			<property name="table.useTransaction" value="false"/>
+			<property name="table.startSql" value=""/>
+			<property name="table.endSql" value=""/>
+			
+			<property name="provider.dataSource" 
+			 value="datasource:db:rh_qyzx:select Card_no as CustomerID,
+							Certify_code as KeeperID,  
+							orgcode as FinanceID, 
+							'' as OccurDate, 
+							'' as UpdateDate,
+							'' as DeleteDate,
+							Super_name as KeeperName,
+							Certify_type as CertType,  
+							Certify_code as CertNo,    
+							Super_kind as KeeperType,
+							Super_sex as Sex,       
+							Super_birthday as Birthdate, 
+							Super_Edu as Degree,    
+							Super_Exp as JobResume
+							from supermans
+						  	"/>
+							
+			<property name="displayInGUI" value="false"/>
+			<property name="allowManualExecute" value="true"/>
+		</extendProperties>
+	</executeUnit>
+	
+	
+	<!-- 客户信息倒入单元，根据情况确定插入和更新的字段 -->
+	<executeUnit>
+		<name>ImportCustomerFamily</name>
+		<describe>导入客户法人代表家族成员企业信息表</describe>
+		<executeClass>com.amarsoft.are.task.units.dpx.GeneralDataTransferUnit</executeClass>
+		<extendProperties>
+			<property name="recordSet.metadata.database" value="ecr_data"/>
+			<property name="recordSet.metadata.table" value="ECR_CUSTOMERFAMILY"/>
+			<property name="handlers.class" value="com.amarsoft.are.dpx.recordset.WriteTableHandler"/>
+			
+			<property name="table.database" value="ecr"/>
+			<property name="table.table" value="ECR_CUSTOMERFAMILY"/>
+			<property name="table.keyFields" value="CustomerID,FamilyID"/>
+			<property name="table.insertFields" 
+					  value="CustomerID,
+						FamilyID,
+						FinanceID,
+						OccurDate,
+						UpdateDate,
+						DeleteDate,
+						FamilyName,
+						CertType,
+						CertNo,
+						Relation,
+						EnterpriseName,
+						LoanCardID
+						"/>
+			<property name="table.updateFields" 
+					  value="CustomerID,
+						FamilyID,
+						FinanceID,
+						OccurDate,
+						UpdateDate,
+						DeleteDate,
+						FamilyName,
+						CertType,
+						CertNo,
+						Relation,
+						EnterpriseName,
+						LoanCardID
+						"/>
+			<property name="table.checkExists" value="true"/>
+			<property name="table.skipExists" value="true"/>
+			<property name="table.commitNumber" value="1000"/>
+			<property name="table.useTransaction" value="false"/>
+			<property name="table.startSql" value=""/>
+			<property name="table.endSql" value=""/>
+			
+			<property name="provider.dataSource" 
+			 	value="datasource:db:rh_qyzx:select orgcode	as CustomerID,    
+							mainid as FamilyID,      
+							'' as FinanceID,     
+							'' as OccurDate,     
+							'' as UpdateDate,    
+							'' as DeleteDate,    
+							membername as FamilyName,    
+							Certify_type as CertType,      
+							Certify_code as CertNo,        
+							relation as Relation,      
+							in_corp as EnterpriseName,
+							corp_card as LoanCardID    
+							from familymembers
+						  	"/>
+							
+			<property name="displayInGUI" value="false"/>
+			<property name="allowManualExecute" value="true"/>
+		</extendProperties>
+	</executeUnit>
+	
+	
+	<!-- 客户信息倒入单元，根据情况确定插入和更新的字段 -->
+	<executeUnit>
+		<name>ImportCustomerLaw</name>
+		<describe>导入客户诉讼信息表</describe>
+		<executeClass>com.amarsoft.are.task.units.dpx.GeneralDataTransferUnit</executeClass>
+		<extendProperties>
+			<property name="recordSet.metadata.database" value="ecr_data"/>
+			<property name="recordSet.metadata.table" value="ECR_CUSTOMERLAW"/>
+			<property name="handlers.class" value="com.amarsoft.are.dpx.recordset.WriteTableHandler"/>
+			
+			<property name="table.database" value="ecr"/>
+			<property name="table.table" value="ECR_CUSTOMERLAW"/>
+			<property name="table.keyFields" value="CustomerID,SerialNo"/>
+			<property name="table.insertFields" 
+					  value="CustomerID,
+						SerialNo,
+						FinanceID,
+						OccurDate,
+						UpdateDate,
+						DeleteDate,
+						PlaintiffName,
+						Currency,
+						ExecuteSum,
+						ExecuteDate,
+						ExecuteResult,
+						AppellCause
+						"/>
+			<property name="table.updateFields" 
+					  value="CustomerID,
+						SerialNo,
+						FinanceID,
+						OccurDate,
+						UpdateDate,
+						DeleteDate,
+						PlaintiffName,
+						Currency,
+						ExecuteSum,
+						ExecuteDate,
+						ExecuteResult,
+						AppellCause
+						"/>
+			<property name="table.checkExists" value="true"/>
+			<property name="table.skipExists" value="true"/>
+			<property name="table.commitNumber" value="1000"/>
+			<property name="table.useTransaction" value="false"/>
+			<property name="table.startSql" value=""/>
+			<property name="table.endSql" value=""/>
+			
+			<property name="provider.dataSource" 
+			 	value="datasource:db:rh_qyzx:select '' as CustomerID,   	
+							serial_no as SerialNo,     
+							orgcode as FinanceID,    
+							ywdate as OccurDate,    
+							'' as UpdateDate,   
+							'' as DeleteDate,   
+							Lawname as PlaintiffName,
+							Money_kind as Currency,     
+							Judge_money as ExecuteSum,   
+							Judge_date as ExecuteDate,  
+							Result as ExecuteResult,
+							Reason as AppellCause  
+							from lawinformation
+						  	"/>
+							
+			<property name="displayInGUI" value="false"/>
+			<property name="allowManualExecute" value="true"/>
+		</extendProperties>
+	</executeUnit>
+	
+	
+	<!-- 客户信息倒入单元，根据情况确定插入和更新的字段 -->
+	<executeUnit>
+		<name>ImportCustomerFact</name>
+		<describe>导入客户大事信息表</describe>
+		<executeClass>com.amarsoft.are.task.units.dpx.GeneralDataTransferUnit</executeClass>
+		<extendProperties>
+			<property name="recordSet.metadata.database" value="ecr_data"/>
+			<property name="recordSet.metadata.table" value="ECR_CUSTOMERFACT"/>
+			<property name="handlers.class" value="com.amarsoft.are.dpx.recordset.WriteTableHandler"/>
+			
+			<property name="table.database" value="ecr"/>
+			<property name="table.table" value="ECR_CUSTOMERFACT"/>
+			<property name="table.keyFields" value="CustomerID,SerialNo"/>
+			<property name="table.insertFields" 
+					  value="CustomerID
+						SerialNo,
+						FinanceID,
+						OccurDate,
+						UpdateDate,
+						DeleteDate,
+						description
+						"/>
+			<property name="table.updateFields" 
+					  value="CustomerID
+						SerialNo,
+						FinanceID,
+						OccurDate,
+						UpdateDate,
+						DeleteDate,
+						description
+						"/>
+			<property name="table.checkExists" value="true"/>
+			<property name="table.skipExists" value="true"/>
+			<property name="table.commitNumber" value="1000"/>
+			<property name="table.useTransaction" value="false"/>
+			<property name="table.startSql" value=""/>
+			<property name="table.endSql" value=""/>
+			<property name="table.fieldsMap" value="description as Describe"/>
+			
+			<property name="provider.dataSource" 
+			 	value="datasource:db:rh_qyzx:select em.card_no as CustomerID,                                                 
+							em.serial_no as SerialNo,  
+							em.orgcode as FinanceID, 
+							em.ywdate as OccurDate, 
+							'' as UpdateDate,
+							'' as DeleteDate,
+							em.description as description   
+  							from eventinformation em,(select Card_no as Card_no,max(ywdate) as ywdate from eventinformation group by Card_no) en
+  							where em.card_no = en.Card_no and em.ywdate = en.ywdate
+						  	"/>
+							
+			<property name="displayInGUI" value="false"/>
+			<property name="allowManualExecute" value="true"/>
+		</extendProperties>
+	</executeUnit>
+	
+	
+	
+	<!-- 业务信息倒入单元，根据情况确定插入和更新的字段 -->
+	<executeUnit>
+		<name>ImportContract</name>
+		<describe>导入贷款合同信息表</describe>
+		<executeClass>com.amarsoft.are.task.units.dpx.GeneralDataTransferUnit</executeClass>
+		<extendProperties>
+			<property name="recordSet.metadata.database" value="ecr_data"/>
+			<property name="recordSet.metadata.table" value="ECR_CONTRACT"/>
+			<property name="handlers.class" value="com.amarsoft.are.dpx.recordset.WriteTableHandler"/>
+			
+			<property name="table.database" value="ecr"/>
+			<property name="table.table" value="ECR_CONTRACT"/>
+			<property name="table.keyFields" value="CustomerID,SerialNo"/>
+			<property name="table.insertFields" 
+					  value="CustomerID,
+						SerialNo,
+						FinanceID,
+						OccurDate,
+						UpdateDate,
+						DeleteDate,
+						CustomerName,
+						LoanCardID,
+						CreditNo,
+						ExtenStartDate,
+						EndDate,
+						BankFlag,
+						GuarantyFlag,
+						AvailabStatus,
+						Currency,
+						BusinessSum,
+						AvailabBalance
+						"/>
+			<property name="table.updateFields" 
+					  value="CustomerID,
+						SerialNo,
+						FinanceID,
+						OccurDate,
+						UpdateDate,
+						DeleteDate,
+						CustomerName,
+						LoanCardID,
+						CreditNo,
+						ExtenStartDate,
+						EndDate,
+						BankFlag,
+						GuarantyFlag,
+						AvailabStatus,
+						Currency,
+						BusinessSum,
+						AvailabBalance
+						"/>
+			<property name="table.checkExists" value="true"/>
+			<property name="table.skipExists" value="true"/>
+			<property name="table.commitNumber" value="1000"/>
+			<property name="table.useTransaction" value="false"/>
+			<property name="table.startSql" value=""/>
+			<property name="table.endSql" value=""/>
+			
+			<property name="provider.dataSource" 
+			 	value="datasource:db:rh_qyzx:select lc.Card_no as CustomerID,    
+							lc.loanCont_no as SerialNo,      
+							lc.orgcode as FinanceID,     
+							lc.Ywdate as OccurDate,
+							'' as UpdateDate,    
+							'' as DeleteDate,    
+							'' as CustomerName,  
+							'' as LoanCardID,    
+							'' as CreditNo,      
+							lc.Start_date as ExtenStartDate,
+							lc.End_date as EndDate,       
+							lc.Yintuan_flag as BankFlag,      
+							lc.Assure_flag as GuarantyFlag,  
+							lc.Effect_flag as AvailabStatus, 
+							lm.Money_kind as Currency,      
+							lm.Money as BusinessSum,   
+							lm.Useable_money as AvailabBalance
+   							from loancontracts lc,loanmoneys lm,(select loanCont_no as loanCont_no,max(ywdate) as ywdate from loancontracts group by loanCont_no) ls
+   							where lc.loanCont_no = lm.loanCont_no and lc.loanCont_no = ls.loanCont_no and lc.ywdate = ls.ywdate
+   							and lc.Card_no = lm.Card_no and lm.Operation_type != '5'
+						  	"/>
+							
+			<property name="displayInGUI" value="false"/>
+			<property name="allowManualExecute" value="true"/>
+		</extendProperties>
+	</executeUnit>
+	
+	
+	<!-- 业务信息倒入单元，根据情况确定插入和更新的字段 -->
+	<executeUnit>
+		<name>ImportDuebill</name>
+		<describe>导入贷款借据信息表</describe>
+		<executeClass>com.amarsoft.are.task.units.dpx.GeneralDataTransferUnit</executeClass>
+		<extendProperties>
+			<property name="recordSet.metadata.database" value="ecr_data"/>
+			<property name="recordSet.metadata.table" value="ECR_DUEBILL"/>
+			<property name="handlers.class" value="com.amarsoft.are.dpx.recordset.WriteTableHandler"/>
+			
+			<property name="table.database" value="ecr"/>
+			<property name="table.table" value="ECR_DUEBILL"/>
+			<property name="table.keyFields" value="CustomerID,RelativeSerialNo,SerialNo"/>
+			<property name="table.insertFields" 
+					  value="CustomerID,
+						RelativeSerialNo,
+						SerialNo,
+						FinanceID,
+						OccurDate,
+						UpdateDate,
+						DeleteDate,
+						Currency,
+						BusinessSum,
+						Balance,
+						PutOutDate,
+						PutOutEndDate,
+						BusinessType,
+						Form,
+						loancharacter, 
+						Way,
+						Kind,
+						ExtenFlag,
+						Classify4,
+						Classify5,
+						ReturnMode
+						"/>
+			<property name="table.updateFields" 
+					  value="CustomerID,
+						RelativeSerialNo,
+						SerialNo,
+						FinanceID,
+						OccurDate,
+						UpdateDate,
+						DeleteDate,
+						Currency,
+						BusinessSum,
+						Balance,
+						PutOutDate,
+						PutOutEndDate,
+						BusinessType,
+						Form,
+						loancharacter, 
+						Way,
+						Kind,
+						ExtenFlag,
+						Classify4,
+						Classify5,
+						ReturnMode
+						"/>
+			<property name="table.checkExists" value="true"/>
+			<property name="table.skipExists" value="true"/>
+			<property name="table.commitNumber" value="1000"/>
+			<property name="table.useTransaction" value="false"/>
+			<property name="table.startSql" value=""/>
+			<property name="table.endSql" value=""/>
+			
+			<property name="provider.dataSource" 
+			 	value="datasource:db:rh_qyzx:select lb.Card_no as CustomerID,      
+							lb.loanCont_no as RelativeSerialNo,
+							lb.Bill_no as SerialNo,        
+							lb.orgcode as FinanceID,       
+							lb.Ywdate as OccurDate,       
+							'' as UpdateDate,      
+							'' as DeleteDate,      
+							lb.Money_kind as Currency,       
+							0 as BusinessSum,     
+							lb.Bill_ye as Balance,         
+							lb.Create_date as PutOutDate,      
+							lb.Maturity_date as PutOutEndDate,   
+							lb.Loan_oper_kind as BusinessType,    
+							lb.Loan_type as Form,            
+							lb.Loan_property as loancharacter,   
+							'' as Way,             
+							lb.Loan_kind as Kind,            
+							lb.Exp_flag as ExtenFlag,       
+							lb.Four_class as Classify4,       
+							lb.Five_class as Classify5,       
+							'' as ReturnMode
+							from loanbills lb,(select Bill_no as Bill_no,max(ywdate) as ywdate from loanbills group by Bill_no) ls
+							where lb.Bill_no = ls.Bill_no and lb.ywdate = ls.ywdate
+   							"/>
+							
+			<property name="displayInGUI" value="false"/>
+			<property name="allowManualExecute" value="true"/>
+		</extendProperties>
+	</executeUnit>
+	
+	
+	
+	<!-- 业务信息倒入单元，根据情况确定插入和更新的字段 -->
+	<executeUnit>
+		<name>ImportLoanReturn</name>
+		<describe>导入贷款还款信息表</describe>
+		<executeClass>com.amarsoft.are.task.units.dpx.GeneralDataTransferUnit</executeClass>
+		<extendProperties>
+			<property name="recordSet.metadata.database" value="ecr_data"/>
+			<property name="recordSet.metadata.table" value="ECR_LOANRETURN"/>
+			<property name="handlers.class" value="com.amarsoft.are.dpx.recordset.WriteTableHandler"/>
+			
+			<property name="table.database" value="ecr"/>
+			<property name="table.table" value="ECR_LOANRETURN"/>
+			<property name="table.keyFields" value="CustomerID,RelativeSerialNo1,RelativeSerialNo2,SerialNo"/>
+			<property name="table.insertFields" 
+					  value="CustomerID,
+						RelativeSerialNo1,
+						RelativeSerialNo2,
+						SerialNo,
+						FinanceID,
+						OccurDate,
+						UpdateDate,
+						DeleteDate,
+						ReturnDate,
+						ReturnTimes,
+						ReturnMode,
+						ReturnSum
+						"/>
+			<property name="table.updateFields" 
+					  value="CustomerID,
+						RelativeSerialNo1,
+						RelativeSerialNo2,
+						SerialNo,
+						FinanceID,
+						OccurDate,
+						UpdateDate,
+						DeleteDate,
+						ReturnDate,
+						ReturnTimes,
+						ReturnMode,
+						ReturnSum
+						"/>
+			<property name="table.checkExists" value="true"/>
+			<property name="table.skipExists" value="true"/>
+			<property name="table.commitNumber" value="1000"/>
+			<property name="table.useTransaction" value="false"/>
+			<property name="table.startSql" value=""/>
+			<property name="table.endSql" value=""/>
+			
+			<property name="provider.dataSource" 
+			 	value="datasource:db:rh_qyzx:select lr.Card_no as CustomerID,       	
+							lr.loanCont_no as RelativeSerialNo1,
+							lr.Bill_no as RelativeSerialNo2,
+							lr.Bill_no as SerialNo,         
+							lr.orgcode as FinanceID,        
+							lr.Ywdate as OccurDate,        
+							'' as UpdateDate,       
+							'' as DeleteDate,       
+							lr.Return_date as ReturnDate,       
+							lr.Return_times as ReturnTimes,      
+							lr.Return_mode as ReturnMode,       
+							lr.return_money as ReturnSum        
+							from loanreturns lr,(select Bill_no as Bill_no,max(ywdate) as ywdate from loanreturns group by Bill_no) ls
+							where lr.Bill_no = ls.Bill_no and lr.ywdate = ls.ywdate
+   							"/>
+							
+			<property name="displayInGUI" value="false"/>
+			<property name="allowManualExecute" value="true"/>
+		</extendProperties>
+	</executeUnit>
+	
+	
+	<!-- 业务信息倒入单元，根据情况确定插入和更新的字段 -->
+	<executeUnit>
+		<name>ImportExtension</name>
+		<describe>导入贷款展期信息表</describe>
+		<executeClass>com.amarsoft.are.task.units.dpx.GeneralDataTransferUnit</executeClass>
+		<extendProperties>
+			<property name="recordSet.metadata.database" value="ecr_data"/>
+			<property name="recordSet.metadata.table" value="ECR_EXTENSION"/>
+			<property name="handlers.class" value="com.amarsoft.are.dpx.recordset.WriteTableHandler"/>
+			
+			<property name="table.database" value="ecr"/>
+			<property name="table.table" value="ECR_EXTENSION"/>
+			<property name="table.keyFields" value="CustomerID,RelativeSerialNo1,RelativeSerialNo2,SerialNo"/>
+			<property name="table.insertFields" 
+					  value="CustomerID,
+						RelativeSerialNo1,
+						RelativeSerialNo2,
+						SerialNo,
+						FinanceID,
+						OccurDate,
+						UpdateDate,
+						DeleteDate,
+						ExtenTimes,
+						ExtenSum,
+						ExtenStartDate,
+						ExtenEndDate
+						"/>
+			<property name="table.updateFields" 
+					  value="CustomerID,
+						RelativeSerialNo1,
+						RelativeSerialNo2,
+						SerialNo,
+						FinanceID,
+						OccurDate,
+						UpdateDate,
+						DeleteDate,
+						ExtenTimes,
+						ExtenSum,
+						ExtenStartDate,
+						ExtenEndDate
+						"/>
+			<property name="table.checkExists" value="true"/>
+			<property name="table.skipExists" value="true"/>
+			<property name="table.commitNumber" value="1000"/>
+			<property name="table.useTransaction" value="false"/>
+			<property name="table.startSql" value=""/>
+			<property name="table.endSql" value=""/>
+			
+			<property name="provider.dataSource" 
+			 	value="datasource:db:rh_qyzx:select Card_no as CustomerID,    
+							bl.loanCont_no as RelativeSerialNo1,
+							bl.Bill_no as RelativeSerialNo2,
+							bl.Bill_no as SerialNo,         
+							bl.orgcode as FinanceID,        
+							bl.Ywdate as OccurDate,        
+							'' as UpdateDate,       
+							'' as DeleteDate,       
+							bl.Exp_times as ExtenTimes,       
+							bl.Exp_money as ExtenSum,         
+							bl.Start_date as ExtenStartDate,   
+							bl.End_date as ExtenEndDate     
+							from billexps bl,(select Bill_no as Bill_no,max(ywdate) as ywdate from billexps group by Bill_no) bs
+							where bl.Bill_no = bs.Bill_no and bl.ywdate = bs.ywdate
+   							"/>
+							
+			<property name="displayInGUI" value="false"/>
+			<property name="allowManualExecute" value="true"/>
+		</extendProperties>
+	</executeUnit>
+	
+	
+	
+	<!-- 业务信息倒入单元，根据情况确定插入和更新的字段 -->
+	<executeUnit>
+		<name>ImportFactoring</name>
+		<describe>导入保理信息表</describe>
+		<executeClass>com.amarsoft.are.task.units.dpx.GeneralDataTransferUnit</executeClass>
+		<extendProperties>
+			<property name="recordSet.metadata.database" value="ecr_data"/>
+			<property name="recordSet.metadata.table" value="ECR_FACTORING"/>
+			<property name="handlers.class" value="com.amarsoft.are.dpx.recordset.WriteTableHandler"/>
+			
+			<property name="table.database" value="ecr"/>
+			<property name="table.table" value="baolis"/>
+			<property name="table.keyFields" value="Card_no,orgcode,loanCont_no,ywdate"/>
+			<property name="table.insertFields" 
+					  value="CustomerID,
+						SerialNo,
+						FinanceID,
+						OccurDate,
+						UpdateDate,
+						DeleteDate,
+						FactoringType,
+						FactoringStatus,
+						CustomerName,
+						LoanCardID,
+						Currency,
+						BusinessSum,
+						businessdate, 
+						Balance,
+						balancechangedate, 
+						FloorFlag,
+						GuarantyFlag,
+						Classify4,
+						Classify5
+						"/>
+			<property name="table.updateFields" 
+					  value="CustomerID,
+						SerialNo,
+						FinanceID,
+						OccurDate,
+						UpdateDate,
+						DeleteDate,
+						FactoringType,
+						FactoringStatus,
+						CustomerName,
+						LoanCardID,
+						Currency,
+						BusinessSum,
+						businessdate, 
+						Balance,
+						balancechangedate, 
+						FloorFlag,
+						GuarantyFlag,
+						Classify4,
+						Classify5
+						"/>
+			<property name="table.checkExists" value="true"/>
+			<property name="table.skipExists" value="true"/>
+			<property name="table.commitNumber" value="1000"/>
+			<property name="table.useTransaction" value="false"/>
+			<property name="table.startSql" value=""/>
+			<property name="table.endSql" value=""/>
+			
+			<property name="provider.dataSource" 
+			 	value="datasource:db:rh_qyzx:select bl.Card_no as CustomerID,        
+							bl.loanCont_no as SerialNo,          
+							bl.orgcode as FinanceID,         
+							bl.Ywdate as OccurDate,         
+							'' as UpdateDate,        
+							'' as DeleteDate,        
+							bl.Baoli_type as FactoringType,     
+							bl.Baoli_status as FactoringStatus,   
+							bl.Name as CustomerName,      
+							'' as LoanCardID,        
+							bl.Money_kind as Currency,          
+							bl.Money as BusinessSum,       
+							bl.loanCont_date as businessdate,      
+							bl.loanCont_balance as Balance,           
+							bl.Balance_date as balancechangedate, 
+							bl.diankuanflag as FloorFlag,         
+							bl.Assure_flag as GuarantyFlag,      
+							bl.Four_class as Classify4,         
+							bl.Five_class as Classify5         
+							from baolis bl,(select loanCont_no as loanCont_no,max(ywdate) as ywdate from baolis group by loanCont_no) bs
+							where bl.loanCont_no = bs.loanCont_no and bl.ywdate = bs.ywdate
+   							"/>
+							
+			<property name="displayInGUI" value="false"/>
+			<property name="allowManualExecute" value="true"/>
+		</extendProperties>
+	</executeUnit>
+	
+	
+	
+	<!-- 业务信息倒入单元，根据情况确定插入和更新的字段 -->
+	<executeUnit>
+		<name>ImportDiscount</name>
+		<describe>导入贴现信息表</describe>
+		<executeClass>com.amarsoft.are.task.units.dpx.GeneralDataTransferUnit</executeClass>
+		<extendProperties>
+			<property name="recordSet.metadata.database" value="ecr_data"/>
+			<property name="recordSet.metadata.table" value="ECR_DISCOUNT"/>
+			<property name="handlers.class" value="com.amarsoft.are.dpx.recordset.WriteTableHandler"/>
+			
+			<property name="table.database" value="ecr"/>
+			<property name="table.table" value="ECR_DISCOUNT"/>
+			<property name="table.keyFields" value="CustomerID,SerialNo"/>
+			<property name="table.insertFields" 
+					  value="CustomerID,
+						SerialNo,
+						FinanceID,
+						OccurDate,
+						UpdateDate,
+						DeleteDate,
+						BillType,
+						CustomerName,
+						LoanCardID,
+						AccepterName,
+						AcceptCardNo,
+						Currency,
+						DiscountSum,
+						DiscountDate,
+						AcceptMaturity,
+						BillSum,
+						BillStatus,
+						Classify4,
+						Classify5
+						"/>
+			<property name="table.updateFields" 
+					  value="CustomerID,
+						SerialNo,
+						FinanceID,
+						OccurDate,
+						UpdateDate,
+						DeleteDate,
+						BillType,
+						CustomerName,
+						LoanCardID,
+						AccepterName,
+						AcceptCardNo,
+						Currency,
+						DiscountSum,
+						DiscountDate,
+						AcceptMaturity,
+						BillSum,
+						BillStatus,
+						Classify4,
+						Classify5
+						"/>
+			<property name="table.checkExists" value="true"/>
+			<property name="table.skipExists" value="true"/>
+			<property name="table.commitNumber" value="1000"/>
+			<property name="table.useTransaction" value="false"/>
+			<property name="table.startSql" value=""/>
+			<property name="table.endSql" value=""/>
+			
+			<property name="provider.dataSource" 
+			 	value="datasource:db:rh_qyzx:select bd.Card_no as CustomerID,    	
+								bd.bill_no as SerialNo,      
+								bd.orgcode as FinanceID,     
+								bd.Ywdate as OccurDate,     
+								'' as UpdateDate,    
+								'' as DeleteDate,    
+								bd.Bill_kind as BillType,      
+								bd.Proposer_name as CustomerName,  
+								bd.Card_no as LoanCardID,    
+								bd.Acceptor_name as AccepterName,  
+								bd.Acceptor_card as AcceptCardNo,  
+								bd.Money_kind as Currency,      
+								bd.Discount_money as DiscountSum,  
+								bd.Discount_date as DiscountDate,  
+								bd.Accept_date as AcceptMaturity,
+								bd.Bill_money as BillSum ,      
+								bd.Bill_status as BillStatus,    
+								bd.Four_class as Classify4 ,    
+								bd.Five_class as Classify5     
+								from billdiscounts bd,(select bill_no as bill_no,max(ywdate) as ywdate from billdiscounts group by bill_no) bs
+								where bd.bill_no = bs.bill_no and bd.ywdate = bs.ywdate
+   								"/>
+							
+			<property name="displayInGUI" value="false"/>
+			<property name="allowManualExecute" value="true"/>
+		</extendProperties>
+	</executeUnit>
+	
+	
+	
+	<!-- 业务信息倒入单元，根据情况确定插入和更新的字段 -->
+	<executeUnit>
+		<name>ImportFinanceInfo</name>
+		<describe>导入企业客户贸易融资业务协议信息表</describe>
+		<executeClass>com.amarsoft.are.task.units.dpx.GeneralDataTransferUnit</executeClass>
+		<extendProperties>
+			<property name="recordSet.metadata.database" value="ecr_data"/>
+			<property name="recordSet.metadata.table" value="ECR_FINANCEINFO"/>
+			<property name="handlers.class" value="com.amarsoft.are.dpx.recordset.WriteTableHandler"/>
+			
+			<property name="table.database" value="ecr"/>
+			<property name="table.table" value="ECR_FINANCEINFO"/>
+			<property name="table.keyFields" value="Customerid,SerialNo"/>
+			<property name="table.insertFields" 
+					  value="CustomerID,
+						SerialNo,
+						FinanceID,
+						OccurDate,
+						UpdateDate,
+						DeleteDate,
+						CustomerName,
+						LoanCardID,
+						CreditNo,
+						StartDate,
+						EndDate,
+						GuarantyFlag,
+						AvailabStatus,
+						Currency,
+						amount,
+						Balance
+						"/>
+			<property name="table.updateFields" 
+					  value="CustomerID,
+						SerialNo,
+						FinanceID,
+						OccurDate,
+						UpdateDate,
+						DeleteDate,
+						CustomerName,
+						LoanCardID,
+						CreditNo,
+						StartDate,
+						EndDate,
+						GuarantyFlag,
+						AvailabStatus,
+						Currency,
+						amount,
+						Balance
+						"/>
+			<property name="table.checkExists" value="true"/>
+			<property name="table.skipExists" value="true"/>
+			<property name="table.commitNumber" value="1000"/>
+			<property name="table.useTransaction" value="false"/>
+			<property name="table.startSql" value=""/>
+			<property name="table.endSql" value=""/>
+			
+			<property name="provider.dataSource" 
+			 value="datasource:db:rh_qyzx:select fc.Card_no as CustomerID,
+						fc.Proto_no  as SerialNo,
+						fc.orgcode  as FinanceID,
+						fc.Ywdate  as OccurDate,
+						''  as UpdateDate,
+						''  as DeleteDate,
+						fc.Name  as CustomerName,
+						fc.Card_no  as LoanCardID,
+						fc.trustno  as CreditNo,
+						fc.Start_date  as StartDate,
+						fc.End_date   as EndDate,
+						fc.Assure_flag  as GuarantyFlag,
+						fc.Proto_status  as AvailabStatus,
+						fs.Money_kind  as Currency,
+						fs.Proto_money  as amount,
+						fs.Proto_balance  as Balance
+   						from financeprotos fc,financemoneys fs,(select Proto_no as Proto_no,max(ywdate) as ywdate from financeprotos group by Proto_no) fi
+						where fc.Proto_no = fi.Proto_no and fc.ywdate = fi.ywdate and fc.Proto_no = fs.Proto_no
+   						" />
+							
+			<property name="displayInGUI" value="false"/>
+			<property name="allowManualExecute" value="true"/>
+		</extendProperties>
+	</executeUnit>
+	
+	
+	<!-- 业务信息倒入单元，根据情况确定插入和更新的字段 -->
+	<executeUnit>
+		<name>ImportFinaDuebill</name>
+		<describe>导入企业客户贸易融资借据业务信息表</describe>
+		<executeClass>com.amarsoft.are.task.units.dpx.GeneralDataTransferUnit</executeClass>
+		<extendProperties>
+			<property name="recordSet.metadata.database" value="ecr_data"/>
+			<property name="recordSet.metadata.table" value="ECR_FINADUEBILL"/>
+			<property name="handlers.class" value="com.amarsoft.are.dpx.recordset.WriteTableHandler"/>
+			
+			<property name="table.database" value="ecr"/>
+			<property name="table.table" value="ECR_FINADUEBILL"/>
+			<property name="table.keyFields" value="CustomerID,RelativeSerialNo,SerialNo"/>
+			<property name="table.insertFields" 
+					  value="CustomerID,
+						RelativeSerialNo,
+						SerialNo,
+						FinanceID,
+						OccurDate,
+						UpdateDate,
+						DeleteDate,
+						BusinessType,
+						Currency,
+						FinaSum,
+						FinaBalance,
+						FinaStartDate,
+						FinaEndDate,
+						ExtenFlag,
+						Classify4,
+						Classify5
+						"/>
+			<property name="table.updateFields" 
+					  value="CustomerID,
+						RelativeSerialNo,
+						SerialNo,
+						FinanceID,
+						OccurDate,
+						UpdateDate,
+						DeleteDate,
+						BusinessType,
+						Currency,
+						FinaSum,
+						FinaBalance,
+						FinaStartDate,
+						FinaEndDate,
+						ExtenFlag,
+						Classify4,
+						Classify5
+						"/>
+			<property name="table.checkExists" value="true"/>
+			<property name="table.skipExists" value="true"/>
+			<property name="table.commitNumber" value="1000"/>
+			<property name="table.useTransaction" value="false"/>
+			<property name="table.startSql" value=""/>
+			<property name="table.endSql" value=""/>
+			
+			<property name="provider.dataSource" 
+			 value="datasource:db:rh_qyzx:select fb.Card_no as  CustomerID,
+						fb.Proto_no  as  RelativeSerialNo,
+						fb.Yw_no   as  SerialNo,
+						fb.orgcode  as  FinanceID,
+						fb.Ywdate   as  OccurDate,
+						''   as  UpdateDate,
+						''   as  DeleteDate,
+						fb.Yw_kind   as  BusinessType,
+						fb.Money_kind   as  Currency,
+						fb.Finance_money   as  FinaSum,
+						fb.Finance_balance   as FinaBalance,
+						fb.Start_date   as  FinaStartDate,
+						fb.End_date   as  FinaStartDate,
+						fb.Exp_flag   as   ExtenFlag,
+						fb.four_class   as  Classify4,
+						fb.five_class   as  Classify5
+   						from financebusiness fb,(select Proto_no as Proto_no,max(ywdate) as ywdate from financebusiness group by Proto_no) fi
+						where fb.Proto_no = fi.Proto_no and fb.ywdate = fi.ywdate
+						" />
+							
+			<property name="displayInGUI" value="false"/>
+			<property name="allowManualExecute" value="true"/>
+		</extendProperties>
+	</executeUnit>
+	
+	<executeUnit>
+		<name>ImportFinanceReturn</name>
+		<describe>导入企业客户贸易融资还款业务信息表</describe>
+		<executeClass>com.amarsoft.are.task.units.dpx.GeneralDataTransferUnit</executeClass>
+		<extendProperties>
+			<property name="recordSet.metadata.database" value="ecr_data"/>
+			<property name="recordSet.metadata.table" value="ECR_FINANCERETURN"/>
+			<property name="handlers.class" value="com.amarsoft.are.dpx.recordset.WriteTableHandler"/>
+			
+			<property name="table.database" value="ecr"/>
+			<property name="table.table" value="ECR_FINANCERETURN"/>
+			<property name="table.keyFields" value="CustomerID,RelativeSerialNo1,RelativeSerialNo2,SerialNo"/>
+			<property name="table.insertFields" 
+					  value="CustomerID,
+						RelativeSerialNo1,
+						RelativeSerialNo2,
+						SerialNo,
+						FinanceID,
+						OccurDate,
+						UpdateDate,
+						DeleteDate,
+						ReturnTimes,
+						ReturnDate,
+						ReturnMode,
+						ReturnSum
+						"/>
+			<property name="table.updateFields" 
+					  value="CustomerID,
+						RelativeSerialNo1,
+						RelativeSerialNo2,
+						SerialNo,
+						FinanceID,
+						OccurDate,
+						UpdateDate,
+						DeleteDate,
+						ReturnTimes,
+						ReturnDate,
+						ReturnMode,
+						ReturnSum
+						"/>
+			<property name="table.checkExists" value="true"/>
+			<property name="table.skipExists" value="true"/>
+			<property name="table.commitNumber" value="1000"/>
+			<property name="table.useTransaction" value="false"/>
+			<property name="table.startSql" value=""/>
+			<property name="table.endSql" value=""/>
+			
+			<property name="provider.dataSource" 
+			 value="datasource:db:rh_qyzx:select fc.Card_no as CustomerID,
+						fc.Proto_no  as  RelativeSerialNo1,
+						fc.Yw_no   as   RelativeSerialNo2,
+						''   as    SerialNo,
+						fc.orgcode   as  FinanceID,
+						fc.Ywdate   as  OccurDate,
+						''   as  UpdateDate,
+						''   as  DeleteDate,
+						fc.Return_times   as  ReturnTimes,
+						fc.Return_date   as   ReturnDate,
+						fc.Return_way    as   ReturnMode,
+						fc.Return_money  as   ReturnSum
+   						from financereturns fc,(select Proto_no as Proto_no,max(ywdate) as ywdate from financereturns group by Proto_no) fi
+   						where fc.Proto_no = fi.Proto_no and fc.ywdate = fi.ywdate
+						" />
+							
+			<property name="displayInGUI" value="false"/>
+			<property name="allowManualExecute" value="true"/>
+		</extendProperties>
+	</executeUnit>
+	
+	<!-- 业务信息倒入单元，根据情况确定插入和更新的字段 -->
+	<executeUnit>
+		<name>ImportFinaExtension</name>
+		<describe>导入企业客户贸易融资展期业务信息表</describe>
+		<executeClass>com.amarsoft.are.task.units.dpx.GeneralDataTransferUnit</executeClass>
+		<extendProperties>
+			<property name="recordSet.metadata.database" value="ecr_data"/>
+			<property name="recordSet.metadata.table" value="ECR_FINANCERETURN"/>
+			<property name="handlers.class" value="com.amarsoft.are.dpx.recordset.WriteTableHandler"/>
+			
+			<property name="table.database" value="ecr"/>
+			<property name="table.table" value="ECR_FINANCERETURN"/>
+			<property name="table.keyFields" value="CustomerID,RelativeSerialNo1,RelativeSerialNo2,SerialNo"/>
+			<property name="table.insertFields" 
+					  value="CustomerID,
+						RelativeSerialNo1,
+						RelativeSerialNo2,
+						SerialNo,
+						FinanceID,
+						OccurDate,
+						UpdateDate,
+						DeleteDate,
+						ExtenSum,
+						ExtenStartDate,
+						ExtenEndDate
+						"/>
+			<property name="table.updateFields" 
+					  value="CustomerID,
+						RelativeSerialNo1,
+						RelativeSerialNo2,
+						SerialNo,
+						FinanceID,
+						OccurDate,
+						UpdateDate,
+						DeleteDate,
+						ExtenSum,
+						ExtenStartDate,
+						ExtenEndDate
+						"/>
+			<property name="table.checkExists" value="true"/>
+			<property name="table.skipExists" value="true"/>
+			<property name="table.commitNumber" value="1000"/>
+			<property name="table.useTransaction" value="false"/>
+			<property name="table.startSql" value=""/>
+			<property name="table.endSql" value=""/>
+			
+			<property name="provider.dataSource" 
+			 value="datasource:db:rh_qyzx:select fc.Card_no as CustomerID,
+						fc.Proto_no  as RelativeSerialNo1,
+						fc.Yw_no  as   RelativeSerialNo2,
+						''  as     SerialNo,
+						fc.orgcode  as   FinanceID,
+						fc.Ywdate   as   OccurDate,
+						''   as   UpdateDate,
+						''   as   DeleteDate,
+						fc.Exp_money  as  ExtenSum,
+						fc.Start_date   as  ExtenStartDate,
+						fc.End_date   as   ExtenEndDate,
+						fc.Exp_times   
+   						from financeexps fc,(select Proto_no as Proto_no,max(ywdate) as ywdate from financeexps group by Proto_no) fi
+   						where fc.Proto_no = fi.Proto_no and fc.ywdate = fi.ywdate
+						" />
+							
+			<property name="displayInGUI" value="false"/>
+			<property name="allowManualExecute" value="true"/>
+		</extendProperties>
+	</executeUnit>
+	
+	
+	<!-- 业务信息倒入单元，根据情况确定插入和更新的字段 -->
+	<executeUnit>
+		<name>ImportCreditLetter</name>
+		<describe>导入企业客户信用证业务信息表</describe>
+		<executeClass>com.amarsoft.are.task.units.dpx.GeneralDataTransferUnit</executeClass>
+		<extendProperties>
+			<property name="recordSet.metadata.database" value="ecr_data"/>
+			<property name="recordSet.metadata.table" value="ECR_CUSTOMERCREDIT"/>
+			<property name="handlers.class" value="com.amarsoft.are.dpx.recordset.WriteTableHandler"/>
+			
+			<property name="table.database" value="ecr"/>
+			<property name="table.table" value="ECR_CUSTOMERCREDIT"/>
+			<property name="table.keyFields" value="Customerid,SerialNo"/>
+			<property name="table.insertFields" 
+					  value="CustomerID,
+						SerialNo,
+						FinanceID,
+						OccurDate,
+						UpdateDate,
+						DeleteDate,
+						CustomerName,
+						LoanCardID,
+						Currency,
+						CreateSum,
+						CreateDate,
+						AvailabTerm,
+						PayTerm,
+						GuarantyScale,
+						GuarantyFlag,
+						FloorFlag,
+						CresitStatus,
+						LogOutDate,
+						AssureBalance,
+						ReportDate,
+						Classify5
+						"/>
+			<property name="table.updateFields" 
+					  value="CustomerID,
+						SerialNo,
+						FinanceID,
+						OccurDate,
+						UpdateDate,
+						DeleteDate,
+						CustomerName,
+						LoanCardID,
+						Currency,
+						CreateSum,
+						CreateDate,
+						AvailabTerm,
+						PayTerm,
+						GuarantyScale,
+						GuarantyFlag,
+						FloorFlag,
+						CresitStatus,
+						LogOutDate,
+						AssureBalance,
+						ReportDate,
+						Classify5
+						"/>
+			<property name="table.checkExists" value="true"/>
+			<property name="table.skipExists" value="true"/>
+			<property name="table.commitNumber" value="1000"/>
+			<property name="table.useTransaction" value="false"/>
+			<property name="table.startSql" value=""/>
+			<property name="table.endSql" value=""/>
+			
+			<property name="provider.dataSource" 
+			 value="datasource:db:rh_qyzx:select cb.Card_no as  CustomerID,
+						cb.Credit_no  as   SerialNo,
+						cb.orgcode   as    FinanceID,
+						cb.Ywdate   as    OccurDate,
+						''    as    UpdateDate,
+						''   as    DeleteDate,
+						cb.Name   as  CustomerName,
+						cb.Card_no   as  LoanCardID,
+						cb.Money_kind   as  Currency,
+						cb.Init_money    as  CreateSum,
+						cb.Init_date    as   CreateDate,
+						cb.Validity_period   as   AvailabTerm,
+						cb.Pay_limit     as   PayTerm,
+						cb.Deposit_scale   as  GuarantyScale,
+						cb.Assure_flag   as   GuarantyFlag,
+						cb.diankuanflag   as   FloorFlag,
+						cb.Credit_status    as   CresitStatus,
+						cb.Logout_date    as   LogOutDate,
+						cb.Credit_balance   as  AssureBalance,
+						cb.Balance_report_date   as  ReportDate,
+						cb.Five_class      as    Classify5
+   						from creditbusiness cb,(select Credit_no as Credit_no,max(ywdate) as ywdate from creditbusiness group by Credit_no) cs
+   						where cb.Credit_no = cs.Credit_no and cb.ywdate = cs.ywdate  
+						" />
+							
+			<property name="displayInGUI" value="false"/>
+			<property name="allowManualExecute" value="true"/>
+		</extendProperties>
+	</executeUnit>
+	
+	
+	
+	<!-- 业务信息倒入单元，根据情况确定插入和更新的字段 -->
+	<executeUnit>
+		<name>ImportGuaranteeBill</name>
+		<describe>导入企业客户保函业务信息表</describe>
+		<executeClass>com.amarsoft.are.task.units.dpx.GeneralDataTransferUnit</executeClass>
+		<extendProperties>
+			<property name="recordSet.metadata.database" value="ecr_data"/>
+			<property name="recordSet.metadata.table" value="ECR_GUARANTEEBILL"/>
+			<property name="handlers.class" value="com.amarsoft.are.dpx.recordset.WriteTableHandler"/>
+			
+			<property name="table.database" value="ecr"/>
+			<property name="table.table" value="ECR_GUARANTEEBILL"/>
+			<property name="table.keyFields" value="CustomerID,SerialNo"/>
+			<property name="table.insertFields" 
+					  value="CustomerID,
+						SerialNo,
+						FinanceID,
+						OccurDate,
+						UpdateDate,
+						DeleteDate,
+						GuaranteeNo,
+						CreditNo,
+						CustomerName,
+						LoanCardId,
+						GuaranteeType,
+						GuaranteeStatus,
+						Currency,
+						GuaranteeSum,
+						CreateDate,
+						EndDate,
+						AssureScale,
+						GuarantyFlag,
+						Balance,
+						balanceoccurdate,
+						Classify5   
+						"/>
+			<property name="table.updateFields" 
+					  value="CustomerID,
+						SerialNo,
+						FinanceID,
+						OccurDate,
+						UpdateDate,
+						DeleteDate,
+						GuaranteeNo,
+						CreditNo,
+						CustomerName,
+						LoanCardId,
+						GuaranteeType,
+						GuaranteeStatus,
+						Currency,
+						GuaranteeSum,
+						CreateDate,
+						EndDate,
+						AssureScale,
+						GuarantyFlag,
+						Balance,
+						balanceoccurdate ,
+						Classify5
+						"/>
+			<property name="table.checkExists" value="true"/>
+			<property name="table.skipExists" value="true"/>
+			<property name="table.commitNumber" value="1000"/>
+			<property name="table.useTransaction" value="false"/>
+			<property name="table.startSql" value=""/>
+			<property name="table.endSql" value=""/>
+			
+			<property name="provider.dataSource" 
+			 value="datasource:db:rh_qyzx:select bh.Card_no  as  CustomerID,
+						bh.Baohan_no as  SerialNo,
+						bh.orgcode  as  FinanceID,
+						bh.Ywdate  as   	OccurDate,
+						''   as     UpdateDate,
+						''  as      DeleteDate,
+						bh.Baohan_no   as  GuaranteeNo,
+						''   as    CreditNo,
+						bh.Name  as   CustomerName,
+						bh.Card_no  as  LoanCardId,
+						bh.Baohan_kind  as  GuaranteeType,
+						bh.Baohan_status  as  GuaranteeStatus,
+						bh.Money_kind  as  Currency,
+						bh.Baohan_money  as  GuaranteeSum,
+						bh.Start_date  as  CreateDate,
+						bh.End_date  as   EndDate,
+						bh.Deposit_scale   as   AssureScale,
+						bh.Assure_flag  as   GuarantyFlag,
+						bh.Baohan_balance  as  Balance,
+						bh.Balance_date  as   balanceoccurdate ,
+						bh.Five_class   as   Classify5,
+						bh.diankuanflag  
+   						from baohans bh,(select Baohan_no as Baohan_no,max(ywdate) as ywdate from baohans group by Baohan_no) bs
+   						where bh.Baohan_no = bs.Baohan_no and bh.ywdate = bs.ywdate   
+						" />
+							
+			<property name="displayInGUI" value="false"/>
+			<property name="allowManualExecute" value="true"/>
+		</extendProperties>
+	</executeUnit>
+	
+	
+	<!-- 客户信息倒入单元，根据情况确定插入和更新的字段 -->
+	<executeUnit>
+		<name>ImportAcceptance</name>
+		<describe>导入企业客户银行承兑汇票业务信息表</describe>
+		<executeClass>com.amarsoft.are.task.units.dpx.GeneralDataTransferUnit</executeClass>
+		<extendProperties>
+			<property name="recordSet.metadata.database" value="ecr_data"/>
+			<property name="recordSet.metadata.table" value="ECR_ACCEPTANCE"/>
+			<property name="handlers.class" value="com.amarsoft.are.dpx.recordset.WriteTableHandler"/>
+			
+			<property name="table.database" value="ecr"/>
+			<property name="table.table" value="ECR_ACCEPTANCE"/>
+			<property name="table.keyFields" value="CustomerID,relativeserialno,SerialNo"/>
+			<property name="table.insertFields" 
+					  value="CustomerID,
+						relativeserialno,
+						SerialNo,
+						FinanceID,
+						OccurDate,
+						UpdateDate,
+						DeleteDate,
+						Currency,
+						AccepNo,
+						CreditNo,
+						CustomerName,
+						LoanCardID,
+						AccepSum,
+						AccepDate,
+						AccepEndDate,
+						AccepPayDate,
+						AssureScale,
+						FloorFlag,
+						GuarantyFlag,
+						DraftStatus,
+						Classify5
+						"/>
+			<property name="table.updateFields" 
+					  value="CustomerID,
+						relativeserialno,
+						SerialNo,
+						FinanceID,
+						OccurDate,
+						UpdateDate,
+						DeleteDate,
+						Currency,
+						AccepNo,
+						CreditNo,
+						CustomerName,
+						LoanCardID,
+						AccepSum,
+						AccepDate,
+						AccepEndDate,
+						AccepPayDate,
+						AssureScale,
+						FloorFlag,
+						GuarantyFlag,
+						DraftStatus,
+						Classify5
+						"/>
+			<property name="table.checkExists" value="true"/>
+			<property name="table.skipExists" value="true"/>
+			<property name="table.commitNumber" value="1000"/>
+			<property name="table.useTransaction" value="false"/>
+			<property name="table.startSql" value=""/>
+			<property name="table.endSql" value=""/>
+			
+			<property name="provider.dataSource" 
+			 value="datasource:db:rh_qyzx:select bc.Card_no  as   CustomerID,
+						bc.Proto_no   as  relativeserialno,
+						bc.Bill_no   as   SerialNo,
+						bc.orgcode   as   FinanceID,
+						bc.Ywdate   as   OccurDate,
+						''      as    UpdateDate,
+						''      as   DeleteDate,
+						bc.Money_kind   as Currency,
+						bc.Bill_no    as AccepNo,
+						''   as   CreditNo,
+						bc.Remitter_name   as   CustomerName,
+						bc.Card_no   as  LoanCardID,
+						bc.Bill_money   as  AccepSum,
+						bc.Accept_date   as  AccepDate,
+						bc.Maturity_date   as AccepEndDate,
+						bc.Pay_date    as    AccepPayDate,
+						bc.Deposit_scale   as  AssureScale,
+						bc.diankuanflag   as   FloorFlag,
+						bc.Assure_flag  as   GuarantyFlag,
+						bc.Bill_status   as  DraftStatus,
+						bc.Five_class   as   Classify5
+						from  bankaccepts bc,(select Proto_no as Proto_no,max(ywdate) as ywdate from bankaccepts group by Proto_no) bs
+   						where bc.Proto_no = bs.Proto_no and bc.ywdate = bs.ywdate
+						" />
+							
+			<property name="displayInGUI" value="false"/>
+			<property name="allowManualExecute" value="true"/>
+		</extendProperties>
+	</executeUnit>
+	
+	
+	<!-- 业务信息倒入单元，根据情况确定插入和更新的字段 -->
+	<executeUnit>
+		<name>ImportAssureContract</name>
+		<describe>导入企业客户业务保证合同信息表</describe>
+		<executeClass>com.amarsoft.are.task.units.dpx.GeneralDataTransferUnit</executeClass>
+		<extendProperties>
+			<property name="recordSet.metadata.database" value="ecr_data"/>
+			<property name="recordSet.metadata.table" value="ECR_ASSURECONT"/>
+			<property name="handlers.class" value="com.amarsoft.are.dpx.recordset.WriteTableHandler"/>
+			
+			<property name="table.database" value="ecr"/>
+			<property name="table.table" value="ECR_ASSURECONT"/>
+			<property name="table.keyFields" value="CustomerID,RelativeSerialNo,SerialNo,gloancardid"/>
+			<property name="table.insertFields" 
+					  value="CustomerID,
+						RelativeSerialNo,
+						SerialNo,
+						FinanceID,
+						OccurDate,
+						UpdateDate,
+						DeleteDate,
+						AssurerName,
+						LoanCardID,
+						BusinessType,
+						Currency,
+						AssureSum,
+						CreateDate,
+						AssureForm,
+						AvailabStatus,
+						gloancardid
+						"/>
+			<property name="table.updateFields" 
+					  value="CustomerID,
+						RelativeSerialNo,
+						SerialNo,
+						FinanceID,
+						OccurDate,
+						UpdateDate,
+						DeleteDate,
+						AssurerName,
+						LoanCardID,
+						BusinessType,
+						Currency,
+						AssureSum,
+						CreateDate,
+						AssureForm,
+						AvailabStatus,
+						gloancardid
+						"/>
+			<property name="table.checkExists" value="true"/>
+			<property name="table.skipExists" value="true"/>
+			<property name="table.commitNumber" value="1000"/>
+			<property name="table.useTransaction" value="false"/>
+			<property name="table.startSql" value=""/>
+			<property name="table.endSql" value=""/>
+			
+			<property name="provider.dataSource" 
+			 value="datasource:db:rh_qyzx:select ec.Card_no as CustomerID,
+							ec.contract_no as RelativeSerialNo,
+							ec.ensure_no as SerialNo,
+							ec.orgcode as FinanceID,
+							ec.ywdate as OccurDate,
+							'' as UpdateDate,
+							'' as DeleteDate,
+							ec.name as AssurerName,
+							ec.card_no as LoanCardID,
+							ec.trustloan_type as BusinessType,
+							ec.money_kind as Currency,
+							ec.ensure_money as AssureSum,
+							ec.sign_date as CreateDate,
+							ec.ensure_style as AssureForm,
+							ec.valid_status as AvailabStatus,
+							ec.ensure_card as gloancardid
+						 	from ensurecontracts ec,(select contract_no as contract_no,max(ywdate) as ywdate from ensurecontracts group by contract_no) es
+   							where ec.contract_no = es.contract_no and ec.ywdate = es.ywdate
+							"/>
+							
+			<property name="displayInGUI" value="false"/>
+			<property name="allowManualExecute" value="true"/>
+		</extendProperties>
+	</executeUnit>
+	
+	
+	<!-- 业务 信息倒入单元，根据情况确定插入和更新的字段 -->
+	<executeUnit>
+		<name>ImportGuarantyContract</name>
+		<describe>导入企业客户业务抵押合同信息表</describe>
+		<executeClass>com.amarsoft.are.task.units.dpx.GeneralDataTransferUnit</executeClass>
+		<extendProperties>
+			<property name="recordSet.metadata.database" value="ecr_data"/>
+			<property name="recordSet.metadata.table" value="ECR_GUARANTYCONT"/>
+			<property name="handlers.class" value="com.amarsoft.are.dpx.recordset.WriteTableHandler"/>
+			
+			<property name="table.database" value="ecr"/>
+			<property name="table.table" value="ECR_GUARANTYCONT"/>
+			<property name="table.keyFields" value="Customerid,RelativeSerialno,Serialno,Guarantyserialno,gLoancardid"/>
+			<property name="table.insertFields" 
+					  value="CustomerID,        
+						RelativeSerialNo,   
+						SerialNo,           
+						FinanceID,          
+						OccurDate,          
+						UpdateDate,         
+						DeleteDate,         
+						PledgorName,        
+						LoanCardID,         
+						BusinessType,       
+						CreateDate,         
+						AvailabStatus,      
+						CustomerName,      
+						EvaluateCurrency,   
+						EvaluateSum,        
+						EvaluateDate,       
+						EvaluateOffice,     
+						EvaluateOfficeID,   
+						GuarantyType,       
+						GuarantyCurrency,   
+						GuarantySum,        
+						InputOrgName,       
+						InputDate,          
+						guarantyno,         
+						gLoancardid,        
+						GuarantyExplain,   
+						Guarantyserialno   
+						"/>
+			<property name="table.updateFields" 
+					  value="CustomerID,        
+						RelativeSerialNo,   
+						SerialNo,           
+						FinanceID,          
+						OccurDate,          
+						UpdateDate,         
+						DeleteDate,         
+						PledgorName,        
+						LoanCardID,         
+						BusinessType,       
+						CreateDate,         
+						AvailabStatus,      
+						CustomerName,      
+						EvaluateCurrency,   
+						EvaluateSum,        
+						EvaluateDate,       
+						EvaluateOffice,     
+						EvaluateOfficeID,   
+						GuarantyType,       
+						GuarantyCurrency,   
+						GuarantySum,        
+						InputOrgName,       
+						InputDate,          
+						guarantyno,         
+						gLoancardid,        
+						GuarantyExplain,   
+						Guarantyserialno   
+						"/>
+			<property name="table.checkExists" value="true"/>
+			<property name="table.skipExists" value="true"/>
+			<property name="table.commitNumber" value="1000"/>
+			<property name="table.useTransaction" value="false"/>
+			<property name="table.startSql" value=""/>
+			<property name="table.endSql" value=""/>
+			
+			<property name="provider.dataSource" 
+			 value="datasource:db:rh_qyzx:select pc.Card_no as CustomerID,		
+							pc.contract_no as RelativeSerialNo,   	
+							pc.pledge_no as SerialNo,           	
+							pc.orgcode	as FinanceID,          	
+							pc.ywdate as OccurDate,          	
+							'' as UpdateDate,         	
+							'' as DeleteDate,         	
+							pc.pledge_name as PledgorName,        	
+							pc.Card_no as LoanCardID,         	
+							pc.trustloan_type as BusinessType,       	
+							pc.sign_date as CreateDate,         	
+							pc.valid_status as AvailabStatus,      	
+							pc.name as CustomerName,      	
+							pc.eval_money_kind as EvaluateCurrency,   	
+							pc.pledge_val as EvaluateSum,        	
+							pc.eval_date as EvaluateDate,       	
+							pc.eval_orgname as EvaluateOffice,     	
+							pc.eval_orgcode as EvaluateOfficeID,   	
+							pc.pledge_kind as GuarantyType,       	
+							pc.money_kind as GuarantyCurrency,   	
+							pc.pledge_money as GuarantySum,        	
+							pc.login_org as InputOrgName,       	
+							pc.login_date as InputDate,          	
+							'' as guarantyno,      	
+							pc.pledge_card as gLoancardid,        	
+							pc.pledge_desc as GuarantyExplain,   	
+							pc.pledge_num as Guarantyserialno   	
+							from pledgecontracts pc,(select pledge_no as pledge_no,max(ywdate) as ywdate from pledgecontracts group by pledge_no) ps
+   							where pc.pledge_no = ps.pledge_no and pc.ywdate = ps.ywdate
+							"/>
+							
+			<property name="displayInGUI" value="false"/>
+			<property name="allowManualExecute" value="true"/>
+		</extendProperties>
+	</executeUnit>
+	
+	
+	
+	<!-- 业务信息倒入单元，根据情况确定插入和更新的字段 -->
+	<executeUnit>
+		<name>ImportImpawnContract</name>
+		<describe>导入企业客户业务质押合同信息表</describe>
+		<executeClass>com.amarsoft.are.task.units.dpx.GeneralDataTransferUnit</executeClass>
+		<extendProperties>
+			<property name="recordSet.metadata.database" value="ecr_data"/>
+			<property name="recordSet.metadata.table" value="ECR_IMPAWNCONT"/>
+			<property name="handlers.class" value="com.amarsoft.are.dpx.recordset.WriteTableHandler"/>
+			
+			<property name="table.database" value="ecr"/>
+			<property name="table.table" value="ECR_IMPAWNCONT"/>
+			<property name="table.keyFields" value="CustomerID,RelativeSerialNo,SerialNo,Impawserialno"/>
+			<property name="table.insertFields" 
+					  value="CustomerID,         
+						RelativeSerialNo,   
+						SerialNo,           
+						FinanceID,          
+						OccurDate,          
+						UpdateDate,         
+						DeleteDate,         
+						ImpawnName,         
+						LoanCardID,         
+						BusinessType,        
+						CreateDate,   	           
+						AvailabStatus,      
+						CustomerName,       
+						iLoanCardID,        
+						ImpawnValue,        
+						ImpawnType,         
+						ImpawnCurrency,		
+						ImpawnSum, 			
+						Impawno,            
+						Currency,                      
+						Impawserialno  
+     						"/>
+			<property name="table.updateFields" 
+					  value="CustomerID,         
+						RelativeSerialNo,   
+						SerialNo,           
+						FinanceID,          
+						OccurDate,          
+						UpdateDate,         
+						DeleteDate,         
+						ImpawnName,         
+						LoanCardID,         
+						BusinessType,        
+						CreateDate,   	           
+						AvailabStatus,      
+						CustomerName,       
+						iLoanCardID,        
+						ImpawnValue,        
+						ImpawnType,         
+						ImpawnCurrency,		
+						ImpawnSum, 			
+						Impawno,            
+						Currency,                      
+						Impawserialno  
+						"/>
+			<property name="table.checkExists" value="true"/>
+			<property name="table.skipExists" value="true"/>
+			<property name="table.commitNumber" value="1000"/>
+			<property name="table.useTransaction" value="false"/>
+			<property name="table.startSql" value=""/>
+			<property name="table.endSql" value=""/>
+			
+			<property name="provider.dataSource" 
+			 value="datasource:db:rh_qyzx:select it.Card_no as CustomerID,         
+							it.contract_no as RelativeSerialNo,   
+							it.impawn_no as SerialNo,           
+							it.impawn_num as FinanceID,          
+							it.ywdate as OccurDate,          
+							'' as UpdateDate,         
+							'' as DeleteDate,         
+							it.impawn_name as ImpawnName,         
+							it.Card_no as LoanCardID,         
+							it.trustloan_type asBusinessType,        
+							it.sign_date as CreateDate,   	          
+							it.valid_status as AvailabStatus,      
+							it.name as CustomerName,       
+							it.impawn_card as iLoanCardID,        
+							it.eval_val as ImpawnValue,        
+							it.impawn_kind as ImpawnType,         
+							it.money_kind as ImpawnCurrency,     
+							it.impawn_money as ImpawnSum,          
+							it.impawn_no as Impawno,            
+							'' as Currency,           
+							it.impawn_num as Impawserialno       
+							from impawncontract it,(select impawn_no as impawn_no,max(ywdate) as ywdate from impawncontract group by impawn_no) ic
+	   						where it.impawn_no = ic.impawn_no and it.ywdate = ic.ywdate
+							" />
+							
+			<property name="displayInGUI" value="false"/>
+			<property name="allowManualExecute" value="true"/>
+		</extendProperties>
+	</executeUnit>
+	
+	
+	
+	<!-- 业务信息倒入单元，根据情况确定插入和更新的字段 -->
+	<executeUnit>
+		<name>ImportAdvancePay</name>
+		<describe>导入企业客户垫款信息表</describe>
+		<executeClass>com.amarsoft.are.task.units.dpx.GeneralDataTransferUnit</executeClass>
+		<extendProperties>
+			<property name="recordSet.metadata.database" value="ecr_data"/>
+			<property name="recordSet.metadata.table" value="ECR_FLOORFUND"/>
+			<property name="handlers.class" value="com.amarsoft.are.dpx.recordset.WriteTableHandler"/>
+			
+			<property name="table.database" value="ecr"/>
+			<property name="table.table" value="ECR_FLOORFUND"/>
+			<property name="table.keyFields" value="Customerid,Serialno"/>
+			<property name="table.insertFields" 
+					  value="CustomerID,
+						SerialNo,
+						FinanceID,
+						OccurDate,
+						UpdateDate,
+						DeleteDate,
+						CustomerName,
+						LoanCardID,
+						FloorType,
+						BusinessNo,
+						Currency,
+						FloorSum,
+						FloorDate,
+						FloorBlance,
+						balanceoccurdate,
+						ReturnMode,
+						Classify4,
+            					Classify5
+     						"/>
+			<property name="table.updateFields" 
+					  value="CustomerID,
+						SerialNo,
+						FinanceID,
+						OccurDate,
+						UpdateDate,
+						DeleteDate,
+						CustomerName,
+						LoanCardID,
+						FloorType,
+						BusinessNo,
+						Currency,
+						FloorSum,
+						FloorDate,
+						FloorBlance,
+						balanceoccurdate, 
+						ReturnMode,
+						Classify4,
+						Classify5
+						"/>
+			<property name="table.checkExists" value="true"/>
+			<property name="table.skipExists" value="true"/>
+			<property name="table.commitNumber" value="1000"/>
+			<property name="table.useTransaction" value="false"/>
+			<property name="table.startSql" value=""/>
+			<property name="table.endSql" value=""/>
+			
+			<property name="provider.dataSource" 
+			 value="datasource:db:rh_qyzx:select da.card_no as CustomerID,
+						da.dkyw_no   as  SerialNo,
+						da.orgcode   as   FinanceID,
+						da.ywdate   as   OccurDate,
+						''   as     UpdateDate,
+						''    as   DeleteDate,
+						da.name   as  CustomerName,
+						''   as   LoanCardID,
+						da.dkkind   as  FloorType,
+						da.oldyw_no   as  BusinessNo,
+						da.money_kind   as  Currency,
+						da.dkmoney    as   FloorSum,
+						da.dkdate    as   FloorDate,
+						dk_balance   as  FloorBlance,
+						da.balance_date   as  balanceoccurdate, 
+						da.return_type   as  ReturnMode,
+						da.four_class    as  Classify4,
+						da.five_class    as  Classify5
+						from dkmessages da,(select dkyw_no as dkyw_no,max(ywdate) as ywdate from dkmessages group by dkyw_no) ds
+   						where da.dkyw_no = ds.dkyw_no and da.ywdate = ds.ywdate
+						" />
+							
+			<property name="displayInGUI" value="false"/>
+			<property name="allowManualExecute" value="true"/>
+		</extendProperties>
+	</executeUnit>
+	
+	
+	<!-- 客户信息倒入单元，根据情况确定插入和更新的字段 -->
+	<executeUnit>
+		<name>ImportLackOfInterest</name>
+		<describe>导入企业客户欠息信息表</describe>
+		<executeClass>com.amarsoft.are.task.units.dpx.GeneralDataTransferUnit</executeClass>
+		<extendProperties>
+			<property name="recordSet.metadata.database" value="ecr_data"/>
+			<property name="recordSet.metadata.table" value="ECR_INTERESTDUE"/>
+			<property name="handlers.class" value="com.amarsoft.are.dpx.recordset.WriteTableHandler"/>
+			
+			<property name="table.database" value="ecr"/>
+			<property name="table.table" value="ECR_INTERESTDUE"/>
+			<property name="table.keyFields" value="CustomerID,FinanceID,OccurDate,Currency,InterestType"/>
+			<property name="table.insertFields" 
+					  value="CustomerID,
+						FinanceID,
+						OccurDate,
+						UpdateDate,
+						DeleteDate,
+						LoanCardID,
+						Currency,
+						InterestBalance,
+						InterestType,
+						changedate      
+						"/>
+			<property name="table.updateFields" 
+					  value="CustomerID,
+						FinanceID,
+						OccurDate,
+						UpdateDate,
+						DeleteDate,
+						LoanCardID,
+						Currency,
+						InterestBalance,
+						InterestType,
+						changedate 
+						"/>
+			<property name="table.checkExists" value="true"/>
+			<property name="table.skipExists" value="true"/>
+			<property name="table.commitNumber" value="1000"/>
+			<property name="table.useTransaction" value="false"/>
+			<property name="table.startSql" value=""/>
+			<property name="table.endSql" value=""/>
+			
+			<property name="provider.dataSource" 
+			 value="datasource:db:rh_qyzx:select lf.card_no as CustomerID,
+						lf.orgcode as  	FinanceID,
+						lf.ywdate  as    OccurDate,
+						''      as    UpdateDate,
+						''      as    	DeleteDate,
+						''      as      LoanCardID,
+						lf.money_kind  as    	Currency,
+						lf.qxyu        as  	InterestBalance,
+						lf.qxtype      as   InterestType,
+						lf.change_date   as  changedate 
+						from lackofinterests lf,(select qxyw_no as qxyw_no,max(ywdate) as ywdate from lackofinterests group by qxyw_no) ls
+   						where lf.qxyw_no = ls.qxyw_no and lf.ywdate = ls.ywdate
+						" />
+							
+			<property name="displayInGUI" value="false"/>
+			<property name="allowManualExecute" value="true"/>
+		</extendProperties>
+	</executeUnit>
+	
+	
+				
+			</executeUnits>
+
+			<routeTable>
+			
+				<route unit="ImportCustomerInfo"			executeStatus="unexecute"				nextUnit="ImportCustomerInfo"/>
+				<route unit="ImportCustomerInfo"			executeStatus="successful"				nextUnit="ImportCustomerStock"/>
+				<route unit="ImportCustomerStock"			executeStatus="successful"				nextUnit="ImportCustomerCapi"/>
+				<route unit="ImportCustomerCapi"			executeStatus="successful"				nextUnit="ImportCustomerInvest"/>
+				<route unit="ImportCustomerInvest"			executeStatus="successful"				nextUnit="ImportCustomerKeeper"/>
+				<route unit="ImportCustomerKeeper"			executeStatus="successful"				nextUnit="ImportCustomerFamily"/>
+				<route unit="ImportCustomerFamily"			executeStatus="successful"				nextUnit="ImportCustomerLaw"/>
+				<route unit="ImportCustomerLaw"				executeStatus="successful"				nextUnit="ImportCustomerFact"/>
+				<route unit="ImportCustomerFact"			executeStatus="successful"				nextUnit="ImportContract"/>
+				<route unit="ImportContract"				executeStatus="successful"	    			nextUnit="ImportDuebill"/>
+				<route unit="ImportDuebill"				executeStatus="successful"	    			nextUnit="ImportLoanReturn"/>
+				<route unit="ImportLoanReturn"				executeStatus="successful"	    			nextUnit="ImportExtension"/>		
+				<route unit="ImportExtension"				executeStatus="successful"	    			nextUnit="ImportFactoring"/>
+				<route unit="ImportFactoring"				executeStatus="successful"	    			nextUnit="ImportDiscount"/>
+				<route unit="ImportDiscount"				executeStatus="successful"	    			nextUnit="ImportFinanceInfo"/>
+				<route unit="ImportFinanceInfo"				executeStatus="successful"	    			nextUnit="ImportFinaDuebill"/>
+				<route unit="ImportFinaDuebill"				executeStatus="successful"	    			nextUnit="ImportFinanceReturn"/>
+				<route unit="ImportFinanceReturn"			executeStatus="successful"	    			nextUnit="ImportFinaExtension"/>
+				<route unit="ImportFinaExtension"			executeStatus="successful"	    			nextUnit="ImportCreditLetter"/>
+				<route unit="ImportCreditLetter"			executeStatus="successful"		  		nextUnit="ImportGuaranteeBill"/>
+				<route unit="ImportGuaranteeBill"			executeStatus="successful"				nextUnit="ImportAcceptance"/>
+				<route unit="ImportAcceptance"			 	executeStatus="successful"  	  			nextUnit="ImportAssureContract"/>
+				<route unit="ImportAssureContract"			executeStatus="successful"				nextUnit="ImportGuarantyContract"/>
+				<route unit="ImportGuarantyContract"			executeStatus="successful"				nextUnit="ImportImpawnContract"/>
+				<route unit="ImportImpawnContract"			executeStatus="successful"		  		nextUnit="ImportAdvancePay"/>
+				<route unit="ImportAdvancePay"			 	executeStatus="successful"  	  			nextUnit="ImportLackOfInterest"/>
+			</routeTable>
+		</target>
+	</targets>
+</task>

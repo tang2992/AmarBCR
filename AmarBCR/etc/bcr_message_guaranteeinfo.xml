@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="GB2312"?>
+<configuration>
+<!--?	担保业务信息信息文件  -->
+<messageList
+	type="15"
+	name="GuaranteeData"
+	direction="0"
+	chineseName="担保业务信息信息"
+	description="包括：担保业务信息正常报文">
+<!-- 报文名字：担保业务信息正常报文 -->
+<message type="81" id="1" name="Guarantee" chineseName="担保业务信息信息" headerLength="64" version="1.0" readerVersion="1.1" charset="GB18030">
+	<record id="header" type="0" name="Head">
+		<segment segmentFlag="A" id="0" name="MessageHead" chineseName="报文头"  segmentLength="64" optional="false" unique="true">
+			<field id="1001" dataType="char" name="HeadFlag" chineseName="报文头标识" type="AN" startPosition="0" endPosition="0" optional="false" defaultValue="A"/>
+			<field id="1002" dataType="char" name="Version" chineseName="报文格式版本号" type="AN" startPosition="1" endPosition="3" optional="false" />
+			<!-- 报送机构代码:11位金融机构代码+空格 -->
+			<field id="1003" dataType="char" name="FinanceCode" chineseName="担保机构代码" type="AN" startPosition="4" endPosition="17" optional="false" />
+			<field id="1004" dataType="datetime" name="CreatedTime" chineseName="报文生成时间" type="N" startPosition="18" endPosition="31" optional="false" />
+			<!-- 报文信息类别: 81－担保业务信息采集正常报文;82－担保业务信息采集标识变更报文;83－担保业务信息采集删除报文 -->
+			<field id="1005" dataType="int" name="MsgType" chineseName="报文信息类别" type="N" startPosition="32" endPosition="33" optional="false"  defaultValue="81"/>
+			<field id="1006" dataType="char" name="ReserveField" chineseName="预留字段" type="ANC" startPosition="34" endPosition="63" optional="true" status="O"/>
+		</segment>
+	</record>
+	<record id="1" type="811" name="GuaranteeRecord" mainBusinessNo="B.1105" keyFields="B.1105" briefFields="B.1105,B.1106" chineseName="担保业务信息记录">
+		<segment segmentFlag="B" id="1" name="BaseSegment" chineseName="基础段" segmentLength="309" optional="false" unique="true">
+				<field id="1101" dataType="int"  name="RecordLength" 	chineseName="信息记录长度"     type="N"  startPosition="0"  endPosition="3" optional="false"/> 	    
+				<field id="1102" dataType="char" name="RecordType"  	chineseName="信息记录类型"     type="N"  startPosition="4"  endPosition="5" optional="false"   defaultValue="62"/> 	    
+				<field id="1103" dataType="char" name="MessageType"  chineseName="信息类别"         type="AN" startPosition="6"  endPosition="6" optional="false"   defaultValue="B"/>
+		        <field id="1104" dataType="char" name="FinanceId" chineseName="管理行代码(金融机构代码)" type="AN" startPosition="7" endPosition="20" optional="false" />
+		        <field id="1105" dataType="char" name="GBusinessNo" chineseName="担保业务编号" type="ANC" startPosition="21" endPosition="80" optional="false" />
+		        <field id="1106" dataType="char" name="GContractNo" chineseName="担保合同号码" type="ANC" startPosition="81" endPosition="140" optional="true" status="O"/>
+		        <field id="1107" dataType="char" name="InsuredType" chineseName="被担保人类型" type="N" startPosition="141" endPosition="141" optional="false" />
+		        <field id="1108" dataType="char" name="InsuredName" chineseName="被担保人名称" type="ANC" startPosition="142" endPosition="221" optional="false" />
+		        <field id="1109" dataType="char" name="CertType" chineseName="被担保人证件类型" type="AN" startPosition="222" endPosition="222" optional="false" />
+		        <field id="1110" dataType="char" name="CertId" chineseName="被担保人证件号码" type="ANC" startPosition="223" endPosition="240" optional="false" />
+		        <field id="1111" dataType="date" name="GatherDate" chineseName="数据报告日期" type="N" startPosition="241" endPosition="248" optional="true" />
+		        <field id="1112" dataType="char" name="Attribute1" chineseName="预留字段" type="ANC" startPosition="249" endPosition="308" optional="true" status="O"/>
+		        <field id="9993" dataType="date" name="occurDate" chineseName="发生日期" type="N" startPosition="309" endPosition="316" optional="true"  />
+		</segment>
+		<segment segmentFlag="D" id="2" name="GuaranteeContSegment" chineseName="担保合同信息段"  segmentLength="119" optional="true" unique="true">
+		        <field id="1201" dataType="char" name="MessageType" chineseName="信息类别" type="AN" startPosition="0" endPosition="0" optional="false"  defaultValue="D"/>
+		        <field id="1202" dataType="char" name="BusinessType" chineseName="担保业务种类" type="N" startPosition="1" endPosition="2" optional="false" />
+		        <field id="1203" dataType="char" name="GuarantyType" chineseName="担保方式" type="N" startPosition="3" endPosition="3" optional="false"  />
+		        <field id="1204" dataType="int" name="GuarantySum" chineseName="担保金额" type="N" startPosition="4" endPosition="23" optional="true"  />
+		        <field id="1205" dataType="date" name="GStartDate" chineseName="担保起始日期" type="N" startPosition="24" endPosition="31" optional="true" />
+		        <field id="1206" dataType="date" name="GEndDate" chineseName="担保到期日期" type="N" startPosition="32" endPosition="39" optional="true" />
+		        <field id="1207" dataType="int" name="DepositScale" chineseName="存出保证金比例" type="N" startPosition="40" endPosition="42" optional="false" status="C"/>
+		        <field id="1208" dataType="char" name="CounterType" chineseName="反担保方式" type="AN" startPosition="43" endPosition="43" optional="false" status="C"/>
+		        <field id="1209" dataType="int" name="Compensation" chineseName="约定再担保补偿比例" type="N" startPosition="44" endPosition="46" optional="false" status="O"/>
+		        <field id="1210" dataType="char" name="Rate" chineseName="费率" type="AN" startPosition="47" endPosition="52" optional="false" />
+		        <field id="1211" dataType="char" name="AnnualRate" chineseName="年化费率" type="AN" startPosition="53" endPosition="58" optional="true" status="O"/>
+		        <field id="1212" dataType="char" name="Attribute1" chineseName="预留字段" type="ANC" startPosition="59" endPosition="118" optional="true" status="O"/>
+		</segment>
+		<segment segmentFlag="E" id="3" name="InsuredsSegment" chineseName="被担保人信息段"  segmentLength="102" optional="true" unique="false">
+		        <field id="1301" dataType="char" name="MessageType" chineseName="信息类别" type="AN" startPosition="0" endPosition="0" optional="false"  defaultValue="E"/>
+		        <field id="1302" dataType="char" name="InsuredType" chineseName="被担保人类型" type="N" startPosition="1" endPosition="1" optional="false" />
+		        <field id="1303" dataType="char" name="InsuredName" chineseName="被担保人名称" type="ANC" startPosition="2" endPosition="81" optional="false" />
+		        <field id="1304" dataType="char" name="CertType" chineseName="被担保人证件类型" type="AN" startPosition="82" endPosition="82" optional="false" />
+		        <field id="1305" dataType="char" name="CertId" chineseName="被担保人证件号码" type="ANC" startPosition="83" endPosition="100" optional="false" />
+		        <field id="1306" dataType="char" name="InsuredState" chineseName="状态位" type="N" startPosition="101" endPosition="101" optional="false" />
+		</segment>
+		<segment segmentFlag="F" id="4"  name="CreditorInfoSegment" chineseName="债权人及主合同信息段"  segmentLength="207" optional="true" unique="false">
+		        <field id="1401" dataType="char" name="MessageType" chineseName="信息类别" type="AN" startPosition="0" endPosition="0" optional="false"  defaultValue="F"/>
+		        <field id="1402" dataType="char" name="CreditorType" chineseName="债权人类型" type="N" startPosition="1" endPosition="1" optional="false" />
+		        <field id="1403" dataType="char" name="CreditorName" chineseName="债权人名称" type="ANC" startPosition="2" endPosition="61" optional="true" status="C"/>
+		        <field id="1404" dataType="char" name="CertType" chineseName="债权人证件类型" type="AN" startPosition="62" endPosition="62" optional="true" status="C"/>
+		        <field id="1405" dataType="char" name="CertId" chineseName="债权人证件号码" type="ANC" startPosition="63" endPosition="80" optional="true" status="C"/>
+		        <field id="1406" dataType="char" name="GContractNo" chineseName="主合同编号" type="ANC" startPosition="81" endPosition="140" optional="true" status="C"/>
+		        <field id="1407" dataType="char" name="GBusinessNo" chineseName="担保业务编号" type="ANC" startPosition="141" endPosition="200" optional="true" status="O"/>
+		        <field id="1408" dataType="char" name="Way" chineseName="投向" type="AN" startPosition="201" endPosition="205" optional="true" status="O"/>
+		        <field id="1409" dataType="char" name="ContractFlag" chineseName="状态位" type="N" startPosition="206" endPosition="206" optional="false" />
+		</segment>		
+		<segment segmentFlag="G" id="5" name="CounterGuarantorSegment" chineseName="反担保人信息段"  segmentLength="122" optional="true" unique="false">
+		        <field id="1501" dataType="char" name="MessageType" chineseName="信息类别" type="AN" startPosition="0" endPosition="0" optional="false"  defaultValue="G"/>
+		        <field id="1502" dataType="char" name="CounterGType" chineseName="反担保人类型" type="N" startPosition="1" endPosition="1" optional="false" />
+		        <field id="1503" dataType="char" name="CounterGName" chineseName="反担保人名称" type="ANC" startPosition="2" endPosition="81" optional="false" />
+		        <field id="1504" dataType="char" name="CertType" chineseName="反担保人证件类型" type="AN" startPosition="82" endPosition="82" optional="false" />
+		        <field id="1505" dataType="char" name="CertId" chineseName="反担保人证件号码" type="ANC" startPosition="83" endPosition="100" optional="false" />
+		        <field id="1506" dataType="int" name="CounterGSum" chineseName="反担保责任金额" type="N" startPosition="101" endPosition="120" optional="false" />
+		        <field id="1507" dataType="char" name="CounterGFlag" chineseName="状态位" type="N" startPosition="121" endPosition="121" optional="false"/>
+		</segment>
+		<segment segmentFlag="H" id="6"  name="GuaranteeDutySegment" chineseName="实际在保（代偿）责任信息段"  segmentLength="38" optional="true" unique="true">
+		        <field id="1601" dataType="char" name="MessageType" chineseName="信息类别" type="AN" startPosition="0" endPosition="0" optional="false"  defaultValue="H"/>
+		        <field id="1602" dataType="char" name="GContractFlag" chineseName="担保合同状态" type="N" startPosition="1" endPosition="1" optional="false" />
+		        <field id="1603" dataType="date" name="GContractEndDate" chineseName="担保责任解除日期" type="N" startPosition="2" endPosition="9" optional="true" status="C"/>
+		        <field id="1604" dataType="int" name="GContractBalance" chineseName="在保余额" type="N" startPosition="10" endPosition="29" optional="false"/>
+		        <field id="1605" dataType="date" name="BalanceChangeDate" chineseName="余额变化日期" type="N" startPosition="30" endPosition="37" optional="true"/>
+		</segment>
+		<segment segmentFlag="I" id="7" name="CompensatoryInfoSegment" chineseName="代偿概况信息段"  segmentLength="206" optional="true" unique="true">
+		        <field id="1701" dataType="char" name="MessageType" chineseName="信息类别" type="AN" startPosition="0" endPosition="0" optional="false"  defaultValue="I"/>
+		        <field id="1702" dataType="date" name="BillingDate" chineseName="记账日期" type="N" startPosition="1" endPosition="8" optional="false" />
+		        <field id="1703" dataType="char" name="RecoveryFlag" chineseName="继续追偿标志" type="N" startPosition="9" endPosition="9" optional="false" />
+		        <field id="1704" dataType="date" name="LastCDate" chineseName="最近一次代偿日期" type="N" startPosition="10" endPosition="17" optional="true"/>
+		        <field id="1705" dataType="int" name="CSum" chineseName="累计代偿金额" type="N" startPosition="18" endPosition="37" optional="false" status="C"/>
+		        <field id="1706" dataType="int" name="OwnCSum" chineseName="本机构承担代偿金额" type="N" startPosition="38" endPosition="57" optional="false"/>
+		        <field id="1707" dataType="date" name="LastRecoveryDate" chineseName="最近一次追偿日期" type="N" startPosition="58" endPosition="65" optional="true" status="C"/>
+		        <field id="1708" dataType="int" name="CBalance" chineseName="代偿余额" type="N" startPosition="66" endPosition="85" optional="true" status="C"/>
+		        <field id="1709" dataType="int" name="OwnCBalance" chineseName="本机构承担代偿余额" type="N" startPosition="86" endPosition="105" optional="false"/>
+		        <field id="1710" dataType="int" name="RecoverySum" chineseName="累计追偿金额" type="N" startPosition="106" endPosition="125" optional="false"/>
+		        <field id="1711" dataType="int" name="LossSum" chineseName="累计损失金额" type="N" startPosition="126" endPosition="145" optional="false" />
+		        <field id="1712" dataType="char" name="Attribute1" chineseName="预留字段" type="ANC" startPosition="146" endPosition="205" optional="true" status="O"/>
+		</segment>
+		<segment segmentFlag="J" id="8" name="CompensatoryDetailSegment" chineseName="代偿明细信息段"  segmentLength="29" optional="true" unique="false">
+		        <field id="1801" dataType="char" name="MessageType" chineseName="信息类别" type="AN" startPosition="0" endPosition="0" optional="false"  defaultValue="J"/>
+		        <field id="1802" dataType="date" name="CompensatorDate" chineseName="代偿日期" type="N" startPosition="1" endPosition="8" optional="true" />
+		        <field id="1803" dataType="int" name="CompensatorySum" chineseName="代偿金额" type="N" startPosition="9" endPosition="28" optional="false"/>
+		</segment>
+		<segment segmentFlag="K" id="9" name="RecoveryDetailSegment" chineseName="追偿明细信息段"  segmentLength="29" optional="true" unique="false">
+		        <field id="1901" dataType="char" name="MessageType" chineseName="信息类别" type="AN" startPosition="0" endPosition="0" optional="false"  defaultValue="K"/>
+		        <field id="1902" dataType="date" name="RecoveryDate" chineseName="追偿日期" type="N" startPosition="1" endPosition="8" optional="true" />
+		        <field id="1903" dataType="int" name="RecoverySum" chineseName="追偿金额" type="N" startPosition="9" endPosition="28" optional="false"/>
+		</segment>
+		<segment segmentFlag="L" id="10" name="PremiumInfoSegment" chineseName="保费缴纳概况信息段"  segmentLength="150" optional="true" unique="true">
+		        <field id="2001" dataType="char" name="MessageType" chineseName="信息类别" type="AN" startPosition="0" endPosition="0" optional="false"  defaultValue="L"/>
+		        <field id="2002" dataType="char" name="PayType" chineseName="缴费类别" type="N" startPosition="1" endPosition="1" optional="false" />
+		        <field id="2003" dataType="date" name="BillingDate" chineseName="记账日期" type="N" startPosition="2" endPosition="9" optional="true"/>
+		        <field id="2004" dataType="int" name="PremiumSum" chineseName="金额" type="N" startPosition="10" endPosition="29" optional="false"/>
+		        <field id="2005" dataType="char" name="PremiumMode" chineseName="缴纳方式" type="N" startPosition="30" endPosition="30" optional="false"/>
+		        <field id="2006" dataType="char" name="PremiumFrequency" chineseName="缴纳频率" type="N" startPosition="31" endPosition="32" optional="true" status="C"/>
+		        <field id="2007" dataType="date" name="ChargingStartDate" chineseName="计费起始日期" type="N" startPosition="33" endPosition="40" optional="true"/>
+		        <field id="2008" dataType="char" name="PremiumState" chineseName="保费缴纳状态" type="N" startPosition="41" endPosition="41" optional="false"/>
+		        <field id="2009" dataType="date" name="ChargingEndDate" chineseName="缴纳结束日期" type="N" startPosition="42" endPosition="49" optional="true" status="C"/>
+		        <field id="2010" dataType="int" name="PremiumBalance" chineseName="余额" type="N" startPosition="50" endPosition="69" optional="false"/>
+		        <field id="2011" dataType="int" name="UnpaidSum" chineseName="累计欠缴金额" type="N" startPosition="70" endPosition="89" optional="false"/>
+		        <field id="2012" dataType="char" name="Attribute1" chineseName="预留字段" type="ANC" startPosition="90" endPosition="149" optional="true" status="O"/>
+		</segment>
+		<segment segmentFlag="M" id="11" name="PremiumDetailSegment" chineseName="保费缴纳明细信息段"  segmentLength="119" optional="true" unique="false">
+		        <field id="2101" dataType="char" name="MessageType" chineseName="信息类别" type="AN" startPosition="0" endPosition="0" optional="false"  defaultValue="M"/>
+		        <field id="2102" dataType="date" name="PayableDate" chineseName="应缴日期" type="N" startPosition="1" endPosition="8" optional="true"/>
+		        <field id="2103" dataType="int" name="PayableSum" chineseName="应缴金额" type="N" startPosition="9" endPosition="28" optional="false"/>
+		        <field id="2104" dataType="date" name="PaidDate" chineseName="实缴日期" type="N" startPosition="29" endPosition="36" optional="true" status="C"/>
+		        <field id="2105" dataType="int" name="UnpaidSum" chineseName="欠缴金额" type="N" startPosition="37" endPosition="56" optional="false" status="C"/>
+		        <field id="2106" dataType="char" name="PeriodPremiumState" chineseName="本期保费缴纳状态" type="N" startPosition="57" endPosition="58" optional="false"/>
+		        <field id="2107" dataType="char" name="Attribute1" chineseName="预留字段" type="ANC" startPosition="59" endPosition="118" optional="true" status="O"/>
+		</segment>
+	</record>
+	<record id="Tail" type="-1" name="Tail">
+		<segment segmentFlag="Z" id="-1" name="Tail" chineseName="报文尾"  segmentLength="11" optional="false" unique="true">
+			<field id="2201" dataType="char" name="TailFlag" chineseName="报文尾标识" type="AN" startPosition="0" endPosition="0" optional="false"  defaultValue="Z"/>
+			<field id="2202" dataType="int" name="RecordNum" chineseName="信息记录数" type="N" startPosition="1" endPosition="10" optional="false" />
+		</segment>
+	</record>
+</message>
+</messageList>
+</configuration>

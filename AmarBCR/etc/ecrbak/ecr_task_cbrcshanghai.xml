@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!-- 本任务定义上海银监会报文要求任务，是为有上海地区分支就够的银行准备的，用于生成符合上海银监会要求的报文 -->
+
+<task name="CBRCShanghaiReport" describe="上海银监会报文生成" parallelRun="false" traceOn="false">
+	<targets>
+		<target name="GerneralMessage" describe="生成报文" enabled="true">
+			<executeUnits>		
+				<executeUnit name="SplitMessage" describe="生成报文" executeClass="com.amarsoft.app.datax.ecr.ext.CBRCShanghaiReportUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.messageFileFolder" value="{$ARE.ECR_HOME}/export/" />
+						<property name="unit.exportFolder" value="{$ARE.ECR_HOME}/export/"/>
+						<property name="unit.memberOrgs" value="{45503140010},{45503140044}" />
+					</extendProperties>
+				</executeUnit>				
+			</executeUnits>
+			<routeTable>
+				<route unit="SplitMessage"		executeStatus="unexecute"	nextUnit="SplitMessage"/>
+			</routeTable>
+		</target>
+	</targets>
+</task>
+

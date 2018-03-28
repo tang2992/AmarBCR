@@ -1,0 +1,1065 @@
+<?xml version="1.0" encoding="GB2312"?>
+<configuration>
+<!--?	借款人基本信息文件  -->
+<messageList
+	type="11"
+	name="BorrowerBaseData"
+	direction="0"
+	chineseName="借款人基本信息文件"
+	description="包括：借款人概况信息报文,借款人资本构成信息报文,借款人财务报表信息报文,借款人关注信息报文"
+>
+<!-- 报文名字：借款人基本信息报文 -->
+<message type="1" id="1" name="CustomerBase" chineseName="借款人概况信息报文" headerLength="61" version="2.0" readerVersion="1.1" charset="GB18030">
+	<record id="header" type="0" name="Head">
+		<segment segmentFlag="A" id="0" name="MessageHead" chineseName="报文头"  segmentLength="61" optional="false" unique="true">
+			<field id="8519" dataType="char" name="HeadFlag" chineseName="报文头标识" type="AN" startPosition="0" endPosition="0" optional="false" defaultValue="A"/>
+			<field id="8517" dataType="char" name="Version" chineseName="报文格式版本号" type="AN" startPosition="1" endPosition="3" optional="false"/>
+			<field id="6501" dataType="char" name="FinanceCode" chineseName="金融机构代码" type="AN" startPosition="4" endPosition="14" optional="false"/>
+			<field id="2585" dataType="datetime" name="CreatedTime" chineseName="报文生成时间" type="N" startPosition="15" endPosition="28" optional="false"/>
+			<field id="8523" dataType="int" name="MsgType" chineseName="报文类型" type="N" startPosition="29" endPosition="30" optional="false" defaultValue="1"/>
+			<field id="8515" dataType="char" name="ReserveField" chineseName="预留字段" type="ANC" startPosition="31" endPosition="60" optional="false"/>
+		</segment>
+	</record>
+	<record id="1" type="01" name="CustomerBase" mainBusinessNo="B.7503" briefFields="B.7503,D.5505,D.5507,D.6511,D.3501,D.3503" chineseName="借款人概况信息记录">
+		<segment segmentFlag="B" id="1" name="BaseSegment" chineseName="基础段" segmentLength="63" optional="false" unique="true">
+			<field id="4501" dataType="int" name="RecordLength" chineseName="信息记录长度" type="N" startPosition="0" endPosition="3" optional="false"/>
+			<field id="7653" dataType="char" name="RecordType" chineseName="信息记录类型" type="N" startPosition="4" endPosition="5" optional="false" defaultValue="1"/>
+			<field id="7543" dataType="char" name="MessageType" chineseName="信息类别" type="AN" startPosition="6" endPosition="6" optional="false" defaultValue="B"/>
+			<field id="6501" dataType="char" name="FinanceID" chineseName="金融机构代码" type="AN" startPosition="7" endPosition="17" optional="false" keyAttribute="true"/>
+			<field id="7503" dataType="char" name="LoanCardNo" chineseName="贷款卡编码" type="AN" startPosition="18" endPosition="33" optional="false" keyAttribute="true"/>
+			<field id="7511" dataType="char" name="RecordOperateType" chineseName="信息记录操作类型" type="N" startPosition="34" endPosition="34" optional="false"/>
+			<field id="2501" dataType="date" name="OccurDate" chineseName="业务发生日期" type="N" startPosition="35" endPosition="42" optional="false"/>
+			<field id="7641" dataType="char" name="RecordNo" chineseName="信息记录跟踪编号" type="AN" startPosition="43" endPosition="62" optional="false"/>
+			<field id="9991" dataType="char" name="CustomerID" chineseName="客户编号" type="AN" startPosition="63" endPosition="102" optional="false"/>
+		</segment>
+		<segment segmentFlag="C" id="2" name="SymbolUpdateSegment" chineseName="标识变更段"  segmentLength="62" optional="true" unique="false">
+			<field id="7543" dataType="char" name="MessageType" chineseName="信息类别" type="AN" startPosition="0" endPosition="0" optional="false" defaultValue="C"/>
+			<field id="7515" dataType="char"  name="ChangeType" chineseName="变更类型" type="N" startPosition="1" endPosition="1" optional="false"/>
+			<field id="7517" dataType="char" name="BusinessNo" chineseName="业务标识号" type="ANC" startPosition="2" endPosition="61" optional="false"/>
+		</segment>
+		<segment segmentFlag="D" id="3" name="BorrowerInfoSegment" chineseName="借款人概况信息段"  segmentLength="686" optional="false" unique="true">
+			<field id="7543" dataType="char" name="MessageType" chineseName="信息类别" type="AN" startPosition="0" endPosition="0" optional="false" defaultValue="D"/>
+			<field id="5509" dataType="char" name="CountryCode" chineseName="借款人国别" type="AN" startPosition="1" endPosition="3" optional="false" status="M"/>
+			<field id="5505" dataType="char" name="ChinaName" chineseName="借款人中文名称" type="ANC" startPosition="4" endPosition="83" optional="true"  status="C"/>
+			<field id="5507" dataType="char" name="ForeignName" chineseName="借款人外文名称" type="ANC" startPosition="84" endPosition="163" optional="true" status="C"/>
+			<field id="6511" dataType="char" name="OrganizationCode" chineseName="组织机构代码" type="AN" startPosition="164" endPosition="173" optional="true" status="C"/>
+			<field id="2503" dataType="char" name="SetupDate" chineseName="借款人成立年份" type="AN" startPosition="174" endPosition="177" optional="true" status="O"/>
+			<field id="5515" dataType="char" name="RegistType" chineseName="登记注册类型" type="N" startPosition="178" endPosition="180" optional="false" status="M"/>
+			<field id="5517" dataType="char" name="RegistNo" chineseName="登记注册号" type="ANC" startPosition="181" endPosition="200" optional="false" status="M"/>
+			<field id="2505" dataType="date" name="RegistDate" chineseName="注册登记日期" type="N" startPosition="201" endPosition="208" optional="false" status="M"/>
+			<field id="2507" dataType="date" name="RegistEndDate" chineseName="营业执照到期日期" type="N" startPosition="209" endPosition="216" optional="false" status="M"/>
+			<field id="5519" dataType="char" name="CountryTaxNo" chineseName="国税登记证号码" type="ANC" startPosition="217" endPosition="236" optional="false" status="M"/>
+			<field id="5521" dataType="char" name="LocationTaxNo" chineseName="地税登记证号码" type="ANC" startPosition="237" endPosition="256" optional="false" status="M"/>
+			<field id="5523" dataType="char" name="Attribute" chineseName="借款人性质" type="N" startPosition="257" endPosition="258" optional="false" status="M"/>
+			<field id="5525" dataType="char" name="IndustryType" chineseName="行业分类" type="AN" startPosition="259" endPosition="263" optional="false" status="M"/>
+			<field id="4503" dataType="int" name="EmployeeNumber" chineseName="从业人数" type="N" startPosition="264" endPosition="270" optional="true" status="O"/>
+			<field id="5527" dataType="char" name="RegionCode" chineseName="行政区划" type="N" startPosition="271" endPosition="276" optional="true" status="O"/>
+			<field id="5529" dataType="char" name="CustomerCharacter" chineseName="借款人特征" type="N" startPosition="277" endPosition="277" optional="false" status="M"/>
+			<field id="3501" dataType="char" name="Tel" chineseName="借款人联系电话" type="AN" startPosition="278" endPosition="312" optional="false" status="M"/>
+			<field id="3503" dataType="char" name="Addr" chineseName="借款人注册地址" type="ANC" startPosition="313" endPosition="392" optional="false" status="M"/>
+			<field id="3505" dataType="char" name="Fax" chineseName="借款人传真号码" type="AN" startPosition="393" endPosition="427" optional="true"  status="O"/>
+			<field id="3507" dataType="char" name="Email" chineseName="借款人Email地址" type="ANC" startPosition="428" endPosition="457" optional="true"  status="O"/>
+			<field id="3509" dataType="char" name="WebSite" chineseName="借款人网址" type="ANC" startPosition="458" endPosition="487" optional="true" status="O"/>
+			<field id="3511" dataType="char" name="Address" chineseName="借款人通讯地址" type="ANC" startPosition="488" endPosition="567" optional="false" status="M"/>
+			<field id="3513" dataType="char" name="PostNo" chineseName="邮政编码" type="ANC" startPosition="568" endPosition="573" optional="false" status="M" defaultValue="000000"/>
+			<field id="8501" dataType="char" name="MainProduct" chineseName="主要产品情况" type="ANC" startPosition="574" endPosition="673" optional="true"  status="O"/>
+			<field id="4505" dataType="int"  name="LocaleArea" chineseName="经营场地面积" type="N" startPosition="674" endPosition="681" optional="true" status="O"/>
+			<field id="8503" dataType="char" name="LocaleDroit" chineseName="经营场地所有权" type="AN" startPosition="682" endPosition="682" optional="true" status="O"/>
+			<field id="8505" dataType="char" name="GroupFlag" chineseName="集团客户标志" type="N" startPosition="683" endPosition="683" optional="false" status="M"/>
+			<field id="8507" dataType="char" name="INoutFlag" chineseName="进出口权标志" type="N" startPosition="684" endPosition="684" optional="false" status="M"/>
+			<field id="8509" dataType="char" name="MarketFlag" chineseName="上市公司标志" type="N" startPosition="685" endPosition="685" optional="false" status="M"/>
+		</segment>
+		<segment segmentFlag="E" id="4"  name="FinanceContactSegment" chineseName="财务部联系方式段"  segmentLength="36" optional="true" unique="false">
+			<field id="7543" dataType="char" name="MessageType" chineseName="信息类别" type="AN" startPosition="0" endPosition="0" optional="false" defaultValue="E"/>
+			<field id="5531" dataType="char" name="FinanceContact" chineseName="财务部联系方式" type="ANC" startPosition="1" endPosition="35" optional="false" status="M"/>
+		</segment>
+		<segment segmentFlag="F" id="5" name="StockSegment" chineseName="股票信息段"  segmentLength="13" optional="true" unique="true">
+			<field id="7543" dataType="char" name="MessageType" chineseName="信息类别" type="AN" startPosition="0" endPosition="0" optional="false" defaultValue="F"/>
+			<field id="6513" dataType="char" name="StockNo" chineseName="股票代码" type="AN" startPosition="1" endPosition="10" optional="false" keyAttribute="true" status="M"/>
+			<field id="6515" dataType="char" name="MartketPlace" chineseName="上市地" type="N" startPosition="11" endPosition="12" optional="false" status="M"/>
+		</segment>
+	</record>
+	<record id="Tail" type="-1" name="Tail">
+		<segment segmentFlag="Z" id="-1" name="Tail" chineseName="报文尾"  segmentLength="11" optional="false" unique="true">
+			<field id="8521" dataType="char" name="TailFlag" chineseName="报文尾标识" type="AN" startPosition="0" endPosition="0" optional="false" defaultValue="Z"/>
+			<field id="4513" dataType="int" name="RecordNum" chineseName="信息记录数" type="N" startPosition="1" endPosition="10" optional="false"/>
+		</segment>
+	</record>
+</message>
+
+<!-- 报文名字：借款人资本构成信息报文 -->
+<message
+	type="2" 
+	id="2" 
+	name="CustomerCaptial" 
+	chineseName="借款人资本构成信息报文" 
+	tasktype="4" version="2.0" 
+	headerLength="147" 
+	readerVersion="1.1" 
+	charset="GB18030"
+>  	
+	<record id="header" type="0" name="Head" > 
+		<segment segmentFlag="A" id="0" name="MessageHead" chineseName="报文头"  segmentLength="61" optional="false" unique="true">			
+			<field id="8519" dataType="char" name="HeadFlag"         chineseName="报文头标识"     type="AN" startPosition="0" endPosition="0" optional="false"  defaultValue="A"  /> 	    
+			<field id="8517" dataType="char"     name="Version"           chineseName="报文格式版本号"  type="AN" startPosition="1"  endPosition="3" optional="false"/> 	    
+			<field id="6501" dataType="char"     name="FinanceCode" chineseName="金融机构代码"    type="AN" startPosition="4"  endPosition="14" optional="false"/>
+			<field id="2585" dataType="datetime" name="CreatedTime"   chineseName="报文生成时间"    type="N"  startPosition="15" endPosition="28" optional="false"/>
+			<field id="8523" dataType="int"      name="MsgType"           chineseName="报文类型"       type="N"   startPosition="29" endPosition="30" optional="false"  defaultValue="2"  />			
+			<field id="8515" dataType="char"     name="ReserveField" chineseName="预留字段"       type="ANC" startPosition="31" endPosition="60" optional="false"/>
+	 	</segment> 
+ 	</record>    
+	<record 
+		id="1" 
+		type="02" 
+		name="CustomerCaptial" 
+		mainBusinessNo="B.7503" 
+		briefFields="B.7503,D.1501,D.1503" 
+		chineseName="借款人资本构成信息记录"
+	>    
+		<segment segmentFlag="B" id="1" name="BaseSegment" chineseName="基础段" segmentLength="63" optional="false" unique="true">	
+			<field id="4501" dataType="int" name="RecordLength"              chineseName="信息记录长度"     type="N"  startPosition="0" endPosition="3" optional="false"/> 	    
+			<field id="7653" dataType="char" name="RecordType"                  chineseName="信息记录类型"     type="N"  startPosition="4" endPosition="5" optional="false"  defaultValue="2" /> 	    
+			<field id="7543" dataType="char" name="MessageType"                chineseName="信息类别"         type="AN" startPosition="6" endPosition="6" optional="false"   defaultValue="B" />
+			<field id="6501" dataType="char" name="FinanceID"                    chineseName="金融机构代码"     type="AN" startPosition="7" endPosition="17" optional="false" keyAttribute="true"/>
+			<field id="7503" dataType="char" name="LoanCardNo"                      chineseName="贷款卡编码"       type="AN" startPosition="18" endPosition="33" optional="false" keyAttribute="true" />
+			<field id="7511" dataType="char" name="RecordOperateType"  chineseName="信息记录操作类型" type="N"  startPosition="34" endPosition="34" optional="false"/>
+			<field id="2501" dataType="date" name="OccurDate"                    chineseName="业务发生日期"     type="N"  startPosition="35" endPosition="42" optional="false"/>
+			<field id="7641" dataType="char" name="RecordNo"                      chineseName="信息记录跟踪编号" type="AN" startPosition="43" endPosition="62" optional="false"/>
+			<field id="9991" dataType="char" name="CustomerID" chineseName="客户编号" type="AN" startPosition="63" endPosition="102" optional="false"/>
+		 </segment> 	
+		 <segment segmentFlag="C" id="2" name="SymbolUpdateSegment" chineseName="标识变更段"  segmentLength="62" optional="true" unique="false">			
+		 	<field id="7543" dataType="char" name="MessageType"             chineseName="信息类别"   type="AN"  startPosition="0" endPosition="0" optional="false"  defaultValue="C" />
+		 	<field id="7515" dataType="char" name="ChangeType"               chineseName="变更类型"   type="N"   startPosition="1" endPosition="1"  optional="false" />
+		 	<field id="7517" dataType="char" name="BusinessNo"               chineseName="业务标识号" type="ANC" startPosition="2" endPosition="61" optional="false" />
+		 </segment>  	   
+		 <segment segmentFlag="D" id="3" name="CapitalInfoSegment"  chineseName="借款人注册资本情况段"      segmentLength="12" optional="false" unique="true">
+		 	<field id="7543" dataType="char" name="MessageType"    chineseName="信息类别"   type="AN" startPosition="0"    endPosition="0"    optional="false"  defaultValue="D" />
+		 	<field id="1501" dataType="char" name="Currency"          chineseName="币种"       type="AN" startPosition="1"    endPosition="3"    optional="false" status="M"/>
+		 	<field id="1503" dataType="int" name="Capital"            chineseName="注册资金"   type="N" startPosition="4"    endPosition="11"   optional="false" status="M"/>
+		 </segment>		
+		 <segment segmentFlag="E" id="4" name="CapitalContInfoSegment"  chineseName="出资资本构成情况段"      segmentLength="157" optional="true" unique="false">					 
+		 	<field id="7543" dataType="char" name="MessageType"         chineseName="信息类别"                 type="AN" startPosition="0"    endPosition="0"    optional="false"  defaultValue="E" />
+		 	<field id="5577" dataType="char" name="CapitalProfile"   chineseName="出资方"                   type="ANC" startPosition="1"    endPosition="80"   optional="false" status="M"/>				
+		 	<field id="7505" dataType="char" name="LoanCardNo"   	  	 chineseName="出资方贷款卡编码"         type="AN" startPosition="81"   endPosition="96"   optional="true" status="C"/>
+		 	<field id="6511" dataType="char" name="OrgNo"                     chineseName="组织机构代码"             type="AN" startPosition="97"   endPosition="106"  optional="true" status="C"/>				
+		 	<field id="5517" dataType="char" name="LicenseNo"             chineseName="登记注册号"               type="ANC" startPosition="107"  endPosition="126"  optional="true" status="C"/>
+		 	<field id="5511" dataType="char" name="CertType"               chineseName="证件类型"                 type="AN" startPosition="127"  endPosition="127"  optional="true" status="C"/>				
+		 	<field id="5553" dataType="char" name="CertNo"                   chineseName="证件号码"                 type="ANC" startPosition="128"  endPosition="145"  optional="true" status="C"/>
+		 	<field id="1501" dataType="char" name="Currency"               chineseName="币种"                     type="AN" startPosition="146"  endPosition="148"  optional="false" status="M"/>				
+		 	<field id="1507" dataType="int" name="CapitalSum"      	     chineseName="出资金额"                 type="N" startPosition="149"  endPosition="156"  optional="false" status="M"/>
+		 </segment>		
+		 <segment segmentFlag="F" id="5" name="FinanceRep1InfoSegment"  chineseName="对外投资情况段"      segmentLength="140" optional="true" unique="false">					 
+		 	<field id="7543" dataType="char" name="MessageType"         chineseName="信息类别"             type="AN" startPosition="0"    endPosition="0"    optional="false"  defaultValue="F" />
+		 	<field id="5501" dataType="char" name="CorpName"               chineseName="被投资单位名称"       type="ANC" startPosition="1"    endPosition="80"   optional="false"/>				
+		 	<field id="7503" dataType="char" name="LoanCardNo"           chineseName="贷款卡编码"           type="AN" startPosition="81"   endPosition="96"   optional="true" status="C"/>
+		 	<field id="6511" dataType="char" name="OrgNo"                     chineseName="组织机构代码"         type="AN" startPosition="97"   endPosition="106"  optional="true" status="C"/>				
+		 	<field id="1501" dataType="char" name="Currency1"               chineseName="币种"                 type="AN" startPosition="107"  endPosition="109"  optional="false"/>
+		 	<field id="1509" dataType="int" name="CapitalSum1"           chineseName="投资金额"             type="N" startPosition="110"  endPosition="117"  optional="false"/>				
+		 	<field id="9501" dataType="char" name="Currency2"               chineseName="币种"                 type="AN" startPosition="118"  endPosition="120"  optional="true" status="O"/>
+		 	<field id="9509" dataType="int" name="CapitalSum2"           chineseName="投资金额"             type="N" startPosition="121"  endPosition="128"  optional="true" status="O"/>
+		 	<field id="9601" dataType="char" name="Currency3"               chineseName="币种"                 type="AN" startPosition="129"  endPosition="131"  optional="true" status="O"/>
+		 	<field id="9609" dataType="int" name="CapitalSum3"           chineseName="投资金额"             type="N" startPosition="132"  endPosition="139"  optional="true" status="O"/>
+		 </segment>		
+		 <segment segmentFlag="G" id="6" name="GroupCompanySegment"  chineseName="集团公司信息段"      segmentLength="107" optional="true" unique="false">					 
+		 	<field id="7543" dataType="char" name="MessageType"         chineseName="信息类别"              type="AN" startPosition="0"    endPosition="0"    optional="false"  defaultValue="G" />
+		 	<field id="5535" dataType="char" name="UpperCorp"             chineseName="上级公司名称"          type="ANC" startPosition="1"    endPosition="80"   optional="false"/>				
+		 	<field id="7503" dataType="char" name="LoanCardNo"                   chineseName="贷款卡编码"            type="AN" startPosition="81"   endPosition="96"   optional="true" status="C"/>
+		 	<field id="6511" dataType="char" name="OrgNo"                     chineseName="组织机构代码"          type="AN" startPosition="97"   endPosition="106"  optional="true" status="C"/>				
+	 	</segment>		
+		<segment segmentFlag="H" id="7" name="ManagerInfoSegment"  chineseName="高级管理人情况段"      segmentLength="562" optional="false" unique="false">					 
+			<field id="7543" dataType="char" name="MessageType"         chineseName="信息类别"             type="AN" startPosition="0"    endPosition="0"    optional="false"  defaultValue="H" />
+			<field id="5537" dataType="char" name="ManagerName"         chineseName="高管人员姓名"         type="ANC" startPosition="1"    endPosition="30"   optional="false" status="M"/>				
+			<field id="5511" dataType="char" name="CertType"               chineseName="证件类型"             type="AN" startPosition="31"   endPosition="31"   optional="false" status="M"/>
+			<field id="5553" dataType="char" name="CertNo"                   chineseName="证件号码"             type="ANC" startPosition="32"   endPosition="49"   optional="false" status="M"/>				
+			<field id="5543" dataType="char"  name="KeeperType"          chineseName="高管人员类别"         type="N" startPosition="50"   endPosition="50"   optional="false"  status="M"/>
+			<field id="5545" dataType="char"  name="Sex"                         chineseName="性别"                 type="N" startPosition="51"   endPosition="51"   optional="false"  status="M"/>				
+			<field id="2509" dataType="date" name="BrithDate"             chineseName="高管人员出生日期"     type="N" startPosition="52"   endPosition="59"   optional="false" status="M"/>
+			<field id="5547" dataType="char"  name="Degree"                   chineseName="高管人员最高学历"     type="N" startPosition="60"   endPosition="61"   optional="false" status="M"/>				
+			<field id="5549" dataType="char" name="Resume"                   chineseName="高管人员工作简历"     type="ANC" startPosition="62"   endPosition="561"  optional="false" status="M"/>
+		</segment>		
+		<segment segmentFlag="I" id="8" name="CorporationSegment"  chineseName="法人代表家族企业成员情况段"      segmentLength="147" optional="true" unique="false">					 
+			<field id="7543" dataType="char" name="MessageType"        chineseName="信息类别"                 type="AN" startPosition="0"    endPosition="0"    optional="false"  defaultValue="I" />
+			<field id="5551" dataType="char" name="FamilyName"          chineseName="家族成员姓名"             type="ANC" startPosition="1"    endPosition="30"   optional="false" status="M"/>				
+			<field id="5511" dataType="char" name="CertType"              chineseName="证件类型"                 type="AN" startPosition="31"   endPosition="31"   optional="false" status="M"/>
+			<field id="5553" dataType="char" name="CertNo"                  chineseName="证件号码"                 type="ANC" startPosition="32"   endPosition="49"   optional="false" status="M"/>
+			<field id="5555" dataType="char"  name="Relation" 	          chineseName="家族关系"                 type="N" startPosition="50"   endPosition="50"   optional="false" status="M"/>
+			<field id="5557" dataType="char" name="RelativeCorp"      chineseName="家族成员所在企业名称"     type="ANC" startPosition="51"   endPosition="130"  optional="false" status="M"/>
+			<field id="7503" dataType="char" name="LoanCardNo"                  chineseName="贷款卡编码"               type="AN" startPosition="131"  endPosition="146"  optional="false" status="M"/>
+		</segment>		
+	</record>
+	<record id="Tail" type="-1"  name="Tail"> 
+	  <segment segmentFlag="Z" id="-1" name="Tail" chineseName="报文尾"  segmentLength="11" optional="false" unique="true">
+	    <field id="8521" dataType="char" name="TailFlag"         chineseName="报文尾标识"   type="AN"   startPosition="0" endPosition="0" optional="false" defaultValue="Z"  />				
+	    <field id="4513" dataType="int" name="RecordNum"        chineseName="信息记录数"   type="N"    startPosition="1" endPosition="10" optional="false"   />							
+	  </segment>
+	</record>
+</message> 
+
+<!-- 报文名字：借款人财务报表信息报文 -->
+<message
+	type="3"
+	id="03"
+	name="CustomerFinance"
+	chineseName="借款人财务报表信息报文"
+	version="2.0"
+	headerLength="61"
+	readerVersion="1.1"
+	charset="GB18030"
+>
+	<record id="header" type="0" name="Head">
+		<segment segmentFlag="A" id="0" name="MessageHead" chineseName="报文头"  segmentLength="61" optional="false" unique="true">
+			<field id="8519" dataType="char" name="HeadFlag" chineseName="报文头标识" type="AN" startPosition="0" endPosition="0" optional="false" defaultValue="A"/>
+			<field id="8517" dataType="char" name="Version" chineseName="报文格式版本号" type="AN" startPosition="1" endPosition="3" optional="false"/>
+			<field id="6501" dataType="char" name="FinanceCode" chineseName="金融机构代码" type="AN" startPosition="4" endPosition="14" optional="false"/>
+			<field id="2585" dataType="datetime" name="CreatedTime" chineseName="报文生成时间" type="N" startPosition="15" endPosition="28" optional="false"/>
+			<field id="8523" dataType="int" name="MsgType" chineseName="报文类型" type="N" startPosition="29" endPosition="30" optional="false" defaultValue="3"/>
+			<field id="8515" dataType="char" name="ReserveField" chineseName="预留字段" type="ANC" startPosition="31" endPosition="60" optional="false"/>
+		</segment>
+	</record>
+	<record
+		id="1" 
+		type="03" 
+		name="BalanceSheet" 
+		mainBusinessNo="B.7503" 
+		keyFields="B.7503,B.2591,B.7507,B.2501,B.6501" 
+		briefFields="B.7503,B.2591,B.7507,B.2501,B.6501" 
+		chineseName="资产负债表信息记录"
+	>
+		<segment segmentFlag="B" id="1" name="BaseSegment" chineseName="基础段" segmentLength="268" optional="false" unique="true">
+			<field id="4501" dataType="int" name="RecordLength" chineseName="信息记录长度" type="N" startPosition="0" endPosition="3" optional="false"/>
+			<field id="7653" dataType="char" name="RecordType" chineseName="信息记录类型" type="N" startPosition="4" endPosition="5" optional="false" defaultValue="3"/>
+			<field id="7543" dataType="char" name="MessageType" chineseName="信息类别" type="AN" startPosition="6" endPosition="6" optional="false" defaultValue="B"/>
+			<field id="6501" dataType="char" name="FinanceID" chineseName="金融机构代码" type="AN" startPosition="7" endPosition="17" optional="false"/>
+			<field id="5559" dataType="char" name="CustomerName" chineseName="借款人名称" type="AN" startPosition="18" endPosition="97" optional="false"/>
+			<field id="7503" dataType="char" name="LoanCardNo" chineseName="贷款卡编码" type="AN" startPosition="98" endPosition="113" optional="false" keyAttribute="true" />
+			<field id="2591" dataType="char" name="ReportYear" chineseName="报表年份" type="AN" startPosition="114" endPosition="117" optional="false" keyAttribute="true" />
+			<field id="7507" dataType="char" name="ReportType" chineseName="报表类型" type="AN" startPosition="118" endPosition="119" optional="false" keyAttribute="true" />
+			<field id="7651" dataType="char" name="ReportSubtype" chineseName="报表类型细分" type="AN" startPosition="120" endPosition="120" optional="false"/>
+			<field id="5579" dataType="char" name="AuditOffice" chineseName="审计事务所名称" type="AN" startPosition="121" endPosition="200" optional="true" status="O"/>
+			<field id="5581" dataType="char" name="AuditorName" chineseName="审计人员名称" type="AN" startPosition="201" endPosition="230" optional="true" status="O"/>
+			<field id="2589" dataType="date" name="AuditDate" chineseName="审计时间" type="N" startPosition="231" endPosition="238" optional="true" status="O"/>
+			<field id="7511" dataType="char" name="RecordOperateType" chineseName="信息记录操作类型" type="N" startPosition="239" endPosition="239" optional="false"/>
+			<field id="2501" dataType="date" name="OccurDate" chineseName="业务发生日期" type="N" startPosition="240" endPosition="247" optional="false"/>
+			<field id="7641" dataType="char" name="RecordNo" chineseName="信息记录跟踪编号" type="AN" startPosition="248" endPosition="267" optional="false"/>
+			<field id="9991" dataType="char" name="CustomerID" chineseName="客户编号" type="AN" startPosition="268" endPosition="307" optional="false"/>
+		</segment>
+		<segment segmentFlag="C" id="2" name="SymbolUpdateSegment" chineseName="标识变更段"  segmentLength="62" optional="true" unique="false">			
+		 	<field id="7543" dataType="char" name="MessageType"             chineseName="信息类别"   type="AN"  startPosition="0" endPosition="0" optional="false"  defaultValue="C" />
+		 	<field id="7515" dataType="char" name="ChangeType"               chineseName="变更类型"   type="N"   startPosition="1" endPosition="1"  optional="false" />
+		 	<field id="7517" dataType="char" name="BusinessNo"               chineseName="业务标识号" type="ANC" startPosition="2" endPosition="61" optional="false" />
+		</segment>
+		<segment segmentFlag="D" id="3" name="BalanceSheetSegment" chineseName="资产负债表段"  segmentLength="1741" optional="false" unique="false">
+			<field id="7543" dataType="char" name="m7543" chineseName="信息类别" type="AN" startPosition="0" endPosition="0" optional="false" defaultValue="D"/>
+			<field id="9501" dataType="double" name="m9501" chineseName="货币资金" type="AN" startPosition="1" endPosition="20" optional="false"/>
+			<field id="9503" dataType="double" name="m9503" chineseName="短期投资" type="AN" startPosition="21" endPosition="40" optional="false"/>
+			<field id="9505" dataType="double" name="m9505" chineseName="应收票据" type="AN" startPosition="41" endPosition="60" optional="false"/>
+			<field id="9507" dataType="double" name="m9507" chineseName="应收股利" type="AN" startPosition="61" endPosition="80" optional="false"/>
+			<field id="9509" dataType="double" name="m9509" chineseName="应收利息" type="AN" startPosition="81" endPosition="100" optional="false"/>
+			<field id="9511" dataType="double" name="m9511" chineseName="应收账款" type="AN" startPosition="101" endPosition="120" optional="false"/>
+			<field id="9513" dataType="double" name="m9513" chineseName="其他应收款" type="AN" startPosition="121" endPosition="140" optional="false"/>
+			<field id="9515" dataType="double" name="m9515" chineseName="预付账款" type="AN" startPosition="141" endPosition="160" optional="false"/>
+			<field id="9517" dataType="double" name="m9517" chineseName="期货保证金" type="AN" startPosition="161" endPosition="180" optional="false"/>
+			<field id="9519" dataType="double" name="m9519" chineseName="应收补贴款" type="AN" startPosition="181" endPosition="200" optional="false"/>
+			<field id="9521" dataType="double" name="m9521" chineseName="应收出口退税" type="AN" startPosition="201" endPosition="220" optional="false"/>
+			<field id="9523" dataType="double" name="m9523" chineseName="存货" type="AN" startPosition="221" endPosition="240" optional="false"/>
+			<field id="9525" dataType="double" name="m9525" chineseName="存货原材料" type="AN" startPosition="241" endPosition="260" optional="false"/>
+			<field id="9527" dataType="double" name="m9527" chineseName="存货产成品	" type="AN" startPosition="261" endPosition="280" optional="false"/>
+			<field id="9529" dataType="double" name="m9529" chineseName="待摊费用" type="AN" startPosition="281" endPosition="300" optional="false"/>
+			<field id="9531" dataType="double" name="m9531" chineseName="待处理流动资产净损失" type="AN" startPosition="301" endPosition="320" optional="false"/>
+			<field id="9533" dataType="double" name="m9533" chineseName="一年内到期的长期债权投资" type="AN" startPosition="321" endPosition="340" optional="false"/>
+			<field id="9535" dataType="double" name="m9535" chineseName="其他流动资产" type="AN" startPosition="341" endPosition="360" optional="false"/>
+			<field id="9537" dataType="double" name="m9537" chineseName="流动资产合计" type="AN" startPosition="361" endPosition="380" optional="false"/>
+			<field id="9539" dataType="double" name="m9539" chineseName="长期投资" type="AN" startPosition="381" endPosition="400" optional="false"/>
+			<field id="9541" dataType="double" name="m9541" chineseName="长期股权投资" type="AN" startPosition="401" endPosition="420" optional="false"/>
+			<field id="9543" dataType="double" name="m9543" chineseName="长期债权投资" type="AN" startPosition="421" endPosition="440" optional="false"/>
+			<field id="9545" dataType="double" name="m9545" chineseName="合并价差" type="AN" startPosition="441" endPosition="460" optional="false"/>
+			<field id="9547" dataType="double" name="m9547" chineseName="长期投资合计" type="AN" startPosition="461" endPosition="480" optional="false"/>
+			<field id="9549" dataType="double" name="m9549" chineseName="固定资产原价" type="AN" startPosition="481" endPosition="500" optional="false"/>
+			<field id="9551" dataType="double" name="m9551" chineseName="累计折旧" type="AN" startPosition="501" endPosition="520" optional="false"/>
+			<field id="9553" dataType="double" name="m9553" chineseName="固定资产净值" type="AN" startPosition="521" endPosition="540" optional="false"/>
+			<field id="9555" dataType="double" name="m9555" chineseName="固定资产值减值准备" type="AN" startPosition="541" endPosition="560" optional="false"/>
+			<field id="9557" dataType="double" name="m9557" chineseName="固定资产净额" type="AN" startPosition="561" endPosition="580" optional="false"/>
+			<field id="9559" dataType="double" name="m9559" chineseName="固定资产清理" type="AN" startPosition="581" endPosition="600" optional="false"/>
+			<field id="9561" dataType="double" name="m9561" chineseName="工程物资" type="AN" startPosition="601" endPosition="620" optional="false"/>
+			<field id="9563" dataType="double" name="m9563" chineseName="在建工程" type="AN" startPosition="621" endPosition="640" optional="false"/>
+			<field id="9565" dataType="double" name="m9565" chineseName="待处理固定资产净损失" type="AN" startPosition="641" endPosition="660" optional="false"/>
+			<field id="9567" dataType="double" name="m9567" chineseName="固定资产合计" type="AN" startPosition="661" endPosition="680" optional="false"/>
+			<field id="9569" dataType="double" name="m9569" chineseName="无形资产" type="AN" startPosition="681" endPosition="700" optional="false"/>
+			<field id="9571" dataType="double" name="m9571" chineseName="无形资产土地使用权" type="AN" startPosition="701" endPosition="720" optional="false"/>
+			<field id="9573" dataType="double" name="m9573" chineseName="递延资产" type="AN" startPosition="721" endPosition="740" optional="false"/>
+			<field id="9575" dataType="double" name="m9575" chineseName="递延资产固定资产修理" type="AN" startPosition="741" endPosition="760" optional="false"/>
+			<field id="9577" dataType="double" name="m9577" chineseName="递延资产固定资产改良支出" type="AN" startPosition="761" endPosition="780" optional="false"/>
+			<field id="9579" dataType="double" name="m9579" chineseName="其他长期资产" type="AN" startPosition="781" endPosition="800" optional="false"/>
+			<field id="9581" dataType="double" name="m9581" chineseName="其他长期资产特准储备物资" type="AN" startPosition="801" endPosition="820" optional="false"/>
+			<field id="9583" dataType="double" name="m9583" chineseName="无形及其他资产合计" type="AN" startPosition="821" endPosition="840" optional="false"/>
+			<field id="9585" dataType="double" name="m9585" chineseName="递延税款借项" type="AN" startPosition="841" endPosition="860" optional="false"/>
+			<field id="9587" dataType="double" name="m9587" chineseName="资产总计" type="AN" startPosition="861" endPosition="880" optional="false"/>
+			<field id="9589" dataType="double" name="m9589" chineseName="短期借款" type="AN" startPosition="881" endPosition="900" optional="false"/>
+			<field id="9591" dataType="double" name="m9591" chineseName="应付票据" type="AN" startPosition="901" endPosition="920" optional="false"/>
+			<field id="9593" dataType="double" name="m9593" chineseName="应付账款" type="AN" startPosition="921" endPosition="940" optional="false"/>
+			<field id="9595" dataType="double" name="m9595" chineseName="预收账款" type="AN" startPosition="941" endPosition="960" optional="false"/>
+			<field id="9597" dataType="double" name="m9597" chineseName="应付工资" type="AN" startPosition="961" endPosition="980" optional="false"/>
+			<field id="9599" dataType="double" name="m9599" chineseName="应付福利费" type="AN" startPosition="981" endPosition="1000" optional="false"/>
+			<field id="9601" dataType="double" name="m9601" chineseName="应付利润" type="AN" startPosition="1001" endPosition="1020" optional="false"/>
+			<field id="9603" dataType="double" name="m9603" chineseName="应交税金" type="AN" startPosition="1021" endPosition="1040" optional="false"/>
+			<field id="9605" dataType="double" name="m9605" chineseName="其他应交款" type="AN" startPosition="1041" endPosition="1060" optional="false"/>
+			<field id="9607" dataType="double" name="m9607" chineseName="其他应付款" type="AN" startPosition="1061" endPosition="1080" optional="false"/>
+			<field id="9609" dataType="double" name="m9609" chineseName="预提费用" type="AN" startPosition="1081" endPosition="1100" optional="false"/>
+			<field id="9611" dataType="double" name="m9611" chineseName="预计负债" type="AN" startPosition="1101" endPosition="1120" optional="false"/>
+			<field id="9613" dataType="double" name="m9613" chineseName="一年内到期的长期负债" type="AN" startPosition="1121" endPosition="1140" optional="false"/>
+			<field id="9615" dataType="double" name="m9615" chineseName="其他流动负债" type="AN" startPosition="1141" endPosition="1160" optional="false"/>
+			<field id="9617" dataType="double" name="m9617" chineseName="流动负债合计" type="AN" startPosition="1161" endPosition="1180" optional="false"/>
+			<field id="9619" dataType="double" name="m9619" chineseName="长期借款" type="AN" startPosition="1181" endPosition="1200" optional="false"/>
+			<field id="9621" dataType="double" name="m9621" chineseName="应付债券" type="AN" startPosition="1201" endPosition="1220" optional="false"/>
+			<field id="9623" dataType="double" name="m9623" chineseName="长期应付款" type="AN" startPosition="1221" endPosition="1240" optional="false"/>
+			<field id="9625" dataType="double" name="m9625" chineseName="专项应付款" type="AN" startPosition="1241" endPosition="1260" optional="false"/>
+			<field id="9627" dataType="double" name="m9627" chineseName="其他长期负债" type="AN" startPosition="1261" endPosition="1280" optional="false"/>
+			<field id="9629" dataType="double" name="m9629" chineseName="其他长期负债特准储备基金" type="AN" startPosition="1281" endPosition="1300" optional="false"/>
+			<field id="9631" dataType="double" name="m9631" chineseName="长期负债合计" type="AN" startPosition="1301" endPosition="1320" optional="false"/>
+			<field id="9633" dataType="double" name="m9633" chineseName="递延税款贷项" type="AN" startPosition="1321" endPosition="1340" optional="false"/>
+			<field id="9635" dataType="double" name="m9635" chineseName="负债合计" type="AN" startPosition="1341" endPosition="1360" optional="false"/>
+			<field id="9637" dataType="double" name="m9637" chineseName="少数股东权益" type="AN" startPosition="1361" endPosition="1380" optional="false"/>
+			<field id="9639" dataType="double" name="m9639" chineseName="实收资本" type="AN" startPosition="1381" endPosition="1400" optional="false"/>
+			<field id="9641" dataType="double" name="m9641" chineseName="国家资本" type="AN" startPosition="1401" endPosition="1420" optional="false"/>
+			<field id="9643" dataType="double" name="m9643" chineseName="集体资本" type="AN" startPosition="1421" endPosition="1440" optional="false"/>
+			<field id="9645" dataType="double" name="m9645" chineseName="法人资本" type="AN" startPosition="1441" endPosition="1460" optional="false"/>
+			<field id="9647" dataType="double" name="m9647" chineseName="法人资本国有法人资本" type="AN" startPosition="1461" endPosition="1480" optional="false"/>
+			<field id="9649" dataType="double" name="m9649" chineseName="法人资本集体法人资本" type="AN" startPosition="1481" endPosition="1500" optional="false"/>
+			<field id="9651" dataType="double" name="m9651" chineseName="个人资本" type="AN" startPosition="1501" endPosition="1520" optional="false"/>
+			<field id="9653" dataType="double" name="m9653" chineseName="外商资本" type="AN" startPosition="1521" endPosition="1540" optional="false"/>
+			<field id="9655" dataType="double" name="m9655" chineseName="资本公积" type="AN" startPosition="1541" endPosition="1560" optional="false"/>
+			<field id="9657" dataType="double" name="m9657" chineseName="盈余公积" type="AN" startPosition="1561" endPosition="1580" optional="false"/>
+			<field id="9659" dataType="double" name="m9659" chineseName="盈余公积法定盈余公积" type="AN" startPosition="1581" endPosition="1600" optional="false"/>
+			<field id="9661" dataType="double" name="m9661" chineseName="盈余公积公益金" type="AN" startPosition="1601" endPosition="1620" optional="false"/>
+			<field id="9663" dataType="double" name="m9663" chineseName="盈余公积补充流动资本" type="AN" startPosition="1621" endPosition="1640" optional="false"/>
+			<field id="9665" dataType="double" name="m9665" chineseName="未确认的投资损失" type="AN" startPosition="1641" endPosition="1660" optional="false"/>
+			<field id="9667" dataType="double" name="m9667" chineseName="未分配利润" type="AN" startPosition="1661" endPosition="1680" optional="false"/>
+			<field id="9669" dataType="double" name="m9669" chineseName="外币报表折算差额" type="AN" startPosition="1681" endPosition="1700" optional="false"/>
+			<field id="9671" dataType="double" name="m9671" chineseName="所有者权益合计" type="AN" startPosition="1701" endPosition="1720" optional="false"/>
+			<field id="9673" dataType="double" name="m9673" chineseName="负债和所有者权益总计" type="AN" startPosition="1721" endPosition="1740" optional="false"/>
+		</segment>
+	</record>
+	<record 
+		id="2" 
+		type="04" 
+		name="IncomeStatement" 
+		mainBusinessNo="B.7503" 
+		keyFields="B.7503,B.2591,B.7507,B.2501,B.6501" 
+		briefFields="B.7503,B.2591,B.7507,B.2501,B.6501" 
+		chineseName="利润及利润分配表段信息记录"
+	>
+		<segment segmentFlag="B" id="1" name="BaseSegment" chineseName="基础段" segmentLength="268" optional="false" unique="true">
+			<field id="4501" dataType="int" name="RecordLength" chineseName="信息记录长度" type="N" startPosition="0" endPosition="3" optional="false"/>
+			<field id="7653" dataType="char" name="RecordType" chineseName="信息记录类型" type="N" startPosition="4" endPosition="5" optional="false" defaultValue="4"/>
+			<field id="7543" dataType="char" name="MessageType" chineseName="信息类别" type="AN" startPosition="6" endPosition="6" optional="false" defaultValue="B"/>
+			<field id="6501" dataType="char" name="FinanceID" chineseName="金融机构代码" type="AN" startPosition="7" endPosition="17" optional="false"/>
+			<field id="5559" dataType="char" name="CustomerName" chineseName="借款人名称" type="AN" startPosition="18" endPosition="97" optional="false"/>
+			<field id="7503" dataType="char" name="LoanCardNo" chineseName="贷款卡编码" type="AN" startPosition="98" endPosition="113" optional="false" keyAttribute="true" />
+			<field id="2591" dataType="char" name="ReportYear" chineseName="报表年份" type="AN" startPosition="114" endPosition="117" optional="false" keyAttribute="true" />
+			<field id="7507" dataType="char" name="ReportType" chineseName="报表类型" type="AN" startPosition="118" endPosition="119" optional="false" keyAttribute="true" />
+			<field id="7651" dataType="char" name="ReportSubtype" chineseName="报表类型细分" type="AN" startPosition="120" endPosition="120" optional="false"/>
+			<field id="5579" dataType="char" name="AuditOffice" chineseName="审计事务所名称" type="AN" startPosition="121" endPosition="200" optional="true"/>
+			<field id="5581" dataType="char" name="AuditorName" chineseName="审计人员名称" type="AN" startPosition="201" endPosition="230" optional="true"/>
+			<field id="2589" dataType="date" name="AuditDate" chineseName="审计时间" type="AN" startPosition="231" endPosition="238" optional="true"/>
+			<field id="7511" dataType="char" name="RecordOperateType" chineseName="信息记录操作类型" type="N" startPosition="239" endPosition="239" optional="false"/>
+			<field id="2501" dataType="date" name="OccurDate" chineseName="业务发生日期" type="N" startPosition="240" endPosition="247" optional="false"/>
+			<field id="7641" dataType="char" name="RecordNo" chineseName="信息记录跟踪编号" type="AN" startPosition="248" endPosition="267" optional="false"/>
+			<field id="9991" dataType="char" name="CustomerID" chineseName="客户编号" type="AN" startPosition="268" endPosition="307" optional="false"/>
+		</segment>
+		<segment segmentFlag="C" id="2" name="SymbolUpdateSegment" chineseName="标识变更段"  segmentLength="62" optional="true" unique="false">			
+		 	<field id="7543" dataType="char" name="MessageType"             chineseName="信息类别"   type="AN"  startPosition="0" endPosition="0" optional="false"  defaultValue="C" />
+		 	<field id="7515" dataType="char" name="ChangeType"               chineseName="变更类型"   type="N"   startPosition="1" endPosition="1"  optional="false" />
+		 	<field id="7517" dataType="char" name="BusinessNo"               chineseName="业务标识号" type="ANC" startPosition="2" endPosition="61" optional="false" />
+		</segment>
+		<segment segmentFlag="E" id="3" name="IncomeStatementSegment" chineseName="利润及利润分配表段"  segmentLength="1281" optional="false" unique="false">
+			<field id="7543" dataType="char" name="m7543" chineseName="信息类别" type="AN" startPosition="0" endPosition="0" optional="false" defaultValue="E"/>
+			<field id="9675" dataType="double" name="m9675" chineseName="主营业务收入" type="AN" startPosition="1" endPosition="20" optional="false"/>
+			<field id="9677" dataType="double" name="m9677" chineseName="主营业务收入出口产品销售收入" type="AN" startPosition="21" endPosition="40" optional="false"/>
+			<field id="9679" dataType="double" name="m9679" chineseName="主营业务收入进口产品销售收入" type="AN" startPosition="41" endPosition="60" optional="false"/>
+			<field id="9681" dataType="double" name="m9681" chineseName="折扣与拆让" type="AN" startPosition="61" endPosition="80" optional="false"/>
+			<field id="9683" dataType="double" name="m9683" chineseName="主营业务收入净额" type="AN" startPosition="81" endPosition="100" optional="false"/>
+			<field id="9685" dataType="double" name="m9685" chineseName="主营业务成本" type="AN" startPosition="101" endPosition="120" optional="false"/>
+			<field id="9687" dataType="double" name="m9687" chineseName="主营业务成本出口产品销售成本" type="AN" startPosition="121" endPosition="140" optional="false"/>
+			<field id="9689" dataType="double" name="m9689" chineseName="主营业务税金及附加" type="AN" startPosition="141" endPosition="160" optional="false"/>
+			<field id="9693" dataType="double" name="m9693" chineseName="经营费用" type="AN" startPosition="161" endPosition="180" optional="false"/>
+			<field id="9691" dataType="double" name="m9691" chineseName="其他" type="AN" startPosition="181" endPosition="200" optional="false"/>
+			<field id="9695" dataType="double" name="m9695" chineseName="递延收益" type="AN" startPosition="201" endPosition="220" optional="false"/>
+			<field id="9697" dataType="double" name="m9697" chineseName="代购代销收入" type="AN" startPosition="221" endPosition="240" optional="false"/>
+			<field id="9699" dataType="double" name="m9699" chineseName="其他" type="AN" startPosition="241" endPosition="260" optional="false"/>
+			<field id="9701" dataType="double" name="m9701" chineseName="主营业务利润" type="AN" startPosition="261" endPosition="280" optional="false"/>
+			<field id="9703" dataType="double" name="m9703" chineseName="其他业务利润" type="AN" startPosition="281" endPosition="300" optional="false"/>
+			<field id="9705" dataType="double" name="m9705" chineseName="营业费用" type="AN" startPosition="301" endPosition="320" optional="false"/>
+			<field id="9707" dataType="double" name="m9707" chineseName="管理费用" type="AN" startPosition="321" endPosition="340" optional="false"/>
+			<field id="9709" dataType="double" name="m9709" chineseName="财务费用" type="AN" startPosition="341" endPosition="360" optional="false"/>
+			<field id="9907" dataType="double" name="m9907" chineseName="其他" type="AN" startPosition="361" endPosition="380" optional="false"/>
+			<field id="9711" dataType="double" name="m9711" chineseName="营业利润" type="AN" startPosition="381" endPosition="400" optional="false"/>
+			<field id="9713" dataType="double" name="m9713" chineseName="投资收益" type="AN" startPosition="401" endPosition="420" optional="false"/>
+			<field id="9715" dataType="double" name="m9715" chineseName="期货收益" type="AN" startPosition="421" endPosition="440" optional="false"/>
+			<field id="9717" dataType="double" name="m9717" chineseName="补贴收入" type="AN" startPosition="441" endPosition="460" optional="false"/>
+			<field id="9719" dataType="double" name="m9719" chineseName="补贴收入补贴前亏损的企业补贴收入" type="AN" startPosition="461" endPosition="480" optional="false"/>
+			<field id="9721" dataType="double" name="m9721" chineseName="营业外收入" type="AN" startPosition="481" endPosition="500" optional="false"/>
+			<field id="9723" dataType="double" name="m9723" chineseName="营业外收入处置固定资产净收益" type="AN" startPosition="501" endPosition="520" optional="false"/>
+			<field id="9725" dataType="double" name="m9725" chineseName="营业外收入非货币性交易收益" type="AN" startPosition="521" endPosition="540" optional="false"/>
+			<field id="9727" dataType="double" name="m9727" chineseName="营业外收入出售无形资产收益" type="AN" startPosition="541" endPosition="560" optional="false"/>
+			<field id="9729" dataType="double" name="m9729" chineseName="营业外收入罚款净收入" type="AN" startPosition="561" endPosition="580" optional="false"/>
+			<field id="9909" dataType="double" name="m9909" chineseName="其他" type="AN" startPosition="581" endPosition="600" optional="false"/>
+			<field id="9731" dataType="double" name="m9731" chineseName="其他用以前年度含量工资节余弥补利润" type="AN" startPosition="601" endPosition="620" optional="false"/>
+			<field id="9733" dataType="double" name="m9733" chineseName="营业外支出" type="AN" startPosition="621" endPosition="640" optional="false"/>
+			<field id="9735" dataType="double" name="m9735" chineseName="营业外支出处置固定资产净损失" type="AN" startPosition="641" endPosition="660" optional="false"/>
+			<field id="9737" dataType="double" name="m9737" chineseName="营业外支出债务重组损失" type="AN" startPosition="661" endPosition="680" optional="false"/>
+			<field id="9739" dataType="double" name="m9739" chineseName="营业外支出罚款支出" type="AN" startPosition="681" endPosition="700" optional="false"/>
+			<field id="9741" dataType="double" name="m9741" chineseName="营业外支出捐赠支出" type="AN" startPosition="701" endPosition="720" optional="false"/>
+			<field id="9743" dataType="double" name="m9743" chineseName="其他支出" type="AN" startPosition="721" endPosition="740" optional="false"/>
+			<field id="9745" dataType="double" name="m9745" chineseName="其他支出结转的含量工资包干节余" type="AN" startPosition="741" endPosition="760" optional="false"/>
+			<field id="9747" dataType="double" name="m9747" chineseName="利润总额" type="AN" startPosition="761" endPosition="780" optional="false"/>
+			<field id="9749" dataType="double" name="m9749" chineseName="所得税" type="AN" startPosition="781" endPosition="800" optional="false"/>
+			<field id="9751" dataType="double" name="m9751" chineseName="少数股东损益" type="AN" startPosition="801" endPosition="820" optional="false"/>
+			<field id="9753" dataType="double" name="m9753" chineseName="未确认的投资损失" type="AN" startPosition="821" endPosition="840" optional="false"/>
+			<field id="9755" dataType="double" name="m9755" chineseName="净利润" type="AN" startPosition="841" endPosition="860" optional="false"/>
+			<field id="9757" dataType="double" name="m9757" chineseName="年初未分配利润" type="AN" startPosition="861" endPosition="880" optional="false"/>
+			<field id="9759" dataType="double" name="m9759" chineseName="盈余公积补亏" type="AN" startPosition="881" endPosition="900" optional="false"/>
+			<field id="9761" dataType="double" name="m9761" chineseName="其他调整因素" type="AN" startPosition="901" endPosition="920" optional="false"/>
+			<field id="9763" dataType="double" name="m9763" chineseName="可供分配的利润" type="AN" startPosition="921" endPosition="940" optional="false"/>
+			<field id="9765" dataType="double" name="m9765" chineseName="单项留用的利润" type="AN" startPosition="941" endPosition="960" optional="false"/>
+			<field id="9767" dataType="double" name="m9767" chineseName="补充流动资本" type="AN" startPosition="961" endPosition="980" optional="false"/>
+			<field id="9769" dataType="double" name="m9769" chineseName="提取法定盈余公积" type="AN" startPosition="981" endPosition="1000" optional="false"/>
+			<field id="9771" dataType="double" name="m9771" chineseName="提取法定公益金" type="AN" startPosition="1001" endPosition="1020" optional="false"/>
+			<field id="9773" dataType="double" name="m9773" chineseName="提取职工奖励及福利基金" type="AN" startPosition="1021" endPosition="1040" optional="false"/>
+			<field id="9775" dataType="double" name="m9775" chineseName="提取储备基金" type="AN" startPosition="1041" endPosition="1060" optional="false"/>
+			<field id="9777" dataType="double" name="m9777" chineseName="提取企业发展基金" type="AN" startPosition="1061" endPosition="1080" optional="false"/>
+			<field id="9779" dataType="double" name="m9779" chineseName="利润归还投资" type="AN" startPosition="1081" endPosition="1100" optional="false"/>
+			<field id="9911" dataType="double" name="m9911" chineseName="其他" type="AN" startPosition="1101" endPosition="1120" optional="false"/>
+			<field id="9781" dataType="double" name="m9781" chineseName="可供投资者分配的利润" type="AN" startPosition="1121" endPosition="1140" optional="false"/>
+			<field id="9783" dataType="double" name="m9783" chineseName="应付优先股股利" type="AN" startPosition="1141" endPosition="1160" optional="false"/>
+			<field id="9785" dataType="double" name="m9785" chineseName="提取任意盈余公积" type="AN" startPosition="1161" endPosition="1180" optional="false"/>
+			<field id="9787" dataType="double" name="m9787" chineseName="应付普通股股利" type="AN" startPosition="1181" endPosition="1200" optional="false"/>
+			<field id="9789" dataType="double" name="m9789" chineseName="转作资本的普通股股利" type="AN" startPosition="1201" endPosition="1220" optional="false"/>
+			<field id="9913" dataType="double" name="m9913" chineseName="其他" type="AN" startPosition="1221" endPosition="1240" optional="false"/>
+			<field id="9791" dataType="double" name="m9791" chineseName="未分配利润" type="AN" startPosition="1241" endPosition="1260" optional="false"/>
+			<field id="9793" dataType="double" name="m9793" chineseName="未分配利润应由以后年度税前利润弥补的亏损" type="AN" startPosition="1261" endPosition="1280" optional="false"/>
+		</segment>
+	</record>
+	<record 
+		id="3" 
+		type="05" 
+		name="CashFlow" 
+		mainBusinessNo="B.7503" 
+		keyFields="B.7503,B.2591,B.7507,B.2501,B.6501" 
+		briefFields="B.7503,B.2591,B.7507,B.2501,B.6501"
+		chineseName="现金流量表段信息记录"
+	>
+		<segment segmentFlag="B" id="1" name="BaseSegment" chineseName="基础段" segmentLength="268" optional="false" unique="true">
+			<field id="4501" dataType="int" name="RecordLength" chineseName="信息记录长度" type="N" startPosition="0" endPosition="3" optional="false"/>
+			<field id="7653" dataType="char" name="RecordType" chineseName="信息记录类型" type="N" startPosition="4" endPosition="5" optional="false" defaultValue="5"/>
+			<field id="7543" dataType="char"   name="MessageType" chineseName="信息类别" type="AN" startPosition="6" endPosition="6" optional="false" defaultValue="B"/>
+			<field id="6501" dataType="char"   name="FinanceID" chineseName="金融机构代码" type="AN" startPosition="7" endPosition="17" optional="false"/>
+			<field id="5559" dataType="char"   name="CustomerName" chineseName="借款人名称" type="AN" startPosition="18" endPosition="97" optional="false"/>
+			<field id="7503" dataType="char"   name="LoanCardNo" chineseName="贷款卡编码" type="AN" startPosition="98" endPosition="113" optional="false" keyAttribute="true" />
+			<field id="2591" dataType="char" name="ReportYear" chineseName="报表年份" type="AN" startPosition="114" endPosition="117" optional="false" keyAttribute="true" />
+			<field id="7507" dataType="char" name="ReportType" chineseName="报表类型" type="AN" startPosition="118" endPosition="119" optional="false" keyAttribute="true" />
+			<field id="7651" dataType="char" name="ReportSubType" chineseName="报表类型细分" type="AN" startPosition="120" endPosition="120" optional="false"/>
+			<field id="5579" dataType="char"   name="AuditOffice" chineseName="审计事务所名称" type="AN" startPosition="121" endPosition="200" optional="true"/>
+			<field id="5581" dataType="char"   name="AuditorName" chineseName="审计人员名称" type="AN" startPosition="201" endPosition="230" optional="true"/>
+			<field id="2589" dataType="date"   name="AuditDate" chineseName="审计时间" type="AN" startPosition="231" endPosition="238" optional="true"/>
+			<field id="7511" dataType="char"    name="RecordOperateType" chineseName="信息记录操作类型" type="N" startPosition="239" endPosition="239" optional="false"/>
+			<field id="2501" dataType="date"   name="OccurDate" chineseName="业务发生日期" type="N" startPosition="240" endPosition="247" optional="false"/>
+			<field id="7641" dataType="char"   name="RecordNo" chineseName="信息记录跟踪编号" type="AN" startPosition="248" endPosition="267" optional="false"/>
+			<field id="9991" dataType="char" name="CustomerID" chineseName="客户编号" type="AN" startPosition="268" endPosition="307" optional="false"/>
+		</segment>
+		<segment segmentFlag="C" id="2" name="SymbolUpdateSegment" chineseName="标识变更段"  segmentLength="62" optional="true" unique="false">			
+		 	<field id="7543" dataType="char" name="MessageType"             chineseName="信息类别"   type="AN"  startPosition="0" endPosition="0" optional="false"  defaultValue="C" />
+		 	<field id="7515" dataType="char" name="ChangeType"               chineseName="变更类型"   type="N"   startPosition="1" endPosition="1"  optional="false" />
+		 	<field id="7517" dataType="char" name="BusinessNo"               chineseName="业务标识号" type="ANC" startPosition="2" endPosition="61" optional="false" />
+		</segment>
+		<segment segmentFlag="F" id="3" name="CashFlowSegment" chineseName="现金流量表段"  segmentLength="1141" optional="false" unique="false">
+			<field id="7543" dataType="char" name="m7543" chineseName="信息类别" type="AN" startPosition="0" endPosition="0" optional="false" defaultValue="F"/>
+			<field id="9795" dataType="double" name="m9795" chineseName="销售商品和提供劳务收到的现金" type="AN" startPosition="1" endPosition="20" optional="false"/>
+			<field id="9797" dataType="double" name="m9797" chineseName="收到的税费返还" type="AN" startPosition="21" endPosition="40" optional="false"/>
+			<field id="9799" dataType="double" name="m9799" chineseName="收到的其他与经营活动有关的现金" type="AN" startPosition="41" endPosition="60" optional="false"/>
+			<field id="9823" dataType="double" name="m9823" chineseName="经营活动现金流入小计" type="AN" startPosition="61" endPosition="80" optional="false"/>
+			<field id="9803" dataType="double" name="m9803" chineseName="购买商品、接受劳务支付的现金" type="AN" startPosition="81" endPosition="100" optional="false"/>
+			<field id="9805" dataType="double" name="m9805" chineseName="支付给职工以及为职工支付的现金" type="AN" startPosition="101" endPosition="120" optional="false"/>
+			<field id="9807" dataType="double" name="m9807" chineseName="支付的各项税费" type="AN" startPosition="121" endPosition="140" optional="false"/>
+			<field id="9809" dataType="double" name="m9809" chineseName="支付的其他与经营活动有关的现金" type="AN" startPosition="141" endPosition="160" optional="false"/>
+			<field id="9831" dataType="double" name="m9831" chineseName="经营活动现金流出小计" type="AN" startPosition="161" endPosition="180" optional="false"/>
+			<field id="9813" dataType="double" name="m9813" chineseName="经营活动产生的现金流量净额" type="AN" startPosition="181" endPosition="200" optional="false"/>
+			<field id="9815" dataType="double" name="m9815" chineseName="收回投资所收到的现金" type="AN" startPosition="201" endPosition="220" optional="false"/>
+			<field id="9817" dataType="double" name="m9817" chineseName="取得投资收益所收到的现金" type="AN" startPosition="221" endPosition="240" optional="false"/>
+			<field id="9819" dataType="double" name="m9819" chineseName="处置固定资产无形资产和其他长期资产所收回的现金净额" type="AN" startPosition="241" endPosition="260" optional="false"/>
+			<field id="9821" dataType="double" name="m9821" chineseName="收到的其他与投资活动有关的现金" type="AN" startPosition="261" endPosition="280" optional="false"/>
+			<field id="9917" dataType="double" name="m9917" chineseName="投资活动现金流入小计" type="AN" startPosition="281" endPosition="300" optional="false"/>
+			<field id="9825" dataType="double" name="m9825" chineseName="购建固定资产无形资产和其他长期资产所支付的现金" type="AN" startPosition="301" endPosition="320" optional="false"/>
+			<field id="9827" dataType="double" name="m9827" chineseName="投资所支付的现金" type="AN" startPosition="321" endPosition="340" optional="false"/>
+			<field id="9829" dataType="double" name="m9829" chineseName="支付的其他与投资活动有关的现金" type="AN" startPosition="341" endPosition="360" optional="false"/>
+			<field id="9919" dataType="double" name="m9919" chineseName="投资活动现金流出小计" type="AN" startPosition="361" endPosition="380" optional="false"/>
+			<field id="9833" dataType="double" name="m9833" chineseName="投资活动产生的现金流量净额" type="AN" startPosition="381" endPosition="400" optional="false"/>
+			<field id="9835" dataType="double" name="m9835" chineseName="吸收投资所收到的现金" type="AN" startPosition="401" endPosition="420" optional="false"/>
+			<field id="9837" dataType="double" name="m9837" chineseName="借款所收到的现金" type="AN" startPosition="421" endPosition="440" optional="false"/>
+			<field id="9839" dataType="double" name="m9839" chineseName="收到的其他与筹资活动有关的现金" type="AN" startPosition="441" endPosition="460" optional="false"/>
+			<field id="9921" dataType="double" name="m9921" chineseName="筹资活动现金流入小计" type="AN" startPosition="461" endPosition="480" optional="false"/>
+			<field id="9843" dataType="double" name="m9843" chineseName="偿还债务所支付的现金" type="AN" startPosition="481" endPosition="500" optional="false"/>
+			<field id="9845" dataType="double" name="m9845" chineseName="分配股利、利润或偿付利息所支付的现金" type="AN" startPosition="501" endPosition="520" optional="false"/>
+			<field id="9847" dataType="double" name="m9847" chineseName="支付的其他与筹资活动有关的现金" type="AN" startPosition="521" endPosition="540" optional="false"/>
+			<field id="9923" dataType="double" name="m9923" chineseName="筹资活动现金流出小计" type="AN" startPosition="541" endPosition="560" optional="false"/>
+			<field id="9851" dataType="double" name="m9851" chineseName="筹集活动产生的现金流量净额" type="AN" startPosition="561" endPosition="580" optional="false"/>
+			<field id="9853" dataType="double" name="m9853" chineseName="汇率变动对现金的影响" type="AN" startPosition="581" endPosition="600" optional="false"/>
+			<field id="9855" dataType="double" name="m9855" chineseName="现金及现金等价物净增加额" type="AN" startPosition="601" endPosition="620" optional="false"/>
+			<field id="9857" dataType="double" name="m9857" chineseName="净利润" type="AN" startPosition="621" endPosition="640" optional="false"/>
+			<field id="9859" dataType="double" name="m9859" chineseName="计提的资产减值准备" type="AN" startPosition="641" endPosition="660" optional="false"/>
+			<field id="9861" dataType="double" name="m9861" chineseName="固定资产拆旧" type="AN" startPosition="661" endPosition="680" optional="false"/>
+			<field id="9863" dataType="double" name="m9863" chineseName="无形资产摊销" type="AN" startPosition="681" endPosition="700" optional="false"/>
+			<field id="9865" dataType="double" name="m9865" chineseName="长期待摊费用摊销" type="AN" startPosition="701" endPosition="720" optional="false"/>
+			<field id="9867" dataType="double" name="m9867" chineseName="待摊费用减少" type="AN" startPosition="721" endPosition="740" optional="false"/>
+			<field id="9869" dataType="double" name="m9869" chineseName="预提费用增加" type="AN" startPosition="741" endPosition="760" optional="false"/>
+			<field id="9871" dataType="double" name="m9871" chineseName="处置固定资产无形资产和其他长期资产的损失" type="AN" startPosition="761" endPosition="780" optional="false"/>
+			<field id="9873" dataType="double" name="m9873" chineseName="固定资产报废损失" type="AN" startPosition="781" endPosition="800" optional="false"/>
+			<field id="9925" dataType="double" name="m9925" chineseName="财务费用" type="AN" startPosition="801" endPosition="820" optional="false"/>
+			<field id="9877" dataType="double" name="m9877" chineseName="投资损失" type="AN" startPosition="821" endPosition="840" optional="false"/>
+			<field id="9879" dataType="double" name="m9879" chineseName="递延税款贷项" type="AN" startPosition="841" endPosition="860" optional="false"/>
+			<field id="9881" dataType="double" name="m9881" chineseName="存货的减少" type="AN" startPosition="861" endPosition="880" optional="false"/>
+			<field id="9883" dataType="double" name="m9883" chineseName="经营性应收项目的减少" type="AN" startPosition="881" endPosition="900" optional="false"/>
+			<field id="9885" dataType="double" name="m9885" chineseName="经营性应付项目的增加" type="AN" startPosition="901" endPosition="920" optional="false"/>
+			<field id="9915" dataType="double" name="m9915" chineseName="其他" type="AN" startPosition="921" endPosition="940" optional="false"/>
+			<field id="1813" dataType="double" name="m1813" chineseName="经营活动产生的现金流量净额" type="AN" startPosition="941" endPosition="960" optional="false"/>
+			<field id="9891" dataType="double" name="m9891" chineseName="债务转为资本" type="AN" startPosition="961" endPosition="980" optional="false"/>
+			<field id="9893" dataType="double" name="m9893" chineseName="一年内到期的可转换公司债券" type="AN" startPosition="981" endPosition="1000" optional="false"/>
+			<field id="9895" dataType="double" name="m9895" chineseName="融资租入固定资产" type="AN" startPosition="1001" endPosition="1020" optional="false"/>
+			<field id="9897" dataType="double" name="m9897" chineseName="其他" type="AN" startPosition="1021" endPosition="1040" optional="false"/>
+			<field id="9899" dataType="double" name="m9899" chineseName="现金的期末余额" type="AN" startPosition="1041" endPosition="1060" optional="false"/>
+			<field id="9901" dataType="double" name="m9901" chineseName="现金的期初余额" type="AN" startPosition="1061" endPosition="1080" optional="false"/>
+			<field id="9903" dataType="double" name="m9903" chineseName="现金等价物的期末余额" type="AN" startPosition="1081" endPosition="1100" optional="false"/>
+			<field id="9905" dataType="double" name="m9905" chineseName="现金等价物的期初余额" type="AN" startPosition="1101" endPosition="1120" optional="false"/>
+			<field id="1855" dataType="double" name="m1855" chineseName="现金及现金等价物净增加额" type="AN" startPosition="1121" endPosition="1140" optional="false"/>
+		</segment>
+	</record>
+	
+	<!--  新财报添加开始-->
+	<!--  2007版资产负债表-->
+	<!--  贷款卡号  报表年份  报表类型  业务发生日期  金融机构代码-->
+	<record id="4" 
+		type="43" 
+		name="BalanceSheet2007" 
+		mainBusinessNo="B.7503" 
+		keyFields="B.7503,B.2591,B.7507,B.2501,B.6501" 
+		briefFields="B.7503,B.2591,B.7507,B.2501,B.6501" 
+		chineseName="2007版资产负债表信息记录"
+	>
+	<segment segmentFlag="B" id="1" name="BaseSegment" chineseName="基础段" segmentLength="268" optional="false" unique="true">
+			<field id="4501" dataType="int" name="RecordLength" chineseName="信息记录长度" type="N" startPosition="0" endPosition="3" optional="false"/>
+			<field id="7653" dataType="char" name="RecordType" chineseName="信息记录类型" type="N" startPosition="4" endPosition="5" optional="false" defaultValue="43"/>
+			<field id="7543" dataType="char"   name="MessageType" chineseName="信息类别" type="AN" startPosition="6" endPosition="6" optional="false" defaultValue="B"/>
+			<field id="6501" dataType="char"   name="FinanceID" chineseName="金融机构代码" type="AN" startPosition="7" endPosition="17" optional="false"/>
+			<field id="5559" dataType="char"   name="CustomerName" chineseName="借款人名称" type="AN" startPosition="18" endPosition="97" optional="false"/>
+			<field id="7503" dataType="char"   name="LoanCardNo" chineseName="贷款卡编码" type="AN" startPosition="98" endPosition="113" optional="false" keyAttribute="true" />
+			<field id="2591" dataType="char" name="ReportYear" chineseName="报表年份" type="AN" startPosition="114" endPosition="117" optional="false" keyAttribute="true" />
+			<field id="7507" dataType="char" name="ReportType" chineseName="报表类型" type="AN" startPosition="118" endPosition="119" optional="false" keyAttribute="true" />
+			<field id="7651" dataType="char" name="ReportSubType" chineseName="报表类型细分" type="AN" startPosition="120" endPosition="120" optional="false"/>
+			<field id="5579" dataType="char"   name="AuditOffice" chineseName="审计事务所名称" type="AN" startPosition="121" endPosition="200" optional="true"/>
+			<field id="5581" dataType="char"   name="AuditorName" chineseName="审计人员名称" type="AN" startPosition="201" endPosition="230" optional="true"/>
+			<field id="2589" dataType="date"   name="AuditDate" chineseName="审计时间" type="AN" startPosition="231" endPosition="238" optional="true"/>
+			<field id="7511" dataType="char"    name="RecordOperateType" chineseName="信息记录操作类型" type="N" startPosition="239" endPosition="239" optional="false"/>
+			<field id="2501" dataType="date"   name="OccurDate" chineseName="业务发生日期" type="N" startPosition="240" endPosition="247" optional="false"/>
+			<field id="7641" dataType="char"   name="RecordNo" chineseName="信息记录跟踪编号" type="AN" startPosition="248" endPosition="267" optional="false"/>
+			<field id="9991" dataType="char" name="CustomerID" chineseName="客户编号" type="AN" startPosition="268" endPosition="307" optional="false"/>
+		</segment>
+		<segment segmentFlag="C" id="2" name="SymbolUpdateSegment" chineseName="标识变更段"  segmentLength="62" optional="true" unique="false">			
+		 	<field id="7543" dataType="char" name="MessageType"             chineseName="信息类别"   type="AN"  startPosition="0" endPosition="0" optional="false"  defaultValue="C" />
+		 	<field id="7515" dataType="char" name="ChangeType"               chineseName="变更类型"   type="N"   startPosition="1" endPosition="1"  optional="false" />
+		 	<field id="7517" dataType="char" name="BusinessNo"               chineseName="业务标识号" type="ANC" startPosition="2" endPosition="61" optional="false" />
+		</segment>
+		<segment segmentFlag="G" id="3" name="BalanceSheetSegment2007" chineseName="2007版资产负债表段"  segmentLength="1201" optional="false" unique="false">
+			<field id="7543" dataType="char" name="m7543" chineseName="信息类别" type="AN" startPosition="0" endPosition="0" optional="false" defaultValue="G"/>
+			<field id="9100" dataType="double" name="m9100" chineseName="货币资金" type="AN" startPosition="1" endPosition="20" optional="false"/>
+			<field id="9101" dataType="double" name="m9101" chineseName="交易性金融资产" type="AN" startPosition="21" endPosition="40" optional="false"/>
+			<field id="9102" dataType="double" name="m9102" chineseName="应收票据" type="AN" startPosition="41" endPosition="60" optional="false"/>
+			<field id="9103" dataType="double" name="m9103" chineseName="应收账款" type="AN" startPosition="61" endPosition="80" optional="false"/>
+			<field id="9104" dataType="double" name="m9104" chineseName="预付账款" type="AN" startPosition="81" endPosition="100" optional="false"/>
+			<field id="9105" dataType="double" name="m9105" chineseName="应收利息" type="AN" startPosition="101" endPosition="120" optional="false"/>
+			<field id="9106" dataType="double" name="m9106" chineseName="应收股利" type="AN" startPosition="121" endPosition="140" optional="false"/>
+			<field id="9107" dataType="double" name="m9107" chineseName="其他应收款" type="AN" startPosition="141" endPosition="160" optional="false"/>
+			<field id="9108" dataType="double" name="m9108" chineseName="存货" type="AN" startPosition="161" endPosition="180" optional="false"/>
+			<field id="9109" dataType="double" name="m9109" chineseName="一年内到期的非流动资产" type="AN" startPosition="181" endPosition="200" optional="false"/>
+			<field id="9110" dataType="double" name="m9110" chineseName="其他流动资产" type="AN" startPosition="201" endPosition="220" optional="false"/>
+			<field id="9111" dataType="double" name="m9111" chineseName="流动资产合计" type="AN" startPosition="221" endPosition="240" optional="false"/>
+			<field id="9112" dataType="double" name="m9112" chineseName="可供出售的金融资产" type="AN" startPosition="241" endPosition="260" optional="false"/>
+			<field id="9113" dataType="double" name="m9113" chineseName="持有至到期的投资" type="AN" startPosition="261" endPosition="280" optional="false"/>
+			<field id="9114" dataType="double" name="m9114" chineseName="长期股权投资" type="AN" startPosition="281" endPosition="300" optional="false"/>
+			<field id="9115" dataType="double" name="m9115" chineseName="长期应收款" type="AN" startPosition="301" endPosition="320" optional="false"/>
+			<field id="9116" dataType="double" name="m9116" chineseName="投资性房地产" type="AN" startPosition="321" endPosition="340" optional="false"/>
+			<field id="9117" dataType="double" name="m9117" chineseName="固定资产" type="AN" startPosition="341" endPosition="360" optional="false"/>
+			<field id="9118" dataType="double" name="m9118" chineseName="在建工程" type="AN" startPosition="361" endPosition="380" optional="false"/>
+			<field id="9119" dataType="double" name="m9119" chineseName="工程物资" type="AN" startPosition="381" endPosition="400" optional="false"/>
+			<field id="9120" dataType="double" name="m9120" chineseName="固定资产清理" type="AN" startPosition="401" endPosition="420" optional="false"/>
+			<field id="9121" dataType="double" name="m9121" chineseName="生成性生物资产" type="AN" startPosition="421" endPosition="440" optional="false"/>
+			<field id="9122" dataType="double" name="m9122" chineseName="油气资产" type="AN" startPosition="441" endPosition="460" optional="false"/>
+			<field id="9123" dataType="double" name="m9123" chineseName="无形资产" type="AN" startPosition="461" endPosition="480" optional="false"/>
+			<field id="9124" dataType="double" name="m9124" chineseName="开发支出" type="AN" startPosition="481" endPosition="500" optional="false"/>
+			<field id="9125" dataType="double" name="m9125" chineseName="商誉" type="AN" startPosition="501" endPosition="520" optional="false"/>
+			<field id="9126" dataType="double" name="m9126" chineseName="长期待摊费用" type="AN" startPosition="521" endPosition="540" optional="false"/>
+			<field id="9127" dataType="double" name="m9127" chineseName="递延所得税资产" type="AN" startPosition="541" endPosition="560" optional="false"/>
+			<field id="9128" dataType="double" name="m9128" chineseName="其他非流动资产" type="AN" startPosition="561" endPosition="580" optional="false"/>
+			<field id="9129" dataType="double" name="m9129" chineseName="非流动资产合计" type="AN" startPosition="581" endPosition="600" optional="false"/>
+			<field id="9130" dataType="double" name="m9130" chineseName="资产合计" type="AN" startPosition="601" endPosition="620" optional="false"/>
+			<field id="9131" dataType="double" name="m9131" chineseName="短期借款" type="AN" startPosition="621" endPosition="640" optional="false"/>
+			<field id="9132" dataType="double" name="m9132" chineseName="交易性金融负债" type="AN" startPosition="641" endPosition="660" optional="false"/>
+			<field id="9133" dataType="double" name="m9133" chineseName="应付票据" type="AN" startPosition="661" endPosition="680" optional="false"/>
+			<field id="9134" dataType="double" name="m9134" chineseName="应付账款" type="AN" startPosition="681" endPosition="700" optional="false"/>
+			<field id="9135" dataType="double" name="m9135" chineseName="预收账款" type="AN" startPosition="701" endPosition="720" optional="false"/>
+			<field id="9136" dataType="double" name="m9136" chineseName="应付利息" type="AN" startPosition="721" endPosition="740" optional="false"/>
+			<field id="9137" dataType="double" name="m9137" chineseName="应付职工薪酬" type="AN" startPosition="741" endPosition="760" optional="false"/>
+		    <field id="9138" dataType="double" name="m9138" chineseName="应交税费" type="AN" startPosition="761" endPosition="780" optional="false"/>
+			<field id="9139" dataType="double" name="m9139" chineseName="应付股利" type="AN" startPosition="781" endPosition="800" optional="false"/>
+			<field id="9140" dataType="double" name="m9140" chineseName="其他应收款" type="AN" startPosition="801" endPosition="820" optional="false"/>
+			<field id="9141" dataType="double" name="m9141" chineseName="一年内到期的非流动负债" type="AN" startPosition="821" endPosition="840" optional="false"/>
+			<field id="9142" dataType="double" name="m9142" chineseName="其他流动负债" type="AN" startPosition="841" endPosition="860" optional="false"/>
+			<field id="9143" dataType="double" name="m9143" chineseName="流动负债合计" type="AN" startPosition="861" endPosition="880" optional="false"/>
+			<field id="9144" dataType="double" name="m9144" chineseName="长期借款" type="AN" startPosition="881" endPosition="900" optional="false"/>
+			<field id="9145" dataType="double" name="m9145" chineseName="应收债券" type="AN" startPosition="901" endPosition="920" optional="false"/>
+			<field id="9146" dataType="double" name="m9146" chineseName="长期应收款" type="AN" startPosition="921" endPosition="940" optional="false"/>
+			<field id="9147" dataType="double" name="m9147" chineseName="专项应收款" type="AN" startPosition="941" endPosition="960" optional="false"/>
+			<field id="9148" dataType="double" name="m9148" chineseName="预计负债" type="AN" startPosition="961" endPosition="980" optional="false"/>
+			<field id="9149" dataType="double" name="m9149" chineseName="递延所得税负债" type="AN" startPosition="981" endPosition="1000" optional="false"/>
+			<field id="9150" dataType="double" name="m9150" chineseName="其他非流动负债" type="AN" startPosition="1001" endPosition="1020" optional="false"/>
+			<field id="9151" dataType="double" name="m9151" chineseName="非流动负债合计" type="AN" startPosition="1021" endPosition="1040" optional="false"/>
+			<field id="9152" dataType="double" name="m9152" chineseName="负债合计" type="AN" startPosition="1041" endPosition="1060" optional="false"/>
+			<field id="9153" dataType="double" name="m9153" chineseName="实收资本(或股本)" type="AN" startPosition="1061" endPosition="1080" optional="false"/>
+			<field id="9154" dataType="double" name="m9154" chineseName="资本公积" type="AN" startPosition="1081" endPosition="1100" optional="false"/>
+			<field id="9155" dataType="double" name="m9155" chineseName="减：库存股" type="AN" startPosition="1101" endPosition="1120" optional="false"/>
+			<field id="9156" dataType="double" name="m9156" chineseName="盈余公积" type="AN" startPosition="1121" endPosition="1140" optional="false"/>
+			<field id="9157" dataType="double" name="m9157" chineseName="未分配利润" type="AN" startPosition="1141" endPosition="1160" optional="false"/>
+			<field id="9158" dataType="double" name="m9158" chineseName="所有者权益合计" type="AN" startPosition="1161" endPosition="1180" optional="false"/>
+			<field id="9159" dataType="double" name="m9159" chineseName="负债和所有者权益合计" type="AN" startPosition="1181" endPosition="1200" optional="false"/>
+		</segment>
+	</record>
+	<!--  2007版利润及利润分配表-->
+	<!--  贷款卡号  报表年份  报表类型  业务发生日期  金融机构代码-->
+	<record id="5" 
+		type="44" 
+		name="IncomeStatement2007" 
+		mainBusinessNo="B.7503" 
+		keyFields="B.7503,B.2591,B.7507,B.2501,B.6501" 
+		briefFields="B.7503,B.2591,B.7507,B.2501,B.6501" 
+		chineseName="2007版利润及利润分配表段信息记录"
+	>
+	<segment segmentFlag="B" id="1" name="BaseSegment" chineseName="基础段" segmentLength="268" optional="false" unique="true">
+			<field id="4501" dataType="int" name="RecordLength" chineseName="信息记录长度" type="N" startPosition="0" endPosition="3" optional="false"/>
+			<field id="7653" dataType="char" name="RecordType" chineseName="信息记录类型" type="N" startPosition="4" endPosition="5" optional="false" defaultValue="44"/>
+			<field id="7543" dataType="char" name="MessageType" chineseName="信息类别" type="AN" startPosition="6" endPosition="6" optional="false" defaultValue="B"/>
+			<field id="6501" dataType="char" name="FinanceID" chineseName="金融机构代码" type="AN" startPosition="7" endPosition="17" optional="false"/>
+			<field id="5559" dataType="char" name="CustomerName" chineseName="借款人名称" type="AN" startPosition="18" endPosition="97" optional="false"/>
+			<field id="7503" dataType="char" name="LoanCardNo" chineseName="贷款卡编码" type="AN" startPosition="98" endPosition="113" optional="false" keyAttribute="true" />
+			<field id="2591" dataType="char" name="ReportYear" chineseName="报表年份" type="AN" startPosition="114" endPosition="117" optional="false" keyAttribute="true" />
+			<field id="7507" dataType="char" name="ReportType" chineseName="报表类型" type="AN" startPosition="118" endPosition="119" optional="false" keyAttribute="true" />
+			<field id="7651" dataType="char" name="ReportSubtype" chineseName="报表类型细分" type="AN" startPosition="120" endPosition="120" optional="false"/>
+			<field id="5579" dataType="char" name="AuditOffice" chineseName="审计事务所名称" type="AN" startPosition="121" endPosition="200" optional="true"/>
+			<field id="5581" dataType="char" name="AuditorName" chineseName="审计人员名称" type="AN" startPosition="201" endPosition="230" optional="true"/>
+			<field id="2589" dataType="date" name="AuditDate" chineseName="审计时间" type="AN" startPosition="231" endPosition="238" optional="true"/>
+			<field id="7511" dataType="char" name="RecordOperateType" chineseName="信息记录操作类型" type="N" startPosition="239" endPosition="239" optional="false"/>
+			<field id="2501" dataType="date" name="OccurDate" chineseName="业务发生日期" type="N" startPosition="240" endPosition="247" optional="false"/>
+			<field id="7641" dataType="char" name="RecordNo" chineseName="信息记录跟踪编号" type="AN" startPosition="248" endPosition="267" optional="false"/>
+			<field id="9991" dataType="char" name="CustomerID" chineseName="客户编号" type="AN" startPosition="268" endPosition="307" optional="false"/>
+		</segment>
+		<segment segmentFlag="C" id="2" name="SymbolUpdateSegment" chineseName="标识变更段"  segmentLength="62" optional="true" unique="false">			
+		 	<field id="7543" dataType="char" name="MessageType"             chineseName="信息类别"   type="AN"  startPosition="0" endPosition="0" optional="false"  defaultValue="C" />
+		 	<field id="7515" dataType="char" name="ChangeType"               chineseName="变更类型"   type="N"   startPosition="1" endPosition="1"  optional="false" />
+		 	<field id="7517" dataType="char" name="BusinessNo"               chineseName="业务标识号" type="ANC" startPosition="2" endPosition="61" optional="false" />
+		</segment>
+		<segment segmentFlag="H" id="3" name="IncomeStatementSegment2007" chineseName="2007版利润及利润分配表段"  segmentLength="381" optional="false" unique="false">
+			<field id="7543" dataType="char" name="m7543" chineseName="信息类别" type="AN" startPosition="0" endPosition="0" optional="false" defaultValue="H"/>
+			<field id="9170" dataType="double" name="m9170" chineseName="营业收入" type="AN" startPosition="1" endPosition="20" optional="false"/>
+			<field id="9171" dataType="double" name="m9171" chineseName="营业成本" type="AN" startPosition="21" endPosition="40" optional="false"/>
+			<field id="9172" dataType="double" name="m9172" chineseName="营业税金及附加" type="AN" startPosition="41" endPosition="60" optional="false"/>
+			<field id="9173" dataType="double" name="m9173" chineseName="销售费用" type="AN" startPosition="61" endPosition="80" optional="false"/>
+			<field id="9174" dataType="double" name="m9174" chineseName="管理费用" type="AN" startPosition="81" endPosition="100" optional="false"/>
+			<field id="9175" dataType="double" name="m9175" chineseName="财务费用" type="AN" startPosition="101" endPosition="120" optional="false"/>
+			<field id="9176" dataType="double" name="m9176" chineseName="资产减值损失" type="AN" startPosition="121" endPosition="140" optional="false"/>
+			<field id="9177" dataType="double" name="m9177" chineseName="公允价值变动净收益" type="AN" startPosition="141" endPosition="160" optional="false"/>
+			<field id="9178" dataType="double" name="m9178" chineseName="投资净收益" type="AN" startPosition="161" endPosition="180" optional="false"/>
+			<field id="9179" dataType="double" name="m9179" chineseName="对联营企业和合营企业的投资收益" type="AN" startPosition="181" endPosition="200" optional="false"/>
+			<field id="9180" dataType="double" name="m9180" chineseName="营业利润" type="AN" startPosition="201" endPosition="220" optional="false"/>
+			<field id="9181" dataType="double" name="m9181" chineseName="营业外收入" type="AN" startPosition="221" endPosition="240" optional="false"/>
+			<field id="9182" dataType="double" name="m9182" chineseName="营业外支出" type="AN" startPosition="241" endPosition="260" optional="false"/>
+			<field id="9183" dataType="double" name="m9183" chineseName="非流动资产损失" type="AN" startPosition="261" endPosition="280" optional="false"/>
+			<field id="9184" dataType="double" name="m9184" chineseName="利润总额" type="AN" startPosition="281" endPosition="300" optional="false"/>
+			<field id="9185" dataType="double" name="m9185" chineseName="所得税费用" type="AN" startPosition="301" endPosition="320" optional="false"/>
+			<field id="9186" dataType="double" name="m9186" chineseName="净利润" type="AN" startPosition="321" endPosition="340" optional="false"/>
+			<field id="9187" dataType="double" name="m9187" chineseName="基本每股收益" type="AN" startPosition="341" endPosition="360" optional="false"/>
+			<field id="9188" dataType="double" name="m9188" chineseName="稀释每股收益" type="AN" startPosition="361" endPosition="380" optional="false"/>
+		</segment>
+		</record>
+		<!--   2007版现金流量表-->
+		<!--   贷款卡编号  报表年份   报表类型   业务发生时间   金融机构代码-->
+		<record 
+		id="6" 
+		type="45" 
+		name="CashFlow2007" 
+		mainBusinessNo="B.7503" 
+		keyFields="B.7503,B.2591,B.7507,B.2501,B.6501" 
+		briefFields="B.7503,B.2591,B.7507,B.2501,B.6501" 
+		chineseName="2007版现金流量表段信息记录"
+		>
+		<segment segmentFlag="B" id="1" name="BaseSegment" chineseName="基础段" segmentLength="268" optional="false" unique="true">
+			<field id="4501" dataType="int" name="RecordLength" chineseName="信息记录长度" type="N" startPosition="0" endPosition="3" optional="false"/>
+			<field id="7653" dataType="char" name="RecordType" chineseName="信息记录类型" type="N" startPosition="4" endPosition="5" optional="false" defaultValue="45"/>
+			<field id="7543" dataType="char"   name="MessageType" chineseName="信息类别" type="AN" startPosition="6" endPosition="6" optional="false" defaultValue="B"/>
+			<field id="6501" dataType="char"   name="FinanceID" chineseName="金融机构代码" type="AN" startPosition="7" endPosition="17" optional="false"/>
+			<field id="5559" dataType="char"   name="CustomerName" chineseName="借款人名称" type="AN" startPosition="18" endPosition="97" optional="false"/>
+			<field id="7503" dataType="char"   name="LoanCardNo" chineseName="贷款卡编码" type="AN" startPosition="98" endPosition="113" optional="false" keyAttribute="true" />
+			<field id="2591" dataType="char" name="ReportYear" chineseName="报表年份" type="AN" startPosition="114" endPosition="117" optional="false" keyAttribute="true" />
+			<field id="7507" dataType="char" name="ReportType" chineseName="报表类型" type="AN" startPosition="118" endPosition="119" optional="false" keyAttribute="true" />
+			<field id="7651" dataType="char" name="ReportSubType" chineseName="报表类型细分" type="AN" startPosition="120" endPosition="120" optional="false"/>
+			<field id="5579" dataType="char"   name="AuditOffice" chineseName="审计事务所名称" type="AN" startPosition="121" endPosition="200" optional="true"/>
+			<field id="5581" dataType="char"   name="AuditorName" chineseName="审计人员名称" type="AN" startPosition="201" endPosition="230" optional="true"/>
+			<field id="2589" dataType="date"   name="AuditDate" chineseName="审计时间" type="AN" startPosition="231" endPosition="238" optional="true"/>
+			<field id="7511" dataType="char"    name="RecordOperateType" chineseName="信息记录操作类型" type="N" startPosition="239" endPosition="239" optional="false"/>
+			<field id="2501" dataType="date"   name="OccurDate" chineseName="业务发生日期" type="N" startPosition="240" endPosition="247" optional="false"/>
+			<field id="7641" dataType="char"   name="RecordNo" chineseName="信息记录跟踪编号" type="AN" startPosition="248" endPosition="267" optional="false"/>
+			<field id="9991" dataType="char" name="CustomerID" chineseName="客户编号" type="AN" startPosition="268" endPosition="307" optional="false"/>
+		</segment>
+		<segment segmentFlag="C" id="2" name="SymbolUpdateSegment" chineseName="标识变更段"  segmentLength="62" optional="true" unique="false">			
+		 	<field id="7543" dataType="char" name="MessageType"             chineseName="信息类别"   type="AN"  startPosition="0" endPosition="0" optional="false"  defaultValue="C" />
+		 	<field id="7515" dataType="char" name="ChangeType"               chineseName="变更类型"   type="N"   startPosition="1" endPosition="1"  optional="false" />
+		 	<field id="7517" dataType="char" name="BusinessNo"               chineseName="业务标识号" type="ANC" startPosition="2" endPosition="61" optional="false" />
+		</segment>
+		<segment segmentFlag="I" id="3" name="CashFlowSegment2007" chineseName="2007版现金流量表段"  segmentLength="1261" optional="false" unique="false">
+			<field id="7543" dataType="char" name="m7543" chineseName="信息类别" type="AN" startPosition="0" endPosition="0" optional="false" defaultValue="I"/>
+			<field id="9199" dataType="double" name="m9199" chineseName="销售商品和提供劳务收到的现金" type="AN" startPosition="1" endPosition="20" optional="false"/>
+			<field id="9200" dataType="double" name="m9200" chineseName="收到的税费返还" type="AN" startPosition="21" endPosition="40" optional="false"/>
+			<field id="9201" dataType="double" name="m9201" chineseName="经营活动现金流入小计" type="AN" startPosition="41" endPosition="60" optional="false"/>
+			<field id="9202" dataType="double" name="m9202" chineseName="收到其他与经营活动有关的现金" type="AN" startPosition="61" endPosition="80" optional="false"/>
+			<field id="9203" dataType="double" name="m9203" chineseName="购买商品、接受劳务支付的现金" type="AN" startPosition="81" endPosition="100" optional="false"/>
+			<field id="9204" dataType="double" name="m9204" chineseName="支付给职工以及为职工支付的现金" type="AN" startPosition="101" endPosition="120" optional="false"/>
+			<field id="9205" dataType="double" name="m9205" chineseName="支付的各项税费" type="AN" startPosition="121" endPosition="140" optional="false"/>
+			<field id="9206" dataType="double" name="m9206" chineseName="支付其他与经营活动有关的现金" type="AN" startPosition="141" endPosition="160" optional="false"/>
+			<field id="9207" dataType="double" name="m9207" chineseName="经营活动现金流出小计" type="AN" startPosition="161" endPosition="180" optional="false"/>
+			<field id="9208" dataType="double" name="m9208" chineseName="经营活动产生的现金流量净额" type="AN" startPosition="181" endPosition="200" optional="false"/>
+			<field id="9209" dataType="double" name="m9209" chineseName="收回投资所收到的现金" type="AN" startPosition="201" endPosition="220" optional="false"/>
+			<field id="9210" dataType="double" name="m9210" chineseName="取得投资收益所收到的现金" type="AN" startPosition="221" endPosition="240" optional="false"/>
+			<field id="9211" dataType="double" name="m9211" chineseName="处置固定资产无形资产和其他长期资产所收回的现金净额" type="AN" startPosition="241" endPosition="260" optional="false"/>
+			<field id="9212" dataType="double" name="m9212" chineseName="取得投资收益所收到的现金" type="AN" startPosition="261" endPosition="280" optional="false"/>
+			<field id="9213" dataType="double" name="m9213" chineseName="处置子公司及其他营业单位收到的现金净额" type="AN" startPosition="281" endPosition="300" optional="false"/>
+			<field id="9214" dataType="double" name="m9214" chineseName="收到其他与投资活动有关的现金" type="AN" startPosition="301" endPosition="320" optional="false"/>
+			<field id="9215" dataType="double" name="m9215" chineseName="投资活动现金流入小计" type="AN" startPosition="321" endPosition="340" optional="false"/>
+			<field id="9216" dataType="double" name="m9216" chineseName="投资所支付的现金" type="AN" startPosition="341" endPosition="360" optional="false"/>
+			<field id="9217" dataType="double" name="m9217" chineseName="取得子公司及其他营业单位支付的现金净额" type="AN" startPosition="361" endPosition="380" optional="false"/>
+			<field id="9218" dataType="double" name="m9218" chineseName="支付其他与投资活动有关的现金" type="AN" startPosition="381" endPosition="400" optional="false"/>
+			<field id="9219" dataType="double" name="m9219" chineseName="投资活动现金流出小计" type="AN" startPosition="401" endPosition="420" optional="false"/>
+			<field id="9220" dataType="double" name="m9220" chineseName="投资活动产生的现金流量净额" type="AN" startPosition="421" endPosition="440" optional="false"/>
+			<field id="9221" dataType="double" name="m9221" chineseName="吸收投资收到的现金" type="AN" startPosition="441" endPosition="460" optional="false"/>
+			<field id="9222" dataType="double" name="m9222" chineseName="取得借款收到的现金" type="AN" startPosition="461" endPosition="480" optional="false"/>
+			<field id="9223" dataType="double" name="m9223" chineseName="收到其他与筹资活动有关的现金" type="AN" startPosition="481" endPosition="500" optional="false"/>
+			<field id="9224" dataType="double" name="m9224" chineseName="筹资活动现金流入小计" type="AN" startPosition="501" endPosition="520" optional="false"/>
+			<field id="9225" dataType="double" name="m9225" chineseName="偿还债务所支付的现金" type="AN" startPosition="521" endPosition="540" optional="false"/>
+			<field id="9226" dataType="double" name="m9226" chineseName="分配股利、利润或偿付利息所支付的现金" type="AN" startPosition="541" endPosition="560" optional="false"/>
+			<field id="9227" dataType="double" name="m9227" chineseName="支付其他与筹资活动有关的现金" type="AN" startPosition="561" endPosition="580" optional="false"/>
+			<field id="9228" dataType="double" name="m9228" chineseName="筹资活动现金流出小计" type="AN" startPosition="581" endPosition="600" optional="false"/>
+			<field id="9229" dataType="double" name="m9229" chineseName="筹集活动产生的现金流量净额" type="AN" startPosition="601" endPosition="620" optional="false"/>
+			<field id="9230" dataType="double" name="m9230" chineseName="汇率变动对现金及现金等价物的影响" type="AN" startPosition="621" endPosition="640" optional="false"/>
+			<field id="9231" dataType="double" name="m9231" chineseName="现金及现金等价物净增加额(五)" type="AN" startPosition="641" endPosition="660" optional="false"/>
+			<field id="9232" dataType="double" name="m9232" chineseName="期初现金及现金等价物余额" type="AN" startPosition="661" endPosition="680" optional="false"/>
+			<field id="9233" dataType="double" name="m9233" chineseName="期末现金及现金等价物余额(六)" type="AN" startPosition="681" endPosition="700" optional="false"/>
+			<field id="9234" dataType="double" name="m9234" chineseName="净利润" type="AN" startPosition="701" endPosition="720" optional="false"/>
+			<field id="9235" dataType="double" name="m9235" chineseName="资产减值准备" type="AN" startPosition="721" endPosition="740" optional="false"/>
+			<field id="9236" dataType="double" name="m9236" chineseName="固定资产折旧、油气资产折耗、生产性生物资产折旧" type="AN" startPosition="741" endPosition="760" optional="false"/>
+			<field id="9237" dataType="double" name="m9237" chineseName="无形资产摊销" type="AN" startPosition="761" endPosition="780" optional="false"/>
+			<field id="9238" dataType="double" name="m9238" chineseName="长期待摊费用摊销" type="AN" startPosition="781" endPosition="800" optional="false"/>
+			<field id="9239" dataType="double" name="m9239" chineseName="待摊费用减少" type="AN" startPosition="801" endPosition="820" optional="false"/>
+			<field id="9240" dataType="double" name="m9240" chineseName="预提费用增加" type="AN" startPosition="821" endPosition="840" optional="false"/>
+			<field id="9241" dataType="double" name="m9241" chineseName="处置固定资产无形资产和其他长期资产的损失" type="AN" startPosition="841" endPosition="860" optional="false"/>
+			<field id="9242" dataType="double" name="m9242" chineseName="固定资产报废损失" type="AN" startPosition="861" endPosition="880" optional="false"/>
+			<field id="9243" dataType="double" name="m9243" chineseName="公允价值变动损失" type="AN" startPosition="881" endPosition="900" optional="false"/>
+			<field id="9244" dataType="double" name="m9244" chineseName="财务费用" type="AN" startPosition="901" endPosition="920" optional="false"/>
+			<field id="9245" dataType="double" name="m9245" chineseName="投资损失" type="AN" startPosition="921" endPosition="940" optional="false"/>
+			<field id="9246" dataType="double" name="m9246" chineseName="递延所得税资产减少" type="AN" startPosition="941" endPosition="960" optional="false"/>
+			<field id="9247" dataType="double" name="m9247" chineseName="递延所得税负债增加" type="AN" startPosition="961" endPosition="980" optional="false"/>
+			<field id="9248" dataType="double" name="m9248" chineseName="存货的减少" type="AN" startPosition="981" endPosition="1000" optional="false"/>
+			<field id="9249" dataType="double" name="m9249" chineseName="经营性应收项目的减少" type="AN" startPosition="1001" endPosition="1020" optional="false"/>
+			<field id="9250" dataType="double" name="m9250" chineseName="经营性应付项目的增加" type="AN" startPosition="1021" endPosition="1040" optional="false"/>
+			<field id="9251" dataType="double" name="m9251" chineseName="其他" type="AN" startPosition="1041" endPosition="1060" optional="false"/>
+			<field id="9252" dataType="double" name="m9252" chineseName="经营活动产生的现金流量净额" type="AN" startPosition="1061" endPosition="1080" optional="false"/>
+			<field id="9253" dataType="double" name="m9253" chineseName="债务转为资本" type="AN" startPosition="1081" endPosition="1100" optional="false"/>
+			<field id="9254" dataType="double" name="m9254" chineseName="一年内到期的可转换公司债券" type="AN" startPosition="1101" endPosition="1120" optional="false"/>
+			<field id="9255" dataType="double" name="m9255" chineseName="融资租入固定资产" type="AN" startPosition="1121" endPosition="1140" optional="false"/>
+			<field id="9256" dataType="double" name="m9256" chineseName="其他" type="AN" startPosition="1141" endPosition="1160" optional="false"/>
+			<field id="9257" dataType="double" name="m9257" chineseName="现金的期末余额" type="AN" startPosition="1161" endPosition="1180" optional="false"/>
+			<field id="9258" dataType="double" name="m9258" chineseName="现金的期初余额" type="AN" startPosition="1181" endPosition="1200" optional="false"/>
+			<field id="9259" dataType="double" name="m9259" chineseName="现金等价物的期末余额" type="AN" startPosition="1201" endPosition="1220" optional="false"/>
+			<field id="9260" dataType="double" name="m9260" chineseName="现金等价物的期初余额" type="AN" startPosition="1221" endPosition="1240" optional="false"/>
+			<field id="9261" dataType="double" name="m9261" chineseName="现金及现金等价物净增加额" type="AN" startPosition="1241" endPosition="1260" optional="false"/>
+		</segment>
+		</record>
+		<!-- 事业单位资产负债表 ECR_FINANCEBS_IN-->
+		<!--   贷款卡编号  报表年份   报表类型   业务发生时间   金融机构代码-->
+		<record 
+		id="7" 
+		type="46" 
+		name="ECRFINANCEBSIN" 
+		mainBusinessNo="B.7503" 
+		keyFields="B.7503,B.2591,B.7507,B.2501,B.6501" 
+		briefFields="B.7503,B.2591,B.7507,B.2501,B.6501" 
+		chineseName="事业单位资产负债表"
+		>
+			<segment segmentFlag="B" id="1" name="BaseSegment" chineseName="基础段" segmentLength="268" optional="false" unique="true">
+			<field id="4501" dataType="int" name="RecordLength" chineseName="信息记录长度" type="N" startPosition="0" endPosition="3" optional="false"/>
+			<field id="7653" dataType="char" name="RecordType" chineseName="信息记录类型" type="N" startPosition="4" endPosition="5" optional="false" defaultValue="46"/>
+			<field id="7543" dataType="char"   name="MessageType" chineseName="信息类别" type="AN" startPosition="6" endPosition="6" optional="false" defaultValue="B"/>
+			<field id="6501" dataType="char"   name="FinanceID" chineseName="金融机构代码" type="AN" startPosition="7" endPosition="17" optional="false"/>
+			<field id="5559" dataType="char"   name="CustomerName" chineseName="借款人名称" type="AN" startPosition="18" endPosition="97" optional="false"/>
+			<field id="7503" dataType="char"   name="LoanCardNo" chineseName="贷款卡编码" type="AN" startPosition="98" endPosition="113" optional="false" keyAttribute="true" />
+			<field id="2591" dataType="char" name="ReportYear" chineseName="报表年份" type="AN" startPosition="114" endPosition="117" optional="false" keyAttribute="true" />
+			<field id="7507" dataType="char" name="ReportType" chineseName="报表类型" type="AN" startPosition="118" endPosition="119" optional="false" keyAttribute="true" />
+			<field id="7651" dataType="char" name="ReportSubType" chineseName="报表类型细分" type="AN" startPosition="120" endPosition="120" optional="false"/>
+			<field id="5579" dataType="char"   name="AuditOffice" chineseName="审计事务所名称" type="AN" startPosition="121" endPosition="200" optional="true"/>
+			<field id="5581" dataType="char"   name="AuditorName" chineseName="审计人员名称" type="AN" startPosition="201" endPosition="230" optional="true"/>
+			<field id="2589" dataType="date"   name="AuditDate" chineseName="审计时间" type="AN" startPosition="231" endPosition="238" optional="true"/>
+			<field id="7511" dataType="char"    name="RecordOperateType" chineseName="信息记录操作类型" type="N" startPosition="239" endPosition="239" optional="false"/>
+			<field id="2501" dataType="date"   name="OccurDate" chineseName="业务发生日期" type="N" startPosition="240" endPosition="247" optional="false"/>
+			<field id="7641" dataType="char"   name="RecordNo" chineseName="信息记录跟踪编号" type="AN" startPosition="248" endPosition="267" optional="false"/>
+			<field id="9991" dataType="char" name="CustomerID" chineseName="客户编号" type="AN" startPosition="268" endPosition="307" optional="false"/>
+		</segment>
+		<segment segmentFlag="C" id="2" name="SymbolUpdateSegment" chineseName="标识变更段"  segmentLength="62" optional="true" unique="false">			
+		 	<field id="7543" dataType="char" name="MessageType"             chineseName="信息类别"   type="AN"  startPosition="0" endPosition="0" optional="false"  defaultValue="C" />
+		 	<field id="7515" dataType="char" name="ChangeType"               chineseName="变更类型"   type="N"   startPosition="1" endPosition="1"  optional="false" />
+		 	<field id="7517" dataType="char" name="BusinessNo"               chineseName="业务标识号" type="ANC" startPosition="2" endPosition="61" optional="false" />
+		</segment>
+		<segment segmentFlag="J" id="3" name="ECRFINANCEBSIN" chineseName="事业单位资产负债表段"  segmentLength="1001" optional="false" unique="false">
+			<field id="7543" dataType="char" name="m7543" chineseName="信息类别" type="AN" startPosition="0" endPosition="0" optional="false" defaultValue="J"/>
+			<field id="9271" dataType="double" name="m9271" chineseName="现金" type="AN" startPosition="1" endPosition="20" optional="false"/>
+			<field id="9272" dataType="double" name="m9272" chineseName="银行存款" type="AN" startPosition="21" endPosition="40" optional="false"/>
+			<field id="9273" dataType="double" name="m9273" chineseName="应收票据" type="AN" startPosition="41" endPosition="60" optional="false"/>
+			<field id="9274" dataType="double" name="m9274" chineseName="应收账款" type="AN" startPosition="61" endPosition="80" optional="false"/>
+			<field id="9275" dataType="double" name="m9275" chineseName="预付账款" type="AN" startPosition="81" endPosition="100" optional="false"/>
+			<field id="9276" dataType="double" name="m9276" chineseName="其他应收款" type="AN" startPosition="101" endPosition="120" optional="false"/>
+			<field id="9277" dataType="double" name="m9277" chineseName="材料" type="AN" startPosition="121" endPosition="140" optional="false"/>
+			<field id="9278" dataType="double" name="m9278" chineseName="产成品" type="AN" startPosition="141" endPosition="160" optional="false"/>
+			<field id="9279" dataType="double" name="m9279" chineseName="对外投资" type="AN" startPosition="161" endPosition="180" optional="false"/>
+			<field id="9280" dataType="double" name="m9280" chineseName="固定资产" type="AN" startPosition="181" endPosition="200" optional="false"/>
+			<field id="9281" dataType="double" name="m9281" chineseName="无形资产" type="AN" startPosition="201" endPosition="220" optional="false"/>
+			<field id="9282" dataType="double" name="m9282" chineseName="资产合计" type="AN" startPosition="221" endPosition="240" optional="false"/>
+			<field id="9283" dataType="double" name="m9283" chineseName="拨出经费" type="AN" startPosition="241" endPosition="260" optional="false"/>
+			<field id="9284" dataType="double" name="m9284" chineseName="拨出专款" type="AN" startPosition="261" endPosition="280" optional="false"/>
+			<field id="9285" dataType="double" name="m9285" chineseName="专款支出" type="AN" startPosition="281" endPosition="300" optional="false"/>
+			<field id="9286" dataType="double" name="m9286" chineseName="事业支出" type="AN" startPosition="301" endPosition="320" optional="false"/>
+			<field id="9287" dataType="double" name="m9287" chineseName="经营支出" type="AN" startPosition="321" endPosition="340" optional="false"/>
+			<field id="9288" dataType="double" name="m9288" chineseName="成本费用" type="AN" startPosition="341" endPosition="360" optional="false"/>
+			<field id="9289" dataType="double" name="m9289" chineseName="销售税金" type="AN" startPosition="361" endPosition="380" optional="false"/>
+			<field id="9290" dataType="double" name="m9290" chineseName="上缴上级支出" type="AN" startPosition="381" endPosition="400" optional="false"/>
+			<field id="9291" dataType="double" name="m9291" chineseName="对附属单位补助" type="AN" startPosition="401" endPosition="420" optional="false"/>
+			<field id="9292" dataType="double" name="m9292" chineseName="结转自筹基建" type="AN" startPosition="421" endPosition="440" optional="false"/>
+			<field id="9293" dataType="double" name="m9293" chineseName="支出合计" type="AN" startPosition="441" endPosition="460" optional="false"/>
+			<field id="9294" dataType="double" name="m9294" chineseName="资产部类总计" type="AN" startPosition="461" endPosition="480" optional="false"/>
+			<field id="9295" dataType="double" name="m9295" chineseName="借记款项" type="AN" startPosition="481" endPosition="500" optional="false"/>
+			<field id="9296" dataType="double" name="m9296" chineseName="应付票据" type="AN" startPosition="501" endPosition="520" optional="false"/>
+			<field id="9297" dataType="double" name="m9297" chineseName="应付账款" type="AN" startPosition="521" endPosition="540" optional="false"/>
+			<field id="9298" dataType="double" name="m9298" chineseName="预收账款" type="AN" startPosition="541" endPosition="560" optional="false"/>
+			<field id="9299" dataType="double" name="m9299" chineseName="其他应付款" type="AN" startPosition="561" endPosition="580" optional="false"/>
+			<field id="9300" dataType="double" name="m9300" chineseName="应缴预算款" type="AN" startPosition="581" endPosition="600" optional="false"/>
+			<field id="9301" dataType="double" name="m9301" chineseName="应缴财政专户款" type="AN" startPosition="601" endPosition="620" optional="false"/>
+			<field id="9302" dataType="double" name="m9302" chineseName="应交税金" type="AN" startPosition="621" endPosition="640" optional="false"/>
+			<field id="9303" dataType="double" name="m9303" chineseName="负债合计" type="AN" startPosition="641" endPosition="660" optional="false"/>
+			<field id="9304" dataType="double" name="m9304" chineseName="事业基金" type="AN" startPosition="661" endPosition="680" optional="false"/>
+			<field id="9305" dataType="double" name="m9305" chineseName="一般基金" type="AN" startPosition="681" endPosition="700" optional="false"/>
+			<field id="9306" dataType="double" name="m9306" chineseName="投资基金" type="AN" startPosition="701" endPosition="720" optional="false"/>
+			<field id="9307" dataType="double" name="m9307" chineseName="固定基金" type="AN" startPosition="721" endPosition="740" optional="false"/>
+			<field id="9308" dataType="double" name="m9308" chineseName="专用基金" type="AN" startPosition="741" endPosition="760" optional="false"/>
+			<field id="9309" dataType="double" name="m9309" chineseName="事业结余" type="AN" startPosition="761" endPosition="780" optional="false"/>
+			<field id="9310" dataType="double" name="m9310" chineseName="经营结余" type="AN" startPosition="781" endPosition="800" optional="false"/>
+			<field id="9311" dataType="double" name="m9311" chineseName="净资产合计" type="AN" startPosition="801" endPosition="820" optional="false"/>
+			<field id="9312" dataType="double" name="m9312" chineseName="财政补助收入" type="AN" startPosition="821" endPosition="840" optional="false"/>
+			<field id="9313" dataType="double" name="m9313" chineseName="上级补助收入" type="AN" startPosition="841" endPosition="860" optional="false"/>
+			<field id="9314" dataType="double" name="m9314" chineseName="拨入专款" type="AN" startPosition="861" endPosition="880" optional="false"/>
+			<field id="9315" dataType="double" name="m9315" chineseName="事业收入" type="AN" startPosition="881" endPosition="900" optional="false"/>
+			<field id="9316" dataType="double" name="m9316" chineseName="经营收入" type="AN" startPosition="901" endPosition="920" optional="false"/>
+			<field id="9317" dataType="double" name="m9317" chineseName="附属单位缴款" type="AN" startPosition="921" endPosition="940" optional="false"/>
+			<field id="9318" dataType="double" name="m9318" chineseName="其他收入" type="AN" startPosition="941" endPosition="960" optional="false"/>
+			<field id="9319" dataType="double" name="m9319" chineseName="收入合计" type="AN" startPosition="961" endPosition="980" optional="false"/>
+			<field id="9320" dataType="double" name="m9320" chineseName="负债部类总计" type="AN" startPosition="981" endPosition="1000" optional="false"/>
+		</segment>
+		</record>
+		<!-- 事业单位收入支出表 ECR_FINANCECF_IN-->
+		<!--   贷款卡编号  报表年份   报表类型   业务发生时间   金融机构代码-->
+		<record 
+		id="8" 
+		type="47" 
+		name="ECRFINANCECFIN" 
+		mainBusinessNo="B.7503" 
+		keyFields="B.7503,B.2591,B.7507,B.2501,B.6501" 
+		briefFields="B.7503,B.2591,B.7507,B.2501,B.6501" 
+		chineseName="事业单位收入支出表"
+		>
+			<segment segmentFlag="B" id="1" name="BaseSegment" chineseName="基础段" segmentLength="268" optional="false" unique="true">
+				<field id="4501" dataType="int" name="RecordLength" chineseName="信息记录长度" type="N" startPosition="0" endPosition="3" optional="false"/>
+				<field id="7653" dataType="char" name="RecordType" chineseName="信息记录类型" type="N" startPosition="4" endPosition="5" optional="false" defaultValue="47"/>
+				<field id="7543" dataType="char"   name="MessageType" chineseName="信息类别" type="AN" startPosition="6" endPosition="6" optional="false" defaultValue="B"/>
+				<field id="6501" dataType="char"   name="FinanceID" chineseName="金融机构代码" type="AN" startPosition="7" endPosition="17" optional="false"/>
+				<field id="5559" dataType="char"   name="CustomerName" chineseName="借款人名称" type="AN" startPosition="18" endPosition="97" optional="false"/>
+				<field id="7503" dataType="char"   name="LoanCardNo" chineseName="贷款卡编码" type="AN" startPosition="98" endPosition="113" optional="false" keyAttribute="true" />
+				<field id="2591" dataType="char" name="ReportYear" chineseName="报表年份" type="AN" startPosition="114" endPosition="117" optional="false" keyAttribute="true" />
+				<field id="7507" dataType="char" name="ReportType" chineseName="报表类型" type="AN" startPosition="118" endPosition="119" optional="false" keyAttribute="true" />
+				<field id="7651" dataType="char" name="ReportSubType" chineseName="报表类型细分" type="AN" startPosition="120" endPosition="120" optional="false"/>
+				<field id="5579" dataType="char"   name="AuditOffice" chineseName="审计事务所名称" type="AN" startPosition="121" endPosition="200" optional="true"/>
+				<field id="5581" dataType="char"   name="AuditorName" chineseName="审计人员名称" type="AN" startPosition="201" endPosition="230" optional="true"/>
+				<field id="2589" dataType="date"   name="AuditDate" chineseName="审计时间" type="AN" startPosition="231" endPosition="238" optional="true"/>
+				<field id="7511" dataType="char"    name="RecordOperateType" chineseName="信息记录操作类型" type="N" startPosition="239" endPosition="239" optional="false"/>
+				<field id="2501" dataType="date"   name="OccurDate" chineseName="业务发生日期" type="N" startPosition="240" endPosition="247" optional="false"/>
+				<field id="7641" dataType="char"   name="RecordNo" chineseName="信息记录跟踪编号" type="AN" startPosition="248" endPosition="267" optional="false"/>
+				<field id="9991" dataType="char" name="CustomerID" chineseName="客户编号" type="AN" startPosition="268" endPosition="307" optional="false"/>
+			</segment>
+			<segment segmentFlag="C" id="2" name="SymbolUpdateSegment" chineseName="标识变更段"  segmentLength="62" optional="true" unique="false">			
+				<field id="7543" dataType="char" name="MessageType"             chineseName="信息类别"   type="AN"  startPosition="0" endPosition="0" optional="false"  defaultValue="C" />
+				<field id="7515" dataType="char" name="ChangeType"               chineseName="变更类型"   type="N"   startPosition="1" endPosition="1"  optional="false" />
+				<field id="7517" dataType="char" name="BusinessNo"               chineseName="业务标识号" type="ANC" startPosition="2" endPosition="61" optional="false" />
+			</segment>
+			<segment segmentFlag="K" id="3" name="ECRFINANCECFIN" chineseName="事业单位收入支出表段"  segmentLength="761" optional="false" unique="false">
+				<field id="7543" dataType="char" name="m7543" chineseName="信息类别" type="AN" startPosition="0" endPosition="0" optional="false" defaultValue="K"/>
+				<field id="9330" dataType="double" name="m9330" chineseName="财政补助收入" type="AN" startPosition="1" endPosition="20" optional="false"/>
+				<field id="9331" dataType="double" name="m9331" chineseName="上级补助收入" type="AN" startPosition="21" endPosition="40" optional="false"/>
+				<field id="9332" dataType="double" name="m9332" chineseName="附属单位缴款" type="AN" startPosition="41" endPosition="60" optional="false"/>
+				<field id="9333" dataType="double" name="m9333" chineseName="事业收入" type="AN" startPosition="61" endPosition="80" optional="false"/>
+				<field id="9334" dataType="double" name="m9334" chineseName="预算外资金收入" type="AN" startPosition="81" endPosition="100" optional="false"/>
+				<field id="9335" dataType="double" name="m9335" chineseName="其他收入" type="AN" startPosition="101" endPosition="120" optional="false"/>
+				<field id="9336" dataType="double" name="m9336" chineseName="事业收入小计" type="AN" startPosition="121" endPosition="140" optional="false"/>
+				<field id="9337" dataType="double" name="m9337" chineseName="经营收入" type="AN" startPosition="141" endPosition="160" optional="false"/>
+				<field id="9338" dataType="double" name="m9338" chineseName="经营收入小计" type="AN" startPosition="161" endPosition="180" optional="false"/>
+				<field id="9339" dataType="double" name="m9339" chineseName="拨入专款" type="AN" startPosition="181" endPosition="200" optional="false"/>
+				<field id="9340" dataType="double" name="m9340" chineseName="拨入专款小计" type="AN" startPosition="201" endPosition="220" optional="false"/>
+				<field id="9341" dataType="double" name="m9341" chineseName="收入总计" type="AN" startPosition="221" endPosition="240" optional="false"/>
+				<field id="9342" dataType="double" name="m9342" chineseName="拨出经费" type="AN" startPosition="241" endPosition="260" optional="false"/>
+				<field id="9343" dataType="double" name="m9343" chineseName="上缴上级支出" type="AN" startPosition="261" endPosition="280" optional="false"/>
+				<field id="9344" dataType="double" name="m9344" chineseName="对附属单位补助" type="AN" startPosition="281" endPosition="300" optional="false"/>
+				<field id="9345" dataType="double" name="m9345" chineseName="事业支出" type="AN" startPosition="301" endPosition="320" optional="false"/>
+				<field id="9346" dataType="double" name="m9346" chineseName="财政补助支出" type="AN" startPosition="321" endPosition="340" optional="false"/>
+				<field id="9347" dataType="double" name="m9347" chineseName="预算外资金支出" type="AN" startPosition="341" endPosition="360" optional="false"/>
+				<field id="9348" dataType="double" name="m9348" chineseName="销售税金" type="AN" startPosition="361" endPosition="380" optional="false"/>
+				<field id="9349" dataType="double" name="m9349" chineseName="结转自筹基建" type="AN" startPosition="381" endPosition="400" optional="false"/>
+				<field id="9350" dataType="double" name="m9350" chineseName="事业支出小计" type="AN" startPosition="401" endPosition="420" optional="false"/>
+				<field id="9351" dataType="double" name="m9351" chineseName="经营支出" type="AN" startPosition="421" endPosition="440" optional="false"/>
+				<field id="9352" dataType="double" name="m9352" chineseName="销售税金" type="AN" startPosition="441" endPosition="460" optional="false"/>
+				<field id="9353" dataType="double" name="m9353" chineseName="经营支出小计" type="AN" startPosition="461" endPosition="480" optional="false"/>
+				<field id="9354" dataType="double" name="m9354" chineseName="拨出专款" type="AN" startPosition="481" endPosition="500" optional="false"/>
+				<field id="9355" dataType="double" name="m9355" chineseName="专款支出" type="AN" startPosition="501" endPosition="520" optional="false"/>
+				<field id="9356" dataType="double" name="m9356" chineseName="专款小计" type="AN" startPosition="521" endPosition="540" optional="false"/>
+				<field id="9357" dataType="double" name="m9357" chineseName="支出总计" type="AN" startPosition="541" endPosition="560" optional="false"/>
+				<field id="9358" dataType="double" name="m9358" chineseName="事业结余" type="AN" startPosition="561" endPosition="580" optional="false"/>
+				<field id="9359" dataType="double" name="m9359" chineseName="正常收入结余" type="AN" startPosition="581" endPosition="600" optional="false"/>
+				<field id="9360" dataType="double" name="m9360" chineseName="收回以前年度事业支出" type="AN" startPosition="601" endPosition="620" optional="false"/>
+				<field id="9361" dataType="double" name="m9361" chineseName="经营结余" type="AN" startPosition="621" endPosition="640" optional="false"/>
+				<field id="9362" dataType="double" name="m9362" chineseName="以前年度经营亏损" type="AN" startPosition="641" endPosition="660" optional="false"/>
+				<field id="9363" dataType="double" name="m9363" chineseName="结余分配" type="AN" startPosition="661" endPosition="680" optional="false"/>
+				<field id="9364" dataType="double" name="m9364" chineseName="应交所得税" type="AN" startPosition="681" endPosition="700" optional="false"/>
+				<field id="9365" dataType="double" name="m9365" chineseName="提取专用基金" type="AN" startPosition="701" endPosition="720" optional="false"/>
+				<field id="9366" dataType="double" name="m9366" chineseName="转入事业基金" type="AN" startPosition="721" endPosition="740" optional="false"/>
+				<field id="9367" dataType="double" name="m9367" chineseName="其他结余分配" type="AN" startPosition="741" endPosition="760" optional="false"/>
+			</segment>
+		</record>
+		
+	<!--  新财报添加结束-->
+	
+	<record id="tail" type="-1" name="Tail">
+		<segment segmentFlag="Z" id="-1" name="Tail" chineseName="报文尾"  segmentLength="11" optional="false" unique="true">
+			<field id="8521" dataType="char" name="TailFlag" chineseName="报文尾标识" type="AN" startPosition="0" endPosition="0" optional="false" defaultValue="Z"/>
+			<field id="4513" dataType="int" name="RecordNum" chineseName="信息记录数" type="N" startPosition="1" endPosition="10" optional="false"/>
+		</segment>
+	</record>
+	
+</message>
+
+<!-- 报文名字：借款人关注信息报文-->
+<message
+	type="4"
+	id="4"
+	name="CustomerAttention"
+	chineseName="借款人关注信息报文"
+	version="2.0"
+	headerLength="61"
+	readerVersion="1.1"
+	charset="GB18030"
+>
+	<record id="header" type="0" name="Head">
+		<segment segmentFlag="A" id="0" name="MessageHead" chineseName="报文头"  segmentLength="61" optional="false" unique="true">
+			<field id="8519" dataType="char" name="HeadFlag" chineseName="报文头标识" type="AN" startPosition="0" endPosition="0" optional="false" defaultValue="A"/>
+			<field id="8517" dataType="char" name="Version" chineseName="报文格式版本号" type="AN" startPosition="1" endPosition="3" optional="false"/>
+			<field id="6501" dataType="char" name="FinanceCode" chineseName="金融机构代码" type="AN" startPosition="4" endPosition="14" optional="false"/>
+			<field id="2585" dataType="datetime" name="CreatedTime" chineseName="报文生成时间" type="N" startPosition="15" endPosition="28" optional="false"/>
+			<field id="8523" dataType="char" name="MsgType" chineseName="报文类型" type="N" startPosition="29" endPosition="30" optional="false" defaultValue="4"/>
+			<field id="8515" dataType="char" name="ReserveField" chineseName="预留字段" type="ANC" startPosition="31" endPosition="60" optional="false"/>
+		</segment>
+	</record>
+	<record 
+		id="1" 
+		type="6" 
+		name="LawInfo" 
+		mainBusinessNo="B.7503" 
+		keyFields="B.7503,B.2501,B.6501,D.7647" 
+		briefFields="B.7503,B.2501,B.6501,D.7647" 
+		chineseName="诉讼信息"
+	>
+		<segment segmentFlag="B" id="1" name="BaseSegment" chineseName="基础段" segmentLength="143" optional="false" unique="true">
+			<field id="4501" dataType="int"  name="RecordLength" chineseName="信息记录长度" type="N" startPosition="0" endPosition="3" optional="false"/>
+			<field id="7653" dataType="char"  name="RecordType" chineseName="信息记录类型" type="N" startPosition="4" endPosition="5" optional="false" defaultValue="6"/>
+			<field id="7543" dataType="char" name="MessageType" chineseName="信息类别" type="AN" startPosition="6" endPosition="6" optional="false" defaultValue="B"/>
+			<field id="6501" dataType="char" name="FinanceID" chineseName="金融机构代码" type="AN" startPosition="7" endPosition="17" optional="false" keyAttribute="true"/>
+			<field id="5559" dataType="char" name="CustomerID" chineseName="借款人名称" type="AN" startPosition="18" endPosition="97" optional="false"/>
+			<field id="7503" dataType="char" name="LoanCardNo" chineseName="贷款卡编码" type="AN" startPosition="98" endPosition="113" optional="false" keyAttribute="true" />
+			<field id="7511" dataType="char"  name="RecordOperateType" chineseName="信息记录操作类型" type="N" startPosition="114" endPosition="114" optional="false"/>
+			<field id="2501" dataType="date" name="OccurDate" chineseName="业务发生日期" type="N" startPosition="115" endPosition="122" optional="false"/>
+			<field id="7641" dataType="char" name="RecordNo" chineseName="信息记录跟踪编号" type="AN" startPosition="123" endPosition="142" optional="false"/>
+			<field id="9991" dataType="char" name="CustomerID" chineseName="客户编号" type="AN" startPosition="143" endPosition="182" optional="false"/>
+		</segment>
+		<segment segmentFlag="C" id="2" name="SymbolUpdateSegment" chineseName="标识变更段"  segmentLength="62" optional="true" unique="false">
+			<field id="7543" dataType="char" name="MessageType" chineseName="信息类别" type="AN" startPosition="0" endPosition="0" optional="false" defaultValue="C"/>
+			<field id="7515" dataType="char" name="ChangeType" chineseName="变更类型" type="N" startPosition="1" endPosition="1" optional="false"/>
+			<field id="7517" dataType="char" name="BusinessNo" chineseName="业务标识号" type="ANC" startPosition="2" endPosition="61" optional="false"/>
+		</segment>
+		<segment segmentFlag="D" id="3" name="LawInfoSegment" chineseName="诉讼信息段"  segmentLength="572" optional="false" unique="false">
+			<field id="7543" dataType="char" name="MessageType" chineseName="信息类别" type="AN" startPosition="0" endPosition="0" optional="false" defaultValue="D"/>
+			<field id="7647" dataType="char" name="SerialNo" chineseName="被起诉记录流水号" type="ANC" startPosition="1" endPosition="60" optional="false" status="M"/>
+			<field id="5585" dataType="char" name="PlaintiffName" chineseName="起诉人名称" type="ANC" startPosition="61" endPosition="140" optional="false" status="M"/>
+			<field id="1501" dataType="char" name="Currency" chineseName="币种" type="AN" startPosition="141" endPosition="143" optional="false" status="M"/>
+			<field id="1577" dataType="double" name="ExecuteSum" chineseName="判决执行金额" type="AN" startPosition="144" endPosition="163" optional="false" status="M"/>
+			<field id="2587" dataType="date" name="ExecuteDate" chineseName="判决执行日期" type="N" startPosition="164" endPosition="171" optional="false" status="M"/>
+			<field id="8529" dataType="char" name="ExecuteResult" chineseName="执行结果" type="ANC" startPosition="172" endPosition="271" optional="false" status="M"/>
+			<field id="8531" dataType="char" name="AppellCause" chineseName="被起诉原因" type="ANC" startPosition="272" endPosition="571" optional="false" status="M"/>
+		</segment>
+	</record>
+	<record 
+		id="2" 
+		type="7" 
+		name="CustomerFact" 
+		mainBusinessNo="B.7503" 
+		keyFields="B.6501,B.7503,B.2501,E.7649" 
+		briefFields="B.6501,B.7503,B.2501,E.7649" 
+		chineseName="大事信息记录"
+	>
+		<segment segmentFlag="B" id="1" name="BaseSegment" chineseName="基础段" segmentLength="143" optional="false" unique="true">
+			<field id="4501" dataType="int"  name="RecordLength" chineseName="信息记录长度" type="N" startPosition="0" endPosition="3" optional="false"/>
+			<field id="7653" dataType="char"  name="RecordType" chineseName="信息记录类型" type="N" startPosition="4" endPosition="5" optional="false" defaultValue="7"/>
+			<field id="7543" dataType="char" name="MessageType" chineseName="信息类别" type="AN" startPosition="6" endPosition="6" optional="false" defaultValue="B"/>
+			<field id="6501" dataType="char" name="FinanceID" chineseName="金融机构代码" type="AN" startPosition="7" endPosition="17" optional="false" keyAttribute="true"/>
+			<field id="5559" dataType="char" name="CustomerID" chineseName="借款人名称" type="AN" startPosition="18" endPosition="97" optional="false"/>
+			<field id="7503" dataType="char" name="LoanCardNo" chineseName="贷款卡编码" type="AN" startPosition="98" endPosition="113" optional="false" keyAttribute="true" />
+			<field id="7511" dataType="char"  name="RecordOperateType" chineseName="信息记录操作类型" type="N" startPosition="114" endPosition="114" optional="false"/>
+			<field id="2501" dataType="date" name="OccurDate" chineseName="业务发生日期" type="N" startPosition="115" endPosition="122" optional="false"/>
+			<field id="7641" dataType="char" name="RecordNo" chineseName="信息记录跟踪编号" type="AN" startPosition="123" endPosition="142" optional="false"/>
+			<field id="9991" dataType="char" name="CustomerID" chineseName="客户编号" type="AN" startPosition="143" endPosition="182" optional="false"/>
+		</segment>
+		<segment segmentFlag="C" id="2" name="SymbolUpdateSegment" chineseName="标识变更段"  segmentLength="62" optional="true" unique="false">
+			<field id="7543" dataType="char" name="MessageType" chineseName="信息类别" type="AN" startPosition="0" endPosition="0" optional="false" defaultValue="C"/>
+			<field id="7515" dataType="char" name="ChangeType" chineseName="变更类型" type="N" startPosition="1" endPosition="1" optional="false"/>
+			<field id="7517" dataType="char" name="BusinessNo" chineseName="业务标识号" type="ANC" startPosition="2" endPosition="61" optional="false"/>
+		</segment>
+		<segment segmentFlag="E" id="3" name="CustomerFactSegment" chineseName="其他大事信息段"  segmentLength="311" optional="false" unique="false">
+			<field id="7543" dataType="char" name="MessageType" chineseName="信息类别" type="AN" startPosition="0" endPosition="0" optional="false" defaultValue="E"/>
+			<field id="7649" dataType="char" name="SerialNo" chineseName="大事信息记录流水号" type="ANC" startPosition="1" endPosition="60" optional="false" status="M"/>
+			<field id="8533" dataType="char" name="Describe" chineseName="大事描述" type="ANC" startPosition="61" endPosition="310" optional="false" status="M"/>
+		</segment>
+	</record>
+	<record id="Tail" type="-1" name="Tail">
+		<segment segmentFlag="Z" id="-1" name="Tail" chineseName="报文尾"  segmentLength="11" optional="false" unique="true">
+			<field id="8521" dataType="char" name="TailFlag" chineseName="报文尾标识" type="AN" startPosition="0" endPosition="0" optional="false" defaultValue="Z"/>
+			<field id="4513" dataType="int" name="RecordNum" chineseName="信息记录数" type="N" startPosition="1" endPosition="10" optional="false"/>
+		</segment>
+	</record>
+</message>
+</messageList>
+</configuration>

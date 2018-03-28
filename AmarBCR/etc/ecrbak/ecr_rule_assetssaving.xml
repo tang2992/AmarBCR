@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!--?	借款人信贷业务信息校验规则文件  -->
+<!--?	校验规则说明：messageType 表示报文类型，recordType表示记录类型 segmentFlag表示段的类型（段的标识符）
+					  level 表示规则的类型（0 文件级1 报文级2 记录级3 段级4 字段级）
+					  checkType 表示校验的类型
+							D     日期
+							N     数值(顶多有两位小数)
+							DL    清单
+							DE    值相当
+							DR    Data Range 数据范围（闭区间）
+							DRNE  Data Range 数据范围（开区间）
+							NA    非空
+							ID    身份证号码校验
+							SN    段的个数校验（即一条记录中只允许一条或指定数的几条段）
+							SD    重复段的校验（即同内容性质的段中某些字段不能重复，比如股票信息不允许有重复的股票代码）
+							SP    段的位置校验（即记录的第一个字段都是基础段，由于段的位置是由程序控置，故此校验默认真值
+							S     非汉字的字符串校验（即字符串中不能含有汉字）
+							DS    数据长度校验 datalength
+							ZD    组织机构代码校验
+							PC    邮编
+							DKK   贷款卡
+							M     金额型
+							AN    包括ASICII码中小于127的可见字符，即“空格”到“~”的所有可见字符
+							ANC   包括ASICII码中小于127的可见字符和所有GBK汉字
+							EMAIL 邮箱地址
+							DIC   数据字典
+							DJ	  判断联动
+							FI    金融机构代码校验
+					  checkedFieldName 表示欲校验的字段名
+					  errorMsg 表示校验后错误的提示信息，本信息会记录在ECR_HISTORY表中
+					  datalist 表示校验类型为DL时，校验字段的取值列表
+					  precondition 表示校验规则的前提条件，即满足前提条件时，规则有效
+  -->
+<configuration>
+	<rulemap Type="14">
+		<rulelist>
+	  	<!--?	不良信贷资产处置采集报文规则  -->
+			<rule name="rule61-01" messageType="61" errorCode="4308" recordType="51" segmentFlag="E" checkType="DIC" Level="4" checkedFieldName="DisposeType" errorMsg="不良信贷资产处置信息段[主要资产处置方式]字段不在数据字典列表中" dataList="主要资产处置方式">
+			</rule>		
+			<rule name="rule61-02" messageType="61" errorCode="4308" recordType="51" segmentFlag="B" checkType="FI" Level="4" checkedFieldName="FinanceID" errorMsg="金融机构代码不符合人行规范" >	
+			</rule>
+			<rule name="rule61-03" messageType="61" errorCode="4034" recordType="51" segmentFlag="B" checkType="DKK" Level="4" checkedFieldName="LoanCardNo" errorMsg="不良信贷资产处置信息客户贷款卡编码错">
+				<precondition>
+					<rule name="rule1" messageType="61" recordType="51" segmentFlag="B" checkType="NA" checkedFieldName="LoanCardNo"/>
+				</precondition>
+			</rule>
+			<rule name="rule61-04" messageType="61" errorCode="4018" recordType="51" segmentFlag="B" checkType="ZD" Level="4" checkedFieldName="OrganizationCode" errorMsg="不良信贷资产处置信息组织机构代码错">
+				<precondition>
+					<rule name="rule1" messageType="61" recordType="51" segmentFlag="B" checkType="NA" checkedFieldName="OrganizationCode"/>
+				</precondition>
+			</rule>
+			<rule name="rule61-05" messageType="61" errorCode="0000" recordType="51" segmentFlag="B" checkType="NA" Level="4" checkedFieldName="BusinessRegistryNo" errorMsg="不良信贷资产处置信息贷款卡编码、组织机构代码和工商注册号不能同时为空">
+				<precondition>
+					<rule name="rule1" messageType="61" recordType="51" segmentFlag="B" checkType="NA" checkedFieldName="LoanCardNo" reverseCheck="true"/>
+					<rule name="rule2" messageType="61" recordType="51" segmentFlag="B" checkType="NA" checkedFieldName="OrganizationCode" reverseCheck="true"/>
+				</precondition>
+			</rule>
+			<rule name="rule61-06" messageType="61" errorCode="4002" recordType="51" segmentFlag="E" checkType="DR" Level="4" checkedFieldName="Balance"  dataStartValue="0" errorMsg="余额应大于等于0" >
+			</rule>
+			<rule name="rule61-07" messageType="61" errorCode="4016" recordType="51" segmentFlag="E" checkType="DR" Level="4" checkedFieldName="DisposeDate" dataStartValue="19010101" errorMsg="处置日期错" >
+			</rule>
+			<rule name="rule61-08" messageType="61" errorCode="4002" recordType="51" segmentFlag="E" checkType="DR" Level="4" checkedFieldName="RecoveryAmount" dataStartValue="0" errorMsg="已回收金额应大于等于0" >
+				<precondition>
+					<rule name="rule1" messageType="61" recordType="51" segmentFlag="E" checkType="NA" checkedFieldName="RecoveryAmount"/>
+				</precondition>
+			</rule>
+		</rulelist>
+	</rulemap>
+</configuration>

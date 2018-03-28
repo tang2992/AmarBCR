@@ -1,0 +1,685 @@
+<?xml version="1.0" encoding="GB2312"?>
+
+<!-- 20051121 所有 贷款卡编码loanCardCode加入数据池   -->
+<!-- 20051123 修改可用余额和贷款合同金额比较的bug，所有为空的字段值都不再进行逻辑比较 -->
+<!-- 20051129 借款人成立年份 可以小于1900年 -->
+<!-- 20060225 跟踪编号全9可重复-->
+<!-- 20060301 变更规则 4290 完成变更单EC_CR_004-->
+<!-- 20060303 贷款合同生效日期,融资协议生效日期,授信额度注销生效日期小于等于业务发生日期去掉-->
+<!-- 20060306 新增规则2177 4239 删除 4070 4080 4082 4084 4092 4098 4100 4102 4116 4118 4120 4122 4124 4159 4161-->
+<validator name="报文文件">
+  <default name="缺省配置">
+    <property item="defaultErrlevel" value="3"/>
+    <property item="version" value="1.0"/>
+    <property item="defaultErrCode" value="4002"/>
+    <property item="defaultChecker" value="com.cfcc.ecus.eft.validator.TypeChecker"/>
+    <property item="defaultField" value="com.cfcc.ecus.eft.cudata.CUStringField"/>
+    <property item="defaultEmpty" value="0"/>
+    <property item="defaultPrefix" value="com.cfcc.ecus.eft"/>
+    <property item="notnullitem" value="9635,9637,9671,9673,9673,9587,9813,9823,9831,9833,9917,9919,9851,9921,9923,9855,9851,9853,9813,9833,9159,9152,9158,9130,9159,9208,9202,9207,9220,9214,9219,9229,9224,9228,9231,9208,9220,9229,9233,9231,9232,9294,9282,9293,9320,9303,9311,9319,9341,9336,9338,9340,9357,9350,9353,9356,9358,9336,9350,9361,9338,9353"/>
+    <maxlevel level="1" max="100"/>
+    <maxlevel level="2" max="100"/>
+    <maxlevel level="3" max="100"/>
+  </default>
+  <filename class=".cudata.CUFileName" name="文件名校验">
+    <check class=".validator.LengthChecker" value="35"  />
+    <field length="1" name="应用系统代码">
+      <check class=".validator.StrcmpChecker" value="1"/>
+    </field>
+    <field length="1" name="报文发送机构类型">
+      <check class=".validator.StrcmpChecker" value="1"/>
+    </field>
+    <field length="14" name="金融机构代码" id="financeCode">
+    </field>
+    <field length="6" id="报文文件生成日期" name="报文文件生成日期">
+      <check class=".validator.DateChecker" sharp="0" format="yyMMdd" min="100102" name="日期检查" />
+      <check class=".validator.DataPoolOper" key="报文文件生成时间" value='"20"+"${报文文件生成日期}"+"235959"'/>
+      <check class=".validator.DataPoolOper" key="oprOccurDate" value='"20"+"${报文文件生成日期}"'/>
+    </field>
+    <field length="2" id="报文文件种类" name="报文文件种类">
+      <check class=".validator.DicChecker" value="报文文件种类"  />
+      <check class=".validator.DataPoolOper" key="msgFileType" value='"${报文文件种类}"'/>
+    </field>
+    <field length="1" id="报文文件数据类型" name="报文文件数据类型">
+    	<check class="com.cfcc.ecus.eft.validator.RegularChecker" name="报文文件数据类型检测" pattern="[1]" errorMsg="文件名第22位必须为“1”"/>
+    </field>
+    <field length="4" name="报文文件序列号" id="报文文件序列号">
+    	<check type="N" />
+    	<check class=".validator.DataPoolChecker" null="0"  name="报文文件序列号检查" test='"${报文文件序列号}"&gt;"0000"' errorMsg="报文文件序列号只能是0001-9999"   errorCode="4002"/>
+    </field>
+    <field length="1" name="反馈标识"  id="反馈标识">
+    	<check class="com.cfcc.ecus.eft.validator.RegularChecker" pattern="[01]"/>
+    </field>
+    <field length="1" name="预留">
+      <!--check class=".validator.StrcmpChecker" value="0"/-->
+       <check class="com.cfcc.ecus.eft.validator.RegularChecker" pattern="[01]"/>
+    </field>
+    <field length="4" name="后缀">
+      <check class="com.cfcc.ecus.eft.validator.RegularChecker" pattern="\.((txt)|(TXT))"  errorMsg="文件名后缀错"/>
+    </field>
+  </filename>
+ 	<!-- 担保采集报文文件     BEGIN -->
+	<file class=".cudata.CUFile" name="担保业务采集文件" type="15">
+    <data class=".cudata.CUData" name="担保业务信息采集报文" type="81">
+      <head class=".cudata.CULine" name="担保业务信息采集报文头" >
+        <seg class=".cudata.CUSegment" identify="A" idpos="1"  name="报文头">
+          <field length="1" name="报文头标识" fieldid="8519"/>
+          <field length="3" name="报文格式版本号" id="msgVersion" fieldid="8517">
+			 <check class=".validator.StrcmpChecker" name="报文格式版本号效验" value="1.0" errorCode="2012" errorMsg="报文格式版本号不合法"/>
+          </field>
+          <field length="14" name="金融机构代码" fieldid="6501" >
+          </field>
+          <field length="14" name="报文生成时间" id="msgGenerateTime" fieldid="2585">
+          	 <check class=".validator.DateChecker" sharp="0" format="yyyyMMddHHmmss"  name="时间校验" errorCode="2016" errorMsg="报文生成时间格式错误"/>
+            <check  class=".validator.DataPoolChecker" null="0"  min="20100101000000" test="&quot;20100101000000&quot;&lt;=&quot;${msgGenerateTime}&quot;" errorCode="2014" errorMsg="报文生成时间小于20100101000000" />
+            <check class=".validator.DataPoolChecker" null="0" name="报文生成时间检查" test="&quot;${msgGenerateTime}&quot;&lt;=&quot;${报文文件生成时间}&quot;" errorMsg="报文生成时间大于报文文件生成时间" errorCode="2014"/>
+          </field>
+          <field length="2" name="报文类型" id="报文类型" fieldid="8523">
+            <check class=".validator.StrcmpChecker" value="81" errorMsg="报文类型应该为81" errorCode="1006"/>
+            <check class=".validator.DataPoolOper" key="报文类型集合" value="&quot;${报文类型}&quot;"/>
+            <check class=".validator.DataPoolOper" key="msgType" value="&quot;${报文类型}&quot;"/> 
+          </field>
+          <field length="30" name="预留字段" fieldid="8515"/>
+        </seg>
+          <check class=".validator.DataPoolOper" key="总记录数" value="0"/>
+          <check class=".validator.DataPoolOper" key="基础段集合" value="0"/>
+      </head>
+      <body class=".cudata.CULine" name="担保业务信息采集报文体">
+        <seg name="基础段" identify="B" idpos="7" class=".cudata.CUSegment">
+          <field length="4" name="信息记录长度" id="信息记录长度" fieldid="4501">
+            <check name="信息记录长度校验" basic="1" sharp="0" type="N"/>
+            <check class=".validator.DataPoolChecker" null="0" name="信息记录长度检查" basic="1" test="${读取字节数}==${信息记录长度}" errorCode="4020"/>
+          </field>
+
+          <field length="2" name="信息记录类型" fieldid="7653">
+            <check class=".validator.DicChecker" value="信息记录类型"  />
+            <check  basic="1" sharp="0"  type="N"  name="信息记录类型"   errorMsg="信息记录类型错"  errorCode="2022" />
+          </field>
+          <field length="1" name="基础段段标"  fieldid="7543">
+          	<check class=".validator.DataPoolOper" basic="1" key="总记录数" value="${总记录数}+1"/>
+            <check class=".validator.DataPoolOper" basic="1" key="文件总记录数" value="${文件总记录数}+1"/>
+						<check class=".validator.DataPoolOper" key="基础段集合" value="${基础段段标}+1"/>
+						<check class=".validator.DataPoolOper" key="担保合同信息段集合" value="0"/>
+						<check class=".validator.DataPoolOper" key="实际在保责任信息段集合" value="0"/>
+		   		  <check class=".validator.DataPoolOper" key="保费缴纳概况信息段集合" value="0"/>
+						<check class=".validator.DataPoolOper" key="代偿概况信息段集合" value="0"/>
+						<check class=".validator.DataPoolOper" key="代偿明细信息段集合" value="0"/>
+						<check class=".validator.DataPoolOper" key="追偿明细信息段集合" value="0"/>
+						<check class=".validator.DataPoolOper" key="保费缴纳明细信息段集合" value="0"/>
+          </field>
+          <field length="14" name="金融机构代码" id="金融机构代码" fieldid="6501">          	
+          	 <check type="AN" sharp="0" />
+          </field>
+          <field length="60" name="担保业务编号">
+            <check basic="1" type="ANC" sharp="3" name="担保业务编号检查" errorMsg="担保业务编号出错"/>
+          </field> 
+          <field length="60" name="担保合同号码">
+           <check basic="1" type="ANC" sharp="2" empty="1" name="担保合同号码检查" errorMsg="担保合同号码出错"/>
+          </field>
+          <field length="1" name="被担保人类型" id="被担保人类型" >
+          	<check class=".validator.DicChecker" value="被担保人类型"  />
+           <check basic="1" type="N" sharp="3" name="被担保人类型" errorMsg="被担保人类型出错"/>
+          </field>
+          <field length="80" name="被担保人名称">
+           <check basic="1" type="ANC" sharp="3" name="被担保人名称" errorMsg="被担保人名称出错"/>
+          </field>
+          <field length="1" name="被担保人证件类型" id = "基础段被担保人证件类型">
+          	<check class=".validator.DicChecker" value="证件类型"  />
+		   			<check basic="1" class="com.cfcc.ecus.eft.validator.RegularChecker" name="被担保人证件类型检查" condition="&quot;${被担保人类型}&quot;==&quot;1&quot;"  pattern="[acd]" errorMsg="当被担保人类型为“1-企业或其他组织”时，被担保人证件类型只能填写“a”、“c”或“d”" errorCode="4424"/>
+		   			<check basic="1" class="com.cfcc.ecus.eft.validator.RegularChecker" name="被担保人证件类型检查" condition="&quot;${被担保人类型}&quot;==&quot;2&quot;"  pattern="[0-9X]" errorMsg="当被担保人类型为“2-自然人”时，被担保人证件类型只能填写“0-9”或“X”" errorCode="4424"/>
+          </field>
+		  <field length="18" name="基础段被担保人证件号码">
+           <check basic="1" type="ANC" sharp="3" name="被担保人证件号码" errorMsg="被担保人证件号码出错"/>
+           <check type="id" condition="&quot;${基础段被担保人证件类型}&quot;==&quot;0&quot;" errorMsg="身份证号错" errorCode="4008"/>
+           <check type="贷款卡" condition="&quot;${基础段被担保人证件类型}&quot;==&quot;c&quot;" sharp="0" errorMsg="贷款卡编码错" errorCode="4034"/>
+           <check type="ORG" condition="&quot;${基础段被担保人证件类型}&quot;==&quot;a&quot;" errorMsg="组织机构代码必须为10位的有效组织机构代码，前8位为有效数字和字符，第9位为“－”，第10位为校验位" errorCode="4018"/>
+          </field>
+		  <field length="8" name="数据报告日期" id="数据报告日期">
+            <check class="com.cfcc.ecus.eft.validator.DateChecker" format="yyyyMMdd" min="19010101" errorCode="4016" errorMsg="数据报告日期必须是 “YYYYMMDD”格式的有效日期，当不为空时，年份大于1900"/>
+          <check class=".validator.DataPoolChecker" null="0" name="数据报告日期检查" test="&quot;${数据报告日期}&quot;&lt;=&quot;${msgGenerateTime}&quot;" errorMsg="数据报告日期应该小于等于报文头中的报文生成时间，且为合法的日期" errorCode="4010"/>
+          </field>
+		  <field length="60" name="预留字段"/>
+        </seg>
+         <seg name="担保合同信息段" identify="D" idpos="1" class="com.cfcc.ecus.eft.cudata.CUSegment">
+          <field length="1" name="担保合同信息段段标">
+		  <check class=".validator.DataPoolOper" key="担保合同信息段集合" value="${担保合同信息段集合}+1"/>
+		  <check class=".validator.DataPoolOper" key="反担保人信息段集合"  value="0"/>
+		  </field>
+          <field length="2" name="担保业务种类" id="担保业务种类">
+          	<check class=".validator.DicChecker" value="担保业务种类"  />
+           <check basic="1" type="N" sharp="3" name="担保业务种类" errorMsg="担保业务种类错"/>
+          </field>
+          <field length="1" name="担保方式">
+          	<check class=".validator.DicChecker" value="担保方式"  />
+            <check type="N"  sharp="2" errorMsg="担保方式错"/>
+          </field>
+		   <field length="20" name="担保金额" id="担保金额">
+            <check type="N" errorMsg="担保金额错" />
+			<check class="com.cfcc.ecus.eft.validator.DataPoolChecker" null="0" name="担保金额检查" condition="&quot;${担保金额}&quot;" matches="\d*" test="${担保金额}&gt;=0" errorMsg="担保金额必须为大于等于0" />
+          </field>
+		  <field length="8" name="担保起始日期" id="担保起始日期">
+             <check class="com.cfcc.ecus.eft.validator.DateChecker" format="yyyyMMdd" min="19010101" errorCode="4016" errorMsg="担保起始日期数据项必须是 “YYYYMMDD”格式的有效日期，当不为空时，年份大于1900"/>
+          </field>
+		  <field length="8" name="担保到期日期">
+		  	 <check class="com.cfcc.ecus.eft.validator.DateChecker" format="yyyyMMdd" min="19010101" errorCode="4016" errorMsg="担保到期日期数据项必须是 “YYYYMMDD”格式的有效日期，当不为空时，年份大于1900"/>
+          </field>
+          <field length="3" name="存出保证金比例">
+           <check class="com.cfcc.ecus.eft.validator.EmptyChecker" sharp="0" condition='"${担保业务种类}"!="11"' errorMsg="当担保业务种类不为“11-再担保”时，存出保证金比例不能为空"  errorCode="4430"/>
+		    <check basic="1" type="N" empty="1" sharp="2" name="存出保证金比例" errorMsg="存出保证金比例错"/>
+          </field>
+		  <field length="1" name="反担保方式" id="反担保方式">
+		  	<check class=".validator.DicChecker" empty="1" value="反担保方式" />
+			 <check class="com.cfcc.ecus.eft.validator.EmptyChecker" sharp="0" condition='"${担保业务种类}"!="11"' errorMsg="当担保业务种类不为“11-再担保”时，反担保方式不能为空"  errorCode="4430"/>
+			  <check type="AN" empty="1" sharp="2"  name="反担保方式类型检查"  errorMsg="反担保方式错"/>
+          </field>
+		  <field length="3" name="约定再担保补偿比例">
+           <check basic="1" type="N" empty="1" sharp="2"  name="约定再担保补偿比例检查" errorMsg="约定再担保补偿比例错"/>
+          </field>
+		  <field length="6" name="费率">
+            <check type="AN" errorMsg="费率错"/>
+          </field>
+          <field length="6" name="年化费率">
+            <check type="AN" empty="1" errorMsg="年化费率错"/>
+          </field>
+          <field length="60" name="预留字段">
+            <field length="60" empty="1" sharp="2" name="预留字段"/>
+          </field>
+        </seg>
+        <seg name="被担保人信息段" identify="E" idpos="1" class="com.cfcc.ecus.eft.cudata.CUSegment">
+          <field length="1" name="被担保人信息段段标">
+		   <check class=".validator.DataPoolOper" key="被担保人信息段集合" value="${被担保人信息段段标}+1"/>
+		  </field>
+          <field length="1" name="被担保人类型" id="被担保人类型">
+          	<check class=".validator.DicChecker" value="被担保人类型"  />
+           <check basic="1" type="N" sharp="3" name="被担保人类型" errorMsg="被担保人类型错"/>
+          </field>
+          <field length="80" name="被担保人名称">
+            <check type="ANC"  sharp="2" errorMsg="被担保人名称错"/>
+          </field>
+          <field length="1" name="被担保人证件类型" id="被担保人证件类型">
+          	<check class=".validator.DicChecker" value="证件类型"  />
+            <check type="AN" errorMsg="被担保人证件类型错"/>
+         <check basic="1" class="com.cfcc.ecus.eft.validator.RegularChecker" name="被担保人证件类型检查" condition="&quot;${被担保人类型}&quot;==&quot;1&quot;" pattern="[acd]" errorMsg="当被担保人类型为“1-企业或其他组织”时，被担保人证件类型只能填写“a”、“c”或“d”" errorCode="4424"/>
+		   <check basic="1" class="com.cfcc.ecus.eft.validator.RegularChecker" name="被担保人证件类型检查" condition="&quot;${被担保人类型}&quot;==&quot;2&quot;" pattern="[0-9X]" errorMsg="当被担保人类型为“2-自然人”时，被担保人证件类型只能填写“0-9”或“X”" errorCode="4424"/>
+         </field>
+          <field length="18" name="被担保人证件号码">
+            <check type="ANC" errorMsg="被担保人证件号码错"/>
+            <check type="id" condition="&quot;${被担保人证件类型}&quot;==&quot;0&quot;" errorMsg="身份证号错" errorCode="4008"/>
+            <check type="贷款卡" condition="&quot;${被担保人证件类型}&quot;==&quot;c&quot;" sharp="0" errorMsg="贷款卡编码错" errorCode="4034"/>
+             <check type="ORG" condition="&quot;${被担保人证件类型}&quot;==&quot;a&quot;" errorMsg="组织机构代码必须为10位的有效组织机构代码，前8位为有效数字和字符，第9位为“－”，第10位为校验位" errorCode="4018"/>
+          </field>
+          <field length="1" name="状态位">
+          	<check class=".validator.DicChecker" value="状态位"  />
+            <check type="N" errorMsg="状态位错"/>
+          </field>
+        </seg>
+		 <seg name="债权人及主合同信息段" identify="F" idpos="1" class="com.cfcc.ecus.eft.cudata.CUSegment">
+          <field length="1" name="债权人及主合同信息段段标">  
+		   <check class=".validator.DataPoolOper" key="债权人及主合同信息段集合" value="${债权人及主合同信息段段标}+1"/>
+		  </field>
+          <field length="1" name="债权人类型" id="债权人类型" >
+          	<check class=".validator.DicChecker" value="债权人类型"  />
+           <check basic="1" type="N" sharp="3" name="债权人类型" errorMsg="债权人类型错"/>
+          </field>
+          <field length="60" name="债权人名称">
+			<check class="com.cfcc.ecus.eft.validator.EmptyChecker" sharp="2"  condition='"${债权人类型}"=="1"' errorMsg="当债权人类型为放贷机构时,债权人名称不能为空"  errorCode="4400"/>
+			 <check type="ANC" empty="1" sharp="2" errorMsg="债权人名称错" />
+          </field> 
+          <field length="1" name="债权人证件类型" id="债权人证件类型">
+          	<check class=".validator.DicChecker" empty="1" value="证件类型"  />
+			<check class="com.cfcc.ecus.eft.validator.EmptyChecker" sharp="0" condition='"${债权人类型}"=="1"' errorMsg="当债权人类型为放贷机构时,债权人证件类型不能为空"  errorCode="4400"/>
+			<check basic="1" class="com.cfcc.ecus.eft.validator.RegularChecker" empty="1" name="债权人证件类型检查"  condition="&quot;${债权人类型}&quot;==&quot;1&quot;" pattern="[zd]" errorMsg="当债权人类型为“1-放贷机构”时，债权人证件类型只能填写“z”" errorCode="4426"/>
+		   <check basic="1" class="com.cfcc.ecus.eft.validator.RegularChecker" empty="1" name="债权人证件类型检查" condition="&quot;${债权人类型}&quot;==&quot;2&quot;" pattern="[acd]" errorMsg="当债权人类型为“2-非放贷机构”时，债权人证件类型只能填写“a”、“c”或“d”" errorCode="4426"/>
+        <check basic="1" class="com.cfcc.ecus.eft.validator.RegularChecker" empty="1" name="债权人证件类型检查" condition="&quot;${债权人类型}&quot;==&quot;3&quot;" pattern="[0-9X]" errorMsg="当债权人类型为“3-自然人”时，债权人证件类型只能填写“0-9”或“X”" errorCode="4426"/>
+			<check type="AN" empty="1" sharp="2" errorMsg="债权人证件类型错"/>
+          </field>
+          <field length="18" name="债权人证件号码">
+      <check type="ORG" condition="&quot;${债权人证件类型}&quot;==&quot;a&quot;" errorMsg="组织机构代码必须为10位的有效组织机构代码，前8位为有效数字和字符，第9位为“－”，第10位为校验位" errorCode="4018"/>
+			<check class="com.cfcc.ecus.eft.validator.EmptyChecker" sharp="0" condition='"${债权人类型}"=="1"' errorMsg="当债权人类型为放贷机构时，债权人证件号码不能为空"  errorCode="4400"/>
+			<check type="贷款卡" condition="&quot;${债权人证件类型}&quot;==&quot;c&quot;" sharp="0" errorMsg="贷款卡编码错" errorCode="4034"/>
+			<check type="id" condition="&quot;${债权人证件类型}&quot;==&quot;0&quot;" errorMsg="身份证号错" errorCode="4008"/>
+			<check type="ANC" empty="1" sharp="2" errorMsg="债权人证件号码"/>
+          </field>
+          <field length="60" name="主合同编号">
+           
+			<check class="com.cfcc.ecus.eft.validator.EmptyChecker" sharp="0" condition='"${债权人类型}"=="1"' errorMsg="当债权人类型为放贷机构时，主合同编号不能为空"  errorCode="4400"/>
+			 <check type="ANC" empty="1" sharp="2" errorMsg="主合同编号错"/>
+          </field>
+		   <field length="60" name="主合同号码">
+            <check type="ANC" empty="1" sharp="2" errorMsg="主合同号码错"/>
+          </field>
+		   <field length="5" name="投向">
+       <check class=".validator.DicChecker"  empty="1" value="行业分类" errorMsg="投向错" />   
+			 <check type="AN" empty="1" sharp="2" errorMsg="投向错"/>
+          </field>
+		  <field length="1" name="状态位">
+		  	<check class=".validator.DicChecker" value="状态位"  />
+            <check type="N" errorMsg="状态位错"/>
+          </field>
+        </seg>
+		<seg name="反担保人信息段" identify="G" idpos="1" class="com.cfcc.ecus.eft.cudata.CUSegment">
+          <field length="1" name="反担保人信息段段标"> 
+		   <check class=".validator.DataPoolOper" key="反担保人信息段集合"  value="${反担保人信息段段标}+1"/>
+		  </field>
+          <field length="1" name="反担保人类型" id="反担保人类型">
+          	<check class=".validator.DicChecker" value="反担保人类型"  />
+           <check basic="1" type="N" sharp="3" name="反担保人类型" errorMsg="反担保人类型错"/>
+          </field>
+          <field length="80" name="反担保人名称">
+            <check type="ANC" errorMsg="反担保人名称错"/>
+          </field>
+          <field length="1" name="反担保人证件类型" id="反担保人证件类型">
+      <check class=".validator.DicChecker" value="证件类型"  />
+      <check type="AN" errorMsg="反担保人证件类型错"/>
+			<check basic="1" class="com.cfcc.ecus.eft.validator.RegularChecker" name="反担保人证件类型检查" key="反担保人证件类型检查" condition="&quot;${反担保人类型}&quot;==&quot;1&quot;" pattern="[acd]" errorMsg="当反担保人类型为“1-企业或其他组织”时，反担保人证件类型只能填写“a”、“c”或“d”" errorCode="4428"/>
+		  <check basic="1" class="com.cfcc.ecus.eft.validator.RegularChecker" name="反担保人证件类型检查" condition="&quot;${反担保人类型}&quot;==&quot;2&quot;" pattern="[0-9X]" errorMsg="当反担保人类型为“2-自然人”时，反担保人证件类型只能填写“0-9”或“X”" errorCode="4428"/>
+          </field>
+          <field length="18" name="反担保人证件号码">
+          	<check type="id" condition="&quot;${反担保人证件类型}&quot;==&quot;0&quot;" errorMsg="身份证错" errorCode="4008"/>
+          	<check type="贷款卡" condition="&quot;${反担保人证件类型}&quot;==&quot;c&quot;" sharp="0" errorMsg="贷款卡编码错" errorCode="4034"/>
+            <check type="ANC" errorMsg="反担保人证件号码错"/>
+             <check type="ORG" condition="&quot;${反担保人证件类型}&quot;==&quot;a&quot;" errorMsg="组织机构代码必须为10位的有效组织机构代码，前8位为有效数字和字符，第9位为“－”，第10位为校验位" errorCode="4018"/>
+          </field>
+          <field length="20" name="反担保责任金额">
+            <check type="N" errorMsg="反担保责任金额错" />
+			<check class="com.cfcc.ecus.eft.validator.DataPoolChecker" null="0" name="反担保责任金额检查" condition="&quot;${反担保责任金额}&quot;" matches="\d*" test="${反担保责任金额}&gt;=0" errorMsg="反担保责任金额必须为大于等于0" />
+          </field>
+		  <field length="1" name="状态位">
+		  	<check class=".validator.DicChecker" value="状态位"  />
+            <check type="N" errorMsg="状态位错"/>
+          </field>
+        </seg>
+		<seg name="实际在保责任信息段" identify="H" idpos="1" class="com.cfcc.ecus.eft.cudata.CUSegment">
+          <field length="1" name="实际在保责任信息段段标">
+		   
+		   <check class=".validator.DataPoolOper" key="实际在保责任信息段集合" value="${实际在保责任信息段集合}+1"/>
+		  </field>
+          <field length="1" name="担保合同状态" id="担保合同状态">
+          	<check class=".validator.DicChecker" value="担保合同状态"  />
+           <check basic="1" type="N" sharp="3" name="担保合同状态" errorMsg="担保合同状态错"/>
+          </field>
+          <field length="8" name="担保责任解除日期" id="担保责任解除日期">
+              <check class="com.cfcc.ecus.eft.validator.EmptyChecker" sharp="0" condition='"${担保合同状态}"=="2"' errorMsg="当“担保合同状态”为“无效”时，“担保责任解除日期” 必填"  errorCode="4402"/>
+		    		  <check class="com.cfcc.ecus.eft.validator.RegularChecker" empty="1" condition='"${担保合同状态}"=="1"' pattern=" " errorMsg="当“担保合同状态”为“有效”时，“担保责任解除日期” 必须为空" errorCode="4402"/>
+		    			<check class="com.cfcc.ecus.eft.validator.DateChecker"  empty="1" sharp="2" format="yyyyMMdd" min="19010101" errorCode="4016" errorMsg="担保责任解除日期必须是 “YYYYMMDD”格式的有效日期，当不为空时，年份大于1900"/>
+          </field>
+          <field length="20" name="在保余额" id="在保余额">
+            <check type="N" errorMsg="在保余额错" />
+			<check class="com.cfcc.ecus.eft.validator.DataPoolChecker" null="0" name="在保余额检查" condition="&quot;${在保余额}&quot;" matches="\d*" test="${在保余额}&gt;=0" errorMsg="在保余额必须为大于等于0" />
+          </field>
+          <field length="8" name="余额变化日期" id="余额变化日期">
+            <check class="com.cfcc.ecus.eft.validator.DateChecker"  format="yyyyMMdd" min="19010101" errorCode="4016" errorMsg="余额变化日期必须是 “YYYYMMDD”格式的有效日期，当不为空时，年份大于1900"/>
+            <check class=".validator.DataPoolChecker" null="0"  test="&quot;${余额变化日期}&quot;&lt;=&quot;${担保责任解除日期}&quot;" errorMsg="余额变化日期大于担保责任解除日期" errorCode="4406"/>
+         </field>
+        </seg>
+		<seg name="代偿概况信息段" identify="I" idpos="1" class="com.cfcc.ecus.eft.cudata.CUSegment">
+           <field length="1" name="代偿概况信息段段标"> 
+		   <check class=".validator.DataPoolOper" key="代偿概况信息段集合" value="${代偿概况信息段集合}+1"/>
+		  </field>
+          <field length="8" name="记账日期" id="记账日期">
+           <check class="com.cfcc.ecus.eft.validator.DateChecker"  format="yyyyMMdd" min="19010101" errorCode="4016" errorMsg="记账日期必须是 “YYYYMMDD”格式的有效日期，当不为空时，年份大于1900"/>
+          </field>
+          <field length="1" name="继续追偿标志">
+          		<check class=".validator.DicChecker" value="继续追偿标志"  />
+            <check type="N" errorMsg="继续追偿标志错"/>
+          </field>
+         <field length="8" name="最近一次代偿日期" id="最近一次代偿日期">
+            <check class="com.cfcc.ecus.eft.validator.DateChecker"  format="yyyyMMdd" min="19010101" errorCode="4016" errorMsg="最近一次代偿日期必须是 “YYYYMMDD”格式的有效日期，当不为空时，年份大于1900"/>
+          <check class=".validator.DataPoolChecker" null="0"  test="&quot;${最近一次代偿日期}&quot;&lt;=&quot;${msgGenerateTime}&quot;" errorMsg="最近一次代偿日期大于报文生成时间" errorCode="4010"/>
+         </field>
+          <field length="20" name="累计代偿金额" id="累计代偿金额">
+            <check type="N" empty="1" sharp="2" errorMsg="累计代偿金额错" />
+			<check class="com.cfcc.ecus.eft.validator.DataPoolChecker" null="0" name="累计代偿金额检查" condition="&quot;${累计代偿金额}&quot;" matches="\d*" test="${累计代偿金额}&gt;=0" errorMsg="累计代偿金额必须为大于等于0" />
+            <check class="com.cfcc.ecus.eft.validator.EmptyChecker" sharp="0" condition='"${担保业务种类}"!="11"' errorMsg="当担保业务种类不为“11-再担保”时，累计代偿金额不能为空"  errorCode="4432"/>
+          </field>
+		  <field length="20" name="本机构承担代偿金额" id="本机构承担代偿金额">
+          <check type="N" errorMsg="本机构承担代偿金额错" />
+					<check class="com.cfcc.ecus.eft.validator.DataPoolChecker" null="0" name="本机构承担代偿金额检查" condition="&quot;${本机构承担代偿金额}&quot;" matches="\d*" test="${本机构承担代偿金额}&gt;=0" errorMsg="本机构承担代偿金额必须为大于等于0" />
+               <check class="com.cfcc.ecus.eft.validator.DataPoolChecker" null="0" name="累计代偿金额检查" test="&quot;${本机构承担代偿金额}&quot;&lt;=&quot;${累计代偿金额}&quot;" errorMsg="累计代偿金额不能小于本机构承担代偿金额" errorCode="4410"/>	
+          </field>
+		   <field length="8" name="最近一次追偿日期" id="最近一次追偿日期">
+            <check class="com.cfcc.ecus.eft.validator.DateChecker" empty="1" format="yyyyMMdd" min="19010101" errorCode="4016" errorMsg="最近一次追偿日期必须是 “YYYYMMDD”格式的有效日期，当不为空时，年份大于1900"/>
+          </field>
+		  <field length="20" name="代偿余额" id="代偿余额">
+            <check type="N" empty="1" sharp="2" errorMsg="代偿余额错" />
+			<check class="com.cfcc.ecus.eft.validator.DataPoolChecker" null="0" name="代偿余额检查" condition="&quot;${代偿余额}&quot;" matches="\d*" test="${代偿余额}&gt;=0" errorMsg="代偿余额必须为大于等于0" />
+            <check class="com.cfcc.ecus.eft.validator.EmptyChecker" sharp="0" condition='"${担保业务种类}"!="11"' errorMsg="当担保业务种类不为“11-再担保”时，代偿余额不能为空"  errorCode="4432"/>
+          </field>
+		  <field length="20" name="本机构承担代偿余额" id="本机构承担代偿余额">
+        <check type="N" errorMsg="本机构承担代偿余额错" />
+				<check class="com.cfcc.ecus.eft.validator.DataPoolChecker" null="0" name="本机构承担代偿余额检查" condition="&quot;${本机构承担代偿余额}&quot;" matches="\d*" test="${本机构承担代偿余额}&gt;=0" errorMsg="本机构承担代偿余额必须为大于等于0" />
+       	 <check class="com.cfcc.ecus.eft.validator.DataPoolChecker" null="0" name="代偿余额检查" test="&quot;${本机构承担代偿余额}&quot;&lt;=&quot;${代偿余额}&quot;" errorMsg="代偿余额不能小于本机构承担代偿余额" errorCode="4412"/>
+          </field>
+		  <field length="20" name="累计追偿金额">
+            <check type="N" errorMsg="累计追偿金额错" />
+			<check class="com.cfcc.ecus.eft.validator.DataPoolChecker" null="0" name="累计追偿金额检查" condition="&quot;${累计追偿金额}&quot;" matches="\d*" test="${累计追偿金额}&gt;=0" errorMsg="累计追偿金额必须为大于等于0"/>
+          </field>
+		  <field length="20" name="累计损失金额">
+            <check type="N" errorMsg="累计损失金额错"/>
+			<check class="com.cfcc.ecus.eft.validator.DataPoolChecker" null="0" name="累计损失金额检查" condition="&quot;${累计损失金额}&quot;" matches="\d*" test="${累计损失金额}&gt;=0" errorMsg="累计损失金额必须为大于等于0" />
+          </field>
+		  <field length="60" empty="1" sharp="2" name="预留字段"/>
+        </seg>
+        <seg name="代偿明细信息段" identify="J" idpos="1" class="com.cfcc.ecus.eft.cudata.CUSegment">
+          <field length="1" name="代偿明细信息段段标">    
+		   <check class=".validator.DataPoolOper" key="代偿明细信息段集合" value="${代偿明细信息段段标}+1"/>
+		  </field>
+          <field length="8" name="代偿日期" id="代偿日期">
+            <check class="com.cfcc.ecus.eft.validator.DateChecker"  format="yyyyMMdd" min="19010101" errorCode="4016" errorMsg="代偿日期必须是 “YYYYMMDD”格式的有效日期，当不为空时，年份大于1900"/>
+          </field>
+		  <field length="20" name="代偿金额">
+            <check type="N" errorMsg="代偿金额错"/>
+			<check class="com.cfcc.ecus.eft.validator.DataPoolChecker" null="0" name="代偿金额检查" condition="&quot;${代偿金额}&quot;" matches="\d*" test="${代偿金额}&gt;=0" errorMsg="代偿金额必须为大于等于0" />
+          </field>
+        </seg>
+		<seg name="追偿明细信息段" identify="K" idpos="1" class="com.cfcc.ecus.eft.cudata.CUSegment">
+          <field length="1" name="追偿明细信息段段标">
+		   <check class=".validator.DataPoolOper" key="追偿明细信息段集合" value="${追偿明细信息段段标}+1"/>
+		  </field>
+          <field length="8" name="追偿日期" id="追偿日期">
+            <check class="com.cfcc.ecus.eft.validator.DateChecker"  format="yyyyMMdd" min="19010101" errorCode="4016" errorMsg="追偿日期必须是 “YYYYMMDD”格式的有效日期，当不为空时，年份大于1900"/>
+          </field>
+		  <field length="20" name="追偿金额">
+            <check type="N" errorMsg="追偿金额错"/>
+			<check class="com.cfcc.ecus.eft.validator.DataPoolChecker" null="0" name="追偿金额检查" condition="&quot;${追偿金额}&quot;" matches="\d*" test="${追偿金额}&gt;=0" errorMsg="追偿金额必须为大于等于0" />
+          </field>
+        </seg>
+		
+		<seg name="保费缴纳概况信息段" identify="L" idpos="1" class="com.cfcc.ecus.eft.cudata.CUSegment">
+          <field length="1" name="保费缴纳概况信息段段标">
+		   <check class=".validator.DataPoolOper" key="保费缴纳概况信息段集合" value="${保费缴纳概况信息段集合}+1"/>
+		  </field>
+		  <field length="1" name="缴费类别">
+		  	  	<check class=".validator.DicChecker" value="缴费类别"  />
+           <check basic="1" type="N" sharp="3" name="缴费类别" errorMsg="缴费类别错"/>
+          </field>
+          <field length="8" name="记账日期" id="记账日期">
+            <check class="com.cfcc.ecus.eft.validator.DateChecker"  format="yyyyMMdd" min="19010101" errorCode="4016" errorMsg="记账日期必须是 “YYYYMMDD”格式的有效日期，当不为空时，年份大于1900"/>
+          </field>
+		   <field length="20" name="保费金额" id="保费金额">
+            <check type="N" errorMsg="保费金额错"/>
+			<check class="com.cfcc.ecus.eft.validator.DataPoolChecker" null="0" name="保费金额检查" condition="&quot;${保费金额}&quot;" matches="\d*" test="${保费金额}&gt;=0" errorMsg="保费金额必须为大于等于0" />
+          </field>
+          <field length="1" name="保费缴纳方式" id="保费缴纳方式">
+          	<check class=".validator.DicChecker" value="保费缴纳方式"  />
+           <check basic="1" type="N" sharp="0" name="保费缴纳方式" errorMsg="保费缴纳方式错"/>
+          </field>
+		  <field length="2" name="保费缴纳频率">
+		  	<check class=".validator.DicChecker" empty="1" value="保费缴纳频率"  />
+            <check basic="1" type="N" empty="1" sharp="2" name="保费缴纳频率" errorMsg="保费缴纳频率错"/>
+		    <check class="com.cfcc.ecus.eft.validator.EmptyChecker" sharp="2" condition='"${保费缴纳方式}"=="2"' errorMsg="当保费缴纳方式为“2-分期”时，“保费缴纳频率”必填"  errorCode="4422"/>
+          </field>
+		   <field length="8" name="计费起始日期" id="计费起始日期">
+            <check class="com.cfcc.ecus.eft.validator.DateChecker"  format="yyyyMMdd" min="19010101" errorCode="4016" errorMsg="计费起始日期必须是 “YYYYMMDD”格式的有效日期，当不为空时，年份大于1900"/>
+          </field>
+       <field length="1" name="缴纳状态" id="缴纳状态">
+		  	<check class=".validator.DicChecker" value="缴纳状态"  />
+            <check type="N" errorMsg="缴纳状态错"/>
+          </field>
+		  <field length="8" name="缴纳结束日期">
+            <check class="com.cfcc.ecus.eft.validator.DateChecker" empty="1" sharp="2"  format="yyyyMMdd" min="19010101" errorCode="4016" errorMsg="缴纳结束日期必须是 “YYYYMMDD”格式的有效日期，当不为空时，年份大于1900"/>
+           <check class="com.cfcc.ecus.eft.validator.EmptyChecker" sharp="0" condition='"${缴纳状态}"=="3"' errorMsg="当缴纳状态为“3-缴清”时，“缴纳结束日期”必填。"  errorCode="4434"/>
+          </field>
+		  
+		  <field length="20" name="保费余额" id="保费余额">
+            <check type="N" errorMsg="保费余额错" />
+			<check class="com.cfcc.ecus.eft.validator.DataPoolChecker" null="0" name="保费余额检查" condition="&quot;${保费余额}&quot;" matches="\d*" test="${保费余额}&gt;=0" errorMsg="保费余额必须为大于等于0" />
+					 <check class="com.cfcc.ecus.eft.validator.DataPoolChecker" null="0" name="保费金额与保费余额检查" test="&quot;${保费余额}&quot;&lt;=&quot;${保费金额}&quot;" errorMsg="保费金额不能小于保费余额" errorCode="4416"/>
+          </field>
+		  <field length="20" name="累计欠缴金额" id="累计欠缴金额">
+        <check type="N" errorMsg="累计欠缴金额错" />
+				<check class="com.cfcc.ecus.eft.validator.DataPoolChecker" null="0" name="累计欠缴金额检查" condition="&quot;${累计欠缴金额}&quot;" matches="\d*" test="${累计欠缴金额}&gt;=0" errorMsg="累计欠缴金额必须为大于等于0" />
+        <check class="com.cfcc.ecus.eft.validator.DataPoolChecker" null="0" name="保费金额与累计欠缴金额检查" test="&quot;${累计欠缴金额}&quot;&lt;=&quot;${保费金额}&quot;" errorMsg="保费金额不能小于累计欠缴金额" errorCode="4418"/>
+
+          </field>
+		  <field length="60" empty="1" sharp="2" name="预留字段"/>
+        </seg>
+		<seg name="保费缴纳明细信息段" identify="M" idpos="1" class="com.cfcc.ecus.eft.cudata.CUSegment">
+          <field length="1" name="保费缴纳明细信息段段标">
+		   <check class=".validator.DataPoolOper" key="保费缴纳明细信息段集合" value="${保费缴纳明细信息段段标}+1"/>
+		  </field>
+          <field length="8" name="应缴日期">
+            <check class="com.cfcc.ecus.eft.validator.DateChecker" format="yyyyMMdd" min="19010101" errorCode="4016" errorMsg="应缴日期必须是 “YYYYMMDD”格式的有效日期，当不为空时，年份大于1900"/>
+          </field>
+		   <field length="20" name="应缴保费金额" id="应缴保费金额">
+            <check type="N" errorMsg="应缴保费金额错"/>
+			<check class="com.cfcc.ecus.eft.validator.DataPoolChecker" null="0" name="应缴保费金额检查" condition="&quot;${应缴保费金额}&quot;" matches="\d*" test="${应缴保费金额}&gt;=0" errorMsg="应缴保费金额必须为大于等于0" />
+          </field>
+		   <field length="8" name="实缴日期" id="实缴日期">
+           <check class="com.cfcc.ecus.eft.validator.DateChecker" empty="1"  format="yyyyMMdd" min="19010101" errorCode="4016" errorMsg="实缴日期必须是 “YYYYMMDD”格式的有效日期，当不为空时，年份大于1900"/>
+          </field>
+		  <field length="20" name="欠缴金额" id="欠缴金额">
+          <check type="N" empty="1" errorMsg="欠缴金额错" />
+					<check class="com.cfcc.ecus.eft.validator.DataPoolChecker" null="0" name="欠缴金额检查" condition="&quot;${欠缴金额}&quot;" matches="\d*" test="${欠缴金额}&gt;=0" errorMsg="欠缴金额必须为大于等于0" />
+          <check class="com.cfcc.ecus.eft.validator.DataPoolChecker" null="0" name="应缴保费金额与欠缴金额检查" test="&quot;${欠缴金额}&quot;&lt;=&quot;${应缴保费金额}&quot;"  errorMsg="欠缴金额不能大于应缴保费金额" errorCode="4420"/>
+				 </field>
+          <field length="2" name="本期保费缴纳状态" id="本期保费缴纳状态">
+          	<check class=".validator.DicChecker" value="本期保费缴纳状态"  />
+            <check type="N" errorMsg="本期保费缴纳状态"/>
+          </field>
+		  <field length="60" empty="1" sharp="2" name="预留字段"/>
+        </seg>
+
+		 <check class=".validator.DataPoolChecker" null="0" name="基础段检查" test="${基础段集合}==1" errorMsg="正常报送记录中有且只有一个基础段" errorCode="3067"/>
+		 <check class=".validator.DataPoolChecker" null="0" name="担保合同信息段检查" test="${担保合同信息段集合}&lt;=1" errorMsg="正常报送记录中最多有一个担保合同信息段" errorCode="3068"/>
+		 <check class=".validator.DataPoolChecker" null="0" name="实际在保责任信息段检查" test="${实际在保责任信息段集合}&lt;=1" errorMsg="正常报送记录中最多有一个实际在保责任信息段" errorCode="3069"/>
+		 <check class=".validator.DataPoolChecker" null="0" name="代偿概况信息段检查" test="${代偿概况信息段集合}&lt;=1" errorMsg="正常报送记录中最多有一个代偿概况信息段" errorCode="3070"/>
+		 <check class=".validator.DataPoolChecker" null="0" name="保费缴纳概况信息段检查" test="${保费缴纳概况信息段集合}&lt;=1" errorMsg="正常报送记录中最多有一个保费缴纳概况信息段" errorCode="3071"/>
+		 <check basic="1" class=".validator.DataPoolChecker" null="0" name="代偿明细信息段检查" condition="&quot;${代偿明细信息段集合}&quot;&gt;&quot;0&quot;" test=" &quot;${代偿概况信息段集合}&quot;&gt;&quot;0&quot;" errorMsg="正常报送记录中有代偿明细信息段时，必须有代偿概况信息段" errorCode="3073"/>
+         
+		 <check basic="1" class=".validator.DataPoolChecker" null="0" name="追偿明细信息段检查" condition="&quot;${追偿明细信息段集合}&quot;&gt;&quot;0&quot;" test=" &quot;${代偿概况信息段集合}&quot;&gt;&quot;0&quot;" errorMsg="正常报送记录中有追偿明细信息段时，必须有代偿概况信息段" errorCode="3077"/>
+		 
+		 <check basic="1" class=".validator.DataPoolChecker" null="0" name="保费缴纳明细信息段检查" condition="&quot;${保费缴纳明细信息段集合}&quot;&gt;&quot;0&quot;"    test="&quot;${保费缴纳概况信息段集合}&quot;&gt;&quot;0&quot;" errorMsg="正常报送记录中有保费缴纳明细信息段时，必须有保费缴纳概况信息段" errorCode="3079"/>
+		 
+		 <check basic="1" class=".validator.DataPoolChecker" null="0" name="反担保人信息段检查"  condition="&quot;${反担保方式}&quot;" matches="[01]" test=" &quot;${反担保人信息段集合}&quot;&gt;&quot;0&quot;" errorMsg="当反担保方式为“0、1”时，必须上报反担保人信息段" errorCode="3091"/>
+		 
+	
+		</body>
+		<tail class="com.cfcc.ecus.eft.cudata.CULine" name="担保业务信息采集报文尾">
+        <seg class="com.cfcc.ecus.eft.cudata.CUSegment" identify="Z" idpos="1" name="报文尾">
+          <field length="1" name="报文尾标识" fieldid="8521"/>
+          <field type="N" length="10" name="信息记录数" id="信息记录数" fieldid="4513">
+            <check name="信息记录数格式检查" type="N" level="2" errorMsg="信息记录数格式不对"/>
+            <check class="com.cfcc.ecus.eft.validator.DataPoolChecker" null="0" name="信息记录数检查" test="${总记录数}==${信息记录数}" errorMsg="信息记录总数不对" errorCode="2020"/>
+          </field>
+        </seg>
+		<check class=".validator.DataPoolChecker" null="0" name="空报文检查" test="${总记录数}&gt;0" errorMsg="包含的所有报文全为空报文" errorCode="1002"/>
+        </tail>
+		</data>	
+	
+    </file>
+    <file class=".cudata.CUFile" name="担保业务信息删除文件" type="17">
+	<data class=".cudata.CUData" name="担保业务信息删除报文" type="83">
+      <head class=".cudata.CULine" name="担保业务信息删除报文头" >
+        <seg class=".cudata.CUSegment" identify="A" idpos="1" name="报文头">
+          <field length="1" name="报文头标识" fieldid="8519"/>
+          <field length="3" name="报文格式版本号" id="msgVersion" fieldid="8517">
+            <check class=".validator.RegularChecker" name="报文格式版本号效验" pattern="\d\x2e\d" errorCode="2012" errorMsg="报文格式版本号不合法"/>
+          </field>
+          <field length="14" name="金融机构代码" fieldid="6501">
+          </field>
+          <field length="14" name="报文生成时间" id="msgGenerateTime" fieldid="2585">
+          	<check class=".validator.DateChecker" sharp="0" format="yyyyMMddHHmmss"  name="时间校验" errorCode="2016" errorMsg="报文生成时间格式错误"/>
+            <check  class=".validator.DataPoolChecker" null="0"  min="20100101000000" test="&quot;20100101000000&quot;&lt;=&quot;${msgGenerateTime}&quot;" errorCode="2014" errorMsg="报文生成时间小于20100101000000" />
+            <check class=".validator.DataPoolChecker" null="0" name="报文生成时间检查" test="&quot;${msgGenerateTime}&quot;&lt;=&quot;${报文文件生成时间}&quot;" errorMsg="报文生成时间大于报文文件生成时间" errorCode="2014"/>
+           </field>
+          <field length="2" name="报文类型" id="报文类型" fieldid="8523">
+            <check class=".validator.StrcmpChecker" value="83" errorMsg="删除报文类型应该为83" errorCode="1006"/>
+            <check class=".validator.DataPoolOper" key="报文类型集合" value="&quot;${报文类型}&quot;"/>
+            <check class=".validator.DataPoolOper" key="msgType" value="&quot;${报文类型}&quot;"/>
+          </field>
+          <field length="30" name="预留字段" fieldid="8515"/>
+        </seg>
+      </head>
+	  <body class="com.cfcc.ecus.eft.cudata.CULine" name="担保业务信息删除报文体">
+        <seg name="担保业务信息删除报文信息段" idpos="1" class="com.cfcc.ecus.eft.cudata.CUSegment" identify="S" >
+		  <field length="1" name="段标" fieldid="8519" />	
+		  <field length="14" name="担保机构代码" >
+             <check type="AN" errorMsg="担保机构代码错" />
+		  </field>
+		  <field length="60" name="担保业务编号" >
+             <check type="ANC" errorMsg="担保业务编号错" />
+		  </field>
+          <field length="1" name="删除类型" id="删除类型" >
+          <check class=".validator.DicChecker" value="删除类型"  />
+          </field>
+          <field length="8" name="数据报告日期" id="数据报告日期" >
+          <check class="com.cfcc.ecus.eft.validator.DateChecker" format="yyyyMMdd" min="19010101" errorCode="4016" errorMsg="数据报告日期必须是 “YYYYMMDD”格式的有效日期，当不为空时，年份大于1900"/>
+          <check class=".validator.DataPoolChecker" null="0" name="报文生成时间检查" test="&quot;${数据报告日期}&quot;&lt;=&quot;${msgGenerateTime}&quot;" errorMsg="数据报告日期应该小于等于报文头中的报文生成时间，且为合法的日期" errorCode="4010"/>
+          </field>
+        </seg>
+      </body>
+	  <tail class="com.cfcc.ecus.eft.cudata.CULine" name="担保业务信息删除报文尾">
+        <seg class="com.cfcc.ecus.eft.cudata.CUSegment" identify="Z" idpos="1" name="报文尾">
+          <field length="1" name="报文尾标识" fieldid="8521"/>
+          <field type="N" length="10" name="信息记录数" id="信息记录数" fieldid="4513">
+            <check name="信息记录数格式检查" type="N" level="2" errorMsg="信息记录数格式不对"/>
+            <check class="com.cfcc.ecus.eft.validator.DataPoolChecker" null="0" name="信息记录数检查" test="${总记录数}==${信息记录数}" errorMsg="信息记录总数不对" errorCode="2020"/>
+          </field>
+        </seg>
+		<check class=".validator.DataPoolChecker" null="0" name="空报文检查" test="${文件总记录数}&gt;0" errorMsg="包含的所有报文全为空报文" errorCode="1002"/>
+        </tail>
+	</data>
+	</file>
+   <file class=".cudata.CUFile" name="担保业务信息变更报文文件" type="16">
+	<data class=".cudata.CUData" name="担保业务信息变更报文" type="82">
+      <head class=".cudata.CULine" name="担保业务信息变更报文头" >
+        <seg class=".cudata.CUSegment" identify="A" idpos="1" name="报文头">
+          <field length="1" name="报文头标识" fieldid="8519"/>
+          <field length="3" name="报文格式版本号" id="msgVersion" fieldid="8517">
+            <check class=".validator.RegularChecker" name="报文格式版本号效验" pattern="\d\x2e\d" errorCode="2012" errorMsg="报文格式版本号不合法"/>
+          </field>
+          <field length="14" name="金融机构代码" fieldid="6501">
+          </field>
+          <field length="14" name="报文生成时间" id="msgGenerateTime" fieldid="2585">
+          	<check class=".validator.DateChecker" sharp="0" format="yyyyMMddHHmmss"  name="时间校验" errorCode="2016" errorMsg="报文生成时间格式错误"/>
+            <check  class=".validator.DataPoolChecker" null="0"  min="20100101000000" test="&quot;20100101000000&quot;&lt;=&quot;${msgGenerateTime}&quot;" errorCode="2014" errorMsg="报文生成时间小于20100101000000" />
+            <check class=".validator.DataPoolChecker" null="0" name="报文生成时间检查" test="&quot;${msgGenerateTime}&quot;&lt;=&quot;${报文文件生成时间}&quot;" errorMsg="报文生成时间大于报文文件生成时间" errorCode="2014"/>
+           </field>
+          <field length="2" name="报文类型" id="报文类型" fieldid="8523">
+            <check class=".validator.StrcmpChecker" value="82" errorCode="1006" errorMsg="变更报文类型应该为82"/>
+            <check class=".validator.DataPoolOper" key="报文类型集合" value="&quot;${报文类型}&quot;"/>
+            <check class=".validator.DataPoolOper" key="msgType" value="&quot;${报文类型}&quot;"/>
+          </field>
+          <field length="30" name="预留字段" fieldid="8515"/>
+        </seg>
+      </head>
+	  <body class="com.cfcc.ecus.eft.cudata.CULine" name="担保业务信息变更报文体">
+        <seg name="担保业务信息变更报文信息段" idpos="1" class="com.cfcc.ecus.eft.cudata.CUSegment" identify="C"  >
+				 <field length="1" name="段标"/>
+		  	 <field length="14" name="担保机构代码">
+             <check type="AN" errorMsg="担保机构代码错"/>
+		  </field>
+		   <field length="60" name="原担保业务编号">
+             <check type="ANC" errorMsg="原担保业务编号错"/>
+		  </field>
+		  <field length="60" name="担保业务编号">
+             <check type="ANC" errorMsg="担保业务编号错"/>
+		  </field>
+          <field length="8" name="数据报告日期" id="数据报告日期" >
+          	<check class="com.cfcc.ecus.eft.validator.DateChecker" format="yyyyMMdd" min="19010101" errorCode="4016" errorMsg="数据报告日期必须是 “YYYYMMDD”格式的有效日期，当不为空时，年份大于1900"/>
+         	  <check class=".validator.DataPoolChecker" null="0" name="报文生成时间检查" test="&quot;${数据报告日期}&quot;&lt;=&quot;${msgGenerateTime}&quot;" errorMsg="数据报告日期应该小于等于报文头中的报文生成时间，且为合法的日期" errorCode="4010"/>
+          </field>
+        </seg>
+      </body>
+	  <tail class="com.cfcc.ecus.eft.cudata.CULine" name="担保业务信息采集报文尾">
+        <seg class="com.cfcc.ecus.eft.cudata.CUSegment" identify="Z" idpos="1" name="报文尾">
+          <field length="1" name="报文尾标识" fieldid="8521"/>
+          <field type="N" length="10" name="信息记录数" id="信息记录数" fieldid="4513">
+            <check name="信息记录数格式检查" type="N" level="2" errorMsg="信息记录数格式不对"/>
+            <check class="com.cfcc.ecus.eft.validator.DataPoolChecker" null="0" name="信息记录数检查" test="${总记录数}==${信息记录数}" errorMsg="信息记录总数不对" errorCode="2020"/>
+          </field>
+        </seg>
+        </tail>
+	</data>
+	</file>
+	<feedback class="com.cfcc.ecus.eft.cudata.CUFile" name="担保业务信息反馈文件" type="15">
+		<data class="com.cfcc.ccus.eft.cudata.CUData" name="担保业务信息采集报文">
+			<head class="com.cfcc.ecus.eft.cudata.CULine" name="反馈报文头">
+				<seg class="com.cfcc.ecus.eft.cudata.CUSegment" name="反馈报文头" identify="A" idpos="1">
+					<field length="1" name="报文头标识" id="报文头标识"/>
+					<field length="3" name="报文格式版本号" id="msgVersion"/>
+			        <field length="14" name="报文生成时间" id="msgGenerateTime"/>
+					<field length="2" name="报文类型" id="报文类型" />
+			        <field length="28" name="出错报文文件名" id="出错报文文件名" />
+				</seg>
+			</head>
+			<body class="com.cfcc.ecus.eft.cudata.CULine" name="反馈报文体">
+        		<seg name="数据记录" class="com.cfcc.ecus.eft.cudata.CUSegment" identify="Z" idpos="1" match="0" >
+          			<field length="14" name="金融机构代码" id="金融机构代码" />
+          			<field length="8" name="数据报告日期" id="operationType"/>
+          			<field length="10" name="出错记录位置" id="出错记录位置" />
+          			<field length="4" name="出错信息长度" id="出错信息长度" />
+          			<field class="com.cfcc.ecus.eft.cudata.CUVarStringField" length="${出错信息长度}" name="出错信息" id="出错信息" />
+          			<field class="com.cfcc.ecus.eft.cudata.CUVarStringField" length="${信息记录长度}-58-${出错信息长度}" name="出错记录" id="出错记录" />
+        		</seg>
+      		</body>
+      <tail class="com.cfcc.ecus.eft.cudata.CULine" name="反馈报文尾">
+        <seg class="com.cfcc.ecus.eft.cudata.CUSegment" name="反馈报文尾" identify="Z" idpos="1">
+          <field length="1" name="报文尾标识"/>
+          <field length="10" name="信息记录数" id="信息记录数" />
+        </seg>
+     	 </tail>
+		</data>
+	</feedback>
+	<feedback class="com.cfcc.ecus.eft.cudata.CUFile" name="担保业务信息反馈文件" type="16">
+		<data class="com.cfcc.ccus.eft.cudata.CUData" name="担保业务信息变更报文">
+			<head class="com.cfcc.ecus.eft.cudata.CULine" name="反馈报文头">
+				<seg class="com.cfcc.ecus.eft.cudata.CUSegment" name="反馈报文头" identify="A" idpos="1">
+					<field length="1" name="报文头标识" id="报文头标识"/>
+					<field length="3" name="报文格式版本号" id="msgVersion"/>
+			        <field length="14" name="报文生成时间" id="msgGenerateTime"/>
+					<field length="2" name="报文类型" id="报文类型" />
+			        <field length="28" name="出错报文文件名" id="出错报文文件名" />
+				</seg>
+			</head>
+			<body class="com.cfcc.ecus.eft.cudata.CULine" name="反馈报文体">
+        		<seg name="数据记录" class="com.cfcc.ecus.eft.cudata.CUSegment" identify="Z" idpos="1" match="0" >
+          			<field length="14" name="金融机构代码" id="金融机构代码" />
+          			<field length="8" name="数据报告日期" id="operationType"/>
+          			<field length="10" name="出错记录位置" id="出错记录位置" />
+          			<field length="4" name="出错信息长度" id="出错信息长度" />
+          			<field class="com.cfcc.ecus.eft.cudata.CUVarStringField" length="${出错信息长度}" name="出错信息" id="出错信息" />
+          			<field class="com.cfcc.ecus.eft.cudata.CUVarStringField" length="${信息记录长度}-58-${出错信息长度}" name="出错记录" id="出错记录" />
+        		</seg>
+      		</body>
+      <tail class="com.cfcc.ecus.eft.cudata.CULine" name="反馈报文尾">
+        <seg class="com.cfcc.ecus.eft.cudata.CUSegment" name="反馈报文尾" identify="Z" idpos="1">
+          <field length="1" name="报文尾标识"/>
+          <field length="10" name="信息记录数" id="信息记录数" />
+        </seg>
+     	 </tail>
+		</data>
+	</feedback>
+	<feedback class="com.cfcc.ecus.eft.cudata.CUFile" name="担保业务信息反馈文件" type="17">
+		<data class="com.cfcc.ccus.eft.cudata.CUData" name="担保业务信息删除报文">
+			<head class="com.cfcc.ecus.eft.cudata.CULine" name="反馈报文头">
+				<seg class="com.cfcc.ecus.eft.cudata.CUSegment" name="反馈报文头" identify="A" idpos="1">
+					<field length="1" name="报文头标识" id="报文头标识"/>
+					<field length="3" name="报文格式版本号" id="msgVersion"/>
+			        <field length="14" name="报文生成时间" id="msgGenerateTime"/>
+					<field length="2" name="报文类型" id="报文类型" />
+			        <field length="28" name="出错报文文件名" id="出错报文文件名" />
+				</seg>
+			</head>
+			<body class="com.cfcc.ecus.eft.cudata.CULine" name="反馈报文体">
+        		<seg name="数据记录" class="com.cfcc.ecus.eft.cudata.CUSegment" identify="Z" idpos="1" match="0" >
+          			<field length="14" name="金融机构代码" id="金融机构代码" />
+          			<field length="8" name="数据报告日期" id="operationType"/>
+          			<field length="10" name="出错记录位置" id="出错记录位置" />
+          			<field length="4" name="出错信息长度" id="出错信息长度" />
+          			<field class="com.cfcc.ecus.eft.cudata.CUVarStringField" length="${出错信息长度}" name="出错信息" id="出错信息" />
+          			<field class="com.cfcc.ecus.eft.cudata.CUVarStringField" length="${信息记录长度}-58-${出错信息长度}" name="出错记录" id="出错记录" />
+        		</seg>
+      		</body>
+      <tail class="com.cfcc.ecus.eft.cudata.CULine" name="反馈报文尾">
+        <seg class="com.cfcc.ecus.eft.cudata.CUSegment" name="反馈报文尾" identify="Z" idpos="1">
+          <field length="1" name="报文尾标识"/>
+          <field length="10" name="信息记录数" id="信息记录数" />
+        </seg>
+     	 </tail>
+		</data>
+	</feedback>
+	<!--  担保采集报文文件    END   -->
+
+</validator>

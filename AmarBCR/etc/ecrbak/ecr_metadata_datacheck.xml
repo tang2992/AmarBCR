@@ -1,0 +1,1337 @@
+<?xml version="1.0" encoding="GBK"?>
+<dataSource>
+  <name>datacheck</name>
+  <encoding>GB18030</encoding>
+  <label>ECRDATACHECK_ORA10_1</label>
+  <describe>ECRDataCheck</describe>
+  <product>
+    <name>PDM MetaData</name>
+    <version>0.1</version>
+    <provider>Amarsoft</provider>
+  </product>
+  <extendProperties>
+    <property name="modifier" value="zyzhang" />
+    <property name="creationDate" value="1248416643" />
+    <property name="modificationDate" value="1248419482" />
+    <property name="creator" value="zyzhang" />
+  </extendProperties>
+  <tables>
+    <table name="ECR_ALSDATACHECK" label="信贷数据核对结果表" describe="ECR_ALSDATACHECK">
+      <extendProperties>
+        <property name="modifier" value="zyzhang" />
+        <property name="creationDate" value="1248416680" />
+        <property name="modificationDate" value="1248416681" />
+        <property name="creator" value="zyzhang" />
+      </extendProperties>
+      <column index="1" name="LOANCARDNO" label="贷款卡号" type="VARCHAR" displaySize="16" precision="16" scale="0" format="" />
+      <column index="2" name="OCCURDATE" label="发生日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="3" name="CUSTOMERNAME" label="客户名称" type="VARCHAR" displaySize="80" precision="80" scale="0" format="" />
+      <column index="4" name="LOANCONTRACTNUM" label="贷款合同笔数" type="INTEGER" displaySize="20" precision="0" scale="0" format="#0" />
+      <column index="5" name="LOANDUEBILLNUM" label="贷款借据笔数" type="INTEGER" displaySize="20" precision="0" scale="0" format="#0" />
+      <column index="6" name="FACTORINGNUM" label="保理笔数" type="INTEGER" displaySize="20" precision="0" scale="0" format="#0" />
+      <column index="7" name="DISCOUNTNUM" label="贴现笔数" type="INTEGER" displaySize="20" precision="0" scale="0" format="#0" />
+      <column index="8" name="FINAINFONUM" label="贸易融资合同笔数" type="INTEGER" displaySize="20" precision="0" scale="0" format="#0" />
+      <column index="9" name="FINADUEBILLNUM" label="贸易融资借据笔数" type="INTEGER" displaySize="20" precision="0" scale="0" format="#0" />
+      <column index="10" name="CREDITLETTERNUM" label="信用证笔数" type="INTEGER" displaySize="20" precision="0" scale="0" format="#0" />
+      <column index="11" name="GUARANTEEBILLNUM" label="保函笔数" type="INTEGER" displaySize="20" precision="0" scale="0" format="#0" />
+      <column index="12" name="ACCEPTNUM" label="承兑汇票笔数" type="INTEGER" displaySize="20" precision="0" scale="0" format="#0" />
+      <column index="13" name="CUSTOMERCREDITNUM" label="公开授信笔数" type="INTEGER" displaySize="20" precision="0" scale="0" format="#0" />
+      <column index="14" name="ASSURECONTNUM" label="保证合同笔数" type="INTEGER" displaySize="20" precision="0" scale="0" format="#0" />
+      <column index="15" name="GUARANTYCONTNUM" label="抵押合同笔数" type="INTEGER" displaySize="20" precision="0" scale="0" format="#0" />
+      <column index="16" name="IMPAWNCONTNUM" label="质押合同笔数" type="INTEGER" displaySize="20" precision="0" scale="0" format="#0" />
+      <column index="17" name="FLOORFUNDNUM" label="垫款笔数" type="INTEGER" displaySize="20" precision="0" scale="0" format="#0" />
+      <column index="18" name="LOANSUM" label="贷款发生金额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="19" name="FACTORINGOUTSUM" label="保理发生金额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="20" name="DISCOUNTOUTSUM" label="贴现发生金额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="21" name="FINAOUTSUM" label="贸易融资发生金额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="22" name="CREDITLETTEROUTSUM" label="信用证发生金额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="23" name="GUARANTEEBILLOUTSUM" label="保函发生金额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="24" name="ACCEPTOUTSUM" label="承兑汇票发生金额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="25" name="CUSTOMERCREDITOUTSUM" label="公开授信发生金额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="26" name="ASSURECONTOUTSUM" label="保证合同发生金额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="27" name="GUARANTYCONTOUTSUM" label="抵押合同发生金额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="28" name="IMPAWNCONTOUTSUM" label="质押合同发生金额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="29" name="FLOORFUNDOUTSUM" label="垫款发生金额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="30" name="LOANBALANCE" label="当前贷款余额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="31" name="FACTORINGBALANCE" label="当前保理余额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="32" name="DISCOUNTBALANCE" label="当前贴现余额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="33" name="FINABALANCE" label="当前贸易融资余额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="34" name="CREDITLETTERBALANCE" label="当前信用证余额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="35" name="GUARANTEEBILLBALANCE" label="当前保函余额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="36" name="ACCEPTBALANCE" label="当前承兑汇票余额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="37" name="ASSURECONTBALANCE" label="当前保证合同余额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="38" name="GUARANTYCONTBALANCE" label="当前抵押合同余额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="39" name="IMPAWNCONTBALANCE" label="当前质押合同余额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="40" name="FLOORFUNDBALANCE" label="当前垫款余额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="41" name="INTERESTBALANCE1" label="表内欠息" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="42" name="INTERESTBALANCE2" label="表外欠息" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="43" name="STATUS" label="标志" type="VARCHAR" displaySize="2" precision="2" scale="0" format="" />
+      <column index="44" name="CORPID" label="组织机构代码" type="VARCHAR" displaySize="40" precision="40" scale="0" format="" />
+      <column index="45" name="OLDFINANCEID" label="原金融机构代码" type="VARCHAR" displaySize="59" precision="59" scale="0" format="" />
+      <column index="46" name="FINANCEID" label="金融机构代码" type="VARCHAR" displaySize="59" precision="59" scale="0" format="" />
+      <column index="47" name="INCREMENTFLAG" label="增量标志" type="VARCHAR" displaySize="1" precision="1" scale="0" format="" />
+    </table>
+    <table name="BANK_ASSURECONT" label="企业客户业务保证合同信息表">
+      <extendProperties>
+        <modifier name="modifier" value="Administrator" />
+        <creationDate name="creationDate" value="1170750890" />
+        <modificationDate name="modificationDate" value="1170750896" />
+        <creator name="creator" value="Administrator" />
+      </extendProperties>
+      <column index="1" name="CONTRACTNO" label="主合同编号" describe="COLUMN_1" type="VARCHAR" format="" schemaName="" displaySize="40" precision="40" scale="0" caseSensitive="true" searchable="true">
+      	<uis>
+      		<ui name="myui"
+				isKey="true"
+				readOnly="true" 		
+				>
+			<extendProperties>
+				<property name="isFilter" value="true"/>
+			</extendProperties>
+			</ui>
+		</uis>
+	  </column>
+      <column index="2" name="ASSURECONTNO" label="保证合同流水号" describe="COLUMN_2" type="VARCHAR" format="" schemaName="" displaySize="40" precision="40" scale="0" caseSensitive="true" searchable="true">
+      	<uis>
+      		<ui name="myui"
+				isKey="true" 		
+				>
+			<extendProperties>
+				<property name="isFilter" value="true"/>
+			</extendProperties>
+			</ui>
+		</uis>
+	  </column>
+      <column index="3" name="OCCURDATE" label="发生日期" describe="COLUMN_3" type="VARCHAR" format="" schemaName="" displaySize="10" precision="10" scale="0" caseSensitive="true" searchable="true">
+      	<uis>
+      		<ui name="myui"
+				displayFormat="3" 
+				>
+			</ui>
+      		<ui name="hisui"
+      			isKey="true"
+				>
+			</ui>
+		</uis>
+	 </column>
+      <column index="4" name="INCREMENTFLAG" label="增量标志" describe="COLUMN_4" type="CHAR " format="" schemaName="" displaySize="1" precision="1" scale="0" caseSensitive="true" searchable="true" />
+      <column index="5" name="MODFLAG" label="修改标志" describe="COLUMN_5" type="CHAR " format="" schemaName="" displaySize="1" precision="1" scale="0" caseSensitive="true" searchable="true" />
+      <column index="6" name="TRACENUMBER" label="错误跟踪号" describe="COLUMN_6" type="VARCHAR" format="" schemaName="" displaySize="20" precision="20" scale="0" caseSensitive="true" searchable="true" />
+      <column index="7" name="RECORDFLAG" label="记录标志" describe="COLUMN_7" type="VARCHAR" format="" schemaName="" displaySize="20" precision="20" scale="0" caseSensitive="true" searchable="true" />
+      <column index="8" name="BUSINESSTYPE" label="信贷业务种类" describe="COLUMN_8" type="VARCHAR" format="" schemaName="" displaySize="1" precision="1" scale="0" caseSensitive="true" searchable="true">
+      	<uis>
+      		<ui name="myui"
+			    valueCodetable="7605"
+					>
+			</ui>
+		</uis>
+	  </column>
+	  <column index="9" name="ASSURERNAME" label="保证人名称" describe="COLUMN_9" type="VARCHAR" format="" schemaName="" displaySize="80" precision="80" scale="0" caseSensitive="true" searchable="true">
+      	<uis>
+      		<ui name="myui"
+      			css="style={width:300px}"
+				>
+			</ui>
+		</uis>
+	  </column>
+	  <column index="10" name="ALOANCARDNO" label="保证人贷款卡编码" describe="COLUMN_10" type="VARCHAR" format="" schemaName="" displaySize="16" precision="16" scale="0" caseSensitive="true" searchable="true">
+      	<uis>
+      		<ui name="myui"
+				>
+			<extendProperties>
+				<property name="isFilter" value="true"/>
+			</extendProperties>
+			</ui>
+		</uis>
+	  </column>
+      <column index="11" name="ASSURECURRENCY" label="保证币种" describe="COLUMN_11" type="VARCHAR" format="" schemaName="" displaySize="3" precision="3" scale="0" caseSensitive="true" searchable="true">
+      	<uis>
+       		<ui name="myui"
+				valueCodetable="1501"
+				>
+			</ui>
+		</uis>
+	  </column>
+      <column index="12" name="ASSURESUM" label="保证金额" describe="COLUMN_12" type="NUMERIC" format="" schemaName="" displaySize="24" precision="24" scale="6" caseSensitive="true" searchable="true">
+      	<uis>
+      		<ui name="myui"
+				displayFormat="2" 
+				>
+			</ui>
+		</uis>
+	  </column>
+      <column index="13" name="CREATEDATE" label="合同签订日期" describe="COLUMN_13" type="VARCHAR" format="" schemaName="" displaySize="10" precision="10" scale="0" caseSensitive="true" searchable="true">
+      	<uis>
+      		<ui name="myui"
+				displayFormat="3" 
+				>
+			</ui>
+		</uis>
+	  </column>
+      <column index="14" name="ASSUREFORM" label="保证担保形式" describe="COLUMN_14" type="VARCHAR" format="" schemaName="" displaySize="1" precision="1" scale="0" caseSensitive="true" searchable="true">
+      	<uis>
+      		<ui name="myui"
+			    valueCodetable="7603"
+					>
+			</ui>
+		</uis>
+	  </column>
+	  <column index="15" name="AVAILABSTATUS" label="合同有效状态" describe="COLUMN_15" type="CHAR " format="" schemaName="" displaySize="1" precision="1" scale="0" caseSensitive="true" searchable="true">
+      	<uis>
+      		<ui name="myui"
+				valueCodetable="7525"
+				>
+			</ui>
+		</uis>
+	  </column>
+      <column index="16" name="SESSIONID" label="期次" describe="COLUMN_16" type="VARCHAR" format="" schemaName="" displaySize="20" precision="20" scale="0" caseSensitive="true" searchable="true">
+      	<uis>
+      		<ui name="hisui"
+      			isKey="true"
+				>
+			</ui>
+	  	</uis>
+      </column>
+	  <column index="17" name="CertType" label="证件类型" describe="COLUMN_17" type="VARCHAR" format="" schemaName="" displaySize="20" precision="20" scale="0" caseSensitive="true" searchable="true">
+      </column>
+	  <column index="18" name="CertID" label="证件号码" describe="COLUMN_18" type="VARCHAR" format="" schemaName="" displaySize="18" precision="18" scale="0" caseSensitive="true" searchable="true">
+      	<extendProperties><property name="isCertNo" value="true"/></extendProperties>
+      	<uis>
+      		<ui name="myui"
+			>
+			</ui>
+		</uis> 
+      </column>
+	  <column index="19" name="ReportType" label="上报类型" describe="COLUMN_19" type="VARCHAR" format="" schemaName="" displaySize="1" precision="1" scale="0" caseSensitive="true" searchable="true">
+      </column>
+       <column index="20" name="FINANCEID" label="金融机构代码" type="VARCHAR" displaySize="59" precision="59" scale="0" format="" />
+      
+    </table>
+    <table name="BANK_GUARANTYCONT" label="企业客户业务抵押合同信息表">
+      <extendProperties>
+        <modifier name="modifier" value="Administrator" />
+        <creationDate name="creationDate" value="1170750890" />
+        <modificationDate name="modificationDate" value="1170750896" />
+        <creator name="creator" value="Administrator" />
+      </extendProperties>
+      <column index="1" name="CONTRACTNO" label="主合同编号" describe="COLUMN_1" type="VARCHAR" format="" schemaName="" displaySize="40" precision="40" scale="0" caseSensitive="true" searchable="true">
+      	<uis>
+      		<ui name="myui"
+				isKey="true"
+				readOnly="true" 		
+				>
+			<extendProperties>
+				<property name="isFilter" value="true"/>
+			</extendProperties>
+			</ui>
+		</uis>
+	  </column>
+      <column index="2" name="GUARANTYCONTNO" label="抵押合同编号" describe="COLUMN_2" type="VARCHAR" format="" schemaName="" displaySize="40" precision="40" scale="0" caseSensitive="true" searchable="true">
+      	<uis>
+      		<ui name="myui"
+				isKey="true" 		
+				>
+			<extendProperties>
+				<property name="isFilter" value="true"/>
+			</extendProperties>
+			</ui>
+		</uis>
+	  </column>
+      <column index="3" name="GUARANTYSERIALNO" label="抵押物顺序号" describe="COLUMN_3" type="VARCHAR" format="" schemaName="" displaySize="40" precision="40" scale="0" caseSensitive="true" searchable="true">
+      	<uis>
+      		<ui name="myui"
+				isKey="true" 
+				css="onchange=parent.ValueTypeCheck(@GUARANTYSERIALNO@,@1@)"		
+				>
+			</ui>
+		</uis>
+	  </column>
+      <column index="4" name="OCCURDATE" label="发生日期" describe="COLUMN_4" type="VARCHAR" format="" schemaName="" displaySize="10" precision="10" scale="0" caseSensitive="true" searchable="true">
+      	<uis>
+      		<ui name="myui"
+				displayFormat="3" 
+				>
+			</ui>
+      		<ui name="hisui"
+      			isKey="true"
+				>
+			</ui>
+		</uis>
+	  </column>
+      <column index="5" name="INCREMENTFLAG" label="增量标志" describe="COLUMN_5" type="CHAR " format="" schemaName="" displaySize="1" precision="1" scale="0" caseSensitive="true" searchable="true" />
+      <column index="6" name="MODFLAG" label="修改标志" describe="COLUMN_6" type="CHAR " format="" schemaName="" displaySize="1" precision="1" scale="0" caseSensitive="true" searchable="true" />
+      <column index="7" name="TRACENUMBER" label="错误跟踪号" describe="COLUMN_7" type="VARCHAR" format="" schemaName="" displaySize="20" precision="20" scale="0" caseSensitive="true" searchable="true" />
+      <column index="8" name="RECORDFLAG" label="记录标志" describe="COLUMN_8" type="VARCHAR" format="" schemaName="" displaySize="20" precision="20" scale="0" caseSensitive="true" searchable="true" />
+      <column index="9" name="GUARANTYNO" label="抵押物序号" describe="COLUMN_9" type="VARCHAR" format="" schemaName="" displaySize="2" precision="0" scale="0" caseSensitive="true" searchable="true" />
+      <column index="10" name="BUSINESSTYPE" label="信贷业务种类" describe="COLUMN_10" type="VARCHAR" format="" schemaName="" displaySize="1" precision="1" scale="0" caseSensitive="true" searchable="true">
+      	<uis>
+      		<ui name="myui"
+				valueCodetable="7605"
+				>
+			</ui>
+		</uis>
+	  </column>
+      <column index="11" name="PLEDGORNAME" label="抵押人名称" describe="COLUMN_11" type="VARCHAR" format="" schemaName="" displaySize="80" precision="80" scale="0" caseSensitive="true" searchable="true" >
+      	<uis>
+      		<ui name="myui"
+      			css="style={width:300px}"
+				>
+			</ui>
+		</uis>
+	  </column>
+	  <column index="12" name="GLOANCARDNO" label="抵押人贷款卡" describe="COLUMN_12" type="VARCHAR" format="" schemaName="" displaySize="16" precision="16" scale="0" caseSensitive="true" searchable="true" />
+      <column index="13" name="EVALUATECURRENCY" label="评估币种" describe="COLUMN_13" type="VARCHAR" format="" schemaName="" displaySize="3" precision="3" scale="0" caseSensitive="true" searchable="true">
+      	<uis>
+        	<ui name="myui"
+				valueCodetable="1501"
+				required="false"
+				>
+			</ui>
+		</uis>
+	  </column>
+	  <column index="14" name="EVALUATESUM" label="抵押物评估价值" describe="COLUMN_14" type="NUMERIC" format="" schemaName="" displaySize="24" precision="24" scale="6" caseSensitive="true" searchable="true">
+	  	<uis>
+        	<ui name="myui"
+        	    required="false"
+				>
+			</ui>
+		</uis>
+	  </column>
+      <column index="15" name="EVALUATEDATE" label="评估日期" describe="COLUMN_15" type="VARCHAR" format="" schemaName="" displaySize="10" precision="10" scale="0" caseSensitive="true" searchable="true">
+      	<uis>
+      		<ui name="myui"
+				displayFormat="3" 
+				required="false"
+				>
+			</ui>
+		</uis>
+	  </column>
+      <column index="16" name="EVALUATEOFFICE" label="评估机构名称" describe="COLUMN_16" type="VARCHAR" format="" schemaName="" displaySize="80" precision="80" scale="0" caseSensitive="true" searchable="true">
+      	<uis>
+        	<ui name="myui"
+        	    required="false"
+				>
+			</ui>
+		</uis>
+	  </column>
+      <column index="17" name="EVALUATEOFFICEID" label="评估机构组织机构代码" describe="COLUMN_17" type="VARCHAR" format="" schemaName="" displaySize="10" precision="10" scale="0" caseSensitive="true" searchable="true">
+      	<uis>
+        	<ui name="myui"
+        	    required="false"
+				>
+			</ui>
+		</uis>
+	  </column>
+      <column index="18" name="GUARANTYTYPE" label="抵押物种类" describe="COLUMN_18" type="VARCHAR" format="" schemaName="" displaySize="1" precision="1" scale="0" caseSensitive="true" searchable="true">
+      	<uis>
+      		<ui name="myui"
+				valueCodetable="7617"
+				>
+			</ui>
+		</uis>
+	  </column>
+      <column index="19" name="CREATEDATE" label="合同签订日期" describe="COLUMN_19" type="VARCHAR" format="" schemaName="" displaySize="10" precision="10" scale="0" caseSensitive="true" searchable="true">
+      	<uis>
+      		<ui name="myui"
+				displayFormat="3" 
+				>
+			</ui>
+		</uis>
+	  </column>
+      <column index="20" name="GUARANTYCURRENCY" label="抵押币种" describe="COLUMN_20" type="VARCHAR" format="" schemaName="" displaySize="3" precision="3" scale="0" caseSensitive="true" searchable="true">
+      	<uis>
+      		<ui name="myui"
+				valueCodetable="1501"
+				>
+			</ui>
+		</uis>
+	  </column>
+      <column index="21" name="GUARANTYSUM" label="抵押金额" describe="COLUMN_21" type="NUMERIC" format="" schemaName="" displaySize="24" precision="24" scale="6" caseSensitive="true" searchable="true">
+      	<uis>
+      		<ui name="myui"
+				displayFormat="2" 
+				>
+			</ui>
+		</uis>
+	  </column>
+      <column index="22" name="REGISTORGNAME" label="登记机关" describe="COLUMN_22" type="VARCHAR" format="" schemaName="" displaySize="80" precision="80" scale="0" caseSensitive="true" searchable="true" >
+      	<uis>
+      		<ui name="myui"
+      			css="style={width:300px}"
+				>
+			</ui>
+		</uis>
+	  </column>
+      <column index="23" name="REGISTDATE" label="登记日期" describe="COLUMN_23" type="VARCHAR" format="" schemaName="" displaySize="10" precision="10" scale="0" caseSensitive="true" searchable="true">
+      	<uis>
+      		<ui name="myui"
+				displayFormat="3" 
+				required="false"
+				>
+			</ui>
+		</uis>
+	  </column>
+      <column index="24" name="GUARANTYEXPLAIN" label="抵押物说明" describe="COLUMN_24" type="VARCHAR" format="" schemaName="" displaySize="400" precision="400" scale="0" caseSensitive="true" searchable="true" >
+      	<uis>
+      		<ui name="myui"
+      			css="style={width:300px}"
+				>
+			</ui>
+		</uis>
+	  </column>
+      <column index="25" name="AVAILABSTATUS" label="合同有效状态" describe="COLUMN_25" type="CHAR " format="" schemaName="" displaySize="1" precision="1" scale="0" caseSensitive="true" searchable="true">
+      	<uis>
+      		<ui name="myui"
+				valueCodetable="7525"
+				>
+			</ui>
+		</uis>
+	  </column>
+	  <column index="26" name="SESSIONID" label="期次" describe="COLUMN_26" type="VARCHAR" format="" schemaName="" displaySize="20" precision="20" scale="0" caseSensitive="true" searchable="true">
+	  	<uis>
+      		<ui name="hisui"
+      			isKey="true"
+				>
+			</ui>
+	  	</uis>
+     </column>
+	 <column index="27" name="CertType" label="证件类型" describe="COLUMN_27" type="VARCHAR" format="" schemaName="" displaySize="20" precision="20" scale="0" caseSensitive="true" searchable="true">
+      </column>
+	  <column index="28" name="CertID" label="证件号码" describe="COLUMN_28" type="VARCHAR" format="" schemaName="" displaySize="18" precision="18" scale="0" caseSensitive="true" searchable="true">
+      	<extendProperties><property name="isCertNo" value="true"/></extendProperties>
+      	<uis>
+      		<ui name="myui"
+			>
+			</ui>
+		</uis>
+      </column>
+	  <column index="29" name="ReportType" label="上报类型" describe="COLUMN_29" type="VARCHAR" format="" schemaName="" displaySize="1" precision="1" scale="0" caseSensitive="true" searchable="true">
+	  </column>
+	  <column index="30" name="FINANCEID" label="金融机构代码" type="VARCHAR" displaySize="59" precision="59" scale="0" format="" />
+	</table>
+	<table name="BANK_IMPAWNCONT" label="企业客户业务质押合同信息表">
+      <extendProperties>
+        <modifier name="modifier" value="Administrator" />
+        <creationDate name="creationDate" value="1170750890" />
+        <modificationDate name="modificationDate" value="1170750896" />
+        <creator name="creator" value="Administrator" />
+      </extendProperties>
+      <column index="1" name="CONTRACTNO" label="主合同编号" describe="COLUMN_1" type="VARCHAR" format="" schemaName="" displaySize="40" precision="40" scale="0" caseSensitive="true" searchable="true">
+      	<uis>
+      		<ui name="myui"
+				isKey="true"
+				readOnly="true" 		
+				>
+			<extendProperties>
+				<property name="isFilter" value="true"/>
+			</extendProperties>
+			</ui>
+		</uis>
+	  </column>
+      <column index="2" name="IMPAWNCONTNO" label="质押合同流水号" describe="COLUMN_2" type="VARCHAR" format="" schemaName="" displaySize="40" precision="40" scale="0" caseSensitive="true" searchable="true">
+      	<uis>
+      		<ui name="myui"
+				isKey="true" 		
+				>
+			<extendProperties>
+				<property name="isFilter" value="true"/>
+			</extendProperties>
+			</ui>
+		</uis>
+	  </column>
+      <column index="3" name="IMPAWSERIALNO" label="质押物顺序号" describe="COLUMN_3" type="VARCHAR" format="" schemaName="" displaySize="40" precision="40" scale="0" caseSensitive="true" searchable="true">
+      	<uis>
+      		<ui name="myui"
+				isKey="true" 		
+				>
+			</ui>
+		</uis>
+	  </column>
+      <column index="4" name="OCCURDATE" label="发生日期" describe="COLUMN_4" type="VARCHAR" format="" schemaName="" displaySize="10" precision="10" scale="0" caseSensitive="true" searchable="true">
+      	<uis>
+      		<ui name="myui"
+				displayFormat="3" 
+				>
+			</ui>
+      		<ui name="hisui"
+      			isKey="true"
+				>
+			</ui>
+		</uis>
+	  </column>
+      <column index="5" name="INCREMENTFLAG" label="增量标志" describe="COLUMN_5" type="CHAR " format="" schemaName="" displaySize="1" precision="1" scale="0" caseSensitive="true" searchable="true" />
+      <column index="6" name="MODFLAG" label="修改标志" describe="COLUMN_6" type="CHAR " format="" schemaName="" displaySize="1" precision="1" scale="0" caseSensitive="true" searchable="true" />
+      <column index="7" name="TRACENUMBER" label="错误跟踪号" describe="COLUMN_7" type="VARCHAR" format="" schemaName="" displaySize="20" precision="20" scale="0" caseSensitive="true" searchable="true" />
+      <column index="8" name="RECORDFLAG" label="记录标志" describe="COLUMN_8" type="VARCHAR" format="" schemaName="" displaySize="20" precision="20" scale="0" caseSensitive="true" searchable="true" />
+      <column index="9" name="IMPAWNO" label="自动生成的质押号" describe="COLUMN_9" type="VARCHAR" format="" schemaName="" displaySize="2" precision="0" scale="0" caseSensitive="true" searchable="true" />
+      <column index="10" name="BUSINESSTYPE" label="信贷业务种类" describe="COLUMN_10" type="VARCHAR" format="" schemaName="" displaySize="1" precision="1" scale="0" caseSensitive="true" searchable="true">
+      	<uis>
+      		<ui name="myui"
+			    valueCodetable="7605"
+					>
+			</ui>
+		</uis>
+	  </column>
+      <column index="11" name="IMPAWNNAME" label="出质人名称" describe="COLUMN_11" type="VARCHAR" format="" schemaName="" displaySize="80" precision="80" scale="0" caseSensitive="true" searchable="true">
+      	<uis>
+      		<ui name="myui"
+      			css="style={width:300px}"
+				>
+			</ui>
+		</uis>
+	  </column>
+	  <column index="12" name="ILOANCARDNO" label="出质人贷款卡编码" describe="COLUMN_12" type="VARCHAR" format="" schemaName="" displaySize="16" precision="16" scale="0" caseSensitive="true" searchable="true">
+      	<uis>
+      		<ui name="myui"
+				isKey="true" 		
+				>
+			<extendProperties>
+				<property name="isFilter" value="true"/>
+			</extendProperties>
+			</ui>
+		</uis>
+	  </column>
+      <column index="13" name="VALUECURRENCY" label="质押物币种" describe="COLUMN_13" type="CHAR " format="" schemaName="" displaySize="3" precision="3" scale="0" caseSensitive="true" searchable="true">
+      	<uis>
+      		<ui name="myui"
+				valueCodetable="1501"
+				>
+			</ui>
+		</uis>
+	  </column>
+      <column index="14" name="VALUESUM" label="质押物价值" describe="COLUMN_14" type="NUMERIC" format="" schemaName="" displaySize="24" precision="24" scale="6" caseSensitive="true" searchable="true" />
+      <column index="15" name="CREATEDATE" label="合同签订日期" describe="COLUMN_15" type="VARCHAR" format="" schemaName="" displaySize="10" precision="10" scale="0" caseSensitive="true" searchable="true">
+      	<uis>
+      		<ui name="myui"
+				displayFormat="3" 
+				>
+			</ui>
+		</uis>
+	  </column>
+      <column index="16" name="IMPAWNTYPE" label="质押物种类" describe="COLUMN_16" type="VARCHAR" format="" schemaName="" displaySize="1" precision="1" scale="0" caseSensitive="true" searchable="true">
+      	<uis>
+      		<ui name="myui"
+				valueCodetable="7621"
+				>
+			</ui>
+		</uis>
+	  </column>
+      <column index="17" name="IMPAWNCURRENCY" label="质押币种" describe="COLUMN_17" type="VARCHAR" format="" schemaName="" displaySize="3" precision="3" scale="0" caseSensitive="true" searchable="true">
+      	<uis>
+      		<ui name="myui"
+				valueCodetable="1501"
+				>
+			</ui>
+		</uis>
+	  </column>
+      <column index="18" name="IMPAWNSUM" label="质押金额" describe="COLUMN_18" type="NUMERIC" format="" schemaName="" displaySize="24" precision="24" scale="6" caseSensitive="true" searchable="true">
+      	<uis>
+      		<ui name="myui"
+				displayFormat="2" 
+				>
+			</ui>
+		</uis>
+	  </column>
+      <column index="19" name="AVAILABSTATUS" label="合同有效状态" describe="COLUMN_19" type="CHAR " format="" schemaName="" displaySize="1" precision="1" scale="0" caseSensitive="true" searchable="true">
+      	<uis>
+        	<ui name="myui"
+				valueCodetable="7525"
+				>
+			</ui>
+		</uis>
+	  </column>
+	  <column index="20" name="SESSIONID" label="期次" describe="COLUMN_20" type="VARCHAR" format="" schemaName="" displaySize="20" precision="20" scale="0" caseSensitive="true" searchable="true">
+	  	<uis>
+      		<ui name="hisui"
+      			isKey="true"
+				>
+			</ui>
+	  	</uis>
+	  </column>
+	  <column index="21" name="CertType" label="证件类型" describe="COLUMN_21" type="VARCHAR" format="" schemaName="" displaySize="20" precision="20" scale="0" caseSensitive="true" searchable="true">
+      </column>
+	  <column index="22" name="CertID" label="证件号码" describe="COLUMN_22" type="VARCHAR" format="" schemaName="" displaySize="18" precision="18" scale="0" caseSensitive="true" searchable="true">
+      	<extendProperties><property name="isCertNo" value="true"/></extendProperties>
+      	<uis>
+      		<ui name="myui"
+			>
+			</ui>
+		</uis>
+      </column>
+	  <column index="23" name="ReportType" label="上报类型" describe="COLUMN_23" type="VARCHAR" format="" schemaName="" displaySize="1" precision="1" scale="0" caseSensitive="true" searchable="true">
+    </column>
+   <column index="24" name="FINANCEID" label="金融机构代码" type="VARCHAR" displaySize="59" precision="59" scale="0" format="" />
+    </table>
+    <table name="ECR_ECRDATACHECK" label="征信数据核对结果" describe="ECR_ECRDATACHECK">
+      <extendProperties>
+        <property name="modifier" value="zyzhang" />
+        <property name="creationDate" value="1248416680" />
+        <property name="modificationDate" value="1248416681" />
+        <property name="creator" value="zyzhang" />
+      </extendProperties>
+      <column index="1" name="LOANCARDNO" label="贷款卡号" type="VARCHAR" displaySize="16" precision="16" scale="0" format="" />
+      <column index="2" name="OCCURDATE" label="发生日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="3" name="CUSTOMERNAME" label="客户名称" type="VARCHAR" displaySize="80" precision="80" scale="0" format="" />
+      <column index="4" name="LOANCONTRACTNUM" label="贷款合同笔数" type="INTEGER" displaySize="20" precision="0" scale="0" format="" />
+      <column index="5" name="LOANDUEBILLNUM" label="贷款借据笔数" type="INTEGER" displaySize="20" precision="0" scale="0" format="" />
+      <column index="6" name="FACTORINGNUM" label="保理笔数" type="INTEGER" displaySize="20" precision="0" scale="0" format="" />
+      <column index="7" name="DISCOUNTNUM" label="贴现笔数" type="INTEGER" displaySize="20" precision="0" scale="0" format="" />
+      <column index="8" name="FINAINFONUM" label="贸易融资合同笔数" type="INTEGER" displaySize="20" precision="0" scale="0" format="" />
+      <column index="9" name="FINADUEBILLNUM" label="贸易融资借据笔数" type="INTEGER" displaySize="20" precision="0" scale="0" format="" />
+      <column index="10" name="CREDITLETTERNUM" label="信用证笔数" type="INTEGER" displaySize="20" precision="0" scale="0" format="" />
+      <column index="11" name="GUARANTEEBILLNUM" label="保函笔数" type="INTEGER" displaySize="20" precision="0" scale="0" format="" />
+      <column index="12" name="ACCEPTNUM" label="承兑汇票笔数" type="INTEGER" displaySize="20" precision="0" scale="0" format="" />
+      <column index="13" name="CUSTOMERCREDITNUM" label="公开授信笔数" type="INTEGER" displaySize="20" precision="0" scale="0" format="" />
+      <column index="14" name="ASSURECONTNUM" label="保证合同笔数" type="INTEGER" displaySize="20" precision="0" scale="0" format="" />
+      <column index="15" name="GUARANTYCONTNUM" label="抵押合同笔数" type="INTEGER" displaySize="20" precision="0" scale="0" format="" />
+      <column index="16" name="IMPAWNCONTNUM" label="质押合同笔数" type="INTEGER" displaySize="20" precision="0" scale="0" format="" />
+      <column index="17" name="FLOORFUNDNUM" label="垫款笔数" type="INTEGER" displaySize="20" precision="0" scale="0" format="" />
+      <column index="18" name="LOANSUM" label="贷款发生金额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="19" name="FACTORINGOUTSUM" label="保理发生金额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="20" name="DISCOUNTOUTSUM" label="贴现发生金额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="21" name="FINAOUTSUM" label="贸易融资发生金额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="22" name="CREDITLETTEROUTSUM" label="信用证发生金额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="23" name="GUARANTEEBILLOUTSUM" label="保函发生金额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="24" name="ACCEPTOUTSUM" label="承兑汇票发生金额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="25" name="CUSTOMERCREDITOUTSUM" label="公开授信发生金额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="26" name="ASSURECONTOUTSUM" label="保证合同发生金额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="27" name="GUARANTYCONTOUTSUM" label="抵押合同发生金额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="28" name="IMPAWNCONTOUTSUM" label="质押合同发生金额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="29" name="FLOORFUNDOUTSUM" label="垫款发生金额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="30" name="LOANBALANCE" label="当前贷款余额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="31" name="FACTORINGBALANCE" label="当前保理余额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="32" name="DISCOUNTBALANCE" label="当前贴现余额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="33" name="FINABALANCE" label="当前贸易融资余额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="34" name="CREDITLETTERBALANCE" label="当前信用证余额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="35" name="GUARANTEEBILLBALANCE" label="当前保函余额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="36" name="ACCEPTBALANCE" label="当前承兑汇票余额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="37" name="ASSURECONTBALANCE" label="当前保证合同余额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="38" name="GUARANTYCONTBALANCE" label="当前抵押合同余额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="39" name="IMPAWNCONTBALANCE" label="当前质押合同余额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="40" name="FLOORFUNDBALANCE" label="当前垫款余额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="41" name="INTERESTBALANCE1" label="表内欠息" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="42" name="INTERESTBALANCE2" label="表外欠息" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="43" name="STATUS" label="标志" type="VARCHAR" displaySize="2" precision="2" scale="0" format="" />
+      <column index="44" name="CORPID" label="组织机构代码" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="45" name="OLDFINANCEID" label="原金融机构代码" type="VARCHAR" displaySize="59" precision="59" scale="0" format="" />
+      <column index="46" name="FINANCEID" label="金融机构代码" type="VARCHAR" displaySize="59" precision="59" scale="0" format="" />
+      <column index="47" name="INCREMENTFLAG" label="增量标志" type="VARCHAR" displaySize="1" precision="1" scale="0" format="" />
+    </table>
+    <table name="ECR_PBCDATACHECK" label="人行数据核对结果表" describe="ECR_PBCDATACHECK">
+      <extendProperties>
+        <property name="modifier" value="zyzhang" />
+        <property name="creationDate" value="1248416680" />
+        <property name="modificationDate" value="1248416681" />
+        <property name="creator" value="zyzhang" />
+      </extendProperties>
+      <column index="1" name="LOANCARDNO" label="贷款卡号" type="VARCHAR" displaySize="16" precision="16" scale="0" format="" />
+      <column index="2" name="OCCURDATE" label="发生日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="3" name="CUSTOMERNAME" label="客户名称" type="VARCHAR" displaySize="80" precision="80" scale="0" format="" />
+      <column index="4" name="LOANCONTRACTNUM" label="贷款合同笔数" type="INTEGER" displaySize="20" precision="0" scale="0" format="" />
+      <column index="5" name="LOANDUEBILLNUM" label="贷款借据笔数" type="INTEGER" displaySize="20" precision="0" scale="0" format="" />
+      <column index="6" name="FACTORINGNUM" label="保理笔数" type="INTEGER" displaySize="20" precision="0" scale="0" format="" />
+      <column index="7" name="DISCOUNTNUM" label="贴现笔数" type="INTEGER" displaySize="20" precision="0" scale="0" format="" />
+      <column index="8" name="FINAINFONUM" label="贸易融资合同笔数" type="INTEGER" displaySize="20" precision="0" scale="0" format="" />
+      <column index="9" name="FINADUEBILLNUM" label="贸易融资借据笔数" type="INTEGER" displaySize="20" precision="0" scale="0" format="" />
+      <column index="10" name="CREDITLETTERNUM" label="信用证笔数" type="INTEGER" displaySize="20" precision="0" scale="0" format="" />
+      <column index="11" name="GUARANTEEBILLNUM" label="保函笔数" type="INTEGER" displaySize="20" precision="0" scale="0" format="" />
+      <column index="12" name="ACCEPTNUM" label="承兑汇票笔数" type="INTEGER" displaySize="20" precision="0" scale="0" format="" />
+      <column index="13" name="CUSTOMERCREDITNUM" label="公开授信笔数" type="INTEGER" displaySize="20" precision="0" scale="0" format="" />
+      <column index="14" name="ASSURECONTNUM" label="保证合同笔数" type="INTEGER" displaySize="20" precision="0" scale="0" format="" />
+      <column index="15" name="GUARANTYCONTNUM" label="抵押合同笔数" type="INTEGER" displaySize="20" precision="0" scale="0" format="" />
+      <column index="16" name="IMPAWNCONTNUM" label="质押合同笔数" type="INTEGER" displaySize="20" precision="0" scale="0" format="" />
+      <column index="17" name="FLOORFUNDNUM" label="垫款笔数" type="INTEGER" displaySize="20" precision="0" scale="0" format="" />
+      <column index="18" name="LOANSUM" label="贷款发生金额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="19" name="FACTORINGOUTSUM" label="保理发生金额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="20" name="DISCOUNTOUTSUM" label="贴现发生金额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="21" name="FINAOUTSUM" label="贸易融资发生金额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="22" name="CREDITLETTEROUTSUM" label="信用证发生金额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="23" name="GUARANTEEBILLOUTSUM" label="保函发生金额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="24" name="ACCEPTOUTSUM" label="承兑汇票发生金额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="25" name="CUSTOMERCREDITOUTSUM" label="公开授信发生金额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="26" name="ASSURECONTOUTSUM" label="保证合同发生金额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="27" name="GUARANTYCONTOUTSUM" label="抵押合同发生金额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="28" name="IMPAWNCONTOUTSUM" label="质押合同发生金额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="29" name="FLOORFUNDOUTSUM" label="垫款发生金额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="30" name="LOANBALANCE" label="当前贷款余额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="31" name="FACTORINGBALANCE" label="当前保理余额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="32" name="DISCOUNTBALANCE" label="当前贴现余额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="33" name="FINABALANCE" label="当前贸易融资余额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="34" name="CREDITLETTERBALANCE" label="当前信用证余额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="35" name="GUARANTEEBILLBALANCE" label="当前保函余额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="36" name="ACCEPTBALANCE" label="当前承兑汇票余额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="37" name="ASSURECONTBALANCE" label="当前保证合同余额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="38" name="GUARANTYCONTBALANCE" label="当前抵押合同余额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="39" name="IMPAWNCONTBALANCE" label="当前质押合同余额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="40" name="FLOORFUNDBALANCE" label="当前垫款余额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="41" name="INTERESTBALANCE1" label="表内欠息" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="42" name="INTERESTBALANCE2" label="表外欠息" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="43" name="STATUS" label="标志" type="VARCHAR" displaySize="2" precision="2" scale="0" format="" />
+      <column index="44" name="CORPID" label="组织机构代码" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="45" name="OLDFINANCEID" label="原金融机构代码" type="VARCHAR" displaySize="59" precision="59" scale="0" format="" />
+      <column index="46" name="INCREMENTFLAG" label="增量标志" type="VARCHAR" displaySize="1" precision="1" scale="0" format="" />
+    </table>
+    <table name="ECR_PBC_ACCEPTANCE" label="人行承兑汇票信息" describe="ECR_PBC_ACCEPTANCE">
+      <extendProperties>
+        <property name="modifier" value="zyzhang" />
+        <property name="creationDate" value="1248416680" />
+        <property name="modificationDate" value="1248421374" />
+        <property name="creator" value="zyzhang" />
+      </extendProperties>
+      <column index="1" name="OCCURDATE" label="业务发生日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="2" name="FINANCEID" label="金融机构代码" type="VARCHAR" displaySize="14" precision="14" scale="0" format="" />
+      <column index="3" name="LOANCARDNO" label="贷款卡编码" type="VARCHAR" displaySize="16" precision="16" scale="0" format="" />
+      <column index="4" name="ACONTRACTNO" label="承兑协议号码" type="VARCHAR" displaySize="60" precision="60" scale="0" format="" />
+      <column index="5" name="ACCEPTNO" label="汇票号码" type="VARCHAR" displaySize="20" precision="20" scale="0" format="" />
+      <column index="6" name="LOADDATE" label="加载日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="7" name="CONTRACTID" label="业务ID" type="VARCHAR" displaySize="20" precision="20" scale="0" format="" />
+      <column index="8" name="OPERATETYPE" label="业务金额折人民币" type="VARCHAR" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="9" name="ISIDCHANGE" label="业务金额折人民币" type="VARCHAR" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="10" name="CREDITCONTRACTNO" label="授信协议编号" type="VARCHAR" displaySize="60" precision="60" scale="0" format="" />
+      <column index="11" name="CUSTOMERNAME" label="出票人名称" type="VARCHAR" displaySize="80" precision="80" scale="0" format="" />
+      <column index="12" name="CURRENCY" label="币种" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+      <column index="13" name="ACCEPTSUM" label="业务金额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="14" name="ACCEPTDATE" label="汇票承兑日" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="15" name="ACCEPTENDDATE" label="汇票到期日" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="16" name="ACCEPTPAYDATE" label="汇票付款日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="17" name="DEPOSIT" label="保证金比例" type="NUMERIC" displaySize="3" precision="3" scale="0" format="" />
+      <column index="18" name="GUARANTYSTATUS" label="担保标志" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+      <column index="19" name="FLOORFLAG" label="垫款标志" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+      <column index="20" name="DRAFTSTATUS" label="汇票状态" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+      <column index="21" name="CLASSIFY5" label="五级分类" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+      <column index="22" name="DOCID" label="文件ID" type="VARCHAR" displaySize="16" precision="16" scale="0" format="" />
+      <column index="23" name="ROWSID" label="担保标志" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+      <column index="24" name="VALIDFLAG" label="垫款标志" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+      <column index="25" name="VALIDFLAGCHANGEDATE" label="汇票状态" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+      <column index="26" name="RECORDSHIFT" label="五级分类" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+      <column index="27" name="FINANCECODE" label="文件ID" type="VARCHAR" displaySize="16" precision="16" scale="0" format="" />
+   
+    </table>
+    <table name="ECR_PBC_ASSURECONT" label="人行保证合同信息" describe="ECR_PBC_ASSURECONT">
+      <extendProperties>
+        <property name="modifier" value="zyzhang" />
+        <property name="creationDate" value="1248416680" />
+        <property name="modificationDate" value="1248421789" />
+        <property name="creator" value="zyzhang" />
+      </extendProperties>
+      <column index="1" name="OCCURDATE" label="业务发生日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="2" name="FINANCEID" label="金融机构代码" type="VARCHAR" displaySize="14" precision="14" scale="0" format="" />
+      <column index="3" name="LOANCARDNO" label="贷款卡编码" type="VARCHAR" displaySize="16" precision="16" scale="0" format="" />
+      <column index="4" name="ALOANCARDNO" label="担保合同编号" type="VARCHAR" displaySize="60" precision="60" scale="0" format="" />
+      <column index="5" name="ASSURECONTNO" label="主合同编号" type="VARCHAR" displaySize="60" precision="60" scale="0" format="" />
+      <column index="6" name="LOADDATE" label="加载日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="7" name="CONTRACTNO" label="业务ID" type="VARCHAR" displaySize="20" precision="20" scale="0" format="" />
+      <column index="8" name="ABUSINESSID" label="主业务信息ID" type="VARCHAR" displaySize="20" precision="20" scale="0" format="" />
+      <column index="9" name="MBUSINESSID" label="加载日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="10" name="OPERATETYPE" label="业务ID" type="VARCHAR" displaySize="20" precision="20" scale="0" format="" />
+      <column index="11" name="ISIDCHANGE" label="主业务信息ID" type="VARCHAR" displaySize="20" precision="20" scale="0" format="" />
+      <column index="12" name="ASSURENAME" label="保证人名称" type="VARCHAR" displaySize="80" precision="80" scale="0" format="" />
+      <column index="13" name="CREATEDATE" label="合同签订日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="14" name="CURRENCY" label="币种" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+      <column index="15" name="ASSURESUM" label="担保金额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="16" name="ASSUREFORM" label="担保金额折人民币" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="17" name="BUSINESSTYPE" label="担保金额折美元" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="18" name="AVAILABSTATUS" label="合同有效状态" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+      <column index="19" name="DOCID" label="文件ID" type="VARCHAR" displaySize="16" precision="16" scale="0" format="" />
+         <column index="20" name="ROWSID" label="保证担保形式" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+         <column index="21" name="VALIDFLAG" label="保证担保形式" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+         <column index="22" name="VALIDFLAGCHANGEDATE" label="保证担保形式" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+         <column index="23" name="RECORDSHIFT" label="保证担保形式" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+         <column index="24" name="FINANCECODE" label="保证担保形式" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+   
+    </table>
+    <table name="ECR_PBC_CREDITLETTER" label="人行信用证信息" describe="ECR_PBC_CREDITLETTER">
+      <extendProperties>
+        <property name="modifier" value="zyzhang" />
+        <property name="creationDate" value="1248416680" />
+        <property name="modificationDate" value="1248420919" />
+        <property name="creator" value="zyzhang" />
+      </extendProperties>
+      <column index="1" name="OCCURDATE" label="业务发生日期" type="VARCHAR" displaySize="14" precision="14" scale="0" format="" />
+      <column index="2" name="FINANCEID" label="金融机构代码" type="VARCHAR" displaySize="14" precision="14" scale="0" format="" />
+      <column index="3" name="loancardno" label="贷款卡编码" type="VARCHAR" displaySize="16" precision="16" scale="0" format="" />
+      <column index="4" name="CREDITLETTERNO" label="信用证合同号码" type="VARCHAR" displaySize="60" precision="60" scale="0" format="" />
+      <column index="5" name="LOADDATE" label="加载日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="6" name="BUSINESSID" label="业务ID" type="VARCHAR" displaySize="20" precision="20" scale="0" format="" />
+      <column index="7" name="INCREMENTFLAG" label="借款人名称" type="VARCHAR" displaySize="80" precision="80" scale="0" format="" />
+      <column index="8" name="MODFLAG" label="授信协议编号" type="VARCHAR" displaySize="60" precision="60" scale="0" format="" />
+      <column index="9" name="CUSTOMERID" label="币种" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+      <column index="10" name="CREDITNO" label="业务金额" type="VARCHAR" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="11" name="CURRENCY" label="业务金额折人民币" type="VARCHAR" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="12" name="CREATESUM" label="业务金额折美元" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="13" name="CREATEDATE" label="开证日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="14" name="AVAILABTERM" label="信用证有效期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="15" name="PAYTERM" label="付款期限代码" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+      <column index="16" name="DEPOSITSCALE" label="保证金比例" type="NUMERIC" displaySize="3" precision="3" scale="0" format="" />
+      <column index="17" name="GUARANTYFLAG" label="担保标志" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+      <column index="18" name="FLOORFLAG" label="垫款标志" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+      <column index="19" name="CREDITSTATUS" label="信用证状态" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+      <column index="20" name="LOGOUTDATE" label="信用证注销日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="21" name="BALANCE" label="余额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="22" name="BALANCEREPORTDATE" label="余额报告日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="23" name="CLASSIFY5" label="五级分类" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+      <column index="24" name="DOCID" label="文件ID" type="VARCHAR" displaySize="16" precision="16" scale="0" format="" />
+      <column index="25" name="ROWSID" label="余额折人 民币" type="VARCHAR" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="26" name="VALIDFLAG" label="余额折美元" type="VARCHAR" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="27" name="VALIDFLAGCHANGEDATE" label="文件ID" type="VARCHAR" displaySize="16" precision="16" scale="0" format="" />
+      <column index="28" name="RECORDSHIFT" label="余额折人 民币" type="VARCHAR" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="29" name="FINANCECODE" label="余额折美元" type="VARCHAR" displaySize="24" precision="24" scale="0" format="#0.00" />
+    </table>
+    <table name="ECR_PBC_CUSTOMERCREDIT" label="人行授信信息" describe="ECR_PBC_CUSTOMERCREDIT">
+      <extendProperties>
+        <property name="modifier" value="zyzhang" />
+        <property name="creationDate" value="1248416680" />
+        <property name="modificationDate" value="1248421470" />
+        <property name="creator" value="zyzhang" />
+      </extendProperties>
+      <column index="1" name="FINANCECODE" label="金融机构代码" type="VARCHAR" displaySize="14" precision="14" scale="0" format="" />
+      <column index="2" name="CREDITAGREEMENTCODE" label="授信协议编码" type="VARCHAR" displaySize="60" precision="60" scale="0" format="" />
+      <column index="3" name="LOADDATE" label="加载日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="4" name="OPERATIONID" label="业务ID" type="VARCHAR" displaySize="20" precision="20" scale="0" format="" />
+      <column index="5" name="OPROCCURDATE" label="业务发生日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="6" name="loancardno" label="贷款卡编码" type="VARCHAR" displaySize="16" precision="16" scale="0" format="" />
+      <column index="7" name="BORROWERNAME" label="借款人名称" type="VARCHAR" displaySize="80" precision="80" scale="0" format="" />
+      <column index="8" name="CURRENCY" label="币种" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+      <column index="9" name="BUSINESSSUM" label="业务金额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="10" name="BUSINESSSUMTORMB" label="业务金额折人民币" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="11" name="BUSINESSSUMTOUSD" label="业务金额折美元" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="12" name="STARTDATE" label="合同生效日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="13" name="ENDDATE" label="合同终止日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="14" name="LIMITATIONPAUSEINUREDATE" label="授信额度注销生效日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="15" name="LIMITATIONPAUSECODE" label="授信额度失效原因编码" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+      <column index="16" name="FILEID" label="文件ID" type="VARCHAR" displaySize="16" precision="16" scale="0" format="" />
+    </table>
+    <table name="ECR_PBC_DISCOUNT" label="人行贴现信息" describe="ECR_PBC_DISCOUNT">
+      <extendProperties>
+        <property name="modifier" value="zyzhang" />
+        <property name="creationDate" value="1248416680" />
+        <property name="modificationDate" value="1248426887" />
+        <property name="creator" value="zyzhang" />
+      </extendProperties>
+       <column index="1" name="OCCURDATE" label="业务发生日期" type="VARCHAR" displaySize="60" precision="60" scale="0" format="" />
+      <column index="2" name="FINANCEID" label="金融机构代码" type="VARCHAR" displaySize="60" precision="60" scale="0" format="" />
+      <column index="3" name="loancardno" label="贷款卡编码" type="VARCHAR" displaySize="16" precision="16" scale="0" format="" />
+      <column index="4" name="BILLNO" label="票据内部编号" type="VARCHAR" displaySize="60" precision="60" scale="0" format="" />
+      <column index="5" name="LOADDATE" label="加载日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="6" name="CONTRACTID" label="业务ID" type="VARCHAR" displaySize="20" precision="20" scale="0" format="" />
+      <column index="7" name="OPERATETYPE" label="业务发生日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="8" name="ISIDCHANGE" label="是否账户标志变更" type="VARCHAR" displaySize="60" precision="60" scale="0" format="" />
+      <column index="9" name="CONTRACTNO" label="授信协议编号" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+      <column index="10" name="BILLTYPE" label="票据种类" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+      <column index="11" name="CUSTOMERNAME" label="贴现申请人名称" type="VARCHAR" displaySize="80" precision="80" scale="0" format="" />
+      <column index="12" name="ACCEPTORNAME" label="承兑人/行名称" type="VARCHAR" displaySize="80" precision="80" scale="0" format="" />
+      <column index="13" name="ACCEPTORID" label="承兑人/行卡号" type="VARCHAR" displaySize="16" precision="16" scale="0" format="" />
+      <column index="14" name="ACCEPTORORGID" label="承兑人/行的组织机构代码" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="15" name="CURRENCY" label="币种" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+      <column index="16" name="ACCEPTSUM" label="业务金额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="17" name="ACCEPTDATE" label="贴现日" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="18" name="ACCEPTENDDATE" label="承兑到期日" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="19" name="BILLSUM" label="票面金额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="20" name="BILLSTATUS" label="票据状态" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+      <column index="21" name="CLASSIFY5" label="五级分类" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+      <column index="22" name="CLASSIFY4" label="四级分类" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+      <column index="23" name="DOCID" label="文件ID" type="VARCHAR" displaySize="16" precision="16" scale="0" format="" />
+      <column index="24" name="ROWSID" label="票面金额折人民币" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="25" name="VALIDFLAG" label="票面金额折美元" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="26" name="VALIDFLAGCHANGEDATE" label="票面金额折人民币" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="27" name="RECORDSHIFT" label="票面金额折美元" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="28" name="FINANCECODE" label="票面金额折美元" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+    </table>
+    <table name="ECR_PBC_FACTORING" label="人行保理信息" describe="ECR_PBC_FACTORING">
+      <extendProperties>
+        <property name="modifier" value="zyzhang" />
+        <property name="creationDate" value="1248416680" />
+        <property name="modificationDate" value="1248422174" />
+        <property name="creator" value="zyzhang" />
+      </extendProperties>
+      <column index="1" name="FINANCECODE" label="金融机构代码" type="VARCHAR" displaySize="14" precision="14" scale="0" format="" />
+      <column index="2" name="FACTORINGNO" label="保理协议编号" type="VARCHAR" displaySize="60" precision="60" scale="0" format="" />
+      <column index="3" name="LOADDATE" label="加载日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="4" name="OPROCCURDATE" label="业务发生日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="5" name="OPERATIONID" label="业务ID" type="VARCHAR" displaySize="20" precision="20" scale="0" format="" />
+      <column index="6" name="loancardno" label="贷款卡编码" type="VARCHAR" displaySize="16" precision="16" scale="0" format="" />
+      <column index="7" name="CREDITNO" label="授信协议编号" type="VARCHAR" displaySize="60" precision="60" scale="0" format="" />
+      <column index="8" name="BUSINESSTYPE" label="业务种类" type="VARCHAR" displaySize="40" precision="40" scale="0" format="" />
+      <column index="9" name="FACTORINGSTATUS" label="保理业务状态" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+      <column index="10" name="BORROWERNAME" label="借款人名称" type="VARCHAR" displaySize="80" precision="80" scale="0" format="" />
+      <column index="11" name="CURRENCY" label="币种" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+      <column index="12" name="BUSINESSSUM" label="业务金额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="13" name="BUSINESSSUMTORMB" label="业务金额折人民币" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="14" name="BUSINESSSUMTOUSD" label="业务金额折美元" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="15" name="BUSINESSDATE" label="叙做日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="16" name="BALANCE" label="余额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="17" name="BALANCETORMB" label="余额折人 民币" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="18" name="BALANCETOUSD" label="余额折美元" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="19" name="BALANCECHANGEDATE" label="余额变动日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="20" name="GUARANTEEFLAG" label="担保标志" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+      <column index="21" name="FLOORFLAG" label="垫款标志" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+      <column index="22" name="CLASSIFY4" label="四级分类" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+      <column index="23" name="CLASSIFY5" label="五级分类" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+      <column index="24" name="FILEID" label="文件ID" type="VARCHAR" displaySize="16" precision="16" scale="0" format="" />
+    </table>
+    <table name="ECR_PBC_FINADUEBILL" label="人行贸易融资借据" describe="ECR_PBC_FINADUEBILL">
+      <extendProperties>
+        <property name="modifier" value="zyzhang" />
+        <property name="creationDate" value="1248416680" />
+        <property name="modificationDate" value="1248420169" />
+        <property name="creator" value="zyzhang" />
+      </extendProperties>
+      <column index="1" name="FINANCECODE" label="金融机构代码" type="VARCHAR" displaySize="14" precision="14" scale="0" format="" />
+      <column index="2" name="FCONTRACTNO" label="融资协议编号" type="VARCHAR" displaySize="60" precision="60" scale="0" format="" />
+      <column index="3" name="FDUEBILLNO" label="融资业务编号" type="VARCHAR" displaySize="60" precision="60" scale="0" format="" />
+      <column index="4" name="loancardno" label="贷款卡编码" type="VARCHAR" displaySize="16" precision="16" scale="0" format="" />
+      <column index="5" name="LOADDATE" label="加载日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="6" name="OPERATIONID" label="业务ID" type="VARCHAR" displaySize="20" precision="20" scale="0" format="" />
+      <column index="7" name="FCONTRACTID" label="融资协议ID" type="VARCHAR" displaySize="20" precision="20" scale="0" format="" />
+      <column index="8" name="BUSINESSTYPE" label="业务种类" type="VARCHAR" displaySize="40" precision="40" scale="0" format="" />
+      <column index="9" name="OPROCCURDATE" label="业务发生日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="10" name="CURRENCY" label="币种" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+      <column index="11" name="BUSINESSSUM" label="业务金额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="12" name="BUSINESSSUMTORMB" label="业务金额折人民币" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="13" name="BUSINESSSUMTOUSD" label="业务金额折美元" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="14" name="BALANCE" label="余额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="15" name="BALANCETORMB" label="余额折人 民币" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="16" name="BALANCETOUSD" label="余额折美元" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="17" name="PUTOUTDATE" label="借据放款日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="18" name="PUTOUTENDDATE" label="借据到期日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="19" name="EXTENFLAG" label="展期标志" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+      <column index="20" name="CLASSIFY5" label="五级分类" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+      <column index="21" name="CLASSIFY4" label="四级分类" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+      <column index="22" name="FILEID" label="文件ID" type="VARCHAR" displaySize="16" precision="16" scale="0" format="" />
+    </table>
+    <table name="ECR_PBC_FINAINFO" label="人行贸易融资协议" describe="ECR_PBC_FINAINFO">
+      <extendProperties>
+        <property name="modifier" value="zyzhang" />
+        <property name="creationDate" value="1248416680" />
+        <property name="modificationDate" value="1248420497" />
+        <property name="creator" value="zyzhang" />
+      </extendProperties>
+      <column index="1" name="FINANCECODE" label="金融机构代码" type="VARCHAR" displaySize="14" precision="14" scale="0" format="" />
+      <column index="2" name="FINANCINGAGREEMENTCODE" label="融资协议编号" type="VARCHAR" displaySize="60" precision="60" scale="0" format="" />
+      <column index="3" name="LOADDATE" label="加载日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="4" name="OPERATIONID" label="业务ID" type="VARCHAR" displaySize="20" precision="20" scale="0" format="" />
+      <column index="5" name="OPROCCURDATE" label="业务发生日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="6" name="BORROWERNAME" label="借款人名称" type="VARCHAR" displaySize="80" precision="80" scale="0" format="" />
+      <column index="7" name="loancardno" label="贷款卡编码" type="VARCHAR" displaySize="16" precision="16" scale="0" format="" />
+      <column index="8" name="CREDITNO" label="授信协议编号" type="VARCHAR" displaySize="60" precision="60" scale="0" format="" />
+      <column index="9" name="STARTDATE" label="合同生效日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="10" name="ENDDATE" label="合同终止日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="11" name="AVAILABLESTATUS" label="合同有效状态" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+      <column index="12" name="GUARANTEEFLAG" label="担保标志" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+      <column index="13" name="FILEID" label="文件ID" type="VARCHAR" displaySize="16" precision="16" scale="0" format="" />
+    </table>
+    <table name="ECR_PBC_FLOORFUND" label="人行垫款信息" describe="ECR_PBC_FLOORFUND">
+      <extendProperties>
+        <property name="modifier" value="zyzhang" />
+        <property name="creationDate" value="1248416680" />
+        <property name="modificationDate" value="1248421590" />
+        <property name="creator" value="zyzhang" />
+      </extendProperties>
+      <column index="1" name="OCCURDATE" label="业务发生日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="2" name="FINANCEID" label="金融机构代码" type="VARCHAR" displaySize="14" precision="14" scale="0" format="" />
+      <column index="3" name="LOANCARDNO" label="贷款卡编码" type="VARCHAR" displaySize="16" precision="16" scale="0" format="" />
+      <column index="4" name="FFNO" label="垫款业务号码" type="VARCHAR" displaySize="60" precision="60" scale="0" format="" />
+      <column index="5" name="FCONTRACTNO" label="原业务号" type="VARCHAR" displaySize="60" precision="60" scale="0" format="" />
+      <column index="6" name="LOADDATE" label="加载日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="7" name="BUSINESSID" label="业务ID" type="VARCHAR" displaySize="20" precision="20" scale="0" format="" />
+      <column index="8" name="MBUSINESSID" label="主业务信息ID" type="VARCHAR" displaySize="20" precision="20" scale="0" format="" />
+      <column index="9" name="OPERATETYPE" label="操作类型" type="VARCHAR" displaySize="20" precision="20" scale="0" format="" />
+      <column index="10" name="ISIDCHANGE" label="是否账户标志变更" type="VARCHAR" displaySize="20" precision="20" scale="0" format="" />
+      <column index="11" name="CUSTOMERNAME" label="借款人名称" type="VARCHAR" displaySize="80" precision="80" scale="0" format="" />
+      <column index="12" name="FFTYPE" label="业务种类" type="VARCHAR" displaySize="40" precision="40" scale="0" format="" />
+      <column index="13" name="CURRENCY" label="币种" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+      <column index="14" name="BUSINESSSUM" label="业务金额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="15" name="CREATEDATE" label="垫款起始日期" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+     <column index="16" name="BALANCE" label="余额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+     <column index="17" name="BALANCECHANGEDATE" label="余额发生日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="18" name="RETURNMODE" label="还款方式代码" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+      <column index="19" name="CLASSIFY4" label="四级分类" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+      <column index="20" name="CLASSIFY5" label="五级分类" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+      <column index="21" name="DOCID" label="文件ID" type="VARCHAR" displaySize="16" precision="16" scale="0" format="" />
+    <column index="22" name="ROWSID" label="业务金额折美元" type="VARCHAR" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="23" name="VALIDFLAG" label="垫款日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+       <column index="24" name="VALIDFLAGCHANGEDATE" label="余额折人 民币" type="VARCHAR" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="25" name="RECORDSHIFT" label="余额折美元" type="VARCHAR" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="26" name="FINANCECODE" label="余额折美元" type="VARCHAR" displaySize="24" precision="24" scale="0" format="#0.00" />
+    </table>
+    <table name="ECR_PBC_GUARANTEEBILL" label="人行保函信息" describe="ECR_PBC_GUARANTEBILL">
+      <extendProperties>
+        <property name="modifier" value="zyzhang" />
+        <property name="creationDate" value="1248416680" />
+        <property name="modificationDate" value="1248420758" />
+        <property name="creator" value="zyzhang" />
+      </extendProperties>
+      <column index="1" name="OCCURDATE" label="金融机构代码" type="VARCHAR" displaySize="14" precision="14" scale="0" format="" />
+      <column index="2" name="FINANCEID" label="金融机构代码" type="VARCHAR" displaySize="14" precision="14" scale="0" format="" />
+      <column index="3" name="loancardno" label="贷款卡编码" type="VARCHAR" displaySize="16" precision="16" scale="0" format="" />
+      <column index="4" name="GCONTRACTNO" label="保函合同号码" type="VARCHAR" displaySize="60" precision="60" scale="0" format="" />
+      <column index="5" name="LOADDATE" label="加载日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="6" name="BUSINESSID" label="业务ID" type="VARCHAR" displaySize="20" precision="20" scale="0" format="" />
+      <column index="7" name="OPERATETYPE" label="借款人名称" type="VARCHAR" displaySize="80" precision="80" scale="0" format="" />
+      <column index="8" name="ISIDCHANGE" label="借款人名称" type="VARCHAR" displaySize="80" precision="80" scale="0" format="" />
+      <column index="9" name="CUSTOMERNAME" label="借款人名称" type="VARCHAR" displaySize="80" precision="80" scale="0" format="" />
+      <column index="10" name="CREDITCONTRACTNO" label="授信协议编号" type="VARCHAR" displaySize="60" precision="60" scale="0" format="" />
+      <column index="11" name="GUARANTEETYPE" label="保函种类" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+      <column index="12" name="AVAILABSTATUS" label="保函状态" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+      <column index="13" name="CURRENCY" label="币种" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+      <column index="14" name="BUSINESSSUM" label="业务金额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="15" name="CREATEDATE" label="合同生效日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="16" name="ENDDATE" label="合同终止日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="17" name="DEPOSITSCALE" label="保证金比例" type="NUMERIC" displaySize="3" precision="3" scale="0" format="" />
+      <column index="18" name="FLOORFLAG" label="垫款标志" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+      <column index="19" name="GUARANTYFLAG" label="担保标志" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+      <column index="20" name="BALANCE" label="余额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+     <column index="21" name="BALANCECHANGEDATE" label="余额发生日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+     <column index="22" name="CLASSIFY5" label="五级分类" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+     <column index="23" name="DOCID" label="文件ID" type="VARCHAR" displaySize="16" precision="16" scale="0" format="" />
+     <column index="24" name="ROWSID" label="余额折美元" type="VARCHAR" displaySize="24" precision="24" scale="0" format="#0.00" />
+     <column index="25" name="VALIDFLAG" label="余额折人 民币" type="VARCHAR" displaySize="24" precision="24" scale="0" format="#0.00" />
+     <column index="26" name="VALIDFLAGCHANGEDATE" label="文件ID" type="VARCHAR" displaySize="16" precision="16" scale="0" format="" />
+     <column index="27" name="RECORDSHIFT" label="余额折美元" type="VARCHAR" displaySize="24" precision="24" scale="0" format="#0.00" />
+     <column index="28" name="FINANCECODE" label="余额折人 民币" type="VARCHAR" displaySize="24" precision="24" scale="0" format="#0.00" />
+    </table>
+    <table name="ECR_PBC_GUARANTYCONT" label="人行抵押合同信息" describe="ECR_PBC_GUARANTYCONT">
+      <extendProperties>
+        <property name="modifier" value="zyzhang" />
+        <property name="creationDate" value="1248416680" />
+        <property name="modificationDate" value="1248422050" />
+        <property name="creator" value="zyzhang" />
+      </extendProperties>
+      <column index="1" name="OCCURDATE" label="业务发生日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="2" name="FINANCEID" label="金融机构代码" type="VARCHAR" displaySize="14" precision="14" scale="0" format="" />
+      <column index="3" name="LOANCARDNO" label="贷款卡编码" type="VARCHAR" displaySize="16" precision="16" scale="0" format="" />
+      <column index="4" name="GLOANCARDNO" label="担保合同编号" type="VARCHAR" displaySize="60" precision="60" scale="0" format="" />
+      <column index="5" name="GUARANTYCONTNO" label="主合同编号" type="VARCHAR" displaySize="60" precision="60" scale="0" format="" />
+      <column index="6" name="GUARANTYSERIALNO" label="抵押序号" type="NUMERIC" displaySize="2" precision="2" scale="0" format="" />
+      <column index="7" name="LOADDATE" label="加载日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+       <column index="8" name="CONTRACTNO" label="业务ID" type="VARCHAR" displaySize="20" precision="20" scale="0" format="" />
+      <column index="9" name="GBUSINESSID" label="主业务信息ID" type="VARCHAR" displaySize="20" precision="20" scale="0" format="" />
+      <column index="10" name="MBUSINESSID" label="主贷款合同贷款卡编码" type="VARCHAR" displaySize="60" precision="60" scale="0" format="" />
+      <column index="11" name="OPERATETYPE" label="主贷款合同贷款卡编码" type="VARCHAR" displaySize="60" precision="60" scale="0" format="" />
+      <column index="12" name="ISIDCHANGE" label="信贷业务种类" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+     <column index="13" name="GUARANTORNAME" label="抵押人名称" type="VARCHAR" displaySize="80" precision="80" scale="0" format="" />
+     <column index="14" name="VALUECURRENCY" label="评估币种" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+      <column index="15" name="VALUESUM" label="抵押物评估价值" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="16" name="VALUEDATE" label="评估日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="17" name="VALUEORGNAME" label="评估机构名称" type="VARCHAR" displaySize="80" precision="80" scale="0" format="" />
+      <column index="18" name="VALUEORGID" label="评估机构组织机构代码" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="19" name="CREATEDATE" label="合同签订日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="20" name="GUARANTYTYPE" label="抵押物种类" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+      <column index="21" name="CURRENCY" label="币种" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+      <column index="22" name="GUARANTYSUM" label="担保金额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="23" name="INPUTORG" label="登记机关" type="VARCHAR" displaySize="80" precision="80" scale="0" format="" />
+      <column index="24" name="INPUTDATE" label="登记日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="25" name="GUARANTYMARK" label="抵押物说明" type="VARCHAR" displaySize="400" precision="400" scale="0" format="" />
+      <column index="26" name="BUSINESSTYPE" label="信贷业务种类" type="VARCHAR" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="27" name="AVAILABSTATUS" label="合同有效状态" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+      <column index="28" name="DOCID" label="文件ID" type="VARCHAR" displaySize="16" precision="16" scale="0" format="" />
+      <column index="29" name="ROWSID" label="担保金额折美元" type="VARCHAR" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="30" name="VALIDFLAG" label="信贷业务种类" type="VARCHAR" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="31" name="VALIDFLAGCHANGEDATE" label="合同有效状态" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+      <column index="32" name="RECORDSHIFT" label="文件ID" type="VARCHAR" displaySize="16" precision="16" scale="0" format="" />
+      <column index="33" name="FINANCECODE" label="担保金额折美元" type="VARCHAR" displaySize="24" precision="24" scale="0" format="#0.00" />
+    </table>
+    <table name="ECR_PBC_IMPAWNCONT" label="人行质押合同信息" describe="ECR_PBC_IMPAWNCONT">
+      <extendProperties>
+        <property name="modifier" value="zyzhang" />
+        <property name="creationDate" value="1248416680" />
+        <property name="modificationDate" value="1248421904" />
+        <property name="creator" value="zyzhang" />
+      </extendProperties>
+      <column index="1" name="OCCURDATE" label="业务发生日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="2" name="FINANCEID" label="金融机构代码" type="VARCHAR" displaySize="14" precision="14" scale="0" format="" />
+      <column index="3" name="loancardno" label="贷款卡编码" type="VARCHAR" displaySize="16" precision="16" scale="0" format="" />
+      <column index="4" name="ILOANCARDNO" label="担保合同编号" type="VARCHAR" displaySize="60" precision="60" scale="0" format="" />
+      <column index="5" name="IMPAWNCONTNO" label="主合同编号" type="VARCHAR" displaySize="60" precision="60" scale="0" format="" />
+      <column index="6" name="IMPAWNSERIALNO" label="质押序号" type="NUMERIC" displaySize="2" precision="2" scale="0" format="" />
+      <column index="7" name="LOADDATE" label="加载日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="8" name="CONTRACTNO" label="业务ID" type="VARCHAR" displaySize="20" precision="20" scale="0" format="" />
+      <column index="9" name="IBUSINESSID" label="主业务信息ID" type="VARCHAR" displaySize="20" precision="20" scale="0" format="" />
+     <column index="10" name="MBUSINESSID" label="" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+      <column index="11" name="OPERATETYPE" label="主贷款合同贷款卡编码" type="VARCHAR" displaySize="60" precision="60" scale="0" format="" />
+      <column index="12" name="ISIDCHANGE" label="主贷款合同贷款卡编码" type="VARCHAR" displaySize="60" precision="60" scale="0" format="" />
+      <column index="13" name="IMPAWNNAME" label="出质人名称" type="VARCHAR" displaySize="80" precision="80" scale="0" format="" />
+      <column index="14" name="VALUECURRENCY" label="评估币种" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+      <column index="15" name="VALUESUM" label="质押物估计价值" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="16" name="CREATEDATE" label="合同签订日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="17" name="GUARANTYTYPE" label="质押种类" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+      <column index="18" name="CURRENCY" label="币种" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+      <column index="19" name="GUARANTYSUM" label="担保金额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="20" name="BUSINESSTYPE" label="信贷业务种类" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="21" name="AVAILABLESTATUS" label="合同有效状态" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+      <column index="22" name="DOCID" label="文件ID" type="VARCHAR" displaySize="16" precision="16" scale="0" format="" />
+      <column index="23" name="ROWSID" label="担保金额折美元" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="24" name="VALIDFLAG" label="信贷业务种类" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="25" name="VALIDFLAGCHANGEDATE" label="合同有效状态" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+      <column index="26" name="RECORDSHIFT" label="文件ID" type="VARCHAR" displaySize="16" precision="16" scale="0" format="" />
+      <column index="27" name="FINANCECODE" label="担保金额折美元" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+    </table>
+    <table name="ECR_PBC_INTERESTDUE" label="人行欠息信息" describe="ECR_PBC_INTERESTDUE">
+      <extendProperties>
+        <property name="modifier" value="zyzhang" />
+        <property name="creationDate" value="1248416680" />
+        <property name="modificationDate" value="1248421670" />
+        <property name="creator" value="zyzhang" />
+      </extendProperties>
+      <column index="1" name="FINANCECODE" label="金融机构代码" type="VARCHAR" displaySize="14" precision="14" scale="0" format="" />
+      <column index="2" name="loancardno" label="贷款卡编码" type="VARCHAR" displaySize="16" precision="16" scale="0" format="" />
+      <column index="3" name="BORROWERNAME" label="借款人名称" type="VARCHAR" displaySize="80" precision="80" scale="0" format="" />
+      <column index="4" name="OPROCCURDATE" label="业务发生日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="5" name="LOADDATE" label="加载日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="6" name="OPERATIONID" label="业务ID" type="VARCHAR" displaySize="20" precision="20" scale="0" format="" />
+      <column index="7" name="CURRENCY" label="币种" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+      <column index="8" name="BUSINESSSUM" label="业务金额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="9" name="BUSINESSSUMTORMB" label="业务金额折人民币" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="10" name="BUSINESSSUMTOUSD" label="业务金额折美元" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="11" name="OWEKINDCODE" label="欠息类型" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+      <column index="12" name="BALANCECHANGEDATE" label="余额变动日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="13" name="FILEID" label="文件ID" type="VARCHAR" displaySize="16" precision="16" scale="0" format="" />
+    </table>
+    <table name="ECR_PBC_LOANCONTRACT" label="人行贷款合同" describe="ECR_PBC_LOANCONTRACT">
+      <extendProperties>
+        <property name="modifier" value="zyzhang" />
+        <property name="creationDate" value="1248416680" />
+        <property name="modificationDate" value="1248418727" />
+        <property name="creator" value="zyzhang" />
+      </extendProperties>
+       <column index="1" name="OCCURDATE" label="业务发生日期" type="VARCHAR" displaySize="20" precision="20" scale="0" format="" />
+       <column index="2" name="FINANCEID" label="金融机构代码" type="VARCHAR" displaySize="14" precision="14" scale="0" format="" />
+       <column index="3" name="loancardno" label="贷款卡编码" type="VARCHAR" displaySize="16" precision="16" scale="0" format="" />
+      <column index="4" name="LCONTRACTNO" label="合同号码" type="VARCHAR" displaySize="60" precision="60" scale="0" format="" />
+      <column index="5" name="LOADDATE" label="加载日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="6" name="CONTRACTID" label="业务ID" type="VARCHAR" displaySize="20" precision="20" scale="0" format="" />
+      <column index="7" name="operatetype" label="业务发生日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="8" name="isidchange" label="授信协议编号" type="VARCHAR" displaySize="60" precision="60" scale="0" format="" />
+      <column index="9" name="contractno" label="借款人名称" type="VARCHAR" displaySize="80" precision="80" scale="0" format="" />
+      <column index="10" name="customername" label="合同生效日期" type="VARCHAR" displaySize="80" precision="80" scale="0" format="" />
+      <column index="11" name="begindate" label="合同终止日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="12" name="enddate" label="银团标志" type="VARCHAR" displaySize="5" precision="10" scale="0" format="" />
+      <column index="13" name="BANKID" label="文件ID" type="VARCHAR" displaySize="16" precision="16" scale="0" format="" />
+      <column index="14" name="GUARANTYSTATUS" label="担保标志" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+      <column index="15" name="AVAILABSTATUS" label="合同有效状态" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+      <column index="16" name="DOCID" label="文件ID" type="VARCHAR" displaySize="16" precision="16" scale="0" format="" />
+      <column index="17" name="rowsid" label="文件ID" type="VARCHAR" displaySize="16" precision="16" scale="0" format="" />
+      <column index="18" name="validflag" label="文件ID" type="VARCHAR" displaySize="16" precision="16" scale="0" format="" />
+     <column index="19" name="validflagchangedate" label="文件ID" type="VARCHAR" displaySize="16" precision="16" scale="0" format="" />
+     <column index="20" name="recordshift" label="文件ID" type="VARCHAR" displaySize="16" precision="16" scale="0" format="" />
+     <column index="21" name="financecode" label="文件ID" type="VARCHAR" displaySize="16" precision="16" scale="0" format="" />
+    </table>
+    <table name="ECR_PBC_LOANDUEBILL" label="人行贷款借据" describe="ECR_PBC_LOANDUEBILL">
+      <extendProperties>
+        <property name="modifier" value="zyzhang" />
+        <property name="creationDate" value="1248416680" />
+        <property name="modificationDate" value="1248419916" />
+        <property name="creator" value="zyzhang" />
+      </extendProperties>
+      <column index="1" name="OCCURDATE" label="业务发生日期" type="VARCHAR" displaySize="14" precision="14" scale="0" format="" />
+      <column index="2" name="FINANCEID" label="金融机构代码" type="VARCHAR" displaySize="14" precision="14" scale="0" format="" />
+      <column index="3" name="CONTRACTNO" label="合同号码" type="VARCHAR" displaySize="60" precision="60" scale="0" format="" />
+      <column index="4" name="OLDDUEBILLNO" label="借据号码" type="VARCHAR" displaySize="120" precision="60" scale="0" format="" />
+      <column index="5" name="LOANCARDNO" label="贷款卡编码" type="VARCHAR" displaySize="16" precision="16" scale="0" format="" />
+      <column index="6" name="LOADDATE" label="加载日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="7" name="CONTRACTID" label="合同业务ID" type="VARCHAR" displaySize="20" precision="20" scale="0" format="" />
+      <column index="8" name="DUEBILLID" label="业务ID" type="VARCHAR" displaySize="20" precision="20" scale="0" format="" />
+      <column index="9" name="OPERATETYPE" label="业务发生日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="10" name="ISIDCHANGE" label="币种" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+      <column index="11" name="CURRENCY" label="币种" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+      <column index="12" name="BILLSUM" label="业务金额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="" />
+      <column index="13" name="BALANCE" label="余额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="#0.00" />
+      <column index="14" name="PUTOUTDATE" label="借据放款日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="15" name="PUTOUTENDDATE" label="借据到期日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="16" name="BUSINESSTYPE" label="业务种类" type="VARCHAR" displaySize="40" precision="40" scale="0" format="" />
+      <column index="17" name="LOANFORM" label="贷款形式" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+      <column index="18" name="LOANPROPERTY" label="贷款性质" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+      <column index="19" name="LOANDIRECTION" label="贷款投向" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+      <column index="20" name="LOANKIND" label="贷款种类" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+      <column index="21" name="EXTENFLAG" label="展期标志" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+      <column index="22" name="CLASSIFY5" label="五级分类" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+      <column index="23" name="CLASSIFY4" label="四级分类" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+      <column index="24" name="DOCID" label="文件ID" type="VARCHAR" displaySize="16" precision="16" scale="0" format="" />
+      <column index="25" name="ROWSID" label="展期标志" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+      <column index="26" name="VALIDFLAG" label="五级分类" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+      <column index="27" name="VALIDFLAGCHANGEDATE" label="四级分类" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+      <column index="28" name="RECORDSHIFT" label="文件ID" type="VARCHAR" displaySize="16" precision="16" scale="0" format="" />
+      <column index="29" name="FINANCECODE" label="文件ID" type="VARCHAR" displaySize="16" precision="16" scale="0" format="" />
+    </table>
+    <table name="ECR_TEMP_BC" label="信贷未结清合同表" describe="ECR_TEMP_BC">
+      <extendProperties>
+        <property name="modifier" value="zyzhang" />
+        <property name="creationDate" value="1248416680" />
+        <property name="modificationDate" value="1248416681" />
+        <property name="creator" value="zyzhang" />
+      </extendProperties>
+      <column index="1" name="LOANCARDNO" label="贷款卡号" type="VARCHAR" displaySize="16" precision="16" scale="0" format="" />
+      <column index="2" name="OCCURDATE" label="发生日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="3" name="CONTRACTNO" label="合同编号" type="VARCHAR" displaySize="60" precision="60" scale="0" format="" />
+      <column index="4" name="OLDFINANCEID" label="原金融机构代码" type="VARCHAR" displaySize="59" precision="59" scale="0" format="" />
+      <column index="5" name="INCREMENTFLAG" label="增量标志" type="VARCHAR" displaySize="1" precision="1" scale="0" format="" />
+      <column index="6" name="CUSTOMERID" label="客户号" type="VARCHAR" displaySize="40" precision="40" scale="0" format="" />
+      <column index="7" name="CUSTOMERNAME" label="客户名称" type="VARCHAR" displaySize="80" precision="80" scale="0" format="" />
+      <column index="8" name="BUSINESSTYPE" label="业务种类" type="VARCHAR" displaySize="40" precision="40" scale="0" format="" />
+      <column index="9" name="PBTYPE" label="人行业务种类" type="VARCHAR" displaySize="2" precision="2" scale="0" format="" />
+      <column index="10" name="FINISHDATE" label="结清日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="11" name="ACTUALPUTOUTDATE" label="实际发放日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="12" name="ACTUALMATURITY" label="实际到期日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="13" name="ACTUALPUTOUTSUM" label="业务金额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="" />
+      <column index="14" name="BALANCE" label="余额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="" />
+      <column index="15" name="INTERESTBALANCE1" label="表内欠息" type="NUMERIC" displaySize="24" precision="24" scale="0" format="" />
+      <column index="16" name="INTERESTBALANCE2" label="表外欠息" type="NUMERIC" displaySize="24" precision="24" scale="0" format="" />
+      <column index="17" name="MANAGEORGID" label="管户机构" type="VARCHAR" displaySize="40" precision="40" scale="0" format="" />
+    </table>
+    <table name="ECR_TEMP_BD" label="信贷未结清借据表" describe="ECR_TEMP_BD">
+      <extendProperties>
+        <property name="modifier" value="zyzhang" />
+        <property name="creationDate" value="1248416680" />
+        <property name="modificationDate" value="1248416681" />
+        <property name="creator" value="zyzhang" />
+      </extendProperties>
+      <column index="1" name="LOANCARDNO" label="贷款卡号" type="VARCHAR" displaySize="16" precision="16" scale="0" format="" />
+      <column index="2" name="OCCURDATE" label="发生日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="3" name="DUEBILLNO" label="借据号" type="VARCHAR" displaySize="40" precision="40" scale="0" format="" />
+      <column index="4" name="OLDFINANCEID" label="原金融机构代码" type="VARCHAR" displaySize="59" precision="59" scale="0" format="" />
+      <column index="5" name="INCREMENTFLAG" label="增量标志" type="VARCHAR" displaySize="1" precision="1" scale="0" format="" />
+      <column index="6" name="CUSTOMERID" label="客户号" type="VARCHAR" displaySize="40" precision="40" scale="0" format="" />
+      <column index="7" name="CONTRACTNO" label="主合同编号" type="VARCHAR" displaySize="40" precision="40" scale="0" format="" />
+      <column index="8" name="CUSTOMERNAME" label="客户名称" type="VARCHAR" displaySize="80" precision="80" scale="0" format="" />
+      <column index="9" name="BUSINESSTYPE" label="业务种类" type="VARCHAR" displaySize="40" precision="40" scale="0" format="" />
+      <column index="10" name="PBTYPE" label="人行业务种类" type="VARCHAR" displaySize="2" precision="2" scale="0" format="" />
+      <column index="11" name="FINISHDATE" label="结清日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="12" name="ACTUALPUTOUTDATE" label="实际发放日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="13" name="ACTUALMATURITY" label="实际到期日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="14" name="BUSINESSSUM" label="业务金额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="" />
+      <column index="15" name="BALANCE" label="余额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="" />
+      <column index="16" name="INTERESTBALANCE1" label="表内欠息" type="NUMERIC" displaySize="24" precision="24" scale="0" format="" />
+      <column index="17" name="INTERESTBALANCE2" label="表外欠息" type="NUMERIC" displaySize="24" precision="24" scale="0" format="" />
+      <column index="18" name="MANAGEORGID" label="管户机构" type="VARCHAR" displaySize="40" precision="40" scale="0" format="" />
+      <column index="19" name="BUSINESSSTATUS" label="借据状态" type="VARCHAR" displaySize="20" precision="20" scale="0" format="" />
+    </table>
+    <table name="ECR_TEMP_ECRBC" label="征信未结清合同表" describe="ECR_TEMP_ECRBC">
+      <extendProperties>
+        <property name="modifier" value="zyzhang" />
+        <property name="creationDate" value="1248416680" />
+        <property name="modificationDate" value="1248416681" />
+        <property name="creator" value="zyzhang" />
+      </extendProperties>
+      <column index="1" name="LOANCARDNO" label="贷款卡号" type="VARCHAR" displaySize="16" precision="16" scale="0" format="" />
+      <column index="2" name="OCCURDATE" label="发生日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="3" name="CONTRACTNO" label="合同编号" type="VARCHAR" displaySize="60" precision="60" scale="0" format="" />
+      <column index="4" name="OLDFINANCEID" label="原金融机构代码" type="VARCHAR" displaySize="59" precision="59" scale="0" format="" />
+      <column index="5" name="INCREMENTFLAG" label="增量标志" type="VARCHAR" displaySize="1" precision="1" scale="0" format="" />
+      <column index="6" name="CUSTOMERID" label="客户号" type="VARCHAR" displaySize="40" precision="40" scale="0" format="" />
+      <column index="7" name="CUSTOMERNAME" label="客户名称" type="VARCHAR" displaySize="80" precision="80" scale="0" format="" />
+      <column index="8" name="BUSINESSTYPE" label="业务种类" type="VARCHAR" displaySize="40" precision="40" scale="0" format="" />
+      <column index="9" name="ACTUALPUTOUTSUM" label="业务金额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="" />
+      <column index="10" name="BALANCE" label="余额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="" />
+      <column index="11" name="ACTUALMATURITY" label="实际到期日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="12" name="ACTUALPUTOUTDATE" label="实际发放日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="13" name="INTERESTBALANCE2" label="表外欠息" type="NUMERIC" displaySize="24" precision="24" scale="0" format="" />
+      <column index="14" name="INTERESTBALANCE1" label="表内欠息" type="NUMERIC" displaySize="24" precision="24" scale="0" format="" />
+      <column index="15" name="FINISHDATE" label="结清日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="16" name="PBTYPE" label="人行业务种类" type="VARCHAR" displaySize="2" precision="2" scale="0" format="" />
+      <column index="17" name="MANAGEORGID" label="管户机构" type="VARCHAR" displaySize="40" precision="40" scale="0" format="" />
+    </table>
+    <table name="ECR_TEMP_ECRBD" label="征信未结清借据表" describe="ECR_TEMP_ECRBD">
+      <extendProperties>
+        <property name="modifier" value="zyzhang" />
+        <property name="creationDate" value="1248416680" />
+        <property name="modificationDate" value="1248416681" />
+        <property name="creator" value="zyzhang" />
+      </extendProperties>
+      <column index="1" name="LOANCARDNO" label="贷款卡号" type="VARCHAR" displaySize="16" precision="16" scale="0" format="" />
+      <column index="2" name="OCCURDATE" label="发生日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="3" name="DUEBILLNO" label="借据号" type="VARCHAR" displaySize="40" precision="40" scale="0" format="" />
+      <column index="4" name="OLDFINANCEID" label="原金融机构代码" type="VARCHAR" displaySize="59" precision="59" scale="0" format="" />
+      <column index="5" name="INCREMENTFLAG" label="增量标志" type="VARCHAR" displaySize="1" precision="1" scale="0" format="" />
+      <column index="6" name="CUSTOMERID" label="客户号" type="VARCHAR" displaySize="40" precision="40" scale="0" format="" />
+      <column index="7" name="CONTRACTNO" label="合同编号" type="VARCHAR" displaySize="60" precision="60" scale="0" format="" />
+      <column index="8" name="CUSTOMERNAME" label="客户名称" type="VARCHAR" displaySize="80" precision="80" scale="0" format="" />
+      <column index="9" name="BUSINESSTYPE" label="业务种类" type="VARCHAR" displaySize="40" precision="40" scale="0" format="" />
+      <column index="10" name="PBTYPE" label="人行业务种类" type="VARCHAR" displaySize="2" precision="2" scale="0" format="" />
+      <column index="11" name="FINISHDATE" label="结清日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="12" name="ACTUALPUTOUTDATE" label="实际发放日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="13" name="ACTUALMATURITY" label="实际到期日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="14" name="BUSINESSSUM" label="业务金额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="" />
+      <column index="15" name="BALANCE" label="余额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="" />
+      <column index="16" name="INTERESTBALANCE1" label="表内欠息" type="NUMERIC" displaySize="24" precision="24" scale="0" format="" />
+      <column index="17" name="INTERESTBALANCE2" label="表外欠息" type="NUMERIC" displaySize="24" precision="24" scale="0" format="" />
+      <column index="18" name="MANAGEORGID" label="管户机构" type="VARCHAR" displaySize="40" precision="40" scale="0" format="" />
+      <column index="19" name="BUSINESSSTATUS" label="借据状态" type="VARCHAR" displaySize="20" precision="20" scale="0" format="" />
+    </table>
+    <table name="ECR_TEMP_ECRGC" label="征信有效担保表" describe="ECR_TEMP_ECRGC">
+      <extendProperties>
+        <property name="modifier" value="zyzhang" />
+        <property name="creationDate" value="1248416680" />
+        <property name="modificationDate" value="1248416681" />
+        <property name="creator" value="zyzhang" />
+      </extendProperties>
+      <column index="1" name="LOANCARDNO" label="贷款卡号" type="VARCHAR" displaySize="16" precision="16" scale="0" format="" />
+      <column index="2" name="OCCURDATE" label="发生日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="3" name="GCONTRACTNO" label="担保合同编号" type="VARCHAR" displaySize="40" precision="40" scale="0" format="" />
+      <column index="4" name="OLDFINANCEID" label="原金融机构代码" type="VARCHAR" displaySize="59" precision="59" scale="0" format="" />
+      <column index="5" name="INCREMENTFLAG" label="增量标志" type="VARCHAR" displaySize="1" precision="1" scale="0" format="" />
+      <column index="6" name="CONTRACTSTATUS" label="合同有效状态" type="VARCHAR" displaySize="3" precision="3" scale="0" format="" />
+      <column index="7" name="GUARANTYVALUE" label="担保金额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="" />
+      <column index="8" name="GUARANTYTYPE" label="担保类型" type="VARCHAR" displaySize="2" precision="2" scale="0" format="" />
+      <column index="9" name="GUARANTYBALANCE" label="担保余额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="" />
+    </table>
+    <table name="ECR_TEMP_GC" label="信贷有效担保表" describe="ECR_TEMP_GC">
+      <extendProperties>
+        <property name="modifier" value="zyzhang" />
+        <property name="creationDate" value="1248416680" />
+        <property name="modificationDate" value="1248416681" />
+        <property name="creator" value="zyzhang" />
+      </extendProperties>
+      <column index="1" name="LOANCARDNO" label="贷款卡号" type="VARCHAR" displaySize="16" precision="16" scale="0" format="" />
+      <column index="2" name="OCCURDATE" label="发生日期" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="3" name="GCONTRACTNO" label="担保合同编号" type="VARCHAR" displaySize="40" precision="40" scale="0" format="" />
+      <column index="4" name="CONTRACTSTATUS" label="合同有效状态" type="VARCHAR" displaySize="3" precision="3" scale="0" format="" />
+      <column index="5" name="GUARANTYVALUE" label="担保金额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="" />
+      <column index="6" name="GUARANTYTYPE" label="担保类型" type="VARCHAR" displaySize="2" precision="2" scale="0" format="" />
+      <column index="7" name="OLDFINANCEID" label="原金融机构代码" type="VARCHAR" displaySize="59" precision="59" scale="0" format="" />
+      <column index="8" name="INCREMENTFLAG" label="增量标志" type="VARCHAR" displaySize="1" precision="1" scale="0" format="" />
+      <column index="9" name="GUARANTYBALANCE" label="担保余额" type="NUMERIC" displaySize="24" precision="24" scale="0" format="" />
+    </table>
+    <table name="ECR_EXTERIORCHECK" label="ecr_exteriorcheck" describe="ECR_EXTERIORCHECK">
+      <extendProperties>
+        <property name="modifier" value="zyzhang" />
+        <property name="creationDate" value="1248416680" />
+        <property name="modificationDate" value="1248416681" />
+        <property name="creator" value="zyzhang" />
+      </extendProperties>
+      <column index="1" name="LOANCARDNO2" label="LOANCARDNO" type="VARCHAR" displaySize="16" precision="16" scale="0" format="" />
+      <column index="2" name="OCCURDATE" label="OCCURDATE" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="3" name="BUSINESSTYPE" label="BUSINESSTYPE" type="VARCHAR" displaySize="20" precision="20" scale="0" format="" />
+      <column index="4" name="CUSTOMERNAME" label="CUSTOMERNAME" type="VARCHAR" displaySize="80" precision="80" scale="0" format="" />
+      <column index="5" name="PBCNUM" label="PBCNUM" type="NUMERIC" displaySize="10" precision="10" scale="0" format="" />
+      <column index="6" name="LOANNUM" label="LOANNUM" type="NUMERIC" displaySize="10" precision="10" scale="0" format="" />
+      <column index="7" name="PBCBUSINESSSUM" label="PBCBUSINESSSUM" type="NUMERIC" displaySize="24" precision="24" scale="0" format="" />
+      <column index="8" name="LOANBUSINESSSUM" label="LOANBUSINESSSUM" type="NUMERIC" displaySize="24" precision="24" scale="0" format="" />
+      <column index="9" name="PBCBALANCE" label="PBCBALANCE" type="NUMERIC" displaySize="24" precision="24" scale="0" format="" />
+      <column index="10" name="LOANBALANCE" label="LOANBALANCE" type="NUMERIC" displaySize="24" precision="24" scale="0" format="" />
+      <column index="11" name="STATUS1" label="STATUS1" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="12" name="STATUS2" label="STATUS2" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="13" name="REMARK" label="REMARK" type="VARCHAR" displaySize="200" precision="200" scale="0" format="" />
+    </table>
+    <table name="ECR_INTERIORCHECK" label="ecr_interiorcheck" describe="ECR_INTERIORCHECK">
+      <extendProperties>
+        <property name="modifier" value="zyzhang" />
+        <property name="creationDate" value="1248416680" />
+        <property name="modificationDate" value="1248416681" />
+        <property name="creator" value="zyzhang" />
+      </extendProperties>
+      <column index="1" name="LOANCARDNO" label="LOANCARDNO" type="VARCHAR" displaySize="16" precision="16" scale="0" format="" />
+      <column index="2" name="OCCURDATE" label="OCCURDATE" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="3" name="BUSINESSTYPE" label="BUSINESSTYPE" type="VARCHAR" displaySize="20" precision="20" scale="0" format="" />
+      <column index="4" name="CUSTOMERNAME" label="CUSTOMERNAME" type="VARCHAR" displaySize="80" precision="80" scale="0" format="" />
+      <column index="5" name="ECRNUM" label="ECRNUM" type="NUMERIC" displaySize="10" precision="10" scale="0" format="" />
+      <column index="6" name="LOANNUM" label="LOANNUM" type="NUMERIC" displaySize="10" precision="10" scale="0" format="" />
+      <column index="7" name="ECRBUSINESSSUM" label="ECRBUSINESSSUM" type="NUMERIC" displaySize="24" precision="24" scale="0" format="" />
+      <column index="8" name="LOANBUSINESSSUM" label="LOANBUSINESSSUM" type="NUMERIC" displaySize="24" precision="24" scale="0" format="" />
+      <column index="9" name="ECRBALANCE" label="ECRBALANCE" type="NUMERIC" displaySize="24" precision="24" scale="0" format="" />
+      <column index="10" name="LOANBALANCE" label="LOANBALANCE" type="NUMERIC" displaySize="24" precision="24" scale="0" format="" />
+      <column index="11" name="STATUS1" label="STATUS1" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="12" name="STATUS2" label="STATUS2" type="VARCHAR" displaySize="10" precision="10" scale="0" format="" />
+      <column index="13" name="REMARK" label="REMARK" type="VARCHAR" displaySize="200" precision="200" scale="0" format="" />
+    </table>
+  </tables>
+</dataSource>
+

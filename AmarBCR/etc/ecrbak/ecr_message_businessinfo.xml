@@ -1,0 +1,1214 @@
+<?xml version="1.0" encoding="GB2312"?>
+
+<configuration>
+<!--?	信贷业务信息文件  -->
+<messageList 
+	type="12" 
+	name="LoanBusinessData" 
+	direction="0"  
+	chineseName="信贷业务信息文件" 
+    description="包括：贷款业务/保理业务/票据贴现业务/贸易融资/信用证/保函/银行承兑汇票/公开授信/担保业务/垫款业务/欠息信息采集报文"
+>
+
+<message 
+	type="11" 
+	id="01" 
+	name="Loan" 
+	chineseName="贷款业务报文"  
+	headerLength="61" 
+	version="2.1"
+	readerVersion="1.1" 
+	charset="GB18030" 
+>  	
+	<record id="Header" type="0" name="Header" > 
+		<segment segmentFlag="A" id="0" name="MessageHead" chineseName="报文头" segmentLength="61" optional="false" unique="true">			
+			<field id="8519" dataType="char" name="HeadFlag" chineseName="报文头标识"     type="AN" startPosition="0" endPosition="0" optional="false"  defaultValue="A"/> 	    
+			<field id="8517" dataType="char" name="Version"  chineseName="报文格式版本号" type="AN" startPosition="1" endPosition="3" optional="false"/> 	    
+			<field id="6501" dataType="char" name="FinanceCode" chineseName="金融机构代码"   type="AN" startPosition="4" endPosition="14" optional="false"/>
+			<field id="2585" dataType="datetime" name="CreatedTime"   chineseName="报文生成时间"   type="N" startPosition="15" endPosition="28" optional="false"/>
+			<field id="8523" dataType="int" name="MsgType"      chineseName="报文类型"       type="N" startPosition="29" endPosition="30" optional="false"  defaultValue="11"/>			
+			<field id="8515" dataType="char" name="ReserveField" chineseName="预留字段"       type="ANC" startPosition="31" endPosition="60" optional="false"/>
+		</segment> 
+ 	</record>
+	<record 
+		id="1" 
+		type="08" 
+		name="LoanContract" 
+		mainBusinessNo="B.7509" 
+		briefFields="B.7509,D.5559,E.1573,D.7523,D.7525" 
+		chineseName="借款人贷款合同信息记录"
+	>    
+		<segment segmentFlag="B" id="1" name="BaseSegment" chineseName="基础段" segmentLength="123" optional="false" unique="true">	
+			<field id="4501" dataType="int"  name="RecordLength" 	chineseName="信息记录长度"     type="N"  startPosition="0"  endPosition="3" optional="false"/> 	    
+			<field id="7653" dataType="char"  name="RecordType"  	chineseName="信息记录类型"     type="N"  startPosition="4"  endPosition="5" optional="false"   defaultValue="08"/> 	    
+			<field id="7543" dataType="char" name="MessageType"  chineseName="信息类别"         type="AN" startPosition="6"  endPosition="6" optional="false"   defaultValue="B"/>
+			<field id="6501" dataType="char" name="FinanceID"    chineseName="金融机构代码"     type="AN" startPosition="7"  endPosition="17" optional="false" keyAttribute="true"/>
+			<field id="7503" dataType="char" name="LoanCardNo"   chineseName="贷款卡编码"       type="AN" startPosition="18"  endPosition="33" optional="false"/>					 	
+			<field id="7509" dataType="char" name="ContractNo"   chineseName="贷款合同号码"     type="ANC" startPosition="34"  endPosition="93" optional="false"  keyAttribute="true"/>
+			<field id="7511" dataType="char" name="RecordOperateType"  chineseName="信息记录操作类型" type="AN"  startPosition="94" endPosition="94" optional="false"    />
+			<field id="2501" dataType="date" name="OccurDate"         chineseName="业务发生日期"     type="N"  startPosition="95" endPosition="102" optional="false"/>
+			<field id="7641" dataType="char" name="RecordNo"          chineseName="信息记录跟踪编号" type="AN" startPosition="103" endPosition="122" optional="false"/>
+			<field id="9991" dataType="char" name="CustomerID" chineseName="客户编号" type="AN" startPosition="123" endPosition="162" optional="false"/>
+		 </segment> 	
+		 <segment segmentFlag="C" id="2" name="SymbolUpdateSegment" chineseName="标识变更段"  segmentLength="62" optional="true" unique="false">			
+		 	<field id="7543" dataType="char" name="MessageType"       chineseName="信息类别"   type="AN"  startPosition="0" endPosition="0" optional="false"  defaultValue="C" />
+		 	<field id="7515" dataType="char"  name="ChangeType"        chineseName="变更类型"   type="N"   startPosition="1" endPosition="1"  optional="false" />
+		 	<field id="7517" dataType="char" name="BusinessNo"        chineseName="业务标识号" type="ANC" startPosition="2" endPosition="61" optional="false" />		 	
+		 </segment>  	   
+		 <segment segmentFlag="D" id="3" name="LoanContractSegment"  chineseName="贷款合同信息段" segmentLength="160" optional="false" unique="true">					 
+		 	<field id="7543" dataType="char" name="MessageType"        	chineseName="信息类别"         type="AN"  startPosition="0"   endPosition="0"   optional="false" defaultValue="D" />
+		 	<field id="5559" dataType="char" name="CustomerName"       	chineseName="借款人名称"       type="ANC" startPosition="1"   endPosition="80"  optional="false"/>
+		 	<field id="7519" dataType="char" name="CreditNo"           	chineseName="授信协议号码"     type="ANC"  startPosition="81" endPosition="140" optional="true" status="O"/>
+		 	<field id="2511" dataType="date" name="StartDate"			chineseName="贷款合同生效日期" type="N"   startPosition="141" endPosition="148" optional="false"/>				
+		 	<field id="2513" dataType="date" name="EndDate"            	chineseName="贷款合同终止日期" type="N"   startPosition="149" endPosition="156" optional="false"/>
+		 	<field id="7521" dataType="char"  name="BankFlag"           	chineseName="银团标志"         type="N" startPosition="157" endPosition="157" optional="false"/>				
+		 	<field id="7523" dataType="char"  name="GuarantyFlag"       	chineseName="担保标志"         type="N"   startPosition="158" endPosition="158" optional="false"/>
+		 	<field id="7525" dataType="char"  name="AvailabStatus"      	chineseName="合同有效状态"     type="N"   startPosition="159" endPosition="159" optional="false"/>				
+		</segment>
+		<segment segmentFlag="E" id="4" name="ContractSumSegment" chineseName="合同金额信息段"  segmentLength="44" optional="false" unique="false">					 
+		 	<field id="7543" dataType="char" 	name="MessageType"    	chineseName="信息类别"       type="AN"   startPosition="0" endPosition="0" optional="false" defaultValue="E"  />				
+		 	<field id="1501" dataType="char" 	name="Currency" 	   	chineseName="币种" 				 	 type="AN"   startPosition="1" endPosition="3" optional="false"/>				
+		  	<field id="1573" dataType="double" 	name="BusinessSum"    	chineseName="贷款合同金额"   type="AN"   startPosition="4" endPosition="23" optional="false"/>				
+		  	<field id="1575" dataType="double" 	name="AvailabBalance" 	chineseName="可用余额" 		   type="AN"   startPosition="24" endPosition="43" optional="false"/>				
+		</segment>		
+	</record>
+	<record 
+		id="2" 
+		type="09"  
+		name="LoanDuebill" 
+		mainBusinessNo="B.7509" 
+		briefFields="B.7509,F.7527,F.1511,F.1513,F.7541,F.7573"
+		chineseName="借款人贷款借据信息记录"  
+	>    
+		<segment segmentFlag="B" id="1" name="BaseSegment" chineseName="基础段" segmentLength="123" optional="false" unique="true">	
+			<field id="4501" dataType="int"  name="RecordLength"        chineseName="信息记录长度"     type="N"  startPosition="0"  endPosition="3" optional="false"/> 	    
+			<field id="7653" dataType="char"  name="RecordType"          chineseName="信息记录类型"     type="N"  startPosition="4"  endPosition="5" optional="false"   defaultValue="09" /> 	    
+			<field id="7543" dataType="char" name="MessageType"         chineseName="信息类别"         type="AN" startPosition="6"  endPosition="6" optional="false"   defaultValue="B" />
+			<field id="6501" dataType="char" name="FinanceID"           chineseName="金融机构代码"     type="AN" startPosition="7"  endPosition="17" optional="false" keyAttribute="true"/>
+			<field id="7503" dataType="char" name="LoanCardNo"         	chineseName="贷款卡编码"       type="AN" startPosition="18"  endPosition="33" optional="false"/>					 	
+			<field id="7509" dataType="char" name="ContractNo"            chineseName="贷款合同号码"     type="ANC" startPosition="34"  endPosition="93" optional="false"  keyAttribute="true"/>
+			<field id="7511" dataType="char" name="RecordOperateType"  chineseName="信息记录操作类型" type="AN"  startPosition="94" endPosition="94" optional="false"    />
+			<field id="2501" dataType="date" name="OccurDate"           chineseName="业务发生日期"     type="N"  startPosition="95" endPosition="102" optional="false"/>
+			<field id="7641" dataType="char" name="RecordNo"            chineseName="信息记录跟踪编号" type="AN" startPosition="103" endPosition="122" optional="false"/>
+			<field id="9991" dataType="char" name="CustomerID" chineseName="客户编号" type="AN" startPosition="123" endPosition="162" optional="false"/>
+		</segment> 	
+		<segment segmentFlag="C" id="2" name="SymbolUpdateSegment" chineseName="标识变更段" segmentLength="62" optional="true" unique="false">			
+		 	<field id="7543" dataType="char" name="MessageType"       chineseName="信息类别"   type="AN"  startPosition="0" endPosition="0" optional="false"  defaultValue="C" />
+		 	<field id="7515" dataType="char"  name="ChangeType"        chineseName="变更类型"   type="N"   startPosition="1" endPosition="1"  optional="false" />
+		 	<field id="7517" dataType="char" name="BusinessNo"        chineseName="业务标识号" type="ANC" startPosition="2" endPosition="61" optional="false" />		 	
+		</segment>  	
+		<segment segmentFlag="F" id="3" name="DuebillSegment" chineseName="借据段" segmentLength="134" optional="false" unique="true">	
+			<field id="7543" dataType="char" name="MessageType"         chineseName="信息类别"     		type="AN"  startPosition="0"  endPosition="0" optional="false" defaultValue="F" /> 	    
+			<field id="7527" dataType="char" name="DuebillNo"            chineseName="借据编号"     		type="ANC"  startPosition="1"  endPosition="60" optional="false"   /> 	    
+			<field id="1501" dataType="char" name="Currency"            chineseName="币种"         	  type="AN"  startPosition="61"  endPosition="63" optional="false"   />
+			<field id="1511" dataType="double" name="BusinessSum"       chineseName="贷款借据金额"    type="AN"  startPosition="64"  endPosition="83" optional="false"/>
+			<field id="1513" dataType="double" name="Balance"           chineseName="贷款借据余额"  	type="AN"  startPosition="84"  endPosition="103" optional="false"/>
+			<field id="2515" dataType="date" name="PutOutDate"  		chineseName="借据放款日期" 		type="N"   startPosition="104" endPosition="111" optional="false"/>
+			<field id="2517" dataType="date" name="PutOutEndDate"       chineseName="借据放款到期日"  type="N"   startPosition="112" endPosition="119" optional="false"/>
+			<field id="7529" dataType="char"  name="BusinessType"        chineseName="贷款业务种类" 		type="N"  startPosition="120" endPosition="120" optional="false"/>
+			<field id="7531" dataType="char"  name="Form"          		chineseName="贷款形式"        type="N"  startPosition="121"  endPosition="121" optional="false"   /> 	    
+			<field id="7533" dataType="char" name="LoanCharacter"     	chineseName="贷款性质"        type="N" startPosition="122"  endPosition="122" optional="false"  />
+			<field id="7535" dataType="char" name="Way"           		chineseName="贷款投向"        type="AN" startPosition="123"  endPosition="127" optional="false"/>
+			<field id="7537" dataType="char"  name="Kind"          		chineseName="贷款种类"       	type="N" startPosition="128"  endPosition="129" optional="false"/>
+			<field id="7573" dataType="char"  name="ExtenFlag"  			chineseName="展期标志" 				type="N"  startPosition="130" endPosition="130" optional="false"/>
+			<field id="7539" dataType="char"  name="Classify4"           chineseName="四级分类" 				type="AN"  startPosition="131" endPosition="132" optional="true" status="O"/>
+			<field id="7541" dataType="char"  name="Classify5"           chineseName="五级分类" 				type="N" startPosition="133" endPosition="133" optional="false"/>
+		 </segment> 	
+	</record>
+	<record 
+		id="3"  
+		type="10" 
+		name="LoanRepay"  
+		mainBusinessNo="B.7509" 
+		briefFields="G.7527,G.2519,G.4507,G.1515" chineseName="借款人贷款还款信息记录">   
+		<segment segmentFlag="B" id="1" name="BaseSegment" chineseName="基础段" segmentLength="123" optional="false" unique="true">	
+			<field id="4501" dataType="int"  name="RecordLength"        chineseName="信息记录长度"     type="N"  startPosition="0"  endPosition="3" optional="false"/> 	    
+			<field id="7653" dataType="char"  name="RecordType"          chineseName="信息记录类型"     type="N"  startPosition="4"  endPosition="5" optional="false"   defaultValue="10" /> 	    
+			<field id="7543" dataType="char" name="MessageType"         chineseName="信息类别"         type="AN" startPosition="6"  endPosition="6" optional="false"   defaultValue="B" />
+			<field id="6501" dataType="char" name="FinanceID"           chineseName="金融机构代码"     type="AN" startPosition="7"  endPosition="17" optional="false" keyAttribute="true"/>
+			<field id="7503" dataType="char" name="LoanCardNo"         	chineseName="贷款卡编码"       type="AN" startPosition="18"  endPosition="33" optional="false"/>					 	
+			<field id="7509" dataType="char" name="ContractNo"            chineseName="贷款合同号码"     type="ANC" startPosition="34"  endPosition="93" optional="false"  keyAttribute="true"    />
+			<field id="7511" dataType="char" name="RecordOperateType"  chineseName="信息记录操作类型" type="AN"  startPosition="94" endPosition="94" optional="false"    />
+			<field id="2501" dataType="date" name="OccurDate"           chineseName="业务发生日期"     type="N"  startPosition="95" endPosition="102" optional="false"/>
+			<field id="7641" dataType="char" name="RecordNo"            chineseName="信息记录跟踪编号" type="AN" startPosition="103" endPosition="122" optional="false"/>
+			<field id="9991" dataType="char" name="CustomerID" chineseName="客户编号" type="AN" startPosition="123" endPosition="162" optional="false"/>
+		</segment>       
+		<segment segmentFlag="C" id="2" name="SymbolUpdateSegment" chineseName="标识变更段" segmentLength="62" optional="true" unique="false">			
+		 	<field id="7543" dataType="char" name="MessageType"       chineseName="信息类别"   type="AN"  startPosition="0" endPosition="0" optional="false"  defaultValue="C" />
+		 	<field id="7515" dataType="char"  name="ChangeType"        chineseName="变更类型"   type="N"   startPosition="1" endPosition="1"  optional="false" />
+		 	<field id="7517" dataType="char" name="BusinessNo"        chineseName="业务标识号" type="ANC" startPosition="2" endPosition="61" optional="false" />		 	
+		</segment>  	
+		<segment segmentFlag="G" id="3" name="LoanRepaySegment" chineseName="贷款还款信息段" segmentLength="95" optional="false" unique="true">	
+			<field id="7543" dataType="char" name="MessageType"           chineseName="信息类别"     type="AN"  startPosition="0"  endPosition="0" optional="false" defaultValue="G"/> 	    
+			<field id="7527" dataType="char" name="DuebillNo"              chineseName="借据编号"     type="ANC"  startPosition="1"  endPosition="60" optional="false"  /> 	    
+			<field id="2519" dataType="date" name="ReturnDate"            chineseName="还款日期"     type="N" startPosition="61"  endPosition="68" optional="false"    />
+			<field id="4507" dataType="int"  name="ReturnTimes"           chineseName="还款次数"     type="N" startPosition="69"  endPosition="72" optional="false"/>
+			<field id="7545" dataType="char"  name="ReturnMode"            chineseName="还款方式"     type="N" startPosition="73"  endPosition="74" optional="false"/>
+			<field id="1515" dataType="double" name="ReturnSum"           chineseName="还款金额"     type="AN"  startPosition="75" endPosition="94" optional="false"/>
+		</segment> 
+	 </record>
+	 <record 
+	 	id="4"  
+	 	type="11"  
+	 	name="LoanExtension"  
+	 	mainBusinessNo="B.7509" 
+	 	briefFields="H.7527,H.4509,H.1517,H.2521,H.2523" 
+	 	chineseName="借款人贷款展期信息记录"
+	 > 
+		<segment segmentFlag="B" id="1" name="BaseSegment" chineseName="基础段" segmentLength="123" optional="false" unique="true">	
+			<field id="4501" dataType="int"  name="RecordLength"        chineseName="信息记录长度"     type="N"  startPosition="0"  endPosition="3" optional="false"/> 	    
+			<field id="7653" dataType="char"  name="RecordType"          chineseName="信息记录类型"     type="N"  startPosition="4"  endPosition="5" optional="false"   defaultValue="11" /> 	    
+			<field id="7543" dataType="char" name="MessageType"         chineseName="信息类别"         type="AN" startPosition="6"  endPosition="6" optional="false"   defaultValue="B" />
+			<field id="6501" dataType="char" name="FinanceID"           chineseName="金融机构代码"     type="AN" startPosition="7"  endPosition="17" optional="false" keyAttribute="true"/>
+			<field id="7503" dataType="char" name="LoanCardNo"         	chineseName="贷款卡编码"       type="AN" startPosition="18"  endPosition="33" optional="false"/>					 	
+			<field id="7509" dataType="char" name="ContractNo"            chineseName="贷款合同号码"     type="ANC" startPosition="34"  endPosition="93" optional="false"  keyAttribute="true"    />
+			<field id="7511" dataType="char" name="RecordOperateType"  chineseName="信息记录操作类型" type="AN"  startPosition="94" endPosition="94" optional="false"    />
+			<field id="2501" dataType="date" name="OccurDate"           chineseName="业务发生日期"     type="N"  startPosition="95" endPosition="102" optional="false"/>
+			<field id="7641" dataType="char" name="RecordNo"            chineseName="信息记录跟踪编号" type="AN" startPosition="103" endPosition="122" optional="false"/>
+			<field id="9991" dataType="char" name="CustomerID" chineseName="客户编号" type="AN" startPosition="123" endPosition="162" optional="false"/>
+		</segment>  
+		<segment segmentFlag="C" id="2" name="SymbolUpdateSegment" chineseName="标识变更段" segmentLength="62" optional="true" unique="false">			
+		 	<field id="7543" dataType="char" name="MessageType"       chineseName="信息类别"   type="AN"  startPosition="0" endPosition="0" optional="false"  defaultValue="C" />
+		 	<field id="7515" dataType="char"  name="ChangeType"        chineseName="变更类型"   type="N"   startPosition="1" endPosition="1"  optional="false" />
+		 	<field id="7517" dataType="char" name="BusinessNo"        chineseName="业务标识号" type="ANC" startPosition="2" endPosition="61" optional="false" />		 	
+		</segment>  	
+		<segment segmentFlag="H" id="3" name="LoanExtensionSegment" chineseName="贷款展期段" segmentLength="99" optional="false" unique="true">
+			<field id="7543" dataType="char" name="MessageType"        chineseName="信息类别"     type="AN"   startPosition="0"  endPosition="0" optional="false" defaultValue="H" /> 
+			<field id="7527" dataType="char" name="DuebillNo"           chineseName="借据编号"     type="ANC"  startPosition="1"  endPosition="60" optional="false"/>
+			<field id="4509" dataType="char" name="ExtenTimes"         chineseName="展期次数"     type="N"    startPosition="61" endPosition="62" optional="false"/>
+			<field id="1517" dataType="double" name="ExtenSum"         chineseName="展期金额"     type="AN"   startPosition="63" endPosition="82" optional="false"/>
+			<field id="2521" dataType="date" name="ExtenStartDate"     chineseName="展期起始日期"  type="N"    startPosition="83" endPosition="90" optional="false"/>
+			<field id="2523" dataType="date" name="ExtenEndDate"       chineseName="展期到期日期"  type="N"    startPosition="91" endPosition="98" optional="false"/>
+		</segment> 
+	</record>
+	<record id="tail"  type="-1"  name="Tail" > 
+		<segment segmentFlag="Z" id="-1" name="Tail" chineseName="报文尾" segmentLength="11" optional="false" unique="true">
+	    	<field id="8521" dataType="char" name="TailFlag"    chineseName="报文尾标识"   type="AN"   startPosition="0" endPosition="0" optional="false" defaultValue="Z"  />				
+	    	<field id="4513" dataType="int"  name="RecordNum"   chineseName="信息记录数"   type="N"   startPosition="1" endPosition="10" optional="false"   />							
+	  	</segment>
+	</record>
+</message>
+
+<message 
+	type="12"
+	id="02"   
+    name="Facoring" 
+	chineseName="保理业务报文" 
+	headerLength="61" 
+	version="2.1"
+	readerVersion="1.1" 
+	charset="GB18030" 
+>  	
+	<record id="header" type="0" name="Header" > 
+	    <segment segmentFlag="A" id="0" name="MessageHead" chineseName="报文头" segmentLength="61" optional="false" unique="true">			
+		    <field id="8519" dataType="char" name="HeadFlag"     chineseName="报文头标识"     type="AN" startPosition="0" endPosition="0" optional="false"  defaultValue="A"  /> 	    
+			<field id="8517" dataType="char" name="Version"      chineseName="报文格式版本号" type="AN" startPosition="1" endPosition="3" optional="false"/> 	    
+			<field id="6501" dataType="char" name="FinanceCode" chineseName="金融机构代码"   type="AN" startPosition="4" endPosition="14" optional="false"/>
+			<field id="2585" dataType="datetime" name="CreatedTime" chineseName="报文生成时间"   type="N" startPosition="15" endPosition="28" optional="false"/>
+			<field id="8523" dataType="int"  name="MsgType"      chineseName="报文类型"       type="N" startPosition="29" endPosition="30" optional="false"  defaultValue="12"  />			
+			<field id="8515" dataType="char" name="ReserveField" chineseName="预留字段"       type="ANC" startPosition="31" endPosition="60" optional="false"/>
+	 	</segment> 
+ 	</record>
+	<record 
+		id="1" 
+		type="12" 
+		name="Facoring"  
+		mainBusinessNo="B.7547" 
+		keyFields="B.7547,B.2501,B.6501" 
+		briefFields="B.7547,D.1519,D.7523,D.7541"
+		chineseName="借款人保理信息记录"
+	>    
+		<segment segmentFlag="B" id="1" name="BaseSegment" chineseName="基础段" segmentLength="167" optional="false" unique="true">	
+			<field id="4501" dataType="int" name="RecordLength"        chineseName="信息记录长度"     type="N"  startPosition="0"  endPosition="3" optional="false"/> 	    
+			<field id="7653" dataType="char" name="RecordType"          chineseName="信息记录类型"     type="N"  startPosition="4"  endPosition="5" optional="false"   defaultValue="12" /> 	    
+			<field id="7543" dataType="char" name="MessageType"         chineseName="信息类别"         type="AN" startPosition="6"  endPosition="6" optional="false"   defaultValue="B" />
+			<field id="6501" dataType="char" name="FinanceID"           chineseName="金融机构代码"     type="AN" startPosition="7"  endPosition="17" optional="false" keyAttribute="true"/>
+			<field id="7547" dataType="char" name="FactoringNo"         chineseName="保理协议编号"     type="ANC" startPosition="18"  endPosition="77" optional="false" keyAttribute="true"   />
+			<field id="7519" dataType="char" name="CreditNo"            chineseName="授信协议号码"     type="ANC" startPosition="78"  endPosition="137" optional="true" keyAttribute="true" status="O"/>
+			<field id="7511" dataType="char" name="RecordOperateType"  chineseName="信息记录操作类型" type="AN"  startPosition="138" endPosition="138" optional="false"/>
+			<field id="2501" dataType="date" name="OccurDate"           chineseName="业务发生日期"     type="N"  startPosition="139" endPosition="146" optional="false"/>
+			<field id="7641" dataType="char" name="RecordNo"            chineseName="信息记录跟踪编号" type="AN" startPosition="147" endPosition="166" optional="false"/>
+			<field id="9991" dataType="char" name="CustomerID" chineseName="客户编号" type="AN" startPosition="167" endPosition="206" optional="false"/>
+		</segment> 	
+		<segment segmentFlag="C" id="2" name="SymbolUpdateSegment" chineseName="标识变更段" segmentLength="62" optional="true" unique="false">			
+		 	<field id="7543" dataType="char" name="MessageType"       chineseName="信息类别"   type="AN"  startPosition="0" endPosition="0" optional="false"  defaultValue="C" />
+		 	<field id="7515" dataType="char"  name="ChangeType"        chineseName="变更类型"   type="N"   startPosition="1" endPosition="1"  optional="false" />
+		 	<field id="7517" dataType="char" name="BusinessNo"        chineseName="业务标识号" type="ANC" startPosition="2" endPosition="61" optional="false" />		 	
+		</segment>  	   
+		<segment segmentFlag="D" id="3" name="FacoringSegment"  chineseName="保理叙做信息段"  segmentLength="163" optional="false" unique="true">					 
+		 	<field id="7543" dataType="char" name="MessageType"          chineseName="信息类别"          type="AN"  startPosition="0"   endPosition="0"   optional="false" defaultValue="D" />
+		 	<field id="7549" dataType="char" name="FactoringType"        chineseName="保理产品类型"      type="N" startPosition="1"   endPosition="1"  optional="false"/>
+		 	<field id="7551" dataType="char" name="FactoringStatus"      chineseName="保理业务状态"      type="N" startPosition="2"  endPosition="2" optional="false"/>				
+		 	<field id="5559" dataType="char" name="BorrowerName"         chineseName="借款人名称"     	  type="ANC"  startPosition="3" endPosition="82" optional="false"/>
+		 	<field id="7503" dataType="char" name="LoanCardNo"     		 chineseName="贷款卡编码" 		type="AN"   startPosition="83" endPosition="98" optional="false"/>				
+		 	<field id="1501" dataType="char" name="Currency"         	 chineseName="币种" 			type="AN"   startPosition="99" endPosition="101" optional="false"/>
+		 	<field id="1519" dataType="double" name="BusinessSum"        chineseName="叙做金额"        type="AN" startPosition="102" endPosition="121" optional="false"/>				
+		 	<field id="2525" dataType="date" name="BusinessDate"       	 chineseName="叙做日期"        type="N"   startPosition="122" endPosition="129" optional="false"/>
+		 	<field id="1521" dataType="double" name="Balance"      		 chineseName="叙做余额"    	type="AN"   startPosition="130" endPosition="149" optional="false"/>				
+	    <field id="2527" dataType="date" name="BalanceChangeDate"   chineseName="余额变化日期" 	type="N"   startPosition="150" endPosition="157" optional="false"/>				
+		 	<field id="7523" dataType="char" name="GuarantyFlag"         chineseName="担保标志" 		type="N"   startPosition="158" endPosition="158" optional="false"/>
+		 	<field id="7513" dataType="char" name="FloorFlag"            chineseName="垫款标志"       type="N"   startPosition="159" endPosition="159" optional="false"/>				
+		 	<field id="7539" dataType="char" name="Classify4"       	 	chineseName="四级分类"       type="AN"   startPosition="160" endPosition="161" optional="true" status="O"/>
+		 	<field id="7541" dataType="char" name="Classify5"      		chineseName="五级分类"     	type="N"   startPosition="162" endPosition="162" optional="false"/>				
+		</segment>
+	</record>
+	<record id="tail"  type="-1" name="Tail" > 
+	 	<segment segmentFlag="Z" id="-1" name="Tail" chineseName="报文尾" segmentLength="11" optional="false" unique="true">
+	    	<field id="8521" dataType="char" name="TailFlag"    chineseName="报文尾标识"   type="AN"   startPosition="0" endPosition="0" optional="false" defaultValue="Z"  />				
+	    	<field id="4513" dataType="int" name="RecordNum"   chineseName="信息记录数"  type="N"   startPosition="1" endPosition="10" optional="false"   />							
+		</segment>
+	</record>
+</message>
+	
+<message
+	type="13"
+    id="03"   
+    name="BillDiscount" 
+	chineseName="票据贴现业务报文" 
+	tasktype="4" 
+	headerLength="61" 
+	version="2.1"
+	readerVersion="1.1" 
+	charset="GB18030" 
+>  	
+	<record id="header" type="0" name="Header" > 
+		<segment segmentFlag="A" id="0" name="MessageHead" chineseName="报文头" segmentLength="61" optional="false" unique="true">			
+			<field id="8519" dataType="char" name="HeadFlag"     chineseName="报文头标识"     type="AN" startPosition="0" endPosition="0" optional="false"  defaultValue="A"  /> 	    
+			<field id="8517" dataType="char" name="Version"      chineseName="报文格式版本号" type="AN" startPosition="1" endPosition="3" optional="false"/> 	    
+			<field id="6501" dataType="char" name="FinanceCode" chineseName="金融机构代码"   type="AN" startPosition="4" endPosition="14" optional="false"/>
+			<field id="2585" dataType="datetime" name="CreatedTime"   chineseName="报文生成时间"   type="N" startPosition="15" endPosition="28" optional="false"/>
+			<field id="8523" dataType="int" name="MsgType"      chineseName="报文类型"       type="N" startPosition="29" endPosition="30" optional="false"  defaultValue="13" /> 		
+			<field id="8515" dataType="char" name="ReserveField" chineseName="预留字段"       type="ANC" startPosition="31" endPosition="60" optional="false"/>
+	 	</segment> 
+ 	</record>
+	<record 
+		id="1" 
+		type="13" 
+		name="BillDiscount"  
+		mainBusinessNo="B.7553" 
+		keyFields="B.7553,B.2501,B.6501" 
+		briefFields="B.7553,D.1523,D.7541"
+		chineseName="票据贴现信息记录">    
+		<segment segmentFlag="B" id="1" name="BaseSegment" chineseName="基础段" segmentLength="167" optional="false" unique="true">	
+			<field id="4501" dataType="int" name="RecordLength"        chineseName="信息记录长度"     type="N"  startPosition="0"  endPosition="3" optional="false"/> 	    
+			<field id="7653" dataType="char" name="RecordType"          chineseName="信息记录类型"     type="N"  startPosition="4"  endPosition="5" optional="false"   defaultValue="13" /> 	    
+			<field id="7543" dataType="char" name="MessageType"         chineseName="信息类别"         type="AN" startPosition="6"  endPosition="6" optional="false"   defaultValue="B" />
+			<field id="6501" dataType="char" name="FinanceID"           chineseName="金融机构代码"     type="AN" startPosition="7"  endPosition="17" optional="false" keyAttribute="true"/>
+			<field id="7553" dataType="char" name="DiscountNo"          chineseName="票据内部编号"   type="ANC" startPosition="18"  endPosition="77" optional="false"  keyAttribute="true"    />
+			<field id="7519" dataType="char" name="CreditNo"            chineseName="授信协议号码"     type="ANC" startPosition="78"  endPosition="137" optional="true"  keyAttribute="true" status="O"/>
+			<field id="7511" dataType="char" name="RecordOperateType"  chineseName="信息记录操作类型" type="AN"  startPosition="138" endPosition="138" optional="false"/>
+			<field id="2501" dataType="date" name="OccurDate"           chineseName="业务发生日期"     type="N"  startPosition="139" endPosition="146" optional="false"/>
+			<field id="7641" dataType="char" name="RecordNo"            chineseName="信息记录跟踪编号" type="AN" startPosition="147" endPosition="166" optional="false"/>
+			<field id="9991" dataType="char" name="CustomerID" chineseName="客户编号" type="AN" startPosition="167" endPosition="206" optional="false"/>
+		 </segment> 	
+		 <segment segmentFlag="C" id="2" name="SymbolUpdateSegment" chineseName="标识变更段" segmentLength="62" optional="true" unique="false">			
+		 	<field id="7543" dataType="char" name="MessageType"       chineseName="信息类别"   type="AN"  startPosition="0" endPosition="0" optional="false"  defaultValue="C" />
+		 	<field id="7515" dataType="char" name="ChangeType"        chineseName="变更类型"   type="N"   startPosition="1" endPosition="1"  optional="false" />
+		 	<field id="7517" dataType="char" name="BusinessNo"        chineseName="业务标识号" type="ANC" startPosition="2" endPosition="61" optional="false" />		 	
+		 </segment>  	   
+		 <segment segmentFlag="D" id="3" name="discountsegment"  chineseName="贴现业务信息段"  segmentLength="267" optional="false" unique="true">					 
+		 	<field id="7543" dataType="char" name="MessageType"          chineseName="信息类别"            type="AN"  startPosition="0"   endPosition="0"   optional="false" defaultValue="D" />
+		 	<field id="7555" dataType="char"  name="BillType"        	 chineseName="票据种类"      			type="N" startPosition="1"   endPosition="1"  optional="false"/>
+		 	<field id="5561" dataType="char" name="ProposerName"      	 chineseName="贴现申请人名称"      type="ANC" startPosition="2"  endPosition="81" optional="false"/>				
+		 	<field id="7503" dataType="char" name="LoanCardNo"           chineseName="贷款卡编码"        	type="AN"  startPosition="82" endPosition="97" optional="false"/>
+		 	<field id="5563" dataType="char" name="AccepterName"     	 chineseName="承兑人/行名称" 			type="ANC"   startPosition="98" endPosition="177" optional="true" status="O"/>				
+		 	<field id="9997" dataType="char" name="AcceptCardNo"         chineseName="贷款卡编码 "   			type="AN"   startPosition="178" endPosition="193" optional="true" status="O"/>
+		 	<field id="6511" dataType="char" name="FinanceID"            chineseName="组织机构代码"        type="AN" startPosition="194" endPosition="203" optional="true" status="O"/>				
+		 	<field id="1501" dataType="char" name="Currency"       	     chineseName="币种"                type="AN"   startPosition="204" endPosition="206" optional="false"/>
+		 	<field id="1523" dataType="double" name="DiscountSum"      	 chineseName="贴现金额"       			type="AN"   startPosition="207" endPosition="226" optional="false"/>				
+	   		<field id="2529" dataType="date" name="DiscountDate"      	 chineseName="贴现日"         			type="N"   startPosition="227" endPosition="234" optional="false"/>				
+	    	<field id="2531" dataType="date" name="AcceptMaturity"   	 chineseName="承兑到期日" 					type="N"   startPosition="235" endPosition="242" optional="false"/>				
+		 	<field id="1525" dataType="double" name="BillSum"         	 chineseName="票面金额"      			type="AN"   startPosition="243" endPosition="262" optional="false"/>
+		 	<field id="7561" dataType="char"  name="BillStatus"           chineseName="票据状态"            type="N"   startPosition="263" endPosition="263" optional="false"/>				
+		 	<field id="7539" dataType="char"  name="Classify4"       	 chineseName="四级分类"            type="AN"   startPosition="264" endPosition="265" optional="true" status="O"/>
+		 	<field id="7541" dataType="char" name="Classify5"      		 chineseName="五级分类"        		type="N"   startPosition="266" endPosition="266" optional="false"/>				
+	 	</segment>
+	</record>
+	<record id="tail"  type="-1" name="Tail" > 
+		<segment segmentFlag="Z" id="-1" name="Tail" chineseName="报文尾" segmentLength="11" optional="false" unique="true">
+	    	<field id="8521" dataType="char" name="TailFlag"    chineseName="报文尾标识"   type="AN"   startPosition="0" endPosition="0" optional="false" defaultValue="Z"  />				
+	    	<field id="4513" dataType="int" name="RecordNum"   chineseName="信息记录数"  type="N"   startPosition="1" endPosition="10" optional="false"   />							
+		</segment>
+	</record>
+</message>
+	
+<message 
+	type="14"
+	id="04"   
+	name="TrackFinances" 
+	chineseName="贸易融资业务报文" 
+	tasktype="4"   
+	headerLength="61" 
+	version="2.1"
+	readerVersion="1.1" 
+	charset="GB18030"
+>  	
+	<record id="header" type="0" name="Header" > 
+		<segment segmentFlag="A" id="0" name="MessageHead" chineseName="报文头" segmentLength="61" optional="false" unique="true">			
+			<field id="8519" dataType="char" name="HeadFlag"     chineseName="报文头标识"     type="AN" startPosition="0" endPosition="0" optional="false"  defaultValue="A"  /> 	    
+			<field id="8517" dataType="char" name="Version"      chineseName="报文格式版本号" type="AN" startPosition="1" endPosition="3" optional="false"/> 	    
+			<field id="6501" dataType="char" name="FinanceCode" chineseName="金融机构代码"   type="AN" startPosition="4" endPosition="14" optional="false"/>
+			<field id="2585" dataType="datetime" name="CreatedTime" chineseName="报文生成时间"   type="N" startPosition="15" endPosition="28" optional="false"/>
+			<field id="8523" dataType="char"  name="MsgType"      chineseName="报文类型"       type="N" startPosition="29" endPosition="30" optional="false"  defaultValue="14"  />			
+			<field id="8515" dataType="char" name="ReserveField" chineseName="预留字段"       type="ANC" startPosition="31" endPosition="60" optional="false"/>
+	 	</segment> 
+ 	</record>			
+	<record 
+		id="1" 
+		type="14"   
+		name="FinanceContract" 
+		mainBusinessNo="B.7563" 
+		keyFields="B.7563,B.2501,B.6501" 
+		briefFields="B.7563,E.1527,D.7523,D.7565"
+		chineseName="融资协议信息记录"
+	>    
+		<segment segmentFlag="B" id="1" name="BaseSegment" chineseName="基础段" segmentLength="123" optional="false" unique="true">	
+			<field id="4501" dataType="int"  name="RecordLength"        chineseName="信息记录长度"     type="N"  startPosition="0"  endPosition="3" optional="false"/> 	    
+			<field id="7653" dataType="char"  name="RecordType"          chineseName="信息记录类型"     type="N"  startPosition="4"  endPosition="5" optional="false"   defaultValue="14" /> 	    
+			<field id="7543" dataType="char" name="MessageType"         chineseName="信息类别"         type="AN" startPosition="6"  endPosition="6" optional="false"   defaultValue="B" />
+			<field id="6501" dataType="char" name="FinanceID"           chineseName="金融机构代码"     type="AN" startPosition="7"  endPosition="17" optional="false" keyAttribute="true"/>
+			<field id="7503" dataType="char" name="LoanCardNo"         chineseName="贷款卡编码"       type="AN" startPosition="18"  endPosition="33" optional="false"/>						 	
+			<field id="7563" dataType="char" name="ContractNo"            chineseName="融资协议编号"     type="ANC" startPosition="34"  endPosition="93" optional="false"  keyAttribute="true"   />
+			<field id="7511" dataType="char"  name="RecordOperateType"  chineseName="信息记录操作类型" type="AN"  startPosition="94" endPosition="94" optional="false"/>
+			<field id="2501" dataType="date" name="OccurDate"           chineseName="业务发生日期"     type="N"  startPosition="95" endPosition="102" optional="false"/>
+			<field id="7641" dataType="char" name="RecordNo"            chineseName="信息记录跟踪编号" type="AN" startPosition="103" endPosition="122" optional="false"/>
+			<field id="9991" dataType="char" name="CustomerID" chineseName="客户编号" type="AN" startPosition="123" endPosition="162" optional="false"/>
+		</segment> 	
+		<segment segmentFlag="C" id="2" name="SymbolUpdateSegment" chineseName="标识变更段" segmentLength="62" optional="true" unique="false">			
+			<field id="7543" dataType="char" name="MessageType"       chineseName="信息类别"   type="AN"  startPosition="0" endPosition="0" optional="false"  defaultValue="C" />
+			<field id="7515" dataType="char"  name="ChangeType"        chineseName="变更类型"   type="N"   startPosition="1" endPosition="1"  optional="false" />
+			<field id="7517" dataType="char" name="BusinessNo"        chineseName="业务标识号" type="ANC" startPosition="2" endPosition="61" optional="false" />		 	
+		</segment>  	   
+		<segment segmentFlag="D" id="3" name="FinanceContractSegment"  chineseName="贸易融资业务协议信息"  segmentLength="159" optional="false" unique="true">					 
+			<field id="7543" dataType="char" name="MessageType"        chineseName="信息类别"           type="AN"  startPosition="0"   endPosition="0"   optional="false" defaultValue="D" />
+			<field id="5559" dataType="char" name="CustomerName"       chineseName="借款人名称"         type="ANC" startPosition="1"   endPosition="80"  optional="false"/>
+			<field id="7519" dataType="char" name="CreditNo"           chineseName="授信协议号码"       type="ANC" startPosition="81" endPosition="140" optional="true" status="O"/>
+			<field id="2533" dataType="date" name="StartDate"     	   chineseName="融资协议生效日期"   type="N"   startPosition="141" endPosition="148" optional="false"/>				
+			<field id="2535" dataType="date" name="EndDate"            chineseName="融资协议终止日期"	 type="N"   startPosition="149" endPosition="156" optional="false"/>
+			<field id="7523" dataType="char"  name="GuarantyFlag"       chineseName="担保标志"           type="N" 	startPosition="157" endPosition="157" optional="false"/>				
+			<field id="7565" dataType="char"  name="AvailabStatus"      chineseName="协议有效状态"       type="N"   startPosition="158" endPosition="158" optional="false"/>
+		</segment>
+		<segment segmentFlag="E" id="4" name="FinanceContractSumSegment" chineseName="融资协议金额信息段"  segmentLength="44" optional="false" unique="false">					 
+			<field id="7543" dataType="char" name="MessageType"    		chineseName="信息类别"       type="AN"   startPosition="0" endPosition="0" optional="false" defaultValue="E"  />				
+			<field id="1501" dataType="char" name="Currency" 			chineseName="币种" 			type="AN"   startPosition="1" endPosition="3" optional="false"/>				
+			<field id="1527" dataType="double" name="Amount" 	 		chineseName="融资协议金额" 	type="AN"   startPosition="4" endPosition="23" optional="false"/>				
+			<field id="1529" dataType="double" name="Balance" 			chineseName="融资协议余额" 	type="AN"   startPosition="24" endPosition="43" optional="false"/>				
+		</segment>		
+	</record>
+	<record 
+		id="2" 
+		type="15" 
+		name="FinanceDuebill" 
+		mainBusinessNo="B.7563" 
+		keyFields="F.7575,B.2501,B.6501"
+		briefFields="B.7563,F.7575,F.1531,F.1533,F.7541"
+		chineseName="融资业务信息记录"
+	>  
+		<segment segmentFlag="B" id="4" name="BaseSegment" chineseName="基础段" segmentLength="123" optional="false" unique="true">	
+			<field id="4501" dataType="int"  name="RecordLength"        chineseName="信息记录长度"     type="N"  startPosition="0"  endPosition="3" optional="false"/> 	    
+			<field id="7653" dataType="char"  name="RecordType"          chineseName="信息记录类型"     type="N"  startPosition="4"  endPosition="5" optional="false"   defaultValue="15" /> 	    
+			<field id="7543" dataType="char" name="MessageType"         chineseName="信息类别"         type="AN" startPosition="6"  endPosition="6" optional="false"   defaultValue="B" />
+			<field id="6501" dataType="char" name="FinanceID"           chineseName="金融机构代码"     type="AN" startPosition="7"  endPosition="17" optional="false" keyAttribute="true"/>
+			<field id="7503" dataType="char" name="LoanCardNo"         chineseName="贷款卡编码"       type="AN" startPosition="18"  endPosition="33" optional="false"/>						 	
+			<field id="7563" dataType="char" name="ContractNo"            chineseName="融资协议编号"     type="ANC" startPosition="34"  endPosition="93" optional="false"  keyAttribute="true"   />
+			<field id="7511" dataType="char"  name="RecordOperateType"  chineseName="信息记录操作类型" type="AN"  startPosition="94" endPosition="94" optional="false"/>
+			<field id="2501" dataType="date" name="OccurDate"           chineseName="业务发生日期"     type="N"  startPosition="95" endPosition="102" optional="false"/>
+			<field id="7641" dataType="char" name="RecordNo"            chineseName="信息记录跟踪编号" type="AN" startPosition="103" endPosition="122" optional="false"/>
+			<field id="9991" dataType="char" name="CustomerID" chineseName="客户编号" type="AN" startPosition="123" endPosition="162" optional="false"/>
+		</segment> 
+		<segment segmentFlag="F" id="5" name="FinanceDuebillSegment" chineseName="贸易融资借据段" segmentLength="126" optional="false" unique="true">	
+			<field id="7543" dataType="char" name="MessageType"         chineseName="信息类别"         		type="AN"   startPosition="0"  endPosition="0" optional="false" defaultValue="F" /> 	    
+			<field id="7575" dataType="char" name="DuebillNo"            chineseName="融资业务编号"     		type="ANC"  startPosition="1"  endPosition="60" optional="false"   /> 	    
+			<field id="7569" dataType="char" name="BusinessType"          		chineseName="融资业务种类"       	type="N" 		startPosition="61"  endPosition="62" optional="false"/>
+			<field id="1501" dataType="char" name="Currency"            chineseName="币种"             	  type="AN"   startPosition="63"  endPosition="65" optional="false"   />
+			<field id="1531" dataType="double" name="BusinessSum"       chineseName="融资金额"            type="AN"   startPosition="66"  endPosition="85" optional="false"/>
+			<field id="1533" dataType="double" name="Balance"           chineseName="融资余额"          	type="AN"   startPosition="86"  endPosition="105" optional="false"/>
+			<field id="2537" dataType="date" name="PutOutDate"  		chineseName="融资业务发放日期" 		type="N"    startPosition="106" endPosition="113" optional="false"/>
+			<field id="2539" dataType="date" name="PutOutEndDate"       chineseName="融资业务结束日期"  	type="N"    startPosition="114" endPosition="121" optional="true" status="C"/>
+			<field id="7573" dataType="char"  name="ExtenFlag"          	chineseName="展期标志"           	type="N" 		startPosition="122"  endPosition="122" optional="false"/>
+			<field id="7539" dataType="char"  name="Classify4"           chineseName="四级分类"        		type="AN"  	startPosition="123" endPosition="124" optional="true" status="O"/>
+			<field id="7541" dataType="char"  name="Classify5"           chineseName="五级分类" 						type="N" 		startPosition="125" endPosition="125" optional="false"/>
+		</segment> 
+	</record>	
+	<record 
+		id="3" 
+		type="16" 
+		name="FinanceRepay" 
+		mainBusinessNo="B.7563" 
+		keyFields="G.7575,G.4507,B.2501,B.6501" 
+		briefFields="B.7563,G.7575,G.4507,G.1515"
+		chineseName="融资业务还款信息记录"
+	>  
+		<segment segmentFlag="B" id="6" name="BaseSegment" chineseName="基础段" segmentLength="123" optional="false" unique="true">	
+			<field id="4501" dataType="int"  name="RecordLength"        chineseName="信息记录长度"     type="N"  startPosition="0"  endPosition="3" optional="false"/> 	    
+			<field id="7653" dataType="char"  name="RecordType"          chineseName="信息记录类型"     type="N"  startPosition="4"  endPosition="5" optional="false"   defaultValue="16" /> 	    
+			<field id="7543" dataType="char" name="MessageType"         chineseName="信息类别"         type="AN" startPosition="6"  endPosition="6" optional="false"   defaultValue="B" />
+			<field id="6501" dataType="char" name="FinanceID"           chineseName="金融机构代码"     type="AN" startPosition="7"  endPosition="17" optional="false" keyAttribute="true"/>
+			<field id="7503" dataType="char" name="LoanCardNo"         chineseName="贷款卡编码"       type="AN" startPosition="18"  endPosition="33" optional="false"/>						 	
+			<field id="7563" dataType="char" name="ContractNo"            chineseName="融资协议编号"     type="ANC" startPosition="34"  endPosition="93" optional="false"  keyAttribute="true"   />
+			<field id="7511" dataType="char"  name="RecordOperateType"  chineseName="信息记录操作类型" type="AN"  startPosition="94" endPosition="94" optional="false"/>
+			<field id="2501" dataType="date" name="OccurDate"           chineseName="业务发生日期"     type="N"  startPosition="95" endPosition="102" optional="false"/>
+			<field id="7641" dataType="char" name="RecordNo"            chineseName="信息记录跟踪编号" type="AN" startPosition="103" endPosition="122" optional="false"/>
+			<field id="9991" dataType="char" name="CustomerID" chineseName="客户编号" type="AN" startPosition="123" endPosition="162" optional="false"/>
+		</segment>       
+		<segment segmentFlag="G" id="7" name="FinanceRepaySegment" chineseName="贸易融资还款信息段" segmentLength="95" optional="false" unique="true">	
+			<field id="7543" dataType="char" name="MessageType"        chineseName="信息类别"     		 	type="AN"   startPosition="0"  endPosition="0" optional="false" defaultValue="G"/> 	    
+			<field id="7575" dataType="char" name="DuebillNo"           chineseName="融资业务编号"     	type="ANC"  startPosition="1"  endPosition="60" optional="false"  /> 	    
+			<field id="4507" dataType="int" name="ReturnTimes"        chineseName="还款次数"      	 		type="N" 		startPosition="61"  endPosition="64" optional="false"    />
+			<field id="1515" dataType="double" name="ReturnSum"        chineseName="还款金额"     		  type="AN" 	startPosition="65"  endPosition="84" optional="false"/>
+			<field id="2519" dataType="date" name="ReturnDate"         chineseName="还款日期"     		 	type="N" 		startPosition="85"  endPosition="92" optional="false"/>
+			<field id="7545" dataType="char" name="ReturnMode"         chineseName="还款方式"     		 	type="N"  	startPosition="93" endPosition="94" optional="false"/>
+		</segment> 
+	</record>	
+	<record 
+		id="4" 
+		type="17" 
+		name="FinanceExtension" 
+		mainBusinessNo="B.7563" 
+		keyFields="H.7575,H.4509,B.2501,B.6501" 
+		briefFields="B.7563,H.7575,H.4509,H.1517"
+		chineseName="融资业务展期信息记录"
+	>  
+		<segment segmentFlag="B" id="8" name="BaseSegment" chineseName="基础段" segmentLength="123" optional="false" unique="true">	
+			<field id="4501" dataType="int"  name="RecordLength"        chineseName="信息记录长度"     type="N"  startPosition="0"  endPosition="3" optional="false"/> 	    
+			<field id="7653" dataType="char"  name="RecordType"          chineseName="信息记录类型"     type="N"  startPosition="4"  endPosition="5" optional="false"   defaultValue="17" /> 	    
+			<field id="7543" dataType="char" name="MessageType"         chineseName="信息类别"         type="AN" startPosition="6"  endPosition="6" optional="false"   defaultValue="B" />
+			<field id="6501" dataType="char" name="FinanceID"           chineseName="金融机构代码"     type="AN" startPosition="7"  endPosition="17" optional="false" keyAttribute="true"/>
+			<field id="7503" dataType="char" name="LoanCardNo"         chineseName="贷款卡编码"       type="AN" startPosition="18"  endPosition="33" optional="false"/>						 	
+			<field id="7563" dataType="char" name="ContractNo"         chineseName="融资协议编号"     type="ANC" startPosition="34"  endPosition="93" optional="false"  keyAttribute="true"   />
+			<field id="7511" dataType="char"  name="RecordOperateType"  chineseName="信息记录操作类型" type="AN"  startPosition="94" endPosition="94" optional="false"/>
+			<field id="2501" dataType="date" name="OccurDate"           chineseName="业务发生日期"     type="N"  startPosition="95" endPosition="102" optional="false"/>
+			<field id="7641" dataType="char" name="RecordNo"            chineseName="信息记录跟踪编号" type="AN" startPosition="103" endPosition="122" optional="false"/>
+			<field id="9991" dataType="char" name="CustomerID" chineseName="客户编号" type="AN" startPosition="123" endPosition="162" optional="false"/>
+		</segment>  
+		<segment segmentFlag="H" id="9" name="FinanceExtensionSegment" chineseName="贸易融资展期段" segmentLength="99" optional="false" unique="true">	
+			<field id="7543" dataType="char" name="MessageType"        chineseName="信息类别"     			type="AN"   startPosition="0"  endPosition="0" optional="false" defaultValue="H" /> 	    
+			<field id="7575" dataType="char" name="DuebillNo"           chineseName="融资业务编号"      type="ANC"  startPosition="1"  endPosition="60" optional="false"  /> 	    
+			<field id="4509" dataType="char" name="ExtenTimes"         chineseName="展期次数"          type="N" 		startPosition="61"  endPosition="62" optional="false"    />
+			<field id="1517" dataType="double" name="ExtenSum"         chineseName="展期金额"	  type="AN" 	startPosition="63"  endPosition="82" optional="false"/>
+			<field id="2521" dataType="date" name="ExtenStartDate"     chineseName="展期起始日期"      type="N" 		startPosition="83"  endPosition="90" optional="false"/>
+			<field id="2523" dataType="date" name="ExtenEndDate"  	   chineseName="展期到期日期" 			type="N"  	startPosition="91"  endPosition="98" optional="false"/>
+		</segment> 
+	</record>
+	<record id="tail"  type="-1" name="Tail" > 
+		<segment segmentFlag="Z" id="-1" name="Tail" chineseName="报文尾" segmentLength="11" optional="false" unique="true">
+	    	<field id="8521" dataType="char" name="TailFlag"    chineseName="报文尾标识"   type="AN"   startPosition="0" endPosition="0" optional="false" defaultValue="Z"  />				
+	    	<field id="4513" dataType="int" name="RecordNum"   chineseName="信息记录数"  type="N"   startPosition="1" endPosition="10" optional="false"   />							
+		</segment>
+	</record>
+</message>
+
+<message 
+	type="15" 
+	id="05"
+	name="LetterOfCredit"
+	description="信用证业务信息报文" 
+	version="2.1" 
+	headerLength="147" 
+	readerVersion="1.1" 
+	charset="GB18030"
+>  	
+	<record id="header" type="0" name="Header" > 
+		<segment segmentFlag="A" id="0" name="MessageHead" chineseName="报文头" segmentLength="61" optional="false" unique="true">			
+			<field id="8519" dataType="char" name="HeadFlag"     chineseName="报文头标识"     type="AN" startPosition="0" endPosition="0" optional="false"  defaultValue="A"  /> 	    
+			<field id="8517" dataType="char" name="Version"      chineseName="报文格式版本号" type="AN" startPosition="1" endPosition="3" optional="false"/> 	    
+			<field id="6501" dataType="char" name="FinanceCode" chineseName="金融机构代码"   type="AN" startPosition="4" endPosition="14" optional="false"/>
+			<field id="2585" dataType="datetime" name="CreatedTime"   chineseName="报文生成时间"   type="N" startPosition="15" endPosition="28" optional="false"/>
+			<field id="8523" dataType="char" name="MsgType"      chineseName="报文类型"       type="N" startPosition="29" endPosition="30" optional="false"  defaultValue="15"  />			
+			<field id="8515" dataType="char" name="ReserveField" chineseName="预留字段"       type="ANC" startPosition="31" endPosition="60" optional="false"/>
+	 	</segment> 
+ 	</record>
+	<record 
+		id="15" 
+		type="18" 
+		name="LetterOfCredit" 
+		mainBusinessNo="B.7577" 
+		keyFields="B.7577,B.2501,B.6501" 
+		briefFields="B.7577,D.1535,D.1537,D.7523,D.7501,D.7541"
+		chineseName="信用证业务信息记录"
+	>    
+		<segment segmentFlag="B" id="1" name="BaseSegment" chineseName="基础段" segmentLength="167" optional="false" unique="true">	
+			<field id="4501" dataType="int" 			name="RecordLength"       chineseName="信息记录长度"     type="N" startPosition="0" 		endPosition="3"  optional="false"/> 	    
+			<field id="7653" dataType="char" 			name="RecordType"         chineseName="信息记录类型"     type="N" startPosition="4" 		endPosition="5"  optional="false"  defaultValue="18"   /> 	    
+			<field id="7543" dataType="char" 			name="MessageType"        chineseName="信息类别"         type="AN" startPosition="6" 		endPosition="6" optional="false"   defaultValue="B"  />
+			<field id="6501" dataType="char"	    name="FinanceID"          chineseName="金融机构代码"     type="AN" startPosition="7" 		endPosition="17" optional="false" keyAttribute="true"/>
+			<field id="7577" dataType="char" 			name="LCNo"   			  chineseName="信用证号码"        type="ANC" startPosition="18"   endPosition="77" optional="false" keyAttribute="true" />
+			<field id="7519" dataType="char" 			name="CreditNo"   			  chineseName="授信协议号码"        type="ANC" startPosition="78"   endPosition="137" optional="true" keyAttribute="true" />
+			<field id="7511" dataType="char" 			name="RecordOperateType"  chineseName="信息记录操作类型"	type="N"  startPosition="138" 	endPosition="138" optional="false"/>
+			<field id="2501" dataType="date"	    name="OccurDate"   		  chineseName="业务发生日期"      type="N" startPosition="139" 	endPosition="146" optional="false"/>
+			<field id="7641" dataType="char" 			name="ReserveField"       chineseName="信息记录跟踪编号"  type="AN" startPosition="147"    endPosition="166" optional="false"/>
+			<field id="9991" dataType="char" name="CustomerID" chineseName="客户编号" type="AN" startPosition="167" endPosition="206" optional="false"/>		
+		 </segment> 	                                
+		 <segment  segmentFlag="C"  id="2" name="SymbolUpdateSegment"  chineseName="标识变更段"  segmentLength="62" optional="true" unique="true">				
+		 	<field id="7543" dataType="char" 			name="MessageType" chineseName="信息类别"    type="AN" startPosition="0" endPosition="0"  optional="false" defaultValue="C"/>
+		 	<field id="7515" dataType="char" 			name="ChangeType"  chineseName="变更类型"    type="N" startPosition="1" endPosition="1"  optional="false"/>
+		 	<field id="7517" dataType="char" 			name="BusinessNo"  chineseName="业务标识号"  type="ANC" startPosition="2" endPosition="61" optional="false"/>		 	
+		 </segment>  	   
+		 <segment  segmentFlag="D" id="3"  name="D"  chineseName="信用证业务信息记录" segmentLength="180" optional="false" unique="true">
+		 	<field id="7543" dataType="char" 		name="MessageType"   chineseName="信息类别"  			 type="AN"  startPosition="0"   endPosition="0"   optional="false" defaultValue="D"/>
+		 	<field id="5559" dataType="char" 		name="CustomerName"  chineseName="借款人名称"       type="ANC" startPosition="1"   endPosition="80"  optional="false"/>				
+		 	<field id="7503" dataType="char" 		name="LoanCardNo"  	 chineseName="贷款卡编码"  	   type="AN"  startPosition="81"  endPosition="96"  optional="false"/>
+		 	<field id="1501" dataType="char" 		name="Currency"  		 chineseName="币种"  		       type="AN"  startPosition="97"  endPosition="99" optional="false"/>				
+		 	<field id="1535" dataType="double"  	name="CreateSum"  	 chineseName="开证金额"  	     type="AN"  startPosition="100" endPosition="119" optional="false"/>
+		 	<field id="2541" dataType="date" 		name="CreateDate"  	 chineseName="开证日期"  	     type="N"   startPosition="120" endPosition="127" optional="false"/>				
+		 	<field id="2583" dataType="date" 		name="AvailabTerm"   chineseName="信用证有效期"     type="N" 	startPosition="128" endPosition="135" optional="false" />
+		 	<field id="2579" dataType="char" 		name="PayTerm"  	   chineseName="信用证付款期限"   type="N" 	startPosition="136" endPosition="136" optional="false"/>				
+		 	<field id="4511" dataType="int" 		name="GuarantyScale" chineseName="保证金比例"       type="N" 	startPosition="137" endPosition="139" optional="false"/>
+		 	<field id="7523" dataType="char" 		name="GuarantyFlag"  chineseName="担保标志"         type="N" 	startPosition="140" endPosition="140" optional="false"/>				
+		 	<field id="7513" dataType="char" 		name="FloorFlag"  	 chineseName="垫款标志"  	     type="N" 	startPosition="141" endPosition="141" optional="false"/>
+		 	<field id="7501" dataType="char" 		name="CresitStatus"  chineseName="信用证状态"       type="N" 	startPosition="142" endPosition="142" optional="false"/>				
+		 	<field id="2581" dataType="date" 		name="LogOutDate"  	 chineseName="信用证注销日期"   type="AN" 	startPosition="143" endPosition="150" optional="true" status="C"/>				
+		 	<field id="1537" dataType="double" 		name="AssureBalance" chineseName="信用证余额"       type="AN"  startPosition="151" endPosition="170" optional="false"/>
+		 	<field id="2545" dataType="date" 		name="ReportDate"  	 chineseName="余额报告日期"  	     type="N" 	startPosition="171" endPosition="178" optional="false"/>				
+		 	<field id="7541" dataType="char" 		name="Classify5"  	 chineseName="五级分类"  	     type="N" 	startPosition="179" endPosition="179" optional="false"/>
+		 </segment> 
+	</record>
+	<record id="tail" type="-1"  name="Tail" > 
+		<segment segmentFlag="Z" id="-1" name="Tail" chineseName="报文尾" segmentLength="11" optional="false" unique="true">
+			<field id="8521" dataType="char" name="TailFlag"    chineseName="报文尾标识"   type="AN"   startPosition="0" endPosition="0" optional="false" defaultValue="Z"  />				
+			<field id="4513" dataType="int" name="RecordNum"   chineseName="信息记录数"  type="N"   startPosition="1" endPosition="10" optional="false"   />							
+		</segment>
+	</record>
+</message>
+  
+<message 
+	type="16"
+	name="LetterOfGuarantee" 
+	id="06" 
+	description="保函业务信息报文" 
+	tasktype="4" version="2.1" 
+	headerLength="147" 
+	readerVersion="1.1"
+	charset="GB18030" 
+>  	
+	<record id="header" type="0" name="Header" > 
+		<segment segmentFlag="A" id="0" name="MessageHead" chineseName="报文头" segmentLength="61" optional="false" unique="true">			
+			<field id="8519" dataType="char" name="HeadFlag"     chineseName="报文头标识"     type="AN" startPosition="0" endPosition="0" optional="false"  defaultValue="A"  /> 	    
+			<field id="8517" dataType="char" name="Version"      chineseName="报文格式版本号" type="AN" startPosition="1" endPosition="3" optional="false"/> 	    
+			<field id="6501" dataType="char" name="FinanceCode" chineseName="金融机构代码"   type="AN" startPosition="4" endPosition="14" optional="false"/>
+			<field id="2585" dataType="datetime" name="CreatedTime"   chineseName="报文生成时间" type="N" startPosition="15" endPosition="28" optional="false"/>
+			<field id="8523" dataType="int" name="MsgType"      chineseName="报文类型"       type="N" startPosition="29" endPosition="30" optional="false"  defaultValue="16"  />			
+			<field id="8515" dataType="char" name="ReserveField" chineseName="预留字段"       type="ANC" startPosition="31" endPosition="60" optional="false"/>
+	 	</segment> 
+ 	</record>
+	<record 
+		id="1" 
+		type="19" 
+		name="LetterOfGuarantee" 
+		mainBusinessNo="B.7579" 
+		keyFields="B.7579,B.2501,B.6501"
+		briefFields="B.7579,D.1539,D.1541,D.7523,D.7583,D.7541" 
+		chineseName="保函业务信息记录"
+	>    
+		<segment segmentFlag="B" id="1" 	 name="BaseSegment"  chineseName="基础段" segmentLength="167" optional="false" unique="true">	
+			<field id="4501" dataType="int"  		name="RecordLength"  chineseName="信息记录长度" 		   type="N"   startPosition="0" endPosition="3" optional="false"/> 	    
+			<field id="7653" dataType="char" 		name="RecordType"    chineseName="信息记录类型" 		   type="N"   startPosition="4" endPosition="5" optional="false"  defaultValue="19"  /> 	    
+			<field id="7543" dataType="char" 		name="MessageType"   chineseName="信息类别"     		   type="AN"  startPosition="6" endPosition="6" optional="false"  defaultValue="B"  />
+			<field id="6501" dataType="char"        name="FinanceID"     chineseName="金融机构代码" 		   type="AN"  startPosition="7" endPosition="17" optional="false" keyAttribute="true"/>
+			<field id="7579" dataType="char" 		name="guaranteebillno"   chineseName="保函号码" 		       type="ANC" startPosition="18" endPosition="77" optional="false"   keyAttribute="true" />
+			<field id="7519" dataType="char" 		name="CreditNo"  		 chineseName="授信协议号码" 		   type="ANC" startPosition="78" endPosition="137" optional="true" keyAttribute="true" status="O"/>
+			<field id="7511" dataType="char"  		name="RecordOperateType"     chineseName="信息记录操作类型" 			 type="N"   startPosition="138" endPosition="138" optional="false"/>
+			<field id="2501" dataType="date" 		name="OccurDate"   	 chineseName="业务发生日期"  	   type="N"   startPosition="139" endPosition="146" optional="false"/>
+			<field id="7641" dataType="char" 		name="ReserveField"  chineseName="信息记录跟踪编号"   type="AN"  startPosition="147" endPosition="166" optional="false"/>
+			<field id="9991" dataType="char" name="CustomerID" chineseName="客户编号" type="AN" startPosition="167" endPosition="206" optional="false"/>
+		 </segment> 	                                                                         
+		 <segment segmentFlag="C" id="2" name="SymbolUpdateSegment" chineseName="标识变更段" segmentLength="62" optional="true" unique="false">			
+		 	<field id="7543" dataType="char" name="MessageType"       chineseName="信息类别"   type="AN"  startPosition="0" endPosition="0" optional="false"  defaultValue="C" />
+		 	<field id="7515" dataType="char"  name="ChangeType"        chineseName="变更类型"   type="N"   startPosition="1" endPosition="1"  optional="false" />
+		 	<field id="7517" dataType="char" name="BusinessNo"        chineseName="业务标识号" type="ANC" startPosition="2" endPosition="61" optional="false" />		 	
+		 </segment>  	  	   
+		 <segment segmentFlag="D" name="LetterOfGuarantee" id="3" chineseName="保函业务信息记录" segmentLength="172" optional="false" unique="true">
+		 	<field id="7543" dataType="char" 		name="MessageType"  		chineseName="信息类别"  		 type="AN" startPosition="0" endPosition="0" optional="false" defaultValue="D"/>
+		 	<field id="5559" dataType="char" 		name="CustomerName"  		chineseName="借款人名称"  	 type="ANC" startPosition="1" endPosition="80" optional="false"/>				
+		 	<field id="7503" dataType="char" 		name="LoanCardNo"    		chineseName="贷款卡编码"     type="AN" startPosition="81" endPosition="96" optional="false"/>
+		 	<field id="7581" dataType="char"  		name="GuaranteeType"  		chineseName="保函种类"  		 type="N" startPosition="97" endPosition="97" optional="false"/>				
+		 	<field id="7583" dataType="char"  		name="GuaranteeStatus"  	chineseName="保函状态"  		 type="N" startPosition="98" endPosition="98" optional="false"/>
+		 	<field id="1501" dataType="char" 		name="Currency"      		chineseName="币种"      		 type="AN" startPosition="99" endPosition="101" optional="false"/>				
+		 	<field id="1539" dataType="double" 		name="GuaranteeSum"  		chineseName="保函金额"  		 type="AN" startPosition="102" endPosition="121" optional="false"/>
+		 	<field id="2547" dataType="date" 		name="CreateDate"    		chineseName="保函开立日期"   type="N" startPosition="122" endPosition="129" optional="false"/>				
+		 	<field id="2549" dataType="date" 		name="EndDate"       		chineseName="保函到期日"     type="N" startPosition="130" endPosition="137" optional="true" status="C"/>
+		 	<field id="4511" dataType="int" 		name="AssureScale"   		chineseName="保证金比例"   	 type="N" startPosition="138" endPosition="140" optional="false"/>
+		 	<field id="7523" dataType="char" 		name="GuarantyFlag"  		chineseName="担保标志"  		 type="N" startPosition="141" endPosition="141" optional="false"/>				
+		 	<field id="7513" dataType="char" 		name="FloorFlag"     		chineseName="垫款标志"     	 type="N" startPosition="142" endPosition="142" optional="false"/>
+		 	<field id="1541" dataType="double"  	name="Balance"       		chineseName="保函余额"       type="AN" startPosition="143" endPosition="162" optional="false"/>				
+		 	<field id="2551" dataType="date" 		name="BalanceOccurDate" 	chineseName="余额发生日期"   type="N" startPosition="163" endPosition="170" optional="false"/>				
+		 	<field id="7541" dataType="char" 		name="Classify5"  			chineseName="五级分类"  		 type="N" startPosition="171" endPosition="171" optional="false"/>
+		 </segment> 
+	</record>
+	<record id="tail" type="-1"  name="Tail" > 
+		<segment segmentFlag="Z" id="-1" name="Tail" chineseName="报文尾" segmentLength="11" optional="false" unique="true">
+	    	<field id="8521" dataType="char" name="TailFlag"    chineseName="报文尾标识"   type="AN"   startPosition="0" endPosition="0" optional="false" defaultValue="Z"  />				
+	    	<field id="4513" dataType="int"  name="RecordNum"   chineseName="信息记录数"  type="N"   startPosition="1" endPosition="10" optional="false"   />							
+		</segment>
+	</record>
+</message>
+   
+<message 
+	type="17" 
+	id="07" 
+	name="BankAcceptance" 
+	description="承兑汇票业务信息报文" 
+	version="2.1" 
+	headerLength="147" 
+	readerVersion="1.1" 
+	charset="GB18030"
+>  	
+	<record id="header" type="0" name="Header"> 
+		<segment segmentFlag="A" id="0" name="MessageHead" chineseName="报文头" segmentLength="61" optional="false" unique="true">			
+			<field id="8519" dataType="char" name="HeadFlag"     chineseName="报文头标识"     type="AN" startPosition="0" endPosition="0" optional="false"  defaultValue="A"  /> 	    
+			<field id="8517" dataType="char" name="Version"      chineseName="报文格式版本号" type="AN" startPosition="1" endPosition="3" optional="false"/> 	    
+			<field id="6501" dataType="char" name="FinanceCode" chineseName="金融机构代码"   type="AN" startPosition="4" endPosition="14" optional="false"/>
+			<field id="2585" dataType="datetime" name="CreatedTime"   chineseName="报文生成时间"   type="N" startPosition="15" endPosition="28" optional="false"/>
+			<field id="8523" dataType="int" name="MsgType"      chineseName="报文类型"       type="N" startPosition="29" endPosition="30" optional="false"  defaultValue="17"  />			
+			<field id="8515" dataType="char" name="ReserveField" chineseName="预留字段"       type="ANC" startPosition="31" endPosition="60" optional="false"/>
+	 	</segment> 
+ 	</record>
+	<record 
+		id="1" 
+		type="20" 
+		mainBusinessNo="B.7587" 
+		name="BankAcceptance" 
+		briefFields="B.7587,D.1543,D.7523,D.7591,D.7541" 
+		chineseName="承兑汇票业务信息记录"
+	>    
+		<segment segmentFlag="B" id="1"  name="BaseSegment"	chineseName="基础段" segmentLength="187" optional="false" unique="true">	
+			<field id="4501" dataType="int" 		name="RecordLength"       chineseName="信息记录长度" 		  type="N" startPosition="0" endPosition="3" optional="false"/> 	    
+			<field id="7653" dataType="char" 		name="RecordType"         chineseName="信息记录类型" 		 	type="N"  startPosition="4"  endPosition="5"  optional="false" defaultValue="20"/> 	    
+			<field id="7543" dataType="char" 		name="MessageType"        chineseName="信息类别"     		  type="AN" startPosition="6" endPosition="6" optional="false"  defaultValue="B"/>
+			<field id="6501" dataType="char"    name="FinanceID"          chineseName="金融机构代码" 		  type="AN" startPosition="7" endPosition="17" optional="false" keyAttribute="true"/>
+			<field id="7585" dataType="char" 		name="ContractNo"   	chineseName="承兑协议号码" 		type="ANC"  startPosition="18" endPosition="77" optional="false" keyAttribute="true"/>
+			<field id="7587" dataType="char" 		name="AcceptNo"  		 chineseName="汇票号码" 		   		type="AN" startPosition="78" endPosition="97" optional="false" keyAttribute="true"/>
+			<field id="7519" dataType="char" 		name="CreditNo" 		      chineseName="授信协议号码" 			type="ANC" startPosition="98" endPosition="157" optional="true" keyAttribute="true"/>
+			<field id="7511" dataType="char" 		name="RecordOperateType" chineseName="信息记录操作类型" 	type="N" startPosition="158" endPosition="158" optional="false"/>
+			<field id="2501" dataType="date" 		name="OccurDate"   		    chineseName="业务发生日期"  		type="N" startPosition="159" endPosition="166" optional="false"/>
+			<field id="7641" dataType="char" 		name="ReserveField"       chineseName="信息记录跟踪编号" 			type="AN" startPosition="167" endPosition="186" optional="false"/>
+			<field id="9991" dataType="char" name="CustomerID" chineseName="客户编号" type="AN" startPosition="187" endPosition="226" optional="false"/>
+		 </segment> 	
+		 <segment segmentFlag="C" id="2" name="SymbolUpdateSegment" chineseName="标识变更段" segmentLength="62" optional="true" unique="false">			
+		 	<field id="7543" dataType="char" 		name="MessageType"       chineseName="信息类别"   type="AN"  startPosition="0" endPosition="0" optional="false"  defaultValue="C" />
+		 	<field id="7515" dataType="char" 		name="ChangeType"        chineseName="变更类型"   type="N"   startPosition="1" endPosition="1"  optional="false" />
+		 	<field id="7517" dataType="char" 		name="BusinessNo"        chineseName="业务标识号" type="ANC" startPosition="2" endPosition="61" optional="false" />		 	
+		 </segment> 	   
+		 <segment segmentFlag="D" id="3" name="BankAcceptanceSegment"   chineseName="承兑汇票业务信息记录段" segmentLength="151" optional="false" unique="true" >
+		 	<field id="7543" dataType="char" 		name="MessageType"  	chineseName="信息类别"  	 type="AN" startPosition="0" 	 endPosition="0"   optional="false"  defaultValue="D" />
+		 	<field id="5565" dataType="char" 		name="CustomerName"   chineseName="出票人名称" 		 type="ANC" startPosition="1" 	 endPosition="80"  optional="false"/>				
+		 	<field id="7503" dataType="char" 		name="LoanCardNo"  	  chineseName="贷款卡编码"  	 type="AN" startPosition="81"  endPosition="96"  optional="false"/>				
+			<field id="1501" dataType="char" 		name="Currency"  		  chineseName="币种"  				 type="AN" startPosition="97"  endPosition="99" optional="false"/>				
+		 	<field id="1543" dataType="double" 		name="AccepSum"  			chineseName="汇票金额"  		 type="AN" startPosition="100" endPosition="119" optional="false"/>
+		 	<field id="2553" dataType="date" 		name="AccepDate"  		chineseName="汇票承兑日"  	 type="N" startPosition="120" endPosition="127" optional="false"/>				
+		 	<field id="2555" dataType="date" 		name="AccepEndDate"   chineseName="汇票到期日" 		 type="N" startPosition="128" endPosition="135" optional="false"/>
+		 	<field id="2557" dataType="date" 		name="AccepPayDate"   chineseName="汇票付款日期" 	 type="N" startPosition="136" endPosition="143" optional="true"/>
+		 	<field id="4511" dataType="int" 		name="AssureScale"  	chineseName="保证金比例"  	 type="N" startPosition="144" endPosition="146" optional="false"/>				
+		 	<field id="7523" dataType="char" 		name="GuarantyFlag"  	chineseName="担保标志"  		 type="N" startPosition="147" endPosition="147" optional="false"/>
+		 	<field id="7513" dataType="char" 		name="FloorFlag"      chineseName="垫款标志" 			 type="N" startPosition="148" endPosition="148" optional="false"/>				
+		 	<field id="7591" dataType="char" 		name="DraftStatus" 	  chineseName="汇票状态" 			 type="N" startPosition="149" endPosition="149" optional="false"/>				
+		 	<field id="7541" dataType="char" 		name="Classify5"  		chineseName="五级分类"  		 type="N" startPosition="150" endPosition="150" optional="false"/>
+		 </segment> 
+	</record>
+	<record id="tail"  type="-1" name="Tail" > 
+		<segment segmentFlag="Z" id="-1" name="Tail" chineseName="报文尾" segmentLength="11" optional="false" unique="true">
+	    	<field id="8521" dataType="char" name="TailFlag"    chineseName="报文尾标识"   type="AN"   startPosition="0" endPosition="0" optional="false" defaultValue="Z"  />				
+	    	<field id="4513" dataType="int" name="RecordNum"   chineseName="信息记录数"   type="N"   startPosition="1" endPosition="10" optional="false"   />							
+		</segment>
+	</record>
+</message>
+
+<message 
+	type="18" 
+	id="08" 
+	name="PubliclyGive" 
+	description="公开授信信息报文" 
+	version="2.1" 
+	headerLength="147" 
+	readerVersion="1.1" 
+	charset="GB18030" 
+>  	
+	<record id="header" type="0" name="Header" > 
+		<segment segmentFlag="A" id="0" name="MessageHead" chineseName="报文头" segmentLength="61" optional="false" unique="true">			
+			<field id="8519" dataType="char" name="HeadFlag"     chineseName="报文头标识"     type="AN" startPosition="0" endPosition="0" optional="false"  defaultValue="A"  /> 	    
+			<field id="8517" dataType="char" name="Version"      chineseName="报文格式版本号" type="AN" startPosition="1" endPosition="3" optional="false"/> 	    
+			<field id="6501" dataType="char" name="FinanceCode" chineseName="金融机构代码"   type="AN" startPosition="4" endPosition="14" optional="false"/>
+			<field id="2585" dataType="datetime" name="CreatedTime"   chineseName="报文生成时间"   type="N" startPosition="15" endPosition="28" optional="false"/>
+			<field id="8523" dataType="int" name="MsgType"      chineseName="报文类型"       type="N" startPosition="29" endPosition="30" optional="false"  defaultValue="18"  />			
+			<field id="8515" dataType="char" name="ReserveField" chineseName="预留字段"       type="ANC" startPosition="31" endPosition="60" optional="false"/>
+	 	</segment> 
+ 	</record>
+	<record 
+		id="1" 
+		type="21"  
+		name="PubliclyGive" 
+		mainBusinessNo="B.7593" 
+		keyFields="B.7593,B.2501,B.6501" 
+		briefFields="B.7593,D.5559,D.1545" 
+		chineseName="公开授信信息记录"
+	>    
+		<segment segmentFlag="B" id="1" 	name="BaseSegment"  chineseName="基础段" segmentLength="107" optional="false" unique="true">	
+			<field id="4501" dataType="int" 		name="RecordLength"       chineseName="信息记录长度" 		  type="N" startPosition="0" endPosition="3" optional="false"  /> 	    
+			<field id="7653" dataType="char" 		name="RecordType"         chineseName="信息记录类型" 		 	type="N" startPosition="4" endPosition="5" optional="false" defaultValue="21"/> 	    
+			<field id="7543" dataType="char" 		name="MessageType"        chineseName="信息类别"     		  type="AN" startPosition="6" endPosition="6" optional="false" defaultValue="B"/>
+			<field id="6501" dataType="char"    	name="FinanceID"          chineseName="金融机构代码" 		  type="AN" startPosition="7" endPosition="17" optional="false" keyAttribute="true"/>
+			<field id="7593" dataType="char" 		name="CreditNo"   		  chineseName="授信协议号码" 			type="ANC" startPosition="18" endPosition="77" optional="false" keyAttribute="true" />
+			<field id="7511" dataType="char" 		name="RecordOperateType" chineseName="信息记录操作类型" 	type="N" startPosition="78" endPosition="78" optional="false"/>
+			<field id="2501" dataType="date" 		name="OccurDate"   		  chineseName="业务发生日期"  		type="N" startPosition="79" endPosition="86" optional="false"/>
+			<field id="7641" dataType="char" 		name="ReserveField"       chineseName="信息记录跟踪编号" 			type="AN" startPosition="87" endPosition="106" optional="false"/>
+			<field id="9991" dataType="char" name="CustomerID" chineseName="客户编号" type="AN" startPosition="107" endPosition="146" optional="false"/>
+		 </segment> 	
+		 <segment segmentFlag="C" id="2" name="SymbolUpdateSegment" chineseName="标识变更段" segmentLength="62" optional="true" unique="false">			
+		 	<field id="7543" dataType="char" 		name="MessageType"       chineseName="信息类别"   type="AN"  startPosition="0" endPosition="0" optional="false"  defaultValue="C" />
+		 	<field id="7515" dataType="char" 		name="ChangeType"        chineseName="变更类型"   type="N"   startPosition="1" endPosition="1"  optional="false" />
+		 	<field id="7517" dataType="char" 		name="BusinessNo"        chineseName="业务标识号" type="ANC" startPosition="2" endPosition="61" optional="false" />		 	
+		 </segment> 	   
+		 <segment segmentFlag="D"  name="PubliclyGive"  id="3" chineseName="公开授信信息记录" segmentLength="146" optional="false" unique="true">
+		 	<field id="7543" dataType="char" 		name="MessageType"  	chineseName="信息类别"             	 type="AN" startPosition="0" 	 endPosition="0"   optional="false" defaultValue="D"/>
+		 	<field id="5559" dataType="char" 		name="CustomerName"   chineseName="借款人名称"          	 type="ANC" startPosition="1" 	 endPosition="80"  optional="false"/>				
+		 	<field id="7503" dataType="char" 		name="LoanCardNo"  	  chineseName="贷款卡编码"          	 type="AN" startPosition="81"  endPosition="96"  optional="false"/>				
+			<field id="1501" dataType="char" 		name="Currency"  		  chineseName="币种"                	 type="AN" startPosition="97"  endPosition="99"  optional="false"/>				
+		 	<field id="1545" dataType="double" 		name="CreditLimit"  	chineseName="授信额度"            	 type="AN" startPosition="100" endPosition="119" optional="false"/>
+		 	<field id="2559" dataType="date" 		name="CreditStartDate" chineseName="授信生效起始日期"    	 type="N" startPosition="120" endPosition="127" optional="false"/>				
+		 	<field id="2561" dataType="date" 		name="CreditEndDate"  chineseName="授信终止日期"        	 type="N" startPosition="128" endPosition="135" optional="false"/>
+		 	<field id="2563" dataType="date" 		name="CreditLogOnDate" chineseName="授信额度注销生效日期" 	 type="AN" startPosition="136" endPosition="143" optional="true" status="C"/>
+		 	<field id="8511" dataType="char" 		name="CreditLogOnCause" chineseName="授信额度注销原因"    	 type="AN" startPosition="144" endPosition="145" optional="true" status="C"/>				
+		 </segment> 
+	</record>
+	<record id="tail"  type="-1" name="Tail" > 
+		<segment segmentFlag="Z" id="-1" name="Tail" chineseName="报文尾" segmentLength="11" optional="false" unique="true">
+	    	<field id="8521" dataType="char" name="TailFlag"    chineseName="报文尾标识"   type="AN"   startPosition="0" endPosition="0" optional="false" defaultValue="Z"  />				
+	    	<field id="4513" dataType="int"  name="RecordNum"   chineseName="信息记录数"  type="N"   startPosition="1" endPosition="10" optional="false"   />							
+		</segment>
+	</record>
+</message>
+		
+	
+	
+<message 
+	type="19" 
+	id="09" 
+	name="GuaranteeInfo" 
+	description="担保业务信息报文" 
+	version="2.1" 
+	headerLength="147" 
+	readerVersion="1.1" 
+	charset="GB18030"
+>  	
+	<record id="header" type="0" name="Header" > 
+		<segment segmentFlag="A" id="0" name="MessageHead" chineseName="报文头" segmentLength="61" optional="false" unique="true">			
+			<field id="8519" dataType="char" name="HeadFlag"     chineseName="报文头标识"     type="AN" startPosition="0" endPosition="0" optional="false"  defaultValue="A"  /> 	    
+			<field id="8517" dataType="char" name="Version"      chineseName="报文格式版本号" type="AN" startPosition="1" endPosition="3" optional="false"/> 	    
+			<field id="6501" dataType="char" name="FinanceCode" chineseName="金融机构代码"   type="AN" startPosition="4" endPosition="14" optional="false"/>
+			<field id="2585" dataType="datetime" name="CreatedTime"   chineseName="报文生成时间"   type="N" startPosition="15" endPosition="28" optional="false"/>
+			<field id="8523" dataType="char" name="MsgType"      chineseName="报文类型"       type="N" startPosition="29" endPosition="30" optional="false"  defaultValue="19"  />			
+			<field id="8515" dataType="char" name="ReserveField" chineseName="预留字段"       type="ANC" startPosition="31" endPosition="60" optional="false"/>
+	 	</segment> 
+ 	</record>
+	<record 
+		id="1" 
+		type="22" 
+		name="AssureContract" 
+		mainBusinessNo="B.7595" 
+		keyFields="B.7595,D.7597,B.2501,B.6501"
+		briefFields="B.7595,B.7605,D.7597,D.7503,D.7525" 
+		chineseName="保证合同业务信息">    
+		<segment segmentFlag="B" id="1"  name="BaseSegment" 			chineseName="基础段" 		segmentLength="124" optional="false" unique="true">	
+			<field id="4501" dataType="int" 		name="RecordLength"        chineseName="信息记录长度" 		type="N" 		startPosition="0" 	endPosition="3"   optional="false"/> 	    
+			<field id="7653" dataType="char" 		name="RecordType"          chineseName="信息记录类型" 		type="N" 		startPosition="4" 	endPosition="5"   optional="false"  defaultValue="22"/> 	    
+			<field id="7543" dataType="char" 		name="MessageType"         chineseName="信息类别"     		type="AN" 	startPosition="6" 	endPosition="6"   optional="false" defaultValue="B"/>
+			<field id="6501" dataType="char" 		name="FinanceID"           chineseName="金融机构代码" 		type="AN" 	startPosition="7" 	endPosition="17"  optional="false" keyAttribute="true"/>
+			<field id="7503" dataType="char" 		name="LoanCardNo"  	  		 chineseName="贷款卡编码"       type="AN"   startPosition="18"  endPosition="33"  optional="false"/>							
+			<field id="7595" dataType="char" 		name="MContractNo"    	chineseName="主合同编号" 			type="ANC" 	startPosition="34"  endPosition="93"  optional="false"  keyAttribute="true" />
+			<field id="7605" dataType="char" 		name="BusinessType"  	     chineseName="信贷业务种类" 		type="N" 		startPosition="94"  endPosition="94"  optional="false"/>
+			<field id="7511" dataType="char" 		name="RecordOperateType"  chineseName="信息记录操作录型" type="N" 		startPosition="95"  endPosition="95"  optional="false"/>
+			<field id="2501" dataType="date" 		name="OccurDate"           chineseName="业务发生日期" 		type="N" 		startPosition="96"  endPosition="103"  optional="false"/>
+			<field id="7641" dataType="char" 		name="RecordNo"   		     chineseName="信息记录跟踪编号" type="AN" 	startPosition="104"  endPosition="123" optional="false"/>
+			<field id="9991" dataType="char" name="CustomerID" chineseName="客户编号" type="AN" startPosition="124" endPosition="163" optional="false"/>
+		</segment> 
+		 <segment segmentFlag="C" id="2" name="SymbolUpdateSegment" chineseName="标识变更段" segmentLength="62" optional="true" unique="false">			
+		 	<field id="7543" dataType="char" 		name="MessageType"       chineseName="信息类别"   type="AN"  startPosition="0" endPosition="0" optional="false"  defaultValue="C" />
+		 	<field id="7515" dataType="char" 		name="ChangeType"        chineseName="变更类型"   type="N"   startPosition="1" endPosition="1"  optional="false" />
+		 	<field id="7517" dataType="char" 		name="BusinessNo"        chineseName="业务标识号" type="ANC" startPosition="2" endPosition="61" optional="false" />		 	
+		 </segment>	
+		 <segment  segmentFlag="D" name="AssureContractSegment"  id="3"  chineseName="保证合同信息段" segmentLength="190" optional="false" unique="true">				
+		 	<field id="7543" dataType="char" 		name="MessageType"  		chineseName="信息类别"  		 type="AN" startPosition="0"    endPosition="0" 		optional="false"  defaultValue="D"/> 	 
+		 	<field id="7597" dataType="char" 		name="GContractNo"  			chineseName="保证合同编号"   type="ANC" startPosition="1"    endPosition="60" 		optional="false"/>
+		 	<field id="5567" dataType="char" 		name="AssurerName" 			chineseName="保证人名称" 	   type="ANC" startPosition="61"   endPosition="140" 	optional="false"/>		 	
+		 	<field id="7503" dataType="char" 		name="LoanCardNO"  			chineseName="贷款卡编码"  	 type="AN" startPosition="141"  endPosition="156" 	optional="false"/>		 	
+		 	<field id="1501" dataType="char" 		name="Currency"  			chineseName="币种"  	       type="AN" startPosition="157"  endPosition="159" 	optional="false"/>		 	
+		 	<field id="1547" dataType="double"  	name="AssureSum"  			chineseName="保证金额"  		 type="AN" startPosition="160"  endPosition="179" 	optional="false"/>		 	
+		 	<field id="2565" dataType="date" 		name="CreateDate" 			chineseName="合同签订日期" 	 type="N" startPosition="180"  endPosition="187" 	optional="false"/>		 	
+		 	<field id="7603" dataType="char" 		name="AssureForm"  			chineseName="保证担保形式"   type="N" startPosition="188"  endPosition="188" 	optional="false"/>		 	
+		 	<field id="7525" dataType="char" 		name="AvailabStatus"  		chineseName="合同有效状态"	 type="N" startPosition="189"  endPosition="189" 	optional="false"/>		 	
+		 </segment> 
+	</record>  
+	<record 
+		id="2"  
+		type="23" 
+		name="GuarantyContract" 
+		mainBusinessNo="B.7595" 
+		keyFields="B.7595,E.7607,E.7609,B.2501,B.6501" 
+		briefFields="B.7595,E.7607,E.7609,E.7503,E.1551,E.7525" 
+		chineseName="抵押合同业务信息"
+	>    
+		<segment segmentFlag="B" id="1" 	 name="BaseSegment" 			chineseName="基础段" 		segmentLength="124" optional="false" unique="true">	
+			<field id="4501" dataType="int" 		name="RecordLength"        chineseName="信息记录长度" 		type="N" 		startPosition="0" 	endPosition="3"   optional="false"/> 	    
+			<field id="7653" dataType="char" 		name="RecordType"          chineseName="信息记录类型" 		type="N" 		startPosition="4" 	endPosition="5"   optional="false"  defaultValue="23"/> 	    
+			<field id="7543" dataType="char" 		name="MessageType"         chineseName="信息类别"     		type="AN" 	startPosition="6" 	endPosition="6"   optional="false" defaultValue="B"/>
+			<field id="6501" dataType="char" 		name="FinanceID"           chineseName="金融机构代码" 		type="AN" 	startPosition="7" 	endPosition="17"  optional="false" keyAttribute="true"/>
+			<field id="7503" dataType="char" 		name="LoanCardNo"  	  		 chineseName="贷款卡编码"       type="AN"   startPosition="18"  endPosition="33"  optional="false"/>							
+			<field id="7595" dataType="char" 		name="MContractNo"    	chineseName="主合同编号" 			type="ANC" 	startPosition="34"  endPosition="93"  optional="false"  keyAttribute="true" />
+			<field id="7605" dataType="char" 		name="BusinessType"  	     chineseName="信贷业务种类" 		type="N" 		startPosition="94"  endPosition="94"  optional="false"/>
+			<field id="7511" dataType="char" 		name="RecordOperateType"  chineseName="信息记录操作录型" type="N" 		startPosition="95"  endPosition="95"  optional="false"/>
+			<field id="2501" dataType="date" 		name="OccurDate"           chineseName="业务发生日期" 		type="N" 		startPosition="96"  endPosition="103"  optional="false"/>
+			<field id="7641" dataType="char" 		name="RecordNo"   		     chineseName="信息记录跟踪编号" type="AN" 	startPosition="104"  endPosition="123" optional="false"/>
+			<field id="9991" dataType="char" name="CustomerID" chineseName="客户编号" type="AN" startPosition="124" endPosition="163" optional="false"/>
+		</segment> 
+		<segment segmentFlag="C" id="2" name="SymbolUpdateSegment" chineseName="标识变更段" segmentLength="62" optional="true" unique="false">			
+		 	<field id="7543" dataType="char" 		name="MessageType"       chineseName="信息类别"   type="AN"  startPosition="0" endPosition="0" optional="false"  defaultValue="C" />
+		 	<field id="7515" dataType="char" 		name="ChangeType"        chineseName="变更类型"   type="N"   startPosition="1" endPosition="1"  optional="false" />
+		 	<field id="7517" dataType="char" 		name="BusinessNo"        chineseName="业务标识号" type="ANC" startPosition="2" endPosition="61" optional="false" />		 	
+		 </segment>	   
+		 <segment segmentFlag="E" id="3"  name="GuarantyContractSegment"  chineseName="抵押合同信息段" segmentLength="801" optional="false" unique="true">
+		 	<field id="7543" dataType="char" 		name="MessageType"  			chineseName="信息类别"					 type="AN" startPosition="0" 		endPosition="0"     optional="false" defaultValue="E"/>
+		 	<field id="7607" dataType="char" 		name="GContractNo"  		chineseName="抵押合同编号"  		 type="ANC" startPosition="1" 		endPosition="60"    optional="false"/>				
+			<field id="7609" dataType="char" 		name="SerialNo"  					chineseName="抵押序号"  				 type="AN" startPosition="61" 	endPosition="62"    optional="false"/>				
+		 	<field id="5583" dataType="char" 		name="CustomerName"  			chineseName="抵押人名称"  			 type="ANC" startPosition="63" 	endPosition="142"   optional="false"/>
+		 	<field id="7503" dataType="char" 		name="LoanCardNo"  				chineseName="贷款卡编码"  			 type="AN" startPosition="143"  endPosition="158"   optional="false"/>				
+		 	<field id="9999" dataType="char" 		name="EvaluateCurrency"  	chineseName="评估币种"  				 type="AN" startPosition="159"  endPosition="161"   optional="true"/>
+		 	<field id="1549" dataType="double" 		name="EvaluateSum"  			chineseName="抵押物评估价值"  	 type="AN" startPosition="162"  endPosition="181"   optional="true" status="O"/>
+		 	<field id="2567" dataType="date" 		name="EvaluateDate"  			chineseName="评估日期"  				 type="AN" startPosition="182"  endPosition="189"   optional="true" status="O"/>				
+		 	<field id="5569" dataType="char" 		name="EvaluateOffice"  		chineseName="评估机构名称"  		 type="ANC" startPosition="190"  endPosition="269"   optional="true" status="O"/>
+		 	<field id="6507" dataType="char" 		name="EvaluateOfficeID"  	chineseName="评估机构组织机构代码"  	 type="AN" startPosition="270"  endPosition="279"   optional="true" status="O"/>				
+		 	<field id="2565" dataType="date" 		name="CreateDate"  				chineseName="合同签订日期"  		 type="N" startPosition="280"  endPosition="287"   optional="false" status="O"/>				
+		 	<field id="7617" dataType="char" 		name="GuarantyType"  			chineseName="抵押物种类"  			 type="N" startPosition="288"  endPosition="288"   optional="false"/>
+		 	<field id="1501" dataType="char" 		name="GuarantyCurrency" 	chineseName="抵押币种" 	         type="AN" startPosition="289"  endPosition="291"   optional="false"/>
+		 	<field id="1551" dataType="double" 		name="GuarantySum"  			chineseName="抵押金额"  			   type="AN" startPosition="292"  endPosition="311"   optional="false"/>
+		 	<field id="5571" dataType="char" 		name="InputOrgName"  			chineseName="登记机关"  			   type="AN" startPosition="312"  endPosition="391"   optional="false"/>
+		 	<field id="2569" dataType="date" 		name="InputDate"  				chineseName="登记日期"  				 type="N" startPosition="392"  endPosition="399"   optional="true"/>
+		 	<field id="8513" dataType="char" 		name="GuarantyExplain"  	chineseName="抵押物说明"  	     type="ANC" startPosition="400"  endPosition="799"   optional="false"/>
+		 	<field id="7525" dataType="char" 		name="AvailabStatus"  		chineseName="合同有效状态"  		 type="N" startPosition="800"  endPosition="800"   optional="false"/>
+		 </segment> 
+	</record> 
+	<record 
+		id="3"  
+		type="24" 
+		name="ImpawnContract" 
+		mainBusinessNo="B.7595" 
+		keyFields="B.7595,F.7613,F.7619,B.2501,B.6501" 
+		briefFields="B.7595,F.7613,F.7619,F.7503,F.1557,F.7525" 
+		chineseName="质押合同业务信息"
+	>    
+		<segment segmentFlag="B" id="1" 	 name="BaseSegment" 			chineseName="基础段" 		segmentLength="124" optional="false" unique="true">	
+			<field id="4501" dataType="int" 		name="RecordLength"        chineseName="信息记录长度" 		type="N" 		startPosition="0" 	endPosition="3"   optional="false"/> 	    
+			<field id="7653" dataType="char" 		name="RecordType"          chineseName="信息记录类型" 		type="N" 		startPosition="4" 	endPosition="5"   optional="false"  defaultValue="24"/> 	    
+			<field id="7543" dataType="char" 		name="MessageType"         chineseName="信息类别"     		type="AN" 	startPosition="6" 	endPosition="6"   optional="false" defaultValue="B"/>
+			<field id="6501" dataType="char" 		name="FinanceID"           chineseName="金融机构代码" 		type="AN" 	startPosition="7" 	endPosition="17"  optional="false" keyAttribute="true"/>
+			<field id="7503" dataType="char" 		name="LoanCardNo"  	  		 chineseName="贷款卡编码"       type="AN"   startPosition="18"  endPosition="33"  optional="false"/>							
+			<field id="7595" dataType="char" 		name="MContractNo"    		chineseName="主合同编号" 			type="ANC" 	startPosition="34"  endPosition="93"  optional="false"  keyAttribute="true" />
+			<field id="7605" dataType="char" 		name="BusinessType"  	     chineseName="信贷业务种类" 		type="N" 		startPosition="94"  endPosition="94"  optional="false"/>
+			<field id="7511" dataType="char" 		name="RecordOperateType"  chineseName="信息记录操作录型" type="N" 		startPosition="95"  endPosition="95"  optional="false"/>
+			<field id="2501" dataType="date" 		name="OccurDate"           chineseName="业务发生日期" 		type="N" 		startPosition="96"  endPosition="103"  optional="false"/>
+			<field id="7641" dataType="char" 		name="RecordNo"   		     chineseName="信息记录跟踪编号" type="AN" 	startPosition="104"  endPosition="123" optional="false"/>
+			<field id="9991" dataType="char" name="CustomerID" chineseName="客户编号" type="AN" startPosition="124" endPosition="163" optional="false"/>
+		</segment> 
+		<segment segmentFlag="C" id="2" name="SymbolUpdateSegment" chineseName="标识变更段" segmentLength="62" optional="true" unique="false">			
+		 	<field id="7543" dataType="char" 		name="MessageType"       chineseName="信息类别"   type="AN"  startPosition="0" endPosition="0" optional="false"  defaultValue="C" />
+		 	<field id="7515" dataType="char" 		name="ChangeType"        chineseName="变更类型"   type="N"   startPosition="1" endPosition="1"  optional="false" />
+		 	<field id="7517" dataType="char" 		name="BusinessNo"        chineseName="业务标识号" type="ANC" startPosition="2" endPosition="61" optional="false" />		 	
+		</segment>
+		<segment  segmentFlag="F" id="3" name="ImpawnContractSegment"  chineseName="质押合同信息段" segmentLength="215" optional="false" unique="true">
+		 	<field id="7543" dataType="char" 		name="MessageType"  	  chineseName="信息类别"  		   type="AN" startPosition="0" 		endPosition="0" 		optional="false"  defaultValue="F"/> 	
+		 	<field id="7613" dataType="char" 		name="GContractNo"  	chineseName="质押合同编号"     type="ANC" startPosition="1" 		endPosition="60" 		optional="false"/>				
+			<field id="7619" dataType="char"			name="SerialNo"  		  chineseName="质押序号"  		   type="AN" startPosition="61" 	endPosition="62" 		optional="false"/>				
+		 	<field id="5573" dataType="char" 		name="CustomerName"  	  chineseName="出质人名称"  	   type="ANC" startPosition="63"   endPosition="142" 	optional="false"/>
+		 	<field id="7503" dataType="char" 		name="LoanCardNo"  		  chineseName="贷款卡编码"  	   type="AN" startPosition="143" 	endPosition="158" 	optional="false"/>				
+		 	<field id="9999" dataType="char" 		name="Currency"  		  chineseName="币种"  				   type="AN" startPosition="159" 	endPosition="161" 	optional="false"/>
+		 	<field id="1571" dataType="double" 		name="ImpawnValue" 		  chineseName="质押物价值" 		   type="AN" startPosition="162" 	endPosition="181" 	optional="false"/>
+		 	<field id="2565" dataType="date" 		name="CreateDate"  		  chineseName="合同签订日期"     type="N" startPosition="182" 	endPosition="189" 	optional="false"/>				
+		 	<field id="7621" dataType="char" 		name="ImpawnType"  		  chineseName="质押物种类"  	   type="N" startPosition="190" 	endPosition="190" 	optional="false"/>
+		 	<field id="1501" dataType="char" 		name="ImpawnCurrency"  	  chineseName="质押币种    "  	 type="AN" startPosition="191" 	endPosition="193" optional="false"/>           
+		 	<field id="1557" dataType="double" 		name="ImpawnSum"  		  chineseName="质押金额"  			 type="AN" startPosition="194" 	endPosition="213" 	optional="false"/>		 	
+		 	<field id="7525" dataType="char" 		name="AvailabStatus"  	  chineseName="合同有效状态"  	 type="N" startPosition="214" 	endPosition="214" 	optional="false"/>
+		</segment>  
+	</record>
+
+	<!--添加自然人担保开始-->
+	<!--主合同编号 保证合同编号 业务发生日期 金融机构代码-->
+	<!--主合同编号 信贷业务种类 保证合同编号 证件类型 证件号码 合同有效状态-->
+	<record 
+		id="4" 
+		type="32" 
+		name="AssureContractN" 
+		mainBusinessNo="B.7595"
+		keyFields="B.7595,G.7597,B.2501,B.6501"
+		briefFields="B.7595,B.7605,G.7597,G.5511,G.5553,G.7525" 
+		chineseName="自然人保证合同业务信息">    
+		<segment segmentFlag="B" id="1"  name="BaseSegment" 			chineseName="基础段" 		segmentLength="124" optional="false" unique="true">	
+			<field id="4501" dataType="int" 		name="RecordLength"        chineseName="信息记录长度" 		type="N" 		startPosition="0" 	endPosition="3"   optional="false"/> 	    
+			<field id="7653" dataType="char" 		name="RecordType"          chineseName="信息记录类型" 		type="N" 		startPosition="4" 	endPosition="5"   optional="false"  defaultValue="32"/> 	    
+			<field id="7543" dataType="char" 		name="MessageType"         chineseName="信息类别"     		type="AN" 	startPosition="6" 	endPosition="6"   optional="false" defaultValue="B"/>
+			<field id="6501" dataType="char" 		name="FinanceID"           chineseName="金融机构代码" 		type="AN" 	startPosition="7" 	endPosition="17"  optional="false" keyAttribute="true"/>
+			<field id="7503" dataType="char" 		name="LoanCardNo"  	  		 chineseName="贷款卡编码"       type="AN"   startPosition="18"  endPosition="33"  optional="false"/>							
+			<field id="7595" dataType="char" 		name="MContractNo"    	chineseName="主合同编号" 			type="ANC" 	startPosition="34"  endPosition="93"  optional="false"  keyAttribute="true" />
+			<field id="7605" dataType="char" 		name="BusinessType"  	     chineseName="信贷业务种类" 		type="N" 		startPosition="94"  endPosition="94"  optional="false"/>
+			<field id="7511" dataType="char" 		name="RecordOperateType"  chineseName="信息记录操作录型" type="N" 		startPosition="95"  endPosition="95"  optional="false"/>
+			<field id="2501" dataType="date" 		name="OccurDate"           chineseName="业务发生日期" 		type="N" 		startPosition="96"  endPosition="103"  optional="false"/>
+			<field id="7641" dataType="char" 		name="RecordNo"   		     chineseName="信息记录跟踪编号" type="AN" 	startPosition="104"  endPosition="123" optional="false"/>
+			<field id="9991" dataType="char" name="CustomerID" chineseName="客户编号" type="AN" startPosition="124" endPosition="163" optional="false"/>
+		</segment> 
+		 <segment segmentFlag="C" id="2" name="SymbolUpdateSegment" chineseName="标识变更段" segmentLength="62" optional="true" unique="false">			
+		 	<field id="7543" dataType="char" 		name="MessageType"       chineseName="信息类别"   type="AN"  startPosition="0" endPosition="0" optional="false"  defaultValue="C" />
+		 	<field id="7515" dataType="char" 		name="ChangeType"        chineseName="变更类型"   type="N"   startPosition="1" endPosition="1"  optional="false" />
+		 	<field id="7517" dataType="char" 		name="BusinessNo"        chineseName="业务标识号" type="ANC" startPosition="2" endPosition="61" optional="false" />		 	
+		 </segment>	
+		 <segment  segmentFlag="G" name="AssureContractNSegment"  id="3"  chineseName="自然人保证合同信息段" segmentLength="193" optional="false" unique="true">				
+		 	<field id="7543" dataType="char" 		name="MessageType"  		chineseName="信息类别"  		 type="AN" startPosition="0"    endPosition="0" 		optional="false"  defaultValue="G"/> 	 
+		 	<field id="7597" dataType="char" 		name="GContractNo"  			chineseName="保证合同编号"   type="ANC" startPosition="1"    endPosition="60" 		optional="false"/>
+		 	<field id="5567" dataType="char" 		name="AssurerName" 			chineseName="保证人名称" 	   type="ANC" startPosition="61"   endPosition="140" 	optional="false"/>		 	
+		 	<field id="5511" dataType="char" 		name="CertType"  			chineseName="证件类型"  	 type="AN" startPosition="141"  endPosition="141" 	optional="false"/>
+			<field id="5553" dataType="char" 		name="CertID"  			chineseName="证件号码"  	 type="ANC" startPosition="142"  endPosition="159" 	optional="false"/>		 	
+		 	<field id="1501" dataType="char" 		name="Currency"  			chineseName="币种"  	       type="AN" startPosition="160"  endPosition="162" 	optional="false"/>		 	
+		 	<field id="1547" dataType="double"  	name="AssureSum"  			chineseName="保证金额"  		 type="AN" startPosition="163"  endPosition="182" 	optional="false"/>		 	
+		 	<field id="2565" dataType="date" 		name="CreateDate" 			chineseName="合同签订日期" 	 type="N" startPosition="183"  endPosition="190" 	optional="false"/>		 	
+		 	<field id="7603" dataType="char" 		name="AssureForm"  			chineseName="保证担保形式"   type="N" startPosition="191"  endPosition="191" 	optional="false"/>		 	
+		 	<field id="7525" dataType="char" 		name="AvailabStatus"  		chineseName="合同有效状态"	 type="N" startPosition="192"  endPosition="192" 	optional="false"/>		 	
+		 </segment> 
+	</record>  
+
+	<!--主合同编号 保证合同编号 业务发生日期 金融机构代码-->
+	<!--主合同编号 信贷业务种类 抵押合同编号 证件类型  证件号码 抵押金额 合同有效状态-->
+	<record 
+		id="5"  
+		type="33" 
+		name="GuarantyContractN" 
+		mainBusinessNo="B.7595" 
+		keyFields="B.7595,H.7607,H.7609,B.2501,B.6501" 
+		briefFields="B.7595,H.7607,H.7609,H.5511,H.5553,H.1551,H.7525" 
+		chineseName="自然人抵押合同业务信息"
+	>    
+		<segment segmentFlag="B" id="1" 	 name="BaseSegment" 			chineseName="基础段" 		segmentLength="124" optional="false" unique="true">	
+			<field id="4501" dataType="int" 		name="RecordLength"        chineseName="信息记录长度" 		type="N" 		startPosition="0" 	endPosition="3"   optional="false"/> 	    
+			<field id="7653" dataType="char" 		name="RecordType"          chineseName="信息记录类型" 		type="N" 		startPosition="4" 	endPosition="5"   optional="false"  defaultValue="33"/> 	    
+			<field id="7543" dataType="char" 		name="MessageType"         chineseName="信息类别"     		type="AN" 	startPosition="6" 	endPosition="6"   optional="false" defaultValue="B"/>
+			<field id="6501" dataType="char" 		name="FinanceID"           chineseName="金融机构代码" 		type="AN" 	startPosition="7" 	endPosition="17"  optional="false" keyAttribute="true"/>
+			<field id="7503" dataType="char" 		name="LoanCardNo"  	  		 chineseName="贷款卡编码"       type="AN"   startPosition="18"  endPosition="33"  optional="false"/>							
+			<field id="7595" dataType="char" 		name="MContractNo"    	chineseName="主合同编号" 			type="ANC" 	startPosition="34"  endPosition="93"  optional="false"  keyAttribute="true" />
+			<field id="7605" dataType="char" 		name="BusinessType"  	     chineseName="信贷业务种类" 		type="N" 		startPosition="94"  endPosition="94"  optional="false"/>
+			<field id="7511" dataType="char" 		name="RecordOperateType"  chineseName="信息记录操作录型" type="N" 		startPosition="95"  endPosition="95"  optional="false"/>
+			<field id="2501" dataType="date" 		name="OccurDate"           chineseName="业务发生日期" 		type="N" 		startPosition="96"  endPosition="103"  optional="false"/>
+			<field id="7641" dataType="char" 		name="RecordNo"   		     chineseName="信息记录跟踪编号" type="AN" 	startPosition="104"  endPosition="123" optional="false"/>
+			<field id="9991" dataType="char" name="CustomerID" chineseName="客户编号" type="AN" startPosition="124" endPosition="163" optional="false"/>
+		</segment> 
+		<segment segmentFlag="C" id="2" name="SymbolUpdateSegment" chineseName="标识变更段" segmentLength="62" optional="true" unique="false">			
+		 	<field id="7543" dataType="char" 		name="MessageType"       chineseName="信息类别"   type="AN"  startPosition="0" endPosition="0" optional="false"  defaultValue="C" />
+		 	<field id="7515" dataType="char" 		name="ChangeType"        chineseName="变更类型"   type="N"   startPosition="1" endPosition="1"  optional="false" />
+		 	<field id="7517" dataType="char" 		name="BusinessNo"        chineseName="业务标识号" type="ANC" startPosition="2" endPosition="61" optional="false" />		 	
+		 </segment>	   
+		 <segment segmentFlag="H" id="3"  name="GuarantyContractNSegment"  chineseName="自然人抵押合同信息段" segmentLength="804" optional="false" unique="true">
+		 	<field id="7543" dataType="char" 		name="MessageType"    chineseName="信息类别"					 type="AN" startPosition="0" 		endPosition="0"     optional="false" defaultValue="H"/>
+		 	<field id="7607" dataType="char" 		name="GContractNo"    chineseName="抵押合同编号"  		 type="ANC" startPosition="1" 		endPosition="60"    optional="false"/>				
+			<field id="7609" dataType="char" 		name="SerialNo"  	  chineseName="抵押序号"  				 type="AN" startPosition="61" 	endPosition="62"    optional="false"/>				
+		 	<field id="5583" dataType="char" 		name="CustomerName"   chineseName="抵押人名称"  			 type="ANC" startPosition="63" 	endPosition="142"   optional="false"/>
+		 	<field id="5511" dataType="char" 		name="CertType"  	  chineseName="证件类型"  	 type="AN" startPosition="143"  endPosition="143" 	optional="false"/>
+			<field id="5553" dataType="char" 		name="CertID"  	  chineseName="证件号码"  	 type="ANC" startPosition="144"  endPosition="161" 	optional="false"/>		 
+			<field id="9999" dataType="char" 		name="EvaluateCurrency" chineseName="评估币种" 	         type="AN" startPosition="162"  endPosition="164"   optional="false"/>
+			<field id="1549" dataType="double" 		name="EvaluateSum"    chineseName="抵押物评估价值"  	 type="AN" startPosition="165"  endPosition="184"   optional="true" status="O"/>
+		 	<field id="2567" dataType="date" 		name="EvaluateDate"   chineseName="评估日期"  				 type="N" startPosition="185"  endPosition="192"   optional="true" status="O"/>				
+		 	<field id="5569" dataType="char" 		name="EvaluateOffice"  		chineseName="评估机构名称"  		 type="ANC" startPosition="193"  endPosition="272"   optional="true" status="O"/>
+		 	<field id="6507" dataType="char" 		name="EvaluateOfficeID"  	chineseName="评估机构组织机构代码"  	 type="AN" startPosition="273"  endPosition="282"   optional="true" status="O"/>				
+		 	<field id="2565" dataType="date" 		name="CreateDate"  				chineseName="合同签订日期"  		 type="N" startPosition="283"  endPosition="290"   optional="false" status="O"/>				
+		 	<field id="7617" dataType="char" 		name="GuarantyType"  			chineseName="抵押物种类"  			 type="N" startPosition="291"  endPosition="291"   optional="false"/>
+		 	<field id="1501" dataType="char" 		name="GuarantyCurrency" 	chineseName="抵押币种" 	         type="AN" startPosition="292"  endPosition="294"   optional="false"/>
+			<field id="1551" dataType="double" 		name="GuarantySum"  			chineseName="抵押金额"  			   type="AN" startPosition="295"  endPosition="314"   optional="false"/>
+		 	<field id="5571" dataType="char" 		name="InputOrgName"  			chineseName="登记机关"  			   type="ANC" startPosition="315"  endPosition="394"   optional="false"/>
+		 	<field id="2569" dataType="date" 		name="InputDate"  				chineseName="登记日期"  				 type="N" startPosition="395"  endPosition="402"   optional="true"/>
+		 	<field id="8513" dataType="char" 		name="GuarantyExplain"  	chineseName="抵押物说明"  	     type="ANC" startPosition="403"  endPosition="802"   optional="false"/>
+		 	<field id="7525" dataType="char" 		name="AvailabStatus"  		chineseName="合同有效状态"  		 type="N" startPosition="803"  endPosition="803"   optional="false"/>
+		 </segment> 
+	</record> 
+
+	<!--主合同编号 保证合同编号 业务发生日期 金融机构代码-->
+	<!--主合同编号 信贷业务种类 质押合同编号 证件类型  证件号码 质押金额 合同有效状态-->
+	<record 
+		id="6"  
+		type="34" 
+		name="ImpawnContractN" 
+		mainBusinessNo="B.7595" 
+		keyFields="B.7595,I.7613,I.7619,B.2501,B.6501" 
+		briefFields="B.7595,I.7613,I.7619,I.5511,I.5553,I.1557,I.7525" 
+		chineseName="自然人质押合同业务信息"
+	>    
+		<segment segmentFlag="B" id="1" 	 name="BaseSegment" 			chineseName="基础段" 		segmentLength="124" optional="false" unique="true">	
+			<field id="4501" dataType="int" 		name="RecordLength"        chineseName="信息记录长度" 		type="N" 		startPosition="0" 	endPosition="3"   optional="false"/> 	    
+			<field id="7653" dataType="char" 		name="RecordType"          chineseName="信息记录类型" 		type="N" 		startPosition="4" 	endPosition="5"   optional="false"  defaultValue="34"/> 	    
+			<field id="7543" dataType="char" 		name="MessageType"         chineseName="信息类别"     		type="AN" 	startPosition="6" 	endPosition="6"   optional="false" defaultValue="B"/>
+			<field id="6501" dataType="char" 		name="FinanceID"           chineseName="金融机构代码" 		type="AN" 	startPosition="7" 	endPosition="17"  optional="false" keyAttribute="true"/>
+			<field id="7503" dataType="char" 		name="LoanCardNo"  	  		 chineseName="贷款卡编码"       type="AN"   startPosition="18"  endPosition="33"  optional="false"/>							
+			<field id="7595" dataType="char" 		name="MContractNo"    		chineseName="主合同编号" 			type="ANC" 	startPosition="34"  endPosition="93"  optional="false"  keyAttribute="true" />
+			<field id="7605" dataType="char" 		name="BusinessType"  	     chineseName="信贷业务种类" 		type="N" 		startPosition="94"  endPosition="94"  optional="false"/>
+			<field id="7511" dataType="char" 		name="RecordOperateType"  chineseName="信息记录操作录型" type="N" 		startPosition="95"  endPosition="95"  optional="false"/>
+			<field id="2501" dataType="date" 		name="OccurDate"           chineseName="业务发生日期" 		type="N" 		startPosition="96"  endPosition="103"  optional="false"/>
+			<field id="7641" dataType="char" 		name="RecordNo"   		     chineseName="信息记录跟踪编号" type="AN" 	startPosition="104"  endPosition="123" optional="false"/>
+			<field id="9991" dataType="char" name="CustomerID" chineseName="客户编号" type="AN" startPosition="124" endPosition="163" optional="false"/>
+		</segment> 
+		<segment segmentFlag="C" id="2" name="SymbolUpdateSegment" chineseName="标识变更段" segmentLength="62" optional="true" unique="false">			
+		 	<field id="7543" dataType="char" 		name="MessageType"       chineseName="信息类别"   type="AN"  startPosition="0" endPosition="0" optional="false"  defaultValue="C" />
+		 	<field id="7515" dataType="char" 		name="ChangeType"        chineseName="变更类型"   type="N"   startPosition="1" endPosition="1"  optional="false" />
+		 	<field id="7517" dataType="char" 		name="BusinessNo"        chineseName="业务标识号" type="ANC" startPosition="2" endPosition="61" optional="false" />		 	
+		</segment>
+		<segment  segmentFlag="I" id="3" name="ImpawnContractNSegment"  chineseName="自然人质押合同信息段" segmentLength="218" optional="false" unique="true">
+		 	<field id="7543" dataType="char" 		name="MessageType"  	  chineseName="信息类别"  		   type="AN" startPosition="0" 		endPosition="0" 		optional="false"  defaultValue="I"/> 	
+		 	<field id="7613" dataType="char" 		name="GContractNo"  	chineseName="质押合同编号"     type="ANC" startPosition="1" 		endPosition="60" 		optional="false"/>				
+			<field id="7619" dataType="char"			name="SerialNo"  		  chineseName="质押序号"  		   type="AN" startPosition="61" 	endPosition="62" 		optional="false"/>				
+		 	<field id="5573" dataType="char" 		name="CustomerName"  	  chineseName="出质人名称"  	   type="ANC" startPosition="63"   endPosition="142" 	optional="false"/>
+		 	<field id="5511" dataType="char" 		name="CertType"  	  chineseName="证件类型"  	 type="AN" startPosition="143"  endPosition="143" 	optional="false"/>
+			<field id="5553" dataType="char" 		name="CertID"  	  chineseName="证件号码"  	 type="ANC" startPosition="144"  endPosition="161" 	optional="false"/>		 
+			<field id="9999" dataType="char" 		name="Currency" chineseName="币种" 	         type="AN" startPosition="162"  endPosition="164"   optional="false"/>
+			<field id="1571" dataType="double" 		name="ImpawnValue" 		  chineseName="质押物价值" 		   type="AN" startPosition="165" 	endPosition="184" 	optional="false"/>
+		 	<field id="2565" dataType="date" 		name="CreateDate"  		  chineseName="合同签订日期"     type="N" startPosition="185" 	endPosition="192" 	optional="false"/>				
+		 	<field id="7621" dataType="char" 		name="ImpawnType"  		  chineseName="质押物种类"  	   type="N" startPosition="193" 	endPosition="193" 	optional="false"/>
+		 	<field id="1501" dataType="char" 		name="ImpawnCurrency" chineseName="质押币种" 	         type="AN" startPosition="194"  endPosition="196"   optional="false"/>
+			<field id="1557" dataType="double" 		name="ImpawnSum"  		  chineseName="质押金额"  			 type="AN" startPosition="197" 	endPosition="216" 	optional="false"/>		 	
+		 	<field id="7525" dataType="char" 		name="AvailabStatus"  	  chineseName="合同有效状态"  	 type="N" startPosition="217" 	endPosition="217" 	optional="false"/>
+		</segment>  
+	</record> 
+	<!--添加自然人担保结束-->
+	
+	<record id="tail"  type="-1" name="Tail" >                                                                   
+		<segment segmentFlag="Z" id="-1" name="Tail" chineseName="报文尾" segmentLength="11" optional="false" unique="true">
+		    <field id="8521" dataType="char" name="TailFlag"    chineseName="报文尾标识"   type="AN"   startPosition="0" endPosition="0" optional="false" defaultValue="Z"  />				
+		    <field id="4513" dataType="int"  name="RecordNum"   chineseName="信息记录数"  type="N"   startPosition="1" endPosition="10" optional="false"   />							
+		</segment>
+	</record>
+</message>	
+  
+<!-- 报文名字：垫款信息采集报文 -->   
+<message
+	type="20"
+    id="10"   
+    name="AdvancePay" 
+	chineseName="垫款信息采集报文" 
+	headerLength="61"
+	version="2.1"
+	readerVersion="1.1" 
+	charset="GB18030"
+>  	
+	<record id="header" type="0" name="Header" > 
+		<segment segmentFlag="A" id="0" name="MessageHead" chineseName="报文头" segmentLength="61" optional="false" unique="true">			
+			<field id="8519" dataType="char" name="HeadFlag"     chineseName="报文头标识"     type="AN" startPosition="0" endPosition="0" optional="false"  defaultValue="A"  /> 	    
+			<field id="8517" dataType="char" name="Version"      chineseName="报文格式版本号" type="AN" startPosition="1" endPosition="3" optional="false"/> 	    
+			<field id="6501" dataType="char" name="FinanceCode" chineseName="金融机构代码"   type="AN" startPosition="4" endPosition="14" optional="false"/>
+			<field id="2585" dataType="datetime" name="CreatedTime"   chineseName="报文生成时间"   type="N" startPosition="15" endPosition="28" optional="false"/>
+			<field id="8523" dataType="int" name="MsgType"      chineseName="报文类型"       type="N" startPosition="29" endPosition="30" optional="false"  defaultValue="20"  />			
+			<field id="8515" dataType="char" name="ReserveField" chineseName="预留字段"       type="ANC" startPosition="31" endPosition="60" optional="false"/>
+	 	</segment> 
+ 	</record>
+	<record 
+		id="1" 
+		type="25"  
+		name="AdvancePay" 
+		mainBusinessNo="B.7623" 
+		keyFields="B.7623,B.2501,B.6501" 
+		briefFields="B.7623,D.7627,D.1559,D.1561,D.7541" 
+		chineseName="垫款信息记录"
+	>    
+		<segment segmentFlag="B" id="1" name="BaseSegment" chineseName="基础段" segmentLength="107" optional="false" unique="true">	
+			<field id="4501" dataType="int"  name="RecordLength"        chineseName="信息记录长度"     type="N"  startPosition="0"  endPosition="3" optional="false"/> 	    
+			<field id="7653" dataType="char"  name="RecordType"          chineseName="信息记录类型"     type="N"  startPosition="4"  endPosition="5" optional="false"   defaultValue="25" /> 	    
+			<field id="7543" dataType="char" name="MessageType"         chineseName="信息类别"         type="AN" startPosition="6"  endPosition="6" optional="false"   defaultValue="B" />
+			<field id="6501" dataType="char" name="FinanceID"           chineseName="金融机构代码"     type="AN" startPosition="7"  endPosition="17" optional="false" keyAttribute="true"/>
+			<field id="7623" dataType="char" name="FloorNo"             chineseName="垫款业务号码"     type="ANC" startPosition="18" endPosition="77" optional="false" keyAttribute="true" />
+			<field id="7511" dataType="char"  name="RecordOperateType"  chineseName="信息记录操作类型" type="AN"  startPosition="78" endPosition="78" optional="false"/>
+			<field id="2501" dataType="date" name="OccurDate"           chineseName="业务发生日期"     type="N" startPosition="79" endPosition="86" optional="false"/>
+			<field id="7641" dataType="char" name="RecordNo"            chineseName="信息记录跟踪编号" type="AN" startPosition="87" endPosition="106" optional="false"/>
+			<field id="9991" dataType="char" name="CustomerID" chineseName="客户编号" type="AN" startPosition="107" endPosition="146" optional="false"/>
+		 </segment> 	
+		 <segment segmentFlag="C" id="2" name="SymbolUpdateSegment" chineseName="标识变更段" segmentLength="62" optional="true" unique="false">			
+		 	<field id="7543" dataType="char" name="MessageType"       chineseName="信息类别"   type="AN"  startPosition="0" endPosition="0" optional="false"  defaultValue="C" />
+		 	<field id="7515" dataType="char"  name="ChangeType"        chineseName="变更类型"   type="N"   startPosition="1" endPosition="1"  optional="false" />
+		 	<field id="7517" dataType="char" name="BusinessNo"        chineseName="业务标识号" type="ANC" startPosition="2" endPosition="61" optional="false" />		 	
+		 </segment>  	   
+		 <segment segmentFlag="D" id="3" name="AdvancePaySegment"  chineseName="业务信息段"  segmentLength="222" optional="false" unique="true">					 
+		 	<field id="7543" dataType="char"   name="MessageType"        chineseName="信息类别"     type="AN"  startPosition="0"   endPosition="0"    optional="false" defaultValue="D" />
+		 	<field id="5559" dataType="char"   name="CustomerID"         chineseName="借款人名称"   type="ANC" startPosition="1"   endPosition="80"   optional="false"/>				
+		 	<field id="7503" dataType="char"   name="LoanCardNo"         chineseName="贷款卡编码"   type="AN"  startPosition="81"  endPosition="96"  optional="false"/>				
+		 	<field id="7625" dataType="char"    name="FloorType"          chineseName="垫款种类"     type="N"   startPosition="97"  endPosition="97"  optional="false"/>				
+		 	<field id="7627" dataType="char"   name="BusinessNo"         chineseName="原业务号"     type="ANC"   startPosition="98" endPosition="157"  optional="false"/>				
+		 	<field id="1501" dataType="char"   name="Currency"           chineseName="币种"         type="ANC" startPosition="158" endPosition="160"  optional="false"/>				
+		 	<field id="1559" dataType="double" name="FloorSum"           chineseName="垫款金额"     type="AN"  startPosition="161"  endPosition="180"  optional="false"/>
+		 	<field id="2571" dataType="date"   name="FloorDate"          chineseName="垫款日期"     type="N"   startPosition="181" endPosition="188"  optional="false"/>				
+		 	<field id="1561" dataType="double" name="FloorBlance"        chineseName="垫款余额"     type="AN"  startPosition="189" endPosition="208"  optional="false"/>
+		 	<field id="2551" dataType="date"   name="BalanceChangeDate"  chineseName="余额发生日期" type="N"   startPosition="209"   endPosition="216"  optional="false"/>				
+		 	<field id="7545" dataType="char"    name="ReturnMode"         chineseName="还款方式"     type="N"   startPosition="217" endPosition="218"  optional="false"/>
+		 	<field id="7539" dataType="char"    name="Classify4"          chineseName="四级分类"     type="AN"   startPosition="219" endPosition="220"  optional="true" status="O"/>
+		 	<field id="7541" dataType="char"    name="Classify5"          chineseName="五级分类"     type="N"   startPosition="221" endPosition="221"  optional="false"/>
+		 </segment>		 
+	</record>
+	<record id="tail"  type="-1" name="Tail" > 
+		<segment segmentFlag="Z" id="-1" name="Tail" chineseName="报文尾" segmentLength="11" optional="false" unique="true">
+	    	<field id="8521" dataType="char" name="TailFlag"    chineseName="报文尾标识"   type="AN"   startPosition="0" endPosition="0" optional="false" defaultValue="Z"  />				
+	    	<field id="4513" dataType="int"  name="RecordNum"   chineseName="信息记录数"   type="N"   startPosition="1" endPosition="10" optional="false"   />							
+		</segment>
+	</record>
+</message>
+
+<!-- 报文名字：欠息信息采集报文 -->   
+<message
+	type="21"
+	id="11"   
+	name="LackOfInterest"
+	chineseName="欠息信息采集报文" 
+	headerLength="61" 
+	version="2.1"
+	readerVersion="1.1" 
+	charset="GB18030"
+>  	
+	<record id="header" type="0" name="Header" > 
+		<segment segmentFlag="A" id="0" name="MessageHead" chineseName="报文头" segmentLength="61" optional="false" unique="true">			
+			<field id="8519" dataType="char" name="HeadFlag"     chineseName="报文头标识"     type="AN" startPosition="0" endPosition="0" optional="false"  defaultValue="A"  /> 	    
+			<field id="8517" dataType="char" name="Version"      chineseName="报文格式版本号" type="AN" startPosition="1" endPosition="3" optional="false"/> 	    
+			<field id="6501" dataType="char" name="FinanceCode" chineseName="金融机构代码"   type="AN" startPosition="4" endPosition="14" optional="false"/>
+			<field id="2585" dataType="datetime" name="CreatedTime"   chineseName="报文生成时间"   type="N" startPosition="15" endPosition="28" optional="false"/>
+			<field id="8523" dataType="char" name="MsgType"      chineseName="报文类型"       type="N" startPosition="29" endPosition="30" optional="false"  defaultValue="21"  />			
+			<field id="8515" dataType="char" name="ReserveField" chineseName="预留字段"       type="ANC" startPosition="31" endPosition="60" optional="false"/>
+	 	</segment> 
+ 	</record>
+	<record 
+		id="1"  
+		type="26"   
+		name="LackOfInterest" 
+		mainBusinessNo="B.7503" 
+		keyFields="B.7503,B.2501,B.6501,D.1501,D.7631" 
+		briefFields="B.7503,D.1563,D.7631" 
+		chineseName="欠息信息记录"
+	>    
+		<segment segmentFlag="B" id="1" name="BaseSegment" chineseName="基础段" segmentLength="63" optional="false" unique="true">	
+			<field id="4501" dataType="int" name="RecordLength"        chineseName="信息记录长度"     type="N"  startPosition="0"  endPosition="3" optional="false"/> 	    
+			<field id="7653" dataType="char" name="RecordType"          chineseName="信息记录类型"     type="N"  startPosition="4"  endPosition="5" optional="false"   defaultValue="26" /> 	    
+			<field id="7543" dataType="char" name="MessageType"         chineseName="信息类别"         type="AN" startPosition="6"  endPosition="6" optional="false"   defaultValue="B" />
+			<field id="6501" dataType="char" name="FinanceID"           chineseName="金融机构代码"     type="AN" startPosition="7"  endPosition="17" optional="false" keyAttribute="true"/>
+			<field id="7503" dataType="char" name="LoanCardNo"          chineseName="贷款卡编码"     type="AN" startPosition="18" endPosition="33" optional="false" keyAttribute="true" />
+			<field id="7511" dataType="char"  name="RecordOperateType"  chineseName="信息记录操作类型" type="AN"  startPosition="34" endPosition="34" optional="false"/>
+			<field id="2501" dataType="date" name="OccurDate"           chineseName="业务发生日期"     type="N" startPosition="35" endPosition="42" optional="false"/>
+			<field id="7641" dataType="char" name="RecordNo"            chineseName="信息记录跟踪编号" type="AN" startPosition="43" endPosition="62" optional="false"/>
+			<field id="9991" dataType="char" name="CustomerID" chineseName="客户编号" type="AN" startPosition="63" endPosition="102" optional="false"/>
+		</segment> 	
+		<segment segmentFlag="C" id="2" name="SymbolUpdateSegment" chineseName="标识变更段" segmentLength="62" optional="true" unique="false">			
+		 	<field id="7543" dataType="char" name="MessageType"       chineseName="信息类别"   type="AN"  startPosition="0" endPosition="0" optional="false"  defaultValue="C" />
+		 	<field id="7515" dataType="char"  name="ChangeType"        chineseName="变更类型"   type="N"   startPosition="1" endPosition="1"  optional="false" />
+		 	<field id="7517" dataType="char" name="BusinessNo"        chineseName="业务标识号" type="ANC" startPosition="2" endPosition="61" optional="false" />		 	
+		</segment>  	   
+		<segment segmentFlag="D" id="3" name="LackOfInterestSegment"  chineseName="欠息信息段"  segmentLength="33" optional="false" unique="true">					 
+			<field id="7543" dataType="char"   name="MessageType"        chineseName="信息类别"         type="AN"  startPosition="0" endPosition="0"  optional="false" defaultValue="D" />
+		 	<field id="1501" dataType="char"   name="Currency"           chineseName="币种"             type="AN" startPosition="1"  endPosition="3"  optional="false"/>				
+		 	<field id="1563" dataType="double" name="InterestBalance"    chineseName="欠息余额"         type="AN"  startPosition="4" endPosition="23" optional="false"/>
+		 	<field id="7631" dataType="char"    name="InterestType"       chineseName="欠息类型"         type="N"  startPosition="24" endPosition="24" optional="false"/>				
+		 	<field id="2573" dataType="date"   name="ChangeDate" 		 chineseName="欠息余额改变日期" type="N"  startPosition="25" endPosition="32" optional="false"/>
+		</segment>		 
+	</record>
+	<record id="tail"  type="-1" name="Tail" > 
+		<segment segmentFlag="Z" id="-1" name="Tail" chineseName="报文尾" segmentLength="11" optional="false" unique="true">
+			<field id="8521" dataType="char" name="TailFlag"    chineseName="报文尾标识"   type="AN"   startPosition="0" endPosition="0" optional="false" defaultValue="Z"  />				
+			<field id="4513" dataType="int"  name="RecordNum"   chineseName="信息记录数"   type="N"    startPosition="1" endPosition="10" optional="false"   />							
+		</segment>
+	</record>
+</message>
+</messageList>
+</configuration>

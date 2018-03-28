@@ -1,0 +1,599 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!--?	机构基本信息和家族成员信息校验规则文件  -->
+<!--?	校验规则说明：messageType 表示报文类型，recordType表示记录类型 segmentFlag表示段的类型（段的标识符）
+					  level 表示规则的类型（0 文件级1 报文级2 记录级3 段级4 字段级）
+					  checkType 表示校验的类型
+							D  日期
+							N  数值(顶多有两位小数)
+							DL 清单
+							DE 值相当
+							DR Data Range 数据范围
+							NA 非空
+							ID 身份证号码校验
+							SN 段的个数校验（即一条记录中只允许一条或指定数的几条段）
+							SD 重复段的校验（即同内容性质的段中某些字段不能重复，比如股票信息不允许有重复的股票代码）
+							SP 段的位置校验（即记录的第一个字段都是基础段，由于段的位置是由程序控置，故此校验默认真值
+							S  非汉字的字符串校验（即字符串中不能含有汉字）
+							DS 数据长度校验 datalength
+							ZD 组织机构代码校验
+							PC 邮编
+							DKK 贷款卡
+							M  金额型
+							AN 包括ASICII码中小于127的可见字符，即“空格”到“~”的所有可见字符
+							ANC 包括ASICII码中小于127的可见字符和所有GBK汉字
+							EMAIL 邮箱地址
+							DIC 数据字典
+							FI  金融机构代码校验
+							AP 判断开户许可证
+	  						CT 机构信用代码
+	  						LR 字符串长度校验,DataStartValue为最小长度，DataEndValue为最大长度
+					  checkedFieldName 表示欲校验的字段名
+					  errorMsg 表示校验后错误的提示信息，本信息会记录在ECR_HISTORY表中
+					  datalist 表示校验类型为DL时，校验字段的取值列表
+					  precondition 表示校验规则的前提条件，即满足前提条件时，规则有效
+  -->
+<configuration>
+	<rulemap Type="15">
+		<rulelist>
+		<!--担保业务信息报文规则 -->
+		
+			<!-- 基础段数据项报文规则 -->
+			<rule name="rule81-01" messageType="81" errorCode="1015" recordType="811" segmentFlag="B" checkType="NA" Level="4" checkedFieldName="FinanceId"	errorMsg="基础段：管理行代码(金融机构代码)不能为空" >
+			</rule>
+			<rule name="rule81-02" messageType="81" errorCode="1000" recordType="811" segmentFlag="B" checkType="FI" Level="4" checkedFieldName="FinanceId"	errorMsg="基础段：管理行代码(金融机构代码)不符合人行规范" >
+			</rule>
+			<rule name="rule81-03" messageType="81" errorCode="1017" recordType="811" segmentFlag="B" checkType="DIC" Level="4" checkedFieldName="InsuredType"	errorMsg="基础段：被担保人类型未按照数据字典中的内容填写"  dataList="被担保人类型">
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="B" checkType="NA" checkedFieldName="InsuredType" />
+				</precondition>
+			</rule>
+			<rule name="rule81-04" messageType="81" errorCode="1017" recordType="811" segmentFlag="B" checkType="DIC" Level="4" checkedFieldName="CertType"	errorMsg="基础段：被担保人证件类型未按照数据字典中的内容填写"  dataList="证件类型">
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="B" checkType="NA" checkedFieldName="CertType" />
+				</precondition>
+			</rule>
+			<rule name="rule81-05" messageType="81" errorCode="1023" recordType="811" segmentFlag="B" checkType="NA" Level="4" checkedFieldName="CertId"	errorMsg="基础段：被担保人证件类型和被担保人证件号码未成对出现" >
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="B" checkType="NA" checkedFieldName="CertType" />
+				</precondition>
+			</rule>
+			<rule name="rule81-06" messageType="81" errorCode="1023" recordType="811" segmentFlag="B" checkType="NA" Level="4" checkedFieldName="CertType" errorMsg="基础段：被担保人证件类型和被担保人证件号码未成对出现" >
+			<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="B" checkType="NA" checkedFieldName="CertId" />
+				</precondition>
+			</rule>		
+			<rule name="rule81-07" messageType="81" errorCode="1021" recordType="811" segmentFlag="B" checkType="ID" Level="4" checkedFieldName="CertId" errorMsg="基础段：被担保人证件为身份证，自然人身份证号码校验不通过">
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="B" checkType="DL" checkedFieldName="CertType"  dataList="1;"/>
+				</precondition>
+			</rule>
+			<rule name="rule81-08" messageType="81" errorCode="1018" recordType="811" segmentFlag="B" checkType="ZD" Level="4" checkedFieldName="CertId" errorMsg="基础段：被担保人证件为组织机构代码，该机构的组织机构代码校验不通过" >
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="B" checkType="DL" checkedFieldName="CertType"  dataList="a;"/>
+				</precondition>
+			</rule>
+			<rule name="rule81-09" messageType="81" errorCode="1027" recordType="811" segmentFlag="B" checkType="CT" Level="4" checkedFieldName="CertId" errorMsg="基础段：被担保人证件为机构信用代码，该机构信用代码校验不通过" >
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="B" checkType="DL" checkedFieldName="CertType"  dataList="d;"/>
+				</precondition>
+			</rule>
+			<rule name="rule81-10" messageType="81" errorCode="1020" recordType="811" segmentFlag="B" checkType="DKK" Level="4" checkedFieldName="CertId" errorMsg="基础段：被担保人证件为贷款卡编码，该机构的贷款卡编码检验不通过" >
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="B" checkType="DL" checkedFieldName="CertType"  dataList="c;"/>
+				</precondition>
+			</rule>
+			<rule name="rule81-11" messageType="81" errorCode="1000" recordType="811" segmentFlag="B" checkType="FI" Level="4" checkedFieldName="CertId" errorMsg="基础段：被担保人证件为金融机构代码，该机构的金融机构代码检验不通过" >
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="B" checkType="DL" checkedFieldName="CertType"  dataList="z;"/>
+				</precondition>
+			</rule>			
+			<rule name="rule81-12" messageType="81" errorCode="1016" recordType="811" segmentFlag="B" checkType="DR" Level="4" checkedFieldName="GatherDate" dataStartValue="19010101" errorMsg="数据提取日期出错" >
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="B" checkType="NA" checkedFieldName="GatherDate"/>
+				</precondition>
+			</rule>
+			<rule name="rule81-96" messageType="81" errorCode="4424" recordType="811" segmentFlag="B" checkType="DL" Level="4" checkedFieldName="CertType" dataList="a;c;d;" errorMsg="当被担保人类型为“1-企业或其他组织”时，被担保人证件类型只能填写“a”、“c”或“d”">
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="B" checkType="DL" checkedFieldName="InsuredType"  dataList="1;"/>
+				</precondition>
+			</rule>
+			<rule name="rule81-97" messageType="81" errorCode="4424" recordType="811" segmentFlag="B" checkType="DL" Level="4" checkedFieldName="CertType" dataList="0;1;2;3;4;5;6;7;8;9;X;" errorMsg="当被担保人类型为“2-自然人”时，被担保人证件类型只能填写“0-9”或“X”">
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="B" checkType="DL" checkedFieldName="InsuredType"  dataList="2;"/>
+				</precondition>
+			</rule>
+			<!-- 担保合同信息段数据项报文规则 -->
+			<rule name="rule81-13" messageType="81" errorCode="1017" recordType="811" segmentFlag="D" checkType="DIC" Level="4" checkedFieldName="BusinessType"	errorMsg="担保合同信息段：担保业务种类未按照数据字典中的内容填写"  dataList="担保业务种类">
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="D" checkType="NA" checkedFieldName="BusinessType" />
+				</precondition>
+			</rule>
+			<rule name="rule81-14" messageType="81" errorCode="1017" recordType="811" segmentFlag="D" checkType="DIC" Level="4" checkedFieldName="GuarantyType"	errorMsg="担保合同信息段：担保方式未按照数据字典中的内容填写"  dataList="担保方式">
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="D" checkType="NA" checkedFieldName="GuarantyType" />
+				</precondition>
+			</rule>
+			<rule name="rule81-15" messageType="81" errorCode="4056" recordType="811" segmentFlag="D" checkType="DR" Level="4" checkedFieldName="GuarantySum"  dataStartValue="0" errorMsg="担保金额应大于等于0" >
+  	  		</rule>
+			<rule name="rule81-16" messageType="81" errorCode="1016" recordType="811" segmentFlag="D" checkType="DR" Level="4" checkedFieldName="GStartDate" dataStartValue="19010101" errorMsg="担保起始日期出错" >
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="D" checkType="NA" checkedFieldName="GStartDate"/>
+				</precondition>
+			</rule>
+			<rule name="rule81-17" messageType="81" errorCode="1016" recordType="811" segmentFlag="D" checkType="DR" Level="4" checkedFieldName="GEndDate" dataStartValue="19010101" errorMsg="担保到期日期出错" >
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="D" checkType="NA" checkedFieldName="GEndDate"/>
+				</precondition>
+			</rule>
+			<rule name="rule81-18" messageType="81" errorCode="1017" recordType="811" segmentFlag="D" checkType="DIC" Level="4" checkedFieldName="CounterType"	errorMsg="担保合同信息段：反担保方式未按照数据字典中的内容填写"  dataList="反担保方式">
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="D" checkType="NA" checkedFieldName="CounterType" />
+				</precondition>
+			</rule>
+			<rule name="rule81-107" messageType="81" errorCode="4430" recordType="811" segmentFlag="D" checkType="NA" Level="4" checkedFieldName="DepositScale" errorMsg="担保合同信息段：当担保业务种类不为“11-再担保”时，“存出保证金比例”必填">
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="D" checkType="DL" checkedFieldName="BusinessType"  dataList="01;02;03;04;05;06;07;08;09;10;"/>
+				</precondition>
+			</rule>
+			<rule name="rule81-108" messageType="81" errorCode="4430" recordType="811" segmentFlag="D" checkType="NA" Level="4" checkedFieldName="CounterType" errorMsg="担保合同信息段：当担保业务种类不为“11-再担保”时，“反担保方式”必填">
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="D" checkType="DL" checkedFieldName="BusinessType"  dataList="01;02;03;04;05;06;07;08;09;10;"/>
+				</precondition>
+			</rule>
+			<!-- 被担保人信息段数据项报文规则 -->
+			<rule name="rule81-19" messageType="81" errorCode="1017" recordType="811" segmentFlag="E" checkType="DIC" Level="4" checkedFieldName="InsuredType"	errorMsg="被担保人信息段：被担保人类型未按照数据字典中的内容填写"  dataList="被担保人类型">
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="E" checkType="NA" checkedFieldName="InsuredType" />
+				</precondition>
+			</rule>
+			<rule name="rule81-20" messageType="81" errorCode="1017" recordType="811" segmentFlag="E" checkType="DIC" Level="4" checkedFieldName="CertType"	errorMsg="被担保人信息段：被担保人证件类型未按照数据字典中的内容填写"  dataList="证件类型">
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="E" checkType="NA" checkedFieldName="CertType" />
+				</precondition>
+			</rule>
+			<rule name="rule81-21" messageType="81" errorCode="1023" recordType="811" segmentFlag="E" checkType="NA" Level="4" checkedFieldName="CertId"	errorMsg="被担保人信息段：被担保人证件类型和被担保人证件号码未成对出现" >
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="E" checkType="NA" checkedFieldName="CertType" />
+				</precondition>
+			</rule>
+			<rule name="rule81-22" messageType="81" errorCode="1023" recordType="811" segmentFlag="E" checkType="NA" Level="4" checkedFieldName="CertType" errorMsg="被担保人信息段：被担保人证件类型和被担保人证件号码未成对出现" >
+			<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="E" checkType="NA" checkedFieldName="CertId" />
+				</precondition>
+			</rule>		
+			<rule name="rule81-23" messageType="81" errorCode="1021" recordType="811" segmentFlag="E" checkType="ID" Level="4" checkedFieldName="CertId" errorMsg="被担保人信息段：被担保人证件为身份证，自然人身份证号码校验不通过">
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="E" checkType="DL" checkedFieldName="CertType"  dataList="1;"/>
+				</precondition>
+			</rule>
+			<rule name="rule81-24" messageType="81" errorCode="1018" recordType="811" segmentFlag="E" checkType="ZD" Level="4" checkedFieldName="CertId" errorMsg="被担保人信息段：被担保人证件为组织机构代码，该机构的组织机构代码校验不通过" >
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="E" checkType="DL" checkedFieldName="CertType"  dataList="a;"/>
+				</precondition>
+			</rule>
+			<rule name="rule81-25" messageType="81" errorCode="1027" recordType="811" segmentFlag="E" checkType="CT" Level="4" checkedFieldName="CertId" errorMsg="被担保人信息段：被担保人证件为机构信用代码，该机构信用代码校验不通过" >
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="E" checkType="DL" checkedFieldName="CertType"  dataList="d;"/>
+				</precondition>
+			</rule>
+			<rule name="rule81-26" messageType="81" errorCode="1020" recordType="811" segmentFlag="E" checkType="DKK" Level="4" checkedFieldName="CertId" errorMsg="被担保人信息段：被担保人证件为贷款卡编码，该机构的贷款卡编码检验不通过" >
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="E" checkType="DL" checkedFieldName="CertType"  dataList="c;"/>
+				</precondition>
+			</rule>
+			<rule name="rule81-27" messageType="81" errorCode="1000" recordType="811" segmentFlag="E" checkType="FI" Level="4" checkedFieldName="CertId" errorMsg="被担保人信息段：被担保人证件为金融机构代码，该机构的金融机构代码检验不通过" >
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="E" checkType="DL" checkedFieldName="CertType"  dataList="z;"/>
+				</precondition>
+			</rule>
+			<rule name="rule81-28" messageType="81" errorCode="1017" recordType="811" segmentFlag="E" checkType="DIC" Level="4" checkedFieldName="InsuredState"	errorMsg="被担保人信息段：状态位未按照数据字典中的内容填写"  dataList="状态位">
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="E" checkType="NA" checkedFieldName="InsuredState" />
+				</precondition>
+			</rule>
+			<rule name="rule81-98" messageType="81" errorCode="4424" recordType="811" segmentFlag="E" checkType="DL" Level="4" checkedFieldName="CertType" dataList="a;c;d;" errorMsg="当被担保人类型为“1-企业或其他组织”时，被担保人证件类型只能填写“a”、“c”或“d”">
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="E" checkType="DL" checkedFieldName="InsuredType"  dataList="1;"/>
+				</precondition>
+			</rule>
+			<rule name="rule81-99" messageType="81" errorCode="4424" recordType="811" segmentFlag="E" checkType="DL" Level="4" checkedFieldName="CertType" dataList="0;1;2;3;4;5;6;7;8;9;X;" errorMsg="当被担保人类型为“2-自然人”时，被担保人证件类型只能填写“0-9”或“X”">
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="E" checkType="DL" checkedFieldName="InsuredType"  dataList="2;"/>
+				</precondition>
+			</rule>
+			<!-- 债权人及主合同信息段数据项报文规则 -->
+			<rule name="rule81-29" messageType="81" errorCode="1017" recordType="811" segmentFlag="F" checkType="DIC" Level="4" checkedFieldName="CreditorType"	errorMsg="被担保人信息段：债权人类型未按照数据字典中的内容填写"  dataList="债权人类型">
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="F" checkType="NA" checkedFieldName="CreditorType" />
+				</precondition>
+			</rule>
+			<rule name="rule81-30" messageType="81" errorCode="1015" recordType="811" segmentFlag="F" checkType="NA" Level="4" checkedFieldName="CreditorName" errorMsg="当“债权人类型”为放贷机构时,债权人名称数据项必填">
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="F" checkType="DL" checkedFieldName="CreditorType"  dataList="1;"/>
+				</precondition>
+			</rule>
+			<rule name="rule81-31" messageType="81" errorCode="1015" recordType="811" segmentFlag="F" checkType="NA" Level="4" checkedFieldName="CertType" errorMsg="当“债权人类型”为放贷机构时,债权人证件类型数据项必填">
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="F" checkType="DL" checkedFieldName="CreditorType"  dataList="1;"/>
+				</precondition>
+			</rule>
+			<rule name="rule81-32" messageType="81" errorCode="1015" recordType="811" segmentFlag="F" checkType="NA" Level="4" checkedFieldName="CertId" errorMsg="当“债权人类型”为放贷机构时,债权人证件号码数据项必填">
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="F" checkType="DL" checkedFieldName="CreditorType"  dataList="1;"/>
+				</precondition>
+			</rule>
+			<rule name="rule81-33" messageType="81" errorCode="1015" recordType="811" segmentFlag="F" checkType="NA" Level="4" checkedFieldName="GBusinessNo" errorMsg="当“债权人类型”为放贷机构时,主合同编号数据项必填">
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="F" checkType="DL" checkedFieldName="CreditorType"  dataList="1;"/>
+				</precondition>
+			</rule>
+			<rule name="rule81-34" messageType="81" errorCode="1017" recordType="811" segmentFlag="F" checkType="DIC" Level="4" checkedFieldName="CertType"	errorMsg="债权人及主合同信息段：债权人证件类型未按照数据字典中的内容填写"  dataList="证件类型">
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="F" checkType="NA" checkedFieldName="CertType" />
+				</precondition>
+			</rule>
+			<rule name="rule81-35" messageType="81" errorCode="1023" recordType="811" segmentFlag="F" checkType="NA" Level="4" checkedFieldName="CertId"	errorMsg="债权人及主合同信息段：债权人证件类型和债权人证件号码未成对出现" >
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="F" checkType="NA" checkedFieldName="CertType" />
+				</precondition>
+			</rule>
+			<rule name="rule81-36" messageType="81" errorCode="1023" recordType="811" segmentFlag="F" checkType="NA" Level="4" checkedFieldName="CertType" errorMsg="债权人及主合同信息段：债权人证件类型和债权人证件号码未成对出现" >
+			<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="F" checkType="NA" checkedFieldName="CertId" />
+				</precondition>
+			</rule>		
+			<rule name="rule81-37" messageType="81" errorCode="1021" recordType="811" segmentFlag="F" checkType="ID" Level="4" checkedFieldName="CertId" errorMsg="债权人及主合同信息段：被担保人证件为身份证，自然人身份证号码校验不通过">
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="F" checkType="DL" checkedFieldName="CertType"  dataList="1;"/>
+				</precondition>
+			</rule>
+			<rule name="rule81-38" messageType="81" errorCode="1018" recordType="811" segmentFlag="F" checkType="ZD" Level="4" checkedFieldName="CertId" errorMsg="债权人及主合同信息段：债权人证件为组织机构代码，该机构的组织机构代码校验不通过" >
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="F" checkType="DL" checkedFieldName="CertType"  dataList="a;"/>
+				</precondition>
+			</rule>
+			<rule name="rule81-39" messageType="81" errorCode="1027" recordType="811" segmentFlag="F" checkType="CT" Level="4" checkedFieldName="CertId" errorMsg="债权人及主合同信息段：债权人证件证件为机构信用代码，该机构信用代码校验不通过" >
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="F" checkType="DL" checkedFieldName="CertType"  dataList="d;"/>
+				</precondition>
+			</rule>
+			<rule name="rule81-40" messageType="81" errorCode="1020" recordType="811" segmentFlag="F" checkType="DKK" Level="4" checkedFieldName="CertId" errorMsg="债权人及主合同信息段：债权人证件证件为贷款卡编码，该机构的贷款卡编码检验不通过" >
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="F" checkType="DL" checkedFieldName="CertType"  dataList="c;"/>
+				</precondition>
+			</rule>
+			<rule name="rule81-41" messageType="81" errorCode="1000" recordType="811" segmentFlag="F" checkType="FI" Level="4" checkedFieldName="CertId" errorMsg="债权人及主合同信息段：债权人证件证件为金融机构代码，该机构的金融机构代码检验不通过" >
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="F" checkType="DL" checkedFieldName="CertType"  dataList="z;"/>
+				</precondition>
+			</rule>
+			<rule name="rule81-42" messageType="81" errorCode="1017" recordType="811" segmentFlag="F" checkType="DIC" Level="4" checkedFieldName="Way"	errorMsg="债权人及主合同信息段：投向未按照数据字典中的内容填写"  dataList="行业分类">
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="F" checkType="NA" checkedFieldName="Way" />
+				</precondition>
+			</rule>
+			<rule name="rule81-43" messageType="81" errorCode="1017" recordType="811" segmentFlag="F" checkType="DIC" Level="4" checkedFieldName="ContractFlag"	errorMsg="债权人及主合同信息段：状态位未按照数据字典中的内容填写"  dataList="状态位">
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="F" checkType="NA" checkedFieldName="ContractFlag" />
+				</precondition>
+			</rule>
+			<rule name="rule81-100" messageType="81" errorCode="4426" recordType="811" segmentFlag="F" checkType="DL" Level="4" checkedFieldName="CertType" dataList="z;d;" errorMsg="56.	当债权人类型为“1-放贷机构”时，债权人证件类型只能填写“z”或“d”">
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="F" checkType="DL" checkedFieldName="CreditorType"  dataList="1;"/>
+				</precondition>
+			</rule>
+			<rule name="rule81-101" messageType="81" errorCode="4426" recordType="811" segmentFlag="F" checkType="DL" Level="4" checkedFieldName="CertType" dataList="a;c;d" errorMsg="当债权人类型为“2-非放贷机构”时，债权人证件类型只能填写“a”、“c”或“d”">
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="F" checkType="DL" checkedFieldName="CreditorType"  dataList="2;"/>
+				</precondition>
+			</rule>
+			<rule name="rule81-102" messageType="81" errorCode="4426" recordType="811" segmentFlag="F" checkType="DL" Level="4" checkedFieldName="CertType" dataList="0;1;2;3;4;5;6;7;8;9;X;" errorMsg="当债权人类型为“3-自然人”时，债权人证件类型只能填写“0-9”或“X”">
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="F" checkType="DL" checkedFieldName="CreditorType"  dataList="3;"/>
+				</precondition>
+			</rule>
+			<!-- 反担保人信息段数据项报文规则 -->
+			<rule name="rule81-44" messageType="81" errorCode="1017" recordType="811" segmentFlag="G" checkType="DIC" Level="4" checkedFieldName="CounterGType"	errorMsg="反担保人信息段：反担保人类型未按照数据字典中的内容填写"  dataList="反担保人类型">
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="G" checkType="NA" checkedFieldName="CounterGType" />
+				</precondition>
+			</rule>
+			<rule name="rule81-45" messageType="81" errorCode="1017" recordType="811" segmentFlag="G" checkType="DIC" Level="4" checkedFieldName="CertType"	errorMsg="反担保人信息段：反担保人证件类型未按照数据字典中的内容填写"  dataList="证件类型">
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="G" checkType="NA" checkedFieldName="CertType" />
+				</precondition>
+			</rule>
+			<rule name="rule81-46" messageType="81" errorCode="1023" recordType="811" segmentFlag="G" checkType="NA" Level="4" checkedFieldName="CertId"	errorMsg="反担保人信息段：反担保人证件类型和反担保人证件号码未成对出现" >
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="G" checkType="NA" checkedFieldName="CertType" />
+				</precondition>
+			</rule>
+			<rule name="rule81-47" messageType="81" errorCode="1023" recordType="811" segmentFlag="G" checkType="NA" Level="4" checkedFieldName="CertType" errorMsg="反担保人信息段：反担保人证件类型和反担保人证件号码未成对出现" >
+			<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="G" checkType="NA" checkedFieldName="CertId" />
+				</precondition>
+			</rule>		
+			<rule name="rule81-48" messageType="81" errorCode="1021" recordType="811" segmentFlag="G" checkType="ID" Level="4" checkedFieldName="CertId" errorMsg="反担保人信息段：被担保人证件为身份证，自然人身份证号码校验不通过">
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="G" checkType="DL" checkedFieldName="CertType"  dataList="1;"/>
+				</precondition>
+			</rule>
+			<rule name="rule81-49" messageType="81" errorCode="1018" recordType="811" segmentFlag="G" checkType="ZD" Level="4" checkedFieldName="CertId" errorMsg="反担保人信息段：反担保人证件为组织机构代码，该机构的组织机构代码校验不通过" >
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="G" checkType="DL" checkedFieldName="CertType"  dataList="a;"/>
+				</precondition>
+			</rule>
+			<rule name="rule81-50" messageType="81" errorCode="1027" recordType="811" segmentFlag="G" checkType="CT" Level="4" checkedFieldName="CertId" errorMsg="反担保人信息段：反担保人证件为机构信用代码，该机构信用代码校验不通过" >
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="G" checkType="DL" checkedFieldName="CertType"  dataList="d;"/>
+				</precondition>
+			</rule>
+			<rule name="rule81-51" messageType="81" errorCode="1020" recordType="811" segmentFlag="G" checkType="DKK" Level="4" checkedFieldName="CertId" errorMsg="反担保人信息段：反担保人证件为贷款卡编码，该机构的贷款卡编码检验不通过" >
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="G" checkType="DL" checkedFieldName="CertType"  dataList="c;"/>
+				</precondition>
+			</rule>
+			<rule name="rule81-52" messageType="81" errorCode="1000" recordType="811" segmentFlag="G" checkType="FI" Level="4" checkedFieldName="CertId" errorMsg="反担保人信息段：反担保人证件为金融机构代码，该机构的金融机构代码检验不通过" >
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="G" checkType="DL" checkedFieldName="CertType"  dataList="z;"/>
+				</precondition>
+			</rule>
+			<rule name="rule81-53" messageType="81" errorCode="4056" recordType="811" segmentFlag="G" checkType="DR" Level="4" checkedFieldName="CounterGSum"  dataStartValue="0" errorMsg="反担保责任金额应大于等于0" >
+  	  		</rule>
+			<rule name="rule81-54" messageType="81" errorCode="1017" recordType="811" segmentFlag="G" checkType="DIC" Level="4" checkedFieldName="CounterGFlag"	errorMsg="反担保人信息段：状态位未按照数据字典中的内容填写"  dataList="状态位">
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="G" checkType="NA" checkedFieldName="CounterGFlag" />
+				</precondition>
+			</rule>
+			<rule name="rule81-103" messageType="81" errorCode="4428" recordType="811" segmentFlag="G" checkType="DL" Level="4" checkedFieldName="CertType" dataList="a;c;d;" errorMsg="当反担保人类型为“1-企业或其他组织”时，反担保人证件类型只能填写“a”、“c”或“d”">
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="G" checkType="DL" checkedFieldName="CounterGType"  dataList="1;"/>
+				</precondition>
+			</rule>
+			<rule name="rule81-104" messageType="81" errorCode="4428" recordType="811" segmentFlag="G" checkType="DL" Level="4" checkedFieldName="CertType" dataList="0;1;2;3;4;5;6;7;8;9;X;" errorMsg="当反担保人类型为“2-自然人”时，反担保人证件类型只能填写“0-9”或“X”">
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="G" checkType="DL" checkedFieldName="CounterGType"  dataList="2;"/>
+				</precondition>
+			</rule>
+			<!-- 实际在保（代偿）责任信息段数据项报文规则 -->
+			<rule name="rule81-55" messageType="81" errorCode="1017" recordType="811" segmentFlag="H" checkType="DIC" Level="4" checkedFieldName="GContractFlag"	errorMsg="实际在保（代偿）责任信息段：担保合同状态未按照数据字典中的内容填写"  dataList="担保合同状态">
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="H" checkType="NA" checkedFieldName="GContractFlag" />
+				</precondition>
+			</rule>
+			<rule name="rule81-56" messageType="81" errorCode="1016" recordType="811" segmentFlag="H" checkType="DR" Level="4" checkedFieldName="GContractEndDate" dataStartValue="19010101" errorMsg="担保责任解除日期出错" >
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="H" checkType="NA" checkedFieldName="GContractEndDate"/>
+				</precondition>
+			</rule>
+			<rule name="rule81-57" messageType="81" errorCode="4056" recordType="811" segmentFlag="H" checkType="DR" Level="4" checkedFieldName="GContractBalance"  dataStartValue="0" errorMsg="实际在保（代偿）责任信息段：在保余额应大于等于0" >
+  	  		</rule>
+			<rule name="rule81-58" messageType="81" errorCode="1016" recordType="811" segmentFlag="H" checkType="DR" Level="4" checkedFieldName="BalanceChangeDate" dataStartValue="19010101" errorMsg="实际在保（代偿）责任信息段：余额变化日期出错" >
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="H" checkType="NA" checkedFieldName="BalanceChangeDate"/>
+				</precondition>
+			</rule>
+			<rule name="rule81-59" messageType="81" errorCode="1015" recordType="811" segmentFlag="H" checkType="NA" Level="4" checkedFieldName="GContractEndDate" errorMsg="当“担保合同状态”为“无效”时，“担保责任解除日期” 必填">
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="H" checkType="DL" checkedFieldName="GContractFlag"  dataList="2;"/>
+				</precondition>
+			</rule>
+			<rule name="rule81-60" messageType="81" errorCode="1015" recordType="811" segmentFlag="H" checkType="NA" Level="4" checkedFieldName="GContractEndDate" dataEndValue="0" errorMsg="“担保合同状态”为“有效”时，“担保责任解除日期” 不填">
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="H" checkType="DL" checkedFieldName="GContractFlag"  dataList="1;"/>
+					<rule name="rule2" messageType="81" recordType="811" segmentFlag="H" checkType="NA" checkedFieldName="GContractEndDate"/>
+				</precondition>
+			</rule>
+			<rule name="rule81-61" messageType="81" errorCode="4406" recordType="811" segmentFlag="H" checkType="DR" Level="4" checkedFieldName="BalanceChangeDate" dataEndValue="{$H.GContractEndDate}" errorMsg="担保责任解除日期>=余额变化日期">
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="H" checkType="NA" checkedFieldName="GContractEndDate"/>
+				</precondition>
+			</rule>
+			<!-- 代偿概况信息段数据项报文规则 -->
+			<rule name="rule81-62" messageType="81" errorCode="1016" recordType="811" segmentFlag="I" checkType="DR" Level="4" checkedFieldName="BillingDate" dataStartValue="19010101" errorMsg="代偿概况信息段：记账日期出错" >
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="I" checkType="NA" checkedFieldName="BillingDate"/>
+				</precondition>
+			</rule>
+			<rule name="rule81-63" messageType="81" errorCode="1017" recordType="811" segmentFlag="I" checkType="DIC" Level="4" checkedFieldName="RecoveryFlag"	errorMsg="代偿概况信息段：继续追偿标志未按照数据字典中的内容填写"  dataList="继续追偿标志">
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="I" checkType="NA" checkedFieldName="RecoveryFlag" />
+				</precondition>
+			</rule>
+			<rule name="rule81-64" messageType="81" errorCode="1016" recordType="811" segmentFlag="I" checkType="DR" Level="4" checkedFieldName="LastCDate" dataStartValue="19010101" errorMsg="代偿概况信息段：最近一次代偿日期出错" >
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="I" checkType="NA" checkedFieldName="LastCDate"/>
+				</precondition>
+			</rule>
+			<rule name="rule81-65" messageType="81" errorCode="4056" recordType="811" segmentFlag="I" checkType="DR" Level="4" checkedFieldName="CSum"  dataStartValue="0" errorMsg="累计代偿金额应大于等于0" >
+  	  		</rule>
+  	  		<rule name="rule81-66" messageType="81" errorCode="4056" recordType="811" segmentFlag="I" checkType="DR" Level="4" checkedFieldName="OwnCSum"  dataStartValue="0" errorMsg="本机构承担代偿金额应大于等于0" >
+  	  		</rule>
+  	  		<rule name="rule81-67" messageType="81" errorCode="1016" recordType="811" segmentFlag="I" checkType="DR" Level="4" checkedFieldName="LastRecoveryDate" dataStartValue="19010101" errorMsg="代偿概况信息段：最近一次追偿日期出错" >
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="I" checkType="NA" checkedFieldName="LastRecoveryDate"/>
+				</precondition>
+			</rule>
+			<rule name="rule81-68" messageType="81" errorCode="4056" recordType="811" segmentFlag="I" checkType="DR" Level="4" checkedFieldName="CBalance"  dataStartValue="0" errorMsg="代偿余额应大于等于0" >
+  	  		</rule>
+			<rule name="rule81-69" messageType="81" errorCode="4056" recordType="811" segmentFlag="I" checkType="DR" Level="4" checkedFieldName="OwnCBalance"  dataStartValue="0" errorMsg="本机构承担代偿余额应大于等于0" >
+  	  		</rule>
+			<rule name="rule81-70" messageType="81" errorCode="4056" recordType="811" segmentFlag="I" checkType="DR" Level="4" checkedFieldName="RecoverySum"  dataStartValue="0" errorMsg="累计追偿金额应大于等于0" >
+  	  		</rule>
+			<rule name="rule81-71" messageType="81" errorCode="4056" recordType="811" segmentFlag="I" checkType="DR" Level="4" checkedFieldName="LossSum"  dataStartValue="0" errorMsg="累计损失金额应大于等于0" >
+  	  		</rule>
+			<rule name="rule81-72" messageType="81" errorCode="4410" recordType="811" segmentFlag="I" checkType="DR" Level="4" checkedFieldName="OwnCSum" dataEndValue="{$I.CSum}" errorMsg="累计代偿金额应>=本机构承担代偿金额">
+			</rule>
+			<rule name="rule81-73" messageType="81" errorCode="4412" recordType="811" segmentFlag="I" checkType="DR" Level="4" checkedFieldName="OwnCBalance" dataEndValue="{$I.CBalance}" errorMsg="代偿余额应>=本机构承担代偿余额">
+			</rule>
+			<rule name="rule81-109" messageType="81" errorCode="4432" recordType="811" segmentFlag="I" checkType="NA" Level="4" checkedFieldName="CSum" errorMsg="代偿概况信息段：当担保业务种类不为“11-再担保”时，“累计代偿金额”必填">
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="D" checkType="DL" checkedFieldName="{$D.BusinessType}"  dataList="01;02;03;04;05;06;07;08;09;10;"/>
+				</precondition>
+			</rule>
+			<rule name="rule81-110" messageType="81" errorCode="4432" recordType="811" segmentFlag="I" checkType="NA" Level="4" checkedFieldName="CSum" errorMsg="代偿概况信息段：当担保业务种类不为“11-再担保”时，“代偿余额”必填">
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="D" checkType="DL" checkedFieldName="{$D.BusinessType}"  dataList="01;02;03;04;05;06;07;08;09;10;"/>
+				</precondition>
+			</rule>
+  	  		<!-- 代偿明细信息段数据项报文规则 -->
+			<rule name="rule81-74" messageType="81" errorCode="1016" recordType="811" segmentFlag="J" checkType="DR" Level="4" checkedFieldName="CompensatorDate" dataStartValue="19010101" errorMsg="代偿明细信息段：代偿日期出错" >
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="J" checkType="NA" checkedFieldName="CompensatorDate"/>
+				</precondition>
+			</rule>
+			<rule name="rule81-75" messageType="81" errorCode="4056" recordType="811" segmentFlag="J" checkType="DR" Level="4" checkedFieldName="CompensatorySum"  dataStartValue="0" errorMsg="代偿金额应大于等于0" >
+  	  		</rule>
+			<!-- 追偿明细信息段数据项报文规则 -->
+			<rule name="rule81-76" messageType="81" errorCode="1016" recordType="811" segmentFlag="K" checkType="DR" Level="4" checkedFieldName="RecoveryDate" dataStartValue="19010101" errorMsg="追偿明细信息段：追偿日期出错" >
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="K" checkType="NA" checkedFieldName="RecoveryDate"/>
+				</precondition>
+			</rule>
+			<rule name="rule81-77" messageType="81" errorCode="4056" recordType="811" segmentFlag="K" checkType="DR" Level="4" checkedFieldName="RecoverySum"  dataStartValue="0" errorMsg="追偿金额应大于等于0" >
+  	  		</rule>
+			<!-- 保费缴纳概况信息段数据项报文规则 -->
+			<rule name="rule81-78" messageType="81" errorCode="1017" recordType="811" segmentFlag="L" checkType="DIC" Level="4" checkedFieldName="PayType"	errorMsg="保费缴纳概况信息段：缴费类别未按照数据字典中的内容填写"  dataList="缴费类别">
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="L" checkType="NA" checkedFieldName="PayType" />
+				</precondition>
+			</rule>
+			<rule name="rule81-79" messageType="81" errorCode="1016" recordType="811" segmentFlag="L" checkType="DR" Level="4" checkedFieldName="BillingDate" dataStartValue="19010101" errorMsg="保费缴纳概况信息段：记账日期出错" >
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="L" checkType="NA" checkedFieldName="BillingDate"/>
+				</precondition>
+			</rule>
+			<rule name="rule81-80" messageType="81" errorCode="4056" recordType="811" segmentFlag="L" checkType="DR" Level="4" checkedFieldName="PremiumSum"  dataStartValue="0" errorMsg="保费缴纳概况信息段：金额应大于等于0" >
+  	  		</rule>
+			<rule name="rule81-81" messageType="81" errorCode="1017" recordType="811" segmentFlag="L" checkType="DIC" Level="4" checkedFieldName="PremiumMode"	errorMsg="保费缴纳概况信息段：缴纳方式未按照数据字典中的内容填写"  dataList="保费缴纳方式">
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="L" checkType="NA" checkedFieldName="PremiumMode" />
+				</precondition>
+			</rule>
+			<rule name="rule81-82" messageType="81" errorCode="1016" recordType="811" segmentFlag="L" checkType="DR" Level="4" checkedFieldName="ChargingStartDate" dataStartValue="19010101" errorMsg="保费缴纳概况信息段：计费起始日期出错" >
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="L" checkType="NA" checkedFieldName="ChargingStartDate"/>
+				</precondition>
+			</rule>
+			<rule name="rule81-83" messageType="81" errorCode="1017" recordType="811" segmentFlag="L" checkType="DIC" Level="4" checkedFieldName="PremiumState"	errorMsg="保费缴纳概况信息段：保费缴纳状态未按照数据字典中的内容填写"  dataList="缴纳状态">
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="L" checkType="NA" checkedFieldName="PremiumState" />
+				</precondition>
+			</rule>
+			<rule name="rule81-84" messageType="81" errorCode="1016" recordType="811" segmentFlag="L" checkType="DR" Level="4" checkedFieldName="ChargingEndDate" dataStartValue="19010101" errorMsg="保费缴纳概况信息段：缴纳结束日期出错" >
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="L" checkType="NA" checkedFieldName="ChargingEndDate"/>
+				</precondition>
+			</rule>
+			<rule name="rule81-85" messageType="81" errorCode="4056" recordType="811" segmentFlag="L" checkType="DR" Level="4" checkedFieldName="PremiumBalance"  dataStartValue="0" errorMsg="保费缴纳概况信息段：余额应大于等于0" >
+  	  		</rule>
+  	  		<rule name="rule81-86" messageType="81" errorCode="4056" recordType="811" segmentFlag="L" checkType="DR" Level="4" checkedFieldName="UnpaidSum"  dataStartValue="0" errorMsg="保费缴纳概况信息段：累计欠缴金额应大于等于0" >
+  	  		</rule>
+  	  		<rule name="rule81-87" messageType="81" errorCode="4416" recordType="811" segmentFlag="L" checkType="DR" Level="4" checkedFieldName="PremiumBalance" dataEndValue="{$L.PremiumSum}" errorMsg="保费金额应>=保费余额">
+			</rule>
+			<rule name="rule81-88" messageType="81" errorCode="4418" recordType="811" segmentFlag="L" checkType="DR" Level="4" checkedFieldName="UnpaidSum" dataEndValue="{$L.PremiumSum}" errorMsg="保费金额应>=累计欠缴金额">
+			</rule>
+			<rule name="rule81-89" messageType="81" errorCode="4422" recordType="811" segmentFlag="L" checkType="NA" Level="4" checkedFieldName="PremiumFrequency" errorMsg="当缴纳方式为“2-分期”时，“缴纳频率”必填">
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="L" checkType="DL" checkedFieldName="PremiumMode"  dataList="2;"/>
+				</precondition>
+			</rule>
+			<rule name="rule81-95" messageType="81" errorCode="4420" recordType="811" segmentFlag="L" checkType="DR" Level="4" checkedFieldName="UnpaidSum" dataEndValue="{$M.PayableSum}" errorMsg="应缴金额应>=欠缴金额">
+			</rule>
+  	  		<rule name="rule81-105" messageType="81" errorCode="4434" recordType="811" segmentFlag="L" checkType="NA" Level="4" checkedFieldName="ChargingEndDate" errorMsg="保费缴纳概况信息段：当缴纳状态为“3-缴清”时，“缴纳结束日期”必填">
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="L" checkType="DL" checkedFieldName="PremiumState"  dataList="3;"/>
+				</precondition>
+			</rule>
+			<rule name="rule81-106" messageType="81" errorCode="1017" recordType="811" segmentFlag="L" checkType="DIC" Level="4" checkedFieldName="PremiumFrequency" errorMsg="保费缴纳概况信息段：缴纳频率未按照数据字典中的内容填写"  dataList="保费缴纳频率">
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="L" checkType="NA" checkedFieldName="PremiumFrequency" />
+				</precondition>
+			</rule>
+			<!-- 保费缴纳明细信息段数据项报文规则 -->
+			<rule name="rule81-90" messageType="81" errorCode="1016" recordType="811" segmentFlag="M" checkType="DR" Level="4" checkedFieldName="PayableDate" dataStartValue="19010101" errorMsg="保费缴纳明细信息段：应缴日期出错" >
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="M" checkType="NA" checkedFieldName="PayableDate"/>
+				</precondition>
+			</rule>
+			<rule name="rule81-91" messageType="81" errorCode="4056" recordType="811" segmentFlag="M" checkType="DR" Level="4" checkedFieldName="PayableSum"  dataStartValue="0" errorMsg="保费缴纳明细信息段：应缴金额应大于等于0" >
+  	  		</rule>
+  	  		<rule name="rule81-92" messageType="81" errorCode="1016" recordType="811" segmentFlag="M" checkType="DR" Level="4" checkedFieldName="PaidDate" dataStartValue="19010101" errorMsg="保费缴纳明细信息段：实缴日期出错" >
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="M" checkType="NA" checkedFieldName="PaidDate"/>
+				</precondition>
+			</rule>
+			<rule name="rule81-93" messageType="81" errorCode="4056" recordType="811" segmentFlag="M" checkType="DR" Level="4" checkedFieldName="UnpaidSum"  dataStartValue="0" errorMsg="保费缴纳明细信息段：欠缴金额应大于等于0" >
+  	  		</rule>
+			<rule name="rule81-94" messageType="81" errorCode="1017" recordType="811" segmentFlag="M" checkType="DIC" Level="4" checkedFieldName="PeriodPremiumState"	errorMsg="保费缴纳明细信息段：本期保费缴纳状态未按照数据字典中的内容填写"  dataList="本期保费缴纳状态">
+				<precondition>
+					<rule name="rule1" messageType="81" recordType="811" segmentFlag="M" checkType="NA" checkedFieldName="PeriodPremiumState" />
+				</precondition>
+			</rule>
+			<!-- 担保业务：标识变更记录数据项报文规则 -->
+			<rule name="rule81-111" messageType="82" errorCode="1015" recordType="821" segmentFlag="C" checkType="NA" Level="4" checkedFieldName="FinanceCode"	errorMsg="标识变更记录段：担保业务的机构代码(金融机构代码)不能为空" >
+			</rule>
+			<rule name="rule81-112" messageType="82" errorCode="1000" recordType="821" segmentFlag="C" checkType="FI" Level="4" checkedFieldName="FinanceCode"	errorMsg="标识变更记录段：担保业务的机构代码(金融机构代码)不符合人行规范" >
+			</rule>
+			<rule name="rule81-113" messageType="82" errorCode="1015" recordType="821" segmentFlag="C" checkType="NA" Level="4" checkedFieldName="GBusinessNo"	errorMsg="标识变更记录段：原担保业务编号不得为空" >
+			</rule>
+			<rule name="rule81-114" messageType="82" errorCode="1015" recordType="821" segmentFlag="C" checkType="NA" Level="4" checkedFieldName="NEWGBusinessNo"	errorMsg="标识变更记录段：变更后的担保业务编号不得为空" >
+			</rule>
+			<rule name="rule81-115" messageType="82" errorCode="1015" recordType="821" segmentFlag="C" checkType="NA" Level="4" checkedFieldName="UpdateDate" errorMsg="标识变更记录段：数据提取日期不得为空" >
+			</rule>
+			<rule name="rule81-116" messageType="82" errorCode="1016" recordType="821" segmentFlag="C" checkType="DR" Level="4" checkedFieldName="UpdateDate" dataStartValue="19010101" errorMsg="标识变更记录段：数据报告日期出错" >
+			</rule>			
+			<!-- 担保业务：删除请求记录段数据项报文规则 -->
+			<rule name="rule81-117" messageType="83" errorCode="1015" recordType="831" segmentFlag="S" checkType="NA" Level="4" checkedFieldName="FinanceCode"	errorMsg="删除请求记录段：担保业务的机构代码(金融机构代码)不能为空" >
+			</rule>
+			<rule name="rule81-118" messageType="83" errorCode="1000" recordType="831" segmentFlag="S" checkType="FI" Level="4" checkedFieldName="FinanceCode"	errorMsg="删除请求记录段：担保业务的机构代码(金融机构代码)不符合人行规范" >
+			</rule>
+			<rule name="rule81-119" messageType="83" errorCode="1015" recordType="831" segmentFlag="S" checkType="NA" Level="4" checkedFieldName="GBusinessNo"	errorMsg="删除请求记录段：原担保业务编号不得为空" >
+			</rule>
+			<rule name="rule81-120" messageType="83" errorCode="1015" recordType="831" segmentFlag="S" checkType="NA" Level="4" checkedFieldName="DeleteType"	errorMsg="删除请求记录段：删除类型不得为空" >
+			</rule>
+			<rule name="rule81-121" messageType="83" errorCode="1017" recordType="831" segmentFlag="S" checkType="DIC" Level="4" checkedFieldName="DeleteType"	errorMsg="删除请求记录段：删除类型未按照数据字典中的内容填写"  dataList="删除类型" >
+			</rule>
+			<rule name="rule81-122" messageType="83" errorCode="1015" recordType="831" segmentFlag="S" checkType="NA" Level="4" checkedFieldName="UpdateDate" errorMsg="删除请求记录段：数据提取日期不得为空" >
+			</rule>
+			<rule name="rule81-123" messageType="83" errorCode="1016" recordType="831" segmentFlag="S" checkType="DR" Level="4" checkedFieldName="UpdateDate" dataStartValue="19010101" errorMsg="删除请求记录段：数据报告日期出错" >
+			</rule>
+		</rulelist>
+	</rulemap>
+	<rulemap Type="16">
+		<rulelist>
+			<!-- 担保业务：标识变更记录数据项报文规则 -->
+			<rule name="rule81-111" messageType="82" errorCode="1015" recordType="821" segmentFlag="C" checkType="NA" Level="4" checkedFieldName="FinanceCode"	errorMsg="标识变更记录段：担保业务的机构代码(金融机构代码)不能为空" >
+			</rule>
+			<rule name="rule81-112" messageType="82" errorCode="1000" recordType="821" segmentFlag="C" checkType="FI" Level="4" checkedFieldName="FinanceCode"	errorMsg="标识变更记录段：担保业务的机构代码(金融机构代码)不符合人行规范" >
+			</rule>
+			<rule name="rule81-113" messageType="82" errorCode="1015" recordType="821" segmentFlag="C" checkType="NA" Level="4" checkedFieldName="GBusinessNo"	errorMsg="标识变更记录段：原担保业务编号不得为空" >
+			</rule>
+			<rule name="rule81-114" messageType="82" errorCode="1015" recordType="821" segmentFlag="C" checkType="NA" Level="4" checkedFieldName="NEWGBusinessNo"	errorMsg="标识变更记录段：变更后的担保业务编号不得为空" >
+			</rule>
+			<rule name="rule81-115" messageType="82" errorCode="1015" recordType="821" segmentFlag="C" checkType="NA" Level="4" checkedFieldName="UpdateDate" errorMsg="标识变更记录段：数据提取日期不得为空" >
+			</rule>
+			<rule name="rule81-116" messageType="82" errorCode="1016" recordType="821" segmentFlag="C" checkType="DR" Level="4" checkedFieldName="UpdateDate" dataStartValue="19010101" errorMsg="标识变更记录段：数据报告日期出错" >
+			</rule>
+		</rulelist>
+	</rulemap>	
+	<rulemap Type="17">
+		<rulelist>	
+			<!-- 担保业务：删除请求记录段数据项报文规则 -->
+			<rule name="rule81-117" messageType="83" errorCode="1015" recordType="831" segmentFlag="S" checkType="NA" Level="4" checkedFieldName="FinanceCode"	errorMsg="删除请求记录段：担保业务的机构代码(金融机构代码)不能为空" >
+			</rule>
+			<rule name="rule81-118" messageType="83" errorCode="1000" recordType="831" segmentFlag="S" checkType="FI" Level="4" checkedFieldName="FinanceCode"	errorMsg="删除请求记录段：担保业务的机构代码(金融机构代码)不符合人行规范" >
+			</rule>
+			<rule name="rule81-119" messageType="83" errorCode="1015" recordType="831" segmentFlag="S" checkType="NA" Level="4" checkedFieldName="GBusinessNo"	errorMsg="删除请求记录段：原担保业务编号不得为空" >
+			</rule>
+			<rule name="rule81-120" messageType="83" errorCode="1015" recordType="831" segmentFlag="S" checkType="NA" Level="4" checkedFieldName="DeleteType"	errorMsg="删除请求记录段：删除类型不得为空" >
+			</rule>
+			<rule name="rule81-121" messageType="83" errorCode="1017" recordType="831" segmentFlag="S" checkType="DIC" Level="4" checkedFieldName="DeleteType"	errorMsg="删除请求记录段：删除类型未按照数据字典中的内容填写"  dataList="删除类型" >
+			</rule>
+			<rule name="rule81-122" messageType="83" errorCode="1015" recordType="831" segmentFlag="S" checkType="NA" Level="4" checkedFieldName="UpdateDate" errorMsg="删除请求记录段：数据提取日期不得为空" >
+			</rule>
+			<rule name="rule81-123" messageType="83" errorCode="1016" recordType="831" segmentFlag="S" checkType="DR" Level="4" checkedFieldName="UpdateDate" dataStartValue="19010101" errorMsg="删除请求记录段：数据报告日期出错" >
+			</rule>
+		</rulelist>
+	</rulemap>
+</configuration>

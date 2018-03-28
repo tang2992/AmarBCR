@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="GB2312"?>
+<dataSource>
+  <name>bcr_init_data</name>
+  <label>担保公司征信中间表</label>
+  <describe />
+  <encoding>GB18030</encoding>
+  <product>
+    <name>bcr_init_data</name>
+    <version>0.1</version>
+    <provider>Amarsoft</provider>
+  </product>
+  <extendProperties>
+    <modifier name="modifier" value="Administrator" />
+    <creationDate name="creationDate" value="1170750853" />
+    <modificationDate name="modificationDate" value="1170750853" />
+    <creator name="creator" value="Administrator" />
+  </extendProperties>
+  <!-- 
+		担保公司征信metadata增加了3个字段扩展属性，用于对字符型数据做严格处理。这些属性在倒入征信数据的过程中会进行处理，可识别的属性包括：
+		1、filterControlChar="true|false"： 是否过滤非法字符，避免数据中出现回车换行等字符
+		2、isCertNo="true|false"：指定本字段是是身份标志字段，个人身份证号码均要求按照 GB11643-1999《公民身份号码》转换成18位(为true时，对于非15位长度只转换为全大写，15位长度会转换为18位)
+		3、pureDigital="true|false"：指明本字段是否是纯数字，如果是会进行部分转换工作，全角数字转化等
+		增加这些属性可以确保数据以正确的形式倒入，但不可避免的会增加性能负担，请根据情况处理。
+	 -->
+  <tables>
+  
+  	<table name="INIT_GUARANTEEINFO" label="担保基础信息表">
+      <column index="1" name="GBUSINESSNO" label="担保业务编号" type="VARCHAR" displaySize="60" precision="0" scale="0" format="" />
+      <column index="2" name="GCONTRACTNO" label="担保合同号码" type="VARCHAR" displaySize="60" precision="0" scale="0" format="" />     
+      <column index="3" name="ORGID" label="管理行代码(金融机构代码)" type="VARCHAR" displaySize="11" precision="0" scale="0" format="" />    
+      <column index="4" name="INSUREDTYPE" label="被担保人类型" type="VARCHAR" displaySize="1" precision="0" scale="0" format="" />
+      <column index="5" name="INSUREDNAME" label="被担保人名称" type="VARCHAR" displaySize="80" precision="0" scale="0" format="" />
+      <column index="6" name="CERTTYPE" label="被担保人证件类型" type="VARCHAR" displaySize="1" precision="0" scale="0" format="" />
+      <column index="7" name="CERTID" label="被担保人证件号码" type="VARCHAR" displaySize="18" precision="0" scale="0" format="" />
+      <column index="8" name="GATHERDATE" label="数据报告日期" type="VARCHAR" displaySize="10" precision="0" scale="0" format="" />      
+      <column index="9" name="ATTRIBUTE1" label="预留字段" type="VARCHAR" displaySize="60" precision="0" scale="0" format="" />
+      <column index="10" name="UPDATEDATE" label="发生日期" type="VARCHAR" displaySize="10" precision="0" scale="0" format="" />
+      <column index="11" name="Inputorg" label="登记部门" type="VARCHAR" displaySize="32" precision="0" scale="0" format="" />
+      <column index="12" name="Inputuser" label="登记用户" type="VARCHAR" displaySize="32" precision="0" scale="0" format="" />
+      <column index="13" name="Inputtime" label="登记时间" type="VARCHAR" displaySize="24" precision="0" scale="0" format="" />
+      <column index="14" name="Updateorg" label="更新部门" type="VARCHAR" displaySize="32" precision="0" scale="0" format="" />
+      <column index="15" name="Updateuser" label="更新用户" type="VARCHAR" displaySize="32" precision="0" scale="0" format="" />
+      <column index="16" name="Updatetime" label="更新时间" type="VARCHAR" displaySize="24" precision="0" scale="0" format="" />
+    </table>
+    
+    <table name="INIT_GUARANTEECONT" label="担保合同信息信息表">
+      <column index="1" name="GBUSINESSNO" label="担保业务编号" type="VARCHAR" displaySize="60" precision="0" scale="0" format="" />
+      <column index="2" name="BUSINESSTYPE" label="担保业务种类" type="VARCHAR" displaySize="2" precision="0" scale="0" format="" />
+      <column index="3" name="GUARANTYTYPE" label="担保方式" type="VARCHAR" displaySize="1" precision="0" scale="0" format="" />      
+      <column index="4" name="GUARANTYSUM" label="担保金额" type="DOUBLE" displaySize="24" precision="0" scale="0" format="" />
+      <column index="5" name="GSTARTDATE" label="担保起始日期" type="VARCHAR" displaySize="10" precision="0" scale="0" format="" />
+      <column index="6" name="GENDDATE" label="担保到期日期" type="VARCHAR" displaySize="10" precision="0" scale="0" format="" />
+      <column index="7" name="DEPOSITSCALE" label="存出保证金比例" type="INTEGER" displaySize="3" precision="0" scale="0" format="" />
+      <column index="8" name="COUNTERTYPE" label="反担保方式" type="VARCHAR" displaySize="1" precision="0" scale="0" format="" />      
+      <column index="9" name="COMPENSATION" label="约定再担保补偿比例" type="INTEGER" displaySize="3" precision="0" scale="0" format="" />  
+      <column index="10" name="RATE" label="费率" type="VARCHAR" displaySize="6" precision="0" scale="0" format="" />      
+      <column index="11" name="ANNUALRATE" label="年化费率" type="VARCHAR" displaySize="6" precision="0" scale="0" format="" /> 
+      <column index="12" name="ATTRIBUTE1" label="预留字段" type="VARCHAR" displaySize="60" precision="0" scale="0" format="" />
+      <column index="13" name="UPDATEDATE" label="发生日期" type="VARCHAR" displaySize="10" precision="0" scale="0" format="" />
+      <column index="14" name="Inputorg" label="登记部门" type="VARCHAR" displaySize="32" precision="0" scale="0" format="" />
+      <column index="15" name="Inputuser" label="登记用户" type="VARCHAR" displaySize="32" precision="0" scale="0" format="" />
+      <column index="16" name="Inputtime" label="登记时间" type="VARCHAR" displaySize="24" precision="0" scale="0" format="" />
+      <column index="17" name="Updateorg" label="更新部门" type="VARCHAR" displaySize="32" precision="0" scale="0" format="" />
+      <column index="18" name="Updateuser" label="更新用户" type="VARCHAR" displaySize="32" precision="0" scale="0" format="" />
+      <column index="19" name="Updatetime" label="更新时间" type="VARCHAR" displaySize="24" precision="0" scale="0" format="" />
+    </table>
+    
+    <table name="INIT_INSUREDS" label="被担保人信息表">
+      <column index="1" name="GBUSINESSNO" label="担保业务编号" type="VARCHAR" displaySize="60" precision="0" scale="0" format="" />
+      <column index="2" name="INSUREDTYPE" label="被担保人类型" type="VARCHAR" displaySize="1" precision="0" scale="0" format="" />
+      <column index="3" name="INSUREDNAME" label="被担保人名称" type="VARCHAR" displaySize="80" precision="0" scale="0" format="" />      
+      <column index="4" name="CertType" label="被担保人证件类型" type="VARCHAR" displaySize="1" precision="0" scale="0" format="" />
+      <column index="5" name="CERTID" label="被担保人证件号码" type="VARCHAR" displaySize="18" precision="0" scale="0" format="" />
+      <column index="6" name="INSUREDSTATE" label="状态位" type="VARCHAR" displaySize="1" precision="0" scale="0" format="" />
+      <column index="7" name="UPDATEDATE" label="发生日期" type="VARCHAR" displaySize="10" precision="0" scale="0" format="" />
+      <column index="8" name="Inputorg" label="登记部门" type="VARCHAR" displaySize="32" precision="0" scale="0" format="" />
+      <column index="9" name="Inputuser" label="登记用户" type="VARCHAR" displaySize="32" precision="0" scale="0" format="" />
+      <column index="10" name="Inputtime" label="登记时间" type="VARCHAR" displaySize="24" precision="0" scale="0" format="" />
+      <column index="11" name="Updateorg" label="更新部门" type="VARCHAR" displaySize="32" precision="0" scale="0" format="" />
+      <column index="12" name="Updateuser" label="更新用户" type="VARCHAR" displaySize="32" precision="0" scale="0" format="" />
+      <column index="13" name="Updatetime" label="更新时间" type="VARCHAR" displaySize="24" precision="0" scale="0" format="" />
+    </table>
+    
+    <table name="INIT_CREDITORINFO" label="债权人及主合同信息表">
+      <column index="1" name="GBUSINESSNO" label="担保业务编号" type="VARCHAR" displaySize="60" precision="0" scale="0" format="" />
+      <column index="2" name="GCONTRACTNO" label="主合同编号" type="VARCHAR" displaySize="60" precision="0" scale="0" format="" />
+      <column index="3" name="CREDITORTYPE" label="债权人类型" type="VARCHAR" displaySize="1" precision="0" scale="0" format="" />
+      <column index="4" name="CREDITORNAME" label="债权人名称" type="VARCHAR" displaySize="60" precision="0" scale="0" format="" />
+      <column index="5" name="CERTTYPE" label="债权人证件类型" type="VARCHAR" displaySize="1" precision="0" scale="0" format="" />
+      <column index="6" name="CERTID" label="债权人证件号码" type="VARCHAR" displaySize="18" precision="0" scale="0" format="" />
+      <column index="7" name="WAY" label="投向" type="VARCHAR" displaySize="5" precision="5" scale="0" format="" />
+      <column index="8" name="CONTRACTFLAG" label="状态位" type="VARCHAR" displaySize="1" precision="0" scale="0" format="" />      
+      <column index="9" name="UPDATEDATE" label="发生日期" type="VARCHAR" displaySize="10" precision="0" scale="0" format="" />
+      <column index="10" name="Inputorg" label="登记部门" type="VARCHAR" displaySize="32" precision="0" scale="0" format="" />
+      <column index="11" name="Inputuser" label="登记用户" type="VARCHAR" displaySize="32" precision="0" scale="0" format="" />
+      <column index="12" name="Inputtime" label="登记时间" type="VARCHAR" displaySize="24" precision="0" scale="0" format="" />
+      <column index="13" name="Updateorg" label="更新部门" type="VARCHAR" displaySize="32" precision="0" scale="0" format="" />
+      <column index="14" name="Updateuser" label="更新用户" type="VARCHAR" displaySize="32" precision="0" scale="0" format="" />
+      <column index="15" name="Updatetime" label="更新时间" type="VARCHAR" displaySize="24" precision="0" scale="0" format="" />
+    </table>
+    
+    <table name="INIT_COUNTERGUARANTOR" label="反担保人信息表">
+      <column index="1" name="GBUSINESSNO" label="担保业务编号" type="VARCHAR" displaySize="60" precision="0" scale="0" format="" />
+      <column index="2" name="COUNTERGTYPE" label="反担保人类型" type="VARCHAR" displaySize="1" precision="0" scale="0" format="" />  
+      <column index="3" name="COUNTERGNAME" label="反担保人名称" type="VARCHAR" displaySize="80" precision="0" scale="0" format="" />
+      <column index="4" name="CERTTYPE" label="反担保人证件类型" type="VARCHAR" displaySize="1" precision="0" scale="0" format="" />
+      <column index="5" name="CERTID" label="反担保人证件号码" type="VARCHAR" displaySize="18" precision="0" scale="0" format="" />
+      <column index="6" name="COUNTERGSUM" label="反担保责任金额" type="DOUBLE" displaySize="24" precision="0" scale="6" format="" />
+      <column index="7" name="COUNTERGFLAG" label="状态位" type="VARCHAR" displaySize="1" precision="0" scale="0" format="" />      
+      <column index="8" name="UPDATEDATE" label="发生日期" type="VARCHAR" displaySize="10" precision="0" scale="0" format="" />
+      <column index="9" name="Inputorg" label="登记部门" type="VARCHAR" displaySize="32" precision="0" scale="0" format="" />
+      <column index="10" name="Inputuser" label="登记用户" type="VARCHAR" displaySize="32" precision="0" scale="0" format="" />
+      <column index="11" name="Inputtime" label="登记时间" type="VARCHAR" displaySize="24" precision="0" scale="0" format="" />
+      <column index="12" name="Updateorg" label="更新部门" type="VARCHAR" displaySize="32" precision="0" scale="0" format="" />
+      <column index="13" name="Updateuser" label="更新用户" type="VARCHAR" displaySize="32" precision="0" scale="0" format="" />
+      <column index="14" name="Updatetime" label="更新时间" type="VARCHAR" displaySize="24" precision="0" scale="0" format="" />
+    </table>
+    
+    <table name="INIT_GUARANTEEDUTY" label="实际在保（代偿）责任信息表">
+      <column index="1" name="GBUSINESSNO" label="担保业务编号" type="VARCHAR" displaySize="60" precision="0" scale="0" format="" />
+      <column index="2" name="GCONTRACTFLAG" label="担保合同状态" type="VARCHAR" displaySize="1" precision="0" scale="0" format="" />  
+      <column index="3" name="GCONTRACTENDDATE" label="担保责任解除日期" type="VARCHAR" displaySize="10" precision="0" scale="0" format="" />
+      <column index="4" name="GCONTRACTBALANCE" label="在保余额" type="DOUBLE" displaySize="24" precision="0" scale="0" format="" />
+      <column index="5" name="BALANCECHANGEDATE" label="余额变化日期" type="VARCHAR" displaySize="10" precision="0" scale="0" format="" /> 
+      <column index="6" name="UPDATEDATE" label="发生日期" type="VARCHAR" displaySize="10" precision="0" scale="0" format="" />
+      <column index="7" name="Inputorg" label="登记部门" type="VARCHAR" displaySize="32" precision="0" scale="0" format="" />
+      <column index="8" name="Inputuser" label="登记用户" type="VARCHAR" displaySize="32" precision="0" scale="0" format="" />
+      <column index="9" name="Inputtime" label="登记时间" type="VARCHAR" displaySize="24" precision="0" scale="0" format="" />
+      <column index="10" name="Updateorg" label="更新部门" type="VARCHAR" displaySize="32" precision="0" scale="0" format="" />
+      <column index="11" name="Updateuser" label="更新用户" type="VARCHAR" displaySize="32" precision="0" scale="0" format="" />
+      <column index="12" name="Updatetime" label="更新时间" type="VARCHAR" displaySize="24" precision="0" scale="0" format="" />
+    </table>
+    
+    <table name="INIT_COMPENSATORYINFO" label="代偿概况信息表">
+      <column index="1" name="GBUSINESSNO" label="担保业务编号" type="VARCHAR" displaySize="60" precision="0" scale="0" format="" />
+      <column index="2" name="BILLINGDATE" label="记账日期" type="VARCHAR" displaySize="10" precision="0" scale="0" format="" />
+      <column index="3" name="RecoveryFlag" label="继续追偿标志" type="VARCHAR" displaySize="1" precision="0" scale="0" format="" />      
+      <column index="4" name="LASTCDATE" label="最近一次代偿日期" type="VARCHAR" displaySize="10" precision="0" scale="0" format="" />
+      <column index="5" name="CSum" label="累计代偿金额" type="DOUBLE" displaySize="24" precision="0" scale="0" format="" />
+      <column index="6" name="OwnCSum" label="本机构承担代偿金额" type="DOUBLE" displaySize="24" precision="0" scale="0" format="" />
+      <column index="7" name="LastRecoveryDate" label="最近一次追偿日期" type="VARCHAR" displaySize="10" precision="0" scale="0" format="" />
+      <column index="8" name="CBalance" label="代偿余额" type="DOUBLE" displaySize="24" precision="0" scale="0" format="" />
+      <column index="9" name="OwnCBalance" label="本机构承担代偿余额" type="DOUBLE" displaySize="24" precision="0" scale="0" format="" />
+      <column index="10" name="RECOVERYSUM" label="累计追偿金额" type="DOUBLE" displaySize="24" precision="0" scale="0" format="" />
+      <column index="11" name="LOSSSUM" label="累计损失金额" type="DOUBLE" displaySize="24" precision="0" scale="0" format="" />
+      <column index="12" name="ATTRIBUTE1" label="预留字段" type="VARCHAR" displaySize="60" precision="0" scale="0" format="" />  
+      <column index="13" name="UPDATEDATE" label="发生日期" type="VARCHAR" displaySize="10" precision="0" scale="0" format="" />
+      <column index="14" name="Inputorg" label="登记部门" type="VARCHAR" displaySize="32" precision="0" scale="0" format="" />
+      <column index="15" name="Inputuser" label="登记用户" type="VARCHAR" displaySize="32" precision="0" scale="0" format="" />
+      <column index="16" name="Inputtime" label="登记时间" type="VARCHAR" displaySize="24" precision="0" scale="0" format="" />
+      <column index="17" name="Updateorg" label="更新部门" type="VARCHAR" displaySize="32" precision="0" scale="0" format="" />
+      <column index="18" name="Updateuser" label="更新用户" type="VARCHAR" displaySize="32" precision="0" scale="0" format="" />
+      <column index="19" name="Updatetime" label="更新时间" type="VARCHAR" displaySize="24" precision="0" scale="0" format="" />
+    </table>
+    
+    <table name="INIT_COMPENSATORYDETAIL" label="代偿明细信息表">
+      <column index="1" name="GBUSINESSNO" label="担保业务编号" type="VARCHAR" displaySize="60" precision="0" scale="0" format="" />
+      <column index="2" name="COMPENSATORDATE" label="代偿日期" type="VARCHAR" displaySize="10" precision="0" scale="0" format="" />  
+      <column index="3" name="COMPENSATORYSUM" label="代偿金额" type="DOUBLE" displaySize="24" precision="0" scale="0" format="" />
+      <column index="4" name="UPDATEDATE" label="发生日期" type="VARCHAR" displaySize="10" precision="0" scale="0" format="" />
+      <column index="5" name="Inputorg" label="登记部门" type="VARCHAR" displaySize="32" precision="0" scale="0" format="" />
+      <column index="6" name="Inputuser" label="登记用户" type="VARCHAR" displaySize="32" precision="0" scale="0" format="" />
+      <column index="7" name="Inputtime" label="登记时间" type="VARCHAR" displaySize="24" precision="0" scale="0" format="" />
+      <column index="8" name="Updateorg" label="更新部门" type="VARCHAR" displaySize="32" precision="0" scale="0" format="" />
+      <column index="9" name="Updateuser" label="更新用户" type="VARCHAR" displaySize="32" precision="0" scale="0" format="" />
+      <column index="10" name="Updatetime" label="更新时间" type="VARCHAR" displaySize="24" precision="0" scale="0" format="" />
+    </table>
+    
+    <table name="INIT_RECOVERYDETAIL" label="追偿明细信息表">
+      <column index="1" name="GBUSINESSNO" label="担保业务编号" type="VARCHAR" displaySize="60" precision="0" scale="0" format="" />
+      <column index="2" name="RECOVERYDATE" label="追偿日期" type="VARCHAR" displaySize="10" precision="0" scale="0" format="" />  
+      <column index="3" name="RECOVERYSUM" label="追偿金额" type="DOUBLE" displaySize="24" precision="0" scale="0" format="" />
+      <column index="4" name="UPDATEDATE" label="发生日期" type="VARCHAR" displaySize="10" precision="0" scale="0" format="" />
+      <column index="5" name="Inputorg" label="登记部门" type="VARCHAR" displaySize="32" precision="0" scale="0" format="" />
+      <column index="6" name="Inputuser" label="登记用户" type="VARCHAR" displaySize="32" precision="0" scale="0" format="" />
+      <column index="7" name="Inputtime" label="登记时间" type="VARCHAR" displaySize="24" precision="0" scale="0" format="" />
+      <column index="8" name="Updateorg" label="更新部门" type="VARCHAR" displaySize="32" precision="0" scale="0" format="" />
+      <column index="9" name="Updateuser" label="更新用户" type="VARCHAR" displaySize="32" precision="0" scale="0" format="" />
+      <column index="10" name="Updatetime" label="更新时间" type="VARCHAR" displaySize="24" precision="0" scale="0" format="" />
+    </table>
+    
+    <table name="INIT_PREMIUMINFO" label="保费缴纳概况信息表">
+      <column index="1" name="GBUSINESSNO" label="担保业务编号" type="VARCHAR" displaySize="60" precision="0" scale="0" format="" />
+      <column index="2" name="PAYTYPE" label="缴费类别" type="VARCHAR" displaySize="1" precision="0" scale="0" format="" />
+      <column index="3" name="BILLINGDATE" label="记账日期" type="VARCHAR" displaySize="10" precision="0" scale="0" format="" />      
+      <column index="4" name="PREMIUMSUM" label="金额" type="DOUBLE" displaySize="24" precision="0" scale="0" format="" />
+      <column index="5" name="PREMIUMMODE" label="缴纳方式" type="VARCHAR" displaySize="1" precision="0" scale="0" format="" />
+      <column index="6" name="PREMIUMFREQUENCY" label="缴纳频率" type="VARCHAR" displaySize="2" precision="0" scale="0" format="" />
+      <column index="7" name="CHARGINGSTARTDATE" label="计费起始日期" type="VARCHAR" displaySize="10" precision="0" scale="0" format="" />
+      <column index="8" name="PREMIUMSTATE" label="保费缴纳状态" type="VARCHAR" displaySize="1" precision="0" scale="0" format="" />
+      <column index="9" name="CHARGINGENDDATE" label="缴纳结束日期" type="VARCHAR" displaySize="10" precision="0" scale="0" format="" />
+      <column index="10" name="PremiumBalance" label="余额" type="DOUBLE" displaySize="24" precision="0" scale="0" format="" />
+      <column index="11" name="UNPAIDSUM" label="累计欠缴金额" type="DOUBLE" displaySize="24" precision="0" scale="0" format="" />
+      <column index="12" name="ATTRIBUTE1" label="预留字段" type="VARCHAR" displaySize="60" precision="0" scale="0" format="" />  
+      <column index="13" name="UPDATEDATE" label="发生日期" type="VARCHAR" displaySize="10" precision="0" scale="0" format="" />
+      <column index="14" name="Inputorg" label="登记部门" type="VARCHAR" displaySize="32" precision="0" scale="0" format="" />
+      <column index="15" name="Inputuser" label="登记用户" type="VARCHAR" displaySize="32" precision="0" scale="0" format="" />
+      <column index="16" name="Inputtime" label="登记时间" type="VARCHAR" displaySize="24" precision="0" scale="0" format="" />
+      <column index="17" name="Updateorg" label="更新部门" type="VARCHAR" displaySize="32" precision="0" scale="0" format="" />
+      <column index="18" name="Updateuser" label="更新用户" type="VARCHAR" displaySize="32" precision="0" scale="0" format="" />
+      <column index="19" name="Updatetime" label="更新时间" type="VARCHAR" displaySize="24" precision="0" scale="0" format="" />
+    </table>
+    
+    <table name="INIT_PREMIUMDETAIL" label="保费缴纳明细信息表">
+    	<column index="1" name="GBUSINESSNO" label="担保业务编号" type="VARCHAR" displaySize="60" precision="0" scale="0" format="" />
+      <column index="2" name="PAYABLEDATE" label="应缴日期" type="VARCHAR" displaySize="10" precision="0" scale="0" format="" />
+      <column index="3" name="PAYABLESUM" label="应缴金额" type="DOUBLE" displaySize="24" precision="0" scale="0" format="" />    
+      <column index="4" name="PAIDDATE" label="实缴日期" type="varchar" displaySize="10" precision="0" scale="0" format="" />
+      <column index="5" name="UNPAIDSUM" label="欠缴金额" type="DOUBLE" displaySize="24" precision="0" scale="0" format="" />
+      <column index="6" name="PERIODPREMIUMSTATE" label="本期保费缴纳状态" type="VARCHAR" displaySize="2" precision="0" scale="0" format="" />
+      <column index="7" name="ATTRIBUTE1" label="预留字段" type="VARCHAR" displaySize="60" precision="0" scale="0" format="" />  
+      <column index="8" name="UPDATEDATE" label="发生日期" type="VARCHAR" displaySize="10" precision="0" scale="0" format="" />
+      <column index="9" name="Inputorg" label="登记部门" type="VARCHAR" displaySize="32" precision="0" scale="0" format="" />
+      <column index="10" name="Inputuser" label="登记用户" type="VARCHAR" displaySize="32" precision="0" scale="0" format="" />
+      <column index="11" name="Inputtime" label="登记时间" type="VARCHAR" displaySize="24" precision="0" scale="0" format="" />
+      <column index="12" name="Updateorg" label="更新部门" type="VARCHAR" displaySize="32" precision="0" scale="0" format="" />
+      <column index="13" name="Updateuser" label="更新用户" type="VARCHAR" displaySize="32" precision="0" scale="0" format="" />
+      <column index="14" name="Updatetime" label="更新时间" type="VARCHAR" displaySize="24" precision="0" scale="0" format="" />
+    </table>
+  </tables>
+</dataSource>
+

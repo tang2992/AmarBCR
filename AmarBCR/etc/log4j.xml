@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd"
+[
+        <!ENTITY logHome "./">
+]>
+<log4j:configuration>
+    <appender class="org.apache.log4j.ConsoleAppender" name="STDOUT">
+         <layout class="org.apache.log4j.PatternLayout">
+             <param name="ConversionPattern" value="[%X{pid} %d{HH:mm:ss MM/dd} %-5p %c] - %m\n"/>
+         </layout>
+    </appender>
+    <appender class="org.apache.log4j.DailyRollingFileAppender"  name="batch_log" >
+        <param name="File"  value="&logHome;batch.log" />
+        <layout class="org.apache.log4j.PatternLayout" >
+            <param name="ConversionPattern"  value="[%X{pid} %d{HH:mm:ss MM/dd} %-5p] %C{1} - %m\n" />
+        </layout>
+    </appender>
+
+    <appender class="org.apache.log4j.DailyRollingFileAppender"  name="gen_log" >
+        <param name="File"  value="&logHome;generator.log" />
+        <layout class="org.apache.log4j.PatternLayout" >
+            <param name="ConversionPattern"  value="[%X{pid} %d{HH:mm:ss MM/dd} %-5p] %C{1} - %m\n" />
+        </layout>
+    </appender>
+
+	<appender class="com.icfcc.foundation.logging.impl.JMSQueueAppender"  name="database" >
+        <param name="InitialContextFactoryName"  value="weblogic.jndi.WLInitialContextFactory" />
+        <param name="ProviderURL"  value="t3://10.1.4.24:7008" />
+        <param name="UserName"  value="weblogic" />
+        <param name="Password"  value="weblogic" />        
+        <param name="QueueConnectionFactoryName"  value="weblogic.jms.ConnectionFactory" />        
+        <param name="SendQueueName"  value="LogQueue" />        
+        <layout class="org.apache.log4j.PatternLayout" >
+            <param name="ConversionPattern"  value="[%X{pid} %d{HH:mm:ss MM/dd} %-5p] %C{1} - %m\n" />
+        </layout>
+    </appender>
+    
+    
+    <category additivity="true" name="Batch">
+        <priority value="info"/>
+        <appender-ref ref="STDOUT"/>
+    </category>
+    
+    <root>
+        <priority value="info"/>
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="batch_log"/> 
+        <appender-ref ref="Batch"/>    
+               
+    </root>
+    
+</log4j:configuration>

@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!-- 任务定义文件,每个任务有一个文件构成，任务构造器可以根据此文件构造一个任务出来 -->
+
+<task name="LoadPBCCheckData" describe="导入人行数据核对结果" parallelRun="false" traceOn="true">
+<extendProperties>
+		<property name="frontStr" value="10" />
+		<property name="middleStr" value="yyyy-MM-dd" />
+</extendProperties>
+<targets>
+		<target name="LoadPBCDataDetail" describe="导入人行数据明细" enabled="true">
+			<executeUnits>
+			
+				<executeUnit name="NextOrg" describe="循环机构控制" allowManualExecute="true" executeClass="com.amarsoft.app.datax.ecr.common.OrgListUnit">
+					<extendProperties>
+						<property name="unit.orgListSource" 
+						value="datasource:db:ecr:select distinct ORGCODE,ORGNAME from ORG_TASK_INFO order by sortno"/>
+					</extendProperties>
+				</executeUnit>
+				
+				<executeUnit name="LoadLoanContract" describe="导入人行贷款合同核对明细" executeClass="com.amarsoft.task.units.dpx.PRHUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:datacheck:select * from ECR_PBC_LOANCONTRACT:etc/are.xml:,"/>
+						<property name="unit.provider" value="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider"/>
+						<property name="unit.handlers" value="com.amarsoft.are.dpx.recordset.UpdateDBHandler"/>
+						<property name="unit.readyCondition" value="file:data/pbcCheckData/{$TASK.frontStr}{$TARGET.BankID}{$TASK.middleStr}01.txt"/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider.dataSource" 
+							value="datasource:ndb:datacheck:select * from ECR_PBC_LOANCONTRACT:data/pbcCheckData/{$TASK.frontStr}{$TARGET.BankID}{$TASK.middleStr}01.txt:\|!"/>
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.database" value="ecr" /> 				
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.table" value="ECR_PBC_LOANCONTRACT" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.keyColumns" value="OPERATIONID" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.commitNumber" value="2000" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.checkDBRecord" value="false" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.startSql" value="delete from ECR_PBC_LOANCONTRACT where 1=1" />
+					</extendProperties>
+				</executeUnit>
+				
+				<executeUnit name="LoadLoanDuebill" describe="导入人行贷款借据核对明细" executeClass="com.amarsoft.task.units.dpx.PRHUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:datacheck:select * from ECR_PBC_LOANDUEBILL:etc/are.xml:,"/>
+						<property name="unit.provider" value="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider"/>
+						<property name="unit.handlers" value="com.amarsoft.are.dpx.recordset.UpdateDBHandler"/>
+						<property name="unit.readyCondition" value="file:data/pbcCheckData/{$TASK.frontStr}{$TARGET.BankID}{$TASK.middleStr}02.txt"/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider.dataSource" 
+							value="datasource:ndb:datacheck:select * from ECR_PBC_LOANDUEBILL:data/pbcCheckData/{$TASK.frontStr}{$TARGET.BankID}{$TASK.middleStr}02.txt:\|!"/>
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.database" value="ecr" /> 				
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.table" value="ECR_PBC_LOANDUEBILL" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.keyColumns" value="OPERATIONID" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.commitNumber" value="1" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.checkDBRecord" value="false" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.startSql" value="delete from ECR_PBC_LOANDUEBILL where 1=1" />
+					</extendProperties>
+				</executeUnit>
+				
+				<executeUnit name="LoadGuaranteBill" describe="导入人行保理核对明细" executeClass="com.amarsoft.task.units.dpx.PRHUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:datacheck:select * from ECR_PBC_FACTORING:etc/are.xml:,"/>
+						<property name="unit.provider" value="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider"/>
+						<property name="unit.handlers" value="com.amarsoft.are.dpx.recordset.UpdateDBHandler"/>
+						<property name="unit.readyCondition" value="file:data/pbcCheckData/{$TASK.frontStr}{$TARGET.BankID}{$TASK.middleStr}04.txt"/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider.dataSource" 
+							value="datasource:ndb:datacheck:select * from ECR_PBC_FACTORING:data/pbcCheckData/{$TASK.frontStr}{$TARGET.BankID}{$TASK.middleStr}04.txt:\|!"/>
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.database" value="ecr" /> 				
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.table" value="ECR_PBC_FACTORING" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.keyColumns" value="OPERATIONID" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.commitNumber" value="2000" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.checkDBRecord" value="false" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.startSql" value="delete from ECR_PBC_FACTORING where 1=1" />
+					</extendProperties>
+				</executeUnit>
+					
+			 <executeUnit name="LoadDiscount" describe="导入人行票据贴现核对明细" executeClass="com.amarsoft.task.units.dpx.PRHUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:datacheck:select * from ECR_PBC_DISCOUNT:etc/are.xml:,"/>
+						<property name="unit.provider" value="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider"/>
+						<property name="unit.handlers" value="com.amarsoft.are.dpx.recordset.UpdateDBHandler"/>
+						<property name="unit.readyCondition" value="file:data/pbcCheckData/{$TASK.frontStr}{$TARGET.BankID}{$TASK.middleStr}05.txt"/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider.dataSource" 
+							value="datasource:ndb:datacheck:select * from ECR_PBC_DISCOUNT:data/pbcCheckData/{$TASK.frontStr}{$TARGET.BankID}{$TASK.middleStr}05.txt:\|!"/>
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.database" value="ecr" /> 				
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.table" value="ECR_PBC_DISCOUNT" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.keyColumns" value="OPERATIONID" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.commitNumber" value="2000" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.checkDBRecord" value="false" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.startSql" value="delete from ECR_PBC_DISCOUNT where 1=1" />
+					</extendProperties>
+			 </executeUnit>
+			 
+			 <executeUnit name="LoadFinaInfo" describe="导入人行贸易融资协议核对明细" executeClass="com.amarsoft.task.units.dpx.PRHUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:datacheck:select * from ECR_PBC_FINAINFO:etc/are.xml:,"/>
+						<property name="unit.provider" value="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider"/>
+						<property name="unit.handlers" value="com.amarsoft.are.dpx.recordset.UpdateDBHandler"/>
+						<property name="unit.readyCondition" value="file:data/pbcCheckData/{$TASK.frontStr}{$TARGET.BankID}{$TASK.middleStr}06.txt"/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider.dataSource" 
+							value="datasource:ndb:datacheck:select * from ECR_PBC_FINAINFO:data/pbcCheckData/{$TASK.frontStr}{$TARGET.BankID}{$TASK.middleStr}06.txt:\|!"/>
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.database" value="ecr" /> 				
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.table" value="ECR_PBC_FINAINFO" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.keyColumns" value="OPERATIONID" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.commitNumber" value="2000" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.checkDBRecord" value="false" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.startSql" value="delete from ECR_PBC_FINAINFO where 1=1" />
+					</extendProperties>
+			 </executeUnit>
+			 
+			 <executeUnit name="LoadFinaDuebill" describe="导入人行贸易融资业务核对明细" executeClass="com.amarsoft.task.units.dpx.PRHUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:datacheck:select * from ECR_PBC_FINADUEBILL:etc/are.xml:,"/>
+						<property name="unit.provider" value="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider"/>
+						<property name="unit.handlers" value="com.amarsoft.are.dpx.recordset.UpdateDBHandler"/>
+						<property name="unit.readyCondition" value="file:data/pbcCheckData/{$TASK.frontStr}{$TARGET.BankID}{$TASK.middleStr}07.txt"/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider.dataSource" 
+							value="datasource:ndb:datacheck:select * from ECR_PBC_FINADUEBILL:data/pbcCheckData/{$TASK.frontStr}{$TARGET.BankID}{$TASK.middleStr}07.txt:\|!"/>
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.database" value="ecr" /> 				
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.table" value="ECR_PBC_FINADUEBILL" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.keyColumns" value="OPERATIONID" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.commitNumber" value="2000" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.checkDBRecord" value="false" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.startSql" value="delete from ECR_PBC_FINADUEBILL where 1=1" />
+					</extendProperties>
+			 </executeUnit>
+			 
+			 <executeUnit name="LoadCreditLetter" describe="导入人行信用证业务核对明细" executeClass="com.amarsoft.task.units.dpx.PRHUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:datacheck:select * from ECR_PBC_CreditLetter:etc/are.xml:,"/>
+						<property name="unit.provider" value="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider"/>
+						<property name="unit.handlers" value="com.amarsoft.are.dpx.recordset.UpdateDBHandler"/>
+						<property name="unit.readyCondition" value="file:data/pbcCheckData/{$TASK.frontStr}{$TARGET.BankID}{$TASK.middleStr}09.txt"/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider.dataSource" 
+							value="datasource:ndb:datacheck:select * from ECR_PBC_CreditLetter:data/pbcCheckData/{$TASK.frontStr}{$TARGET.BankID}{$TASK.middleStr}09.txt:\|!"/>
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.database" value="ecr" /> 				
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.table" value="ECR_PBC_CreditLetter" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.keyColumns" value="OPERATIONID" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.commitNumber" value="2000" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.checkDBRecord" value="false" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.startSql" value="delete from ECR_PBC_CreditLetter where 1=1" />
+					</extendProperties>
+			 </executeUnit>
+			 
+			 <executeUnit name="LoadGuaranteeBill" describe="导入人行保函业务核对明细" executeClass="com.amarsoft.task.units.dpx.PRHUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:datacheck:select * from ECR_PBC_GuaranteeBill:etc/are.xml:,"/>
+						<property name="unit.provider" value="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider"/>
+						<property name="unit.handlers" value="com.amarsoft.are.dpx.recordset.UpdateDBHandler"/>
+						<property name="unit.readyCondition" value="file:data/pbcCheckData/{$TASK.frontStr}{$TARGET.BankID}{$TASK.middleStr}10.txt"/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider.dataSource" 
+							value="datasource:ndb:datacheck:select * from ECR_PBC_GuaranteeBill:data/pbcCheckData/{$TASK.frontStr}{$TARGET.BankID}{$TASK.middleStr}10.txt:\|!"/>
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.database" value="ecr" /> 				
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.table" value="ECR_PBC_GuaranteeBill" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.keyColumns" value="OPERATIONID" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.commitNumber" value="2000" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.checkDBRecord" value="false" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.startSql" value="delete from ECR_PBC_GuaranteeBill where 1=1" />
+					</extendProperties>
+			 </executeUnit>
+			 
+			 <executeUnit name="LoadAcceptance" describe="导入人行承兑业务核对明细" executeClass="com.amarsoft.task.units.dpx.PRHUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:datacheck:select * from ECR_PBC_Acceptance:etc/are.xml:,"/>
+						<property name="unit.provider" value="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider"/>
+						<property name="unit.handlers" value="com.amarsoft.are.dpx.recordset.UpdateDBHandler"/>
+						<property name="unit.readyCondition" value="file:data/pbcCheckData/{$TASK.frontStr}{$TARGET.BankID}{$TASK.middleStr}11.txt"/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider.dataSource" 
+							value="datasource:ndb:datacheck:select * from ECR_PBC_Acceptance:data/pbcCheckData/{$TASK.frontStr}{$TARGET.BankID}{$TASK.middleStr}11.txt:\|!"/>
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.database" value="ecr" /> 				
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.table" value="ECR_PBC_Acceptance" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.keyColumns" value="OPERATIONID" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.commitNumber" value="2000" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.checkDBRecord" value="false" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.startSql" value="delete from ECR_PBC_Acceptance where 1=1" />
+					</extendProperties>
+			 </executeUnit>
+			 
+			 <executeUnit name="LoadCustomerCredit" describe="导入人行公开授信业务核对明细" executeClass="com.amarsoft.task.units.dpx.PRHUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:datacheck:select * from ECR_PBC_CUSTOMERCREDIT:etc/are.xml:,"/>
+						<property name="unit.provider" value="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider"/>
+						<property name="unit.handlers" value="com.amarsoft.are.dpx.recordset.UpdateDBHandler"/>
+						<property name="unit.readyCondition" value="file:data/pbcCheckData/{$TASK.frontStr}{$TARGET.BankID}{$TASK.middleStr}12.txt"/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider.dataSource" 
+							value="datasource:ndb:datacheck:select * from ECR_PBC_CUSTOMERCREDIT:data/pbcCheckData/{$TASK.frontStr}{$TARGET.BankID}{$TASK.middleStr}12.txt:\|!"/>
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.database" value="ecr" /> 				
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.table" value="ECR_PBC_CUSTOMERCREDIT" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.keyColumns" value="OPERATIONID" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.commitNumber" value="2000" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.checkDBRecord" value="false" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.startSql" value="delete from ECR_PBC_CUSTOMERCREDIT where 1=1" />
+					</extendProperties>
+			 </executeUnit>
+			 
+			 <executeUnit name="LoadAssureCont" describe="导入人行保证担保业务核对明细" executeClass="com.amarsoft.task.units.dpx.PRHUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:datacheck:select * from ECR_PBC_ASSURECONT:etc/are.xml:,"/>
+						<property name="unit.provider" value="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider"/>
+						<property name="unit.handlers" value="com.amarsoft.are.dpx.recordset.UpdateDBHandler"/>
+						<property name="unit.readyCondition" value="file:data/pbcCheckData/{$TASK.frontStr}{$TARGET.BankID}{$TASK.middleStr}13.txt"/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider.dataSource" 
+							value="datasource:ndb:datacheck:select * from ECR_PBC_ASSURECONT:data/pbcCheckData/{$TASK.frontStr}{$TARGET.BankID}{$TASK.middleStr}13.txt:\|!"/>
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.database" value="ecr" /> 				
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.table" value="ECR_PBC_ASSURECONT" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.keyColumns" value="OPERATIONID" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.commitNumber" value="2000" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.checkDBRecord" value="false" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.startSql" value="delete from ECR_PBC_ASSURECONT where 1=1" />
+					</extendProperties>
+			 </executeUnit>
+			 
+			 <executeUnit name="LoadGuarantyCont" describe="导入人行抵押担保业务核对明细" executeClass="com.amarsoft.task.units.dpx.PRHUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:datacheck:select * from ECR_PBC_GUARANTYCONT:etc/are.xml:,"/>
+						<property name="unit.provider" value="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider"/>
+						<property name="unit.handlers" value="com.amarsoft.are.dpx.recordset.UpdateDBHandler"/>
+						<property name="unit.readyCondition" value="file:data/pbcCheckData/{$TASK.frontStr}{$TARGET.BankID}{$TASK.middleStr}14.txt"/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider.dataSource" 
+							value="datasource:ndb:datacheck:select * from ECR_PBC_GUARANTYCONT:data/pbcCheckData/{$TASK.frontStr}{$TARGET.BankID}{$TASK.middleStr}14.txt:\|!"/>
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.database" value="ecr" /> 				
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.table" value="ECR_PBC_GUARANTYCONT" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.keyColumns" value="OPERATIONID" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.commitNumber" value="2000" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.checkDBRecord" value="false" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.startSql" value="delete from ECR_PBC_GUARANTYCONT where 1=1" />
+					</extendProperties>
+			 </executeUnit>
+			 
+			 <executeUnit name="LoadImpawnCont" describe="导入人行质押担保业务核对明细" executeClass="com.amarsoft.task.units.dpx.PRHUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:datacheck:select * from ECR_PBC_IMPAWNCONT:etc/are.xml:,"/>
+						<property name="unit.provider" value="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider"/>
+						<property name="unit.handlers" value="com.amarsoft.are.dpx.recordset.UpdateDBHandler"/>
+						<property name="unit.readyCondition" value="file:data/pbcCheckData/{$TASK.frontStr}{$TARGET.BankID}{$TASK.middleStr}15.txt"/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider.dataSource" 
+							value="datasource:ndb:datacheck:select * from ECR_PBC_IMPAWNCONT:data/pbcCheckData/{$TASK.frontStr}{$TARGET.BankID}{$TASK.middleStr}15.txt:\|!"/>
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.database" value="ecr" /> 				
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.table" value="ECR_PBC_IMPAWNCONT" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.keyColumns" value="OPERATIONID" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.commitNumber" value="2000" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.checkDBRecord" value="false" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.startSql" value="delete from ECR_PBC_IMPAWNCONT where 1=1" />
+					</extendProperties>
+			 </executeUnit>
+			 
+			 <executeUnit name="LoadFloorFund" describe="导入人行垫款业务核对明细" executeClass="com.amarsoft.task.units.dpx.PRHUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:datacheck:select * from ECR_PBC_FLOORFUND:etc/are.xml:,"/>
+						<property name="unit.provider" value="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider"/>
+						<property name="unit.handlers" value="com.amarsoft.are.dpx.recordset.UpdateDBHandler"/>
+						<property name="unit.readyCondition" value="file:data/pbcCheckData/{$TASK.frontStr}{$TARGET.BankID}{$TASK.middleStr}16.txt"/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider.dataSource" 
+							value="datasource:ndb:datacheck:select * from ECR_PBC_FLOORFUND:data/pbcCheckData/{$TASK.frontStr}{$TARGET.BankID}{$TASK.middleStr}16.txt:\|!"/>
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.database" value="ecr" /> 				
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.table" value="ECR_PBC_FLOORFUND" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.keyColumns" value="OPERATIONID" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.commitNumber" value="2000" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.checkDBRecord" value="false" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.startSql" value="delete from ECR_PBC_FLOORFUND where 1=1" />
+					</extendProperties>
+			 </executeUnit>
+			 
+			 <executeUnit name="LoadInterestDue" describe="导入人行欠息业务核对明细" executeClass="com.amarsoft.task.units.dpx.PRHUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:datacheck:select * from ECR_PBC_INTERESTDUE:etc/are.xml:,"/>
+						<property name="unit.provider" value="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider"/>
+						<property name="unit.handlers" value="com.amarsoft.are.dpx.recordset.UpdateDBHandler"/>
+						<property name="unit.readyCondition" value="file:data/pbcCheckData/{$TASK.frontStr}{$TARGET.BankID}{$TASK.middleStr}17.txt"/>
+						<property name="com.amarsoft.app.datax.ecr.prepare.dataimport.ECRDataSourceProvider.dataSource" 
+							value="datasource:ndb:datacheck:select * from ECR_PBC_INTERESTDUE:data/pbcCheckData/{$TASK.frontStr}{$TARGET.BankID}{$TASK.middleStr}17.txt:\|!"/>
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.database" value="ecr" /> 				
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.table" value="ECR_PBC_INTERESTDUE" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.keyColumns" value="OPERATIONID" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.commitNumber" value="2000" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.checkDBRecord" value="false" />
+						<property name="com.amarsoft.are.dpx.recordset.UpdateDBHandler.startSql" value="delete from ECR_PBC_INTERESTDUE where 1=1" />
+					</extendProperties>
+			 </executeUnit>
+			 
+			 
+			</executeUnits>
+				
+			<routeTable>
+				<route unit="NextOrg"		executeStatus="unexecute"	nextUnit="NextOrg"/>
+				<route unit="NextOrg"		executeStatus="successful"	nextUnit="LoadLoanContract"/>
+				<route unit="LoadLoanContract"		executeStatus="successful"	nextUnit="LoadLoanDuebill"/>
+				<route unit="LoadLoanDuebill"		executeStatus="successful"	nextUnit="LoadGuaranteBill"/>
+				<route unit="LoadGuaranteBill"		executeStatus="successful"	nextUnit="LoadDiscount"/>
+				<route unit="LoadDiscount"		executeStatus="successful"	nextUnit="LoadFinaInfo"/>
+				<route unit="LoadFinaInfo"		executeStatus="successful"	nextUnit="LoadFinaDuebill"/>
+				<route unit="LoadFinaDuebill"		executeStatus="successful"	nextUnit="LoadCreditLetter"/>
+				<route unit="LoadCreditLetter"		executeStatus="successful"	nextUnit="LoadGuaranteeBill"/>
+				<route unit="LoadGuaranteeBill"		executeStatus="successful"	nextUnit="LoadAcceptance"/>
+				<route unit="LoadAcceptance"		executeStatus="successful"	nextUnit="LoadCustomerCredit"/>
+				<route unit="LoadCustomerCredit"		executeStatus="successful"	nextUnit="LoadAssureCont"/>
+				<route unit="LoadAssureCont"		executeStatus="successful"	nextUnit="LoadGuarantyCont"/>
+				<route unit="LoadGuarantyCont"		executeStatus="successful"	nextUnit="LoadImpawnCont"/>
+				<route unit="LoadImpawnCont"		executeStatus="successful"	nextUnit="LoadFloorFund"/>
+				<route unit="LoadFloorFund"		executeStatus="successful"	nextUnit="LoadInterestDue"/>
+				<route unit="LoadFloorFund"		executeStatus="successful"	nextUnit="NextOrg"/>
+			</routeTable>
+		</target>
+	</targets>
+</task>
+			

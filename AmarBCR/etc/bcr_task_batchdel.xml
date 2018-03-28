@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!-- 本任务定义报文文件生成和加密加压模块，把待上报池中正确的数据生成报文 -->
+
+<!-- 把征程上报池中的数据生成报文，使用的主要是ReportSession。ReportSession使用下面的属性
+		* messageSetType-报文文件类型
+		* retryMessage-是否重报
+		* messageConfigFile-报文的配置文件，可以选择是客户和业务两种
+		* database-生成报文的数据库,缺省时ecr
+		* exportFolder-生成报文的目录
+		* autoEncrypt-自动加密
+		* autoCompress-自动换压缩
+		* multiOrg-是否多法人报文处理会话	
+		* cryptConfigFile-加密配置文件
+		* cryptKeyFile-加密密钥文件
+-->
+<task name="BCRDataBatchdel" describe="担保业务报文生成任务" parallelRun="false" traceOn="false">
+	<listeners>
+		<!--ECRTaskListener仅配置了前三类监听，建议使用unitEvent或targetEvent级的监听。
+			taskEvent级监听基本无效，routeEvent级监听未做任何操作，仅供扩展使用。-->
+		<listener listenerClass="com.amarsoft.app.datax.bcr.common.BCRTaskListener" enabled="true">
+			<extendProperties>
+				<property name="taskEventEnabled" value="false" />
+				<property name="targetEventEnabled" value="false" />
+				<property name="unitEventEnabled" value="true" />
+				<property name="routeEventEnabled" value="false" />
+				<property name="database" value="bcr"/>
+			</extendProperties>
+		</listener>
+	</listeners>
+	<targets>
+
+		<target name="GuaranteeDeleteMessage" describe="担保业务删除报文生成" enabled="true">
+			<executeUnits>
+				<!-- 业务批量删除：使用BatchDelteUnit，比普通生成报文多了生成传真文件和删除数据的后续操作
+					标准的ReportSession属性的retryMessage和messageSetType不起作用了，扩展的属性：
+					unit.faxBankName  传真的银行名称，必须设置
+					unit.faxBankCode  传真的银行代码，可选。自动从上报报文中读取。
+					unit.faxProposer  传真的申请人，必须设置。
+					unit.faxContact   传真的联系方式，必须设置。
+					unit.faxFileFormat 传真文件格式，可选(html,txt,xls)。缺省是html -->
+				
+				<executeUnit name="DeleteGuaranteeMessage" describe="担保业务信息删除报文生成" executeClass="com.amarsoft.app.datax.bcr.session.VillageGuaranteeDeleteReportUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="com.amarsoft.app.datax.bcr.session.ReportSession.retryMessage" value="true" />
+						<property name="com.amarsoft.app.datax.bcr.session.ReportSession.messageConfigFile" value="{$ARE.BCR_HOME}/etc/bcr_message_guaranteedelete.xml" />
+						<property name="com.amarsoft.app.datax.bcr.session.ReportSession.exportFolder" value="{$ARE.BCR_HOME}/export/" />
+						<property name="com.amarsoft.app.datax.bcr.session.ReportSession.autoEcrypt" value="true" />
+						<property name="com.amarsoft.app.datax.bcr.session.ReportSession.autoCompress" value="true" />
+						<property name="com.amarsoft.app.datax.bcr.session.ReportSession.multiOrg" value="false" />
+						<property name="com.amarsoft.app.datax.bcr.session.ReportSession.cryptConfigFile" value="{$ARE.BCR_HOME}/etc/Crypt.xml" />
+						<property name="com.amarsoft.app.datax.bcr.session.ReportSession.cryptKeyFile" value="{$ARE.BCR_HOME}/etc/public.key" />
+						<property name="unit.faxBankName" value="安硕商业银行"/>
+						<property name="unit.faxProposer" value="安硕小子"/>
+						<property name="unit.faxContact" value="000-12345678"/>
+					</extendProperties>
+				</executeUnit>
+			</executeUnits>
+			<routeTable>
+				<route unit="DeleteGuaranteeMessage"		executeStatus="unexecute"	nextUnit="DeleteGuaranteeMessage"/> 
+			</routeTable>
+		</target>
+		
+	</targets>
+</task>
+

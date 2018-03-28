@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="GBK"?>
+<!-- 任务定义文件,每个任务有一个文件构成，任务构造器可以根据此文件构造一个任务出来 -->
+
+<task name="BCRDataPrepare" describe="原始数据抽取" parallelRun="false" traceOn="true">
+	<name>BCRDataPrepare</name>
+	<describe>原始数据抽取</describe>
+	<extendProperties>
+	
+		<property name="CustomerCondition" value="EI.TempSaveFlag='2' and EI.LoanCardNo is not null and length(EI.LoanCardNo)>=16" />
+		
+	</extendProperties>
+	<listeners>
+		<!--ECRTaskListener仅配置了前三类监听，建议使用unitEvent或targetEvent级的监听。
+			taskEvent级监听基本无效，routeEvent级监听未做任何操作，仅供扩展使用。-->
+		<listener listenerClass="com.amarsoft.app.datax.bcr.common.BCRTaskListener" enabled="true">
+			<extendProperties>
+				<property name="taskEventEnabled" value="false" />
+				<property name="targetEventEnabled" value="false" />
+				<property name="unitEventEnabled" value="true" />
+				<property name="routeEventEnabled" value="false" />
+				<property name="database" value="bcr"/>
+			</extendProperties>
+		</listener>
+	</listeners>
+	
+	<targets>
+	    <!-- 担保公司，融资性担保业务从征信系统中间表业务抽取数据-->    
+		<target name="GuaranteeBusinessImport" describe="融资性担保业务抽取" enabled="true">
+			<executeUnits>
+				<executeUnit name="GuaranteeInfo" describe="导入担保基础信息表" executeClass="com.amarsoft.app.datax.bcr.prepare.dataimport.BCRImportUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:bcr_data:select * from BCR_GUARANTEEINFO:etc/bcr_are.xml:,"/>
+						<property name="unit.handlers" value="com.amarsoft.app.datax.bcr.prepare.dataimport.BCRUpdateHandler"/>
+						<property name="com.amarsoft.app.datax.bcr.prepare.dataimport.BCRDataSourceProvider.dataSource" 
+							value="datasource:db:bcr:select 
+							IGI.GBusinessNo as GBUSINESSNO{#担保业务编号},
+							IGI.GContractNo as GCONTRACTNO{#担保合同号码},
+							IGI.OrgId as FINANCEID{#管理行代码(金融机构代码)},
+							IGI.InsuredType as INSUREDTYPE{#被担保人类型},
+							IGI.InsuredName as INSUREDNAME{#被担保人名称},
+							IGI.CertType as CERTTYPE{#被担保人证件类型},
+							case when IGI.CertType='a' and length(IGI.CertId)=18 then substr(IGI.CertId,9,8)||'-'||substr(IGI.CertId,17,1) 
+								when IGI.CertType='a' and length(IGI.CertId)=9 then substr(IGI.CertId,1,8)||'-'||substr(IGI.CertId,9,1)  
+								else IGI.CertId end as CERTID{#被担保人证件号码},
+							'{$ARE.businessOccurDate}' as GATHERDATE{#数据报告日期},
+							IGI.Attribute1 as ATTRIBUTE1{#预留字段},
+							'{$ARE.businessOccurDate}' as OCCURDATE{#业务发生日期}                                                
+							from INIT_GUARANTEEINFO IGI " />
+						<property name="com.amarsoft.app.datax.bcr.prepare.dataimport.BCRDataSourceProvider.columnConvertors" 
+							value="{FinanceID,datasource:db:bcr:select CTCODE,PBCODE from BCR_CODEMAP where ColName='FinanceID'}
+								   {InsuredType,datasource:db:bcr:select CTCODE,PBCODE from BCR_CODEMAP where ColName='InsuredType'}
+								   {CertType,datasource:db:bcr:select CTCODE,PBCODE from BCR_CODEMAP where ColName='CertType'}"/>
+						<property name="com.amarsoft.app.datax.bcr.prepare.dataimport.BCRUpdateHandler.table" value="BCR_GUARANTEEINFO" />
+						<property name="com.amarsoft.app.datax.bcr.prepare.dataimport.BCRUpdateHandler.keyColumns" value="GBUSINESSNO" />
+						<property name="com.amarsoft.app.datax.bcr.prepare.dataimport.BCRUpdateHandler.updateColumns" 
+							value="INCREMENTFLAG,OCCURDATE,FINANCEID,OLDFINANCEID,INSUREDTYPE,INSUREDNAME,CERTTYPE,CERTID,GATHERDATE,ATTRIBUTE1" />
+						<property name="com.amarsoft.app.datax.bcr.prepare.dataimport.BCRUpdateHandler.compareColumns" 
+							value="INCREMENTFLAG,OCCURDATE,FINANCEID,OLDFINANCEID,INSUREDTYPE,INSUREDNAME,CERTTYPE,CERTID,ATTRIBUTE1" />
+					</extendProperties>
+				</executeUnit>
+				
+				<executeUnit name="GuaranteeCont" describe="导入担保合同信息表" executeClass="com.amarsoft.app.datax.bcr.prepare.dataimport.BCRImportUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:bcr_data:select * from BCR_GUARANTEECONT:etc/bcr_are.xml:,"/>
+						<property name="unit.handlers" value="com.amarsoft.app.datax.bcr.prepare.dataimport.BCRUpdateHandler"/>
+						<property name="com.amarsoft.app.datax.bcr.prepare.dataimport.BCRDataSourceProvider.dataSource" 
+							value="datasource:db:bcr:select 
+							IGC.GBusinessNo as GBUSINESSNO{#担保业务编号},
+							IGC.BusinessType as BUSINESSTYPE{#担保业务种类},
+							IGC.GuarantyType as GUARANTYTYPE{#担保方式},
+							IGC.GuarantySum as GUARANTYSUM{#担保金额},
+							IGC.GStartDate as GSTARTDATE{#担保起始日期},
+							IGC.GEndDate as GENDDATE{#担保到期日期},
+							IGC.DepositScale as DEPOSITSCALE{#存出保证金比例},
+							case when IGC.BusinessType ='11' then IGC.CounterType else nvl(IGC.CounterType,'x') end as COUNTERTYPE{#反担保方式},
+							IGC.Compensation as COMPENSATION{#约定再担保补偿比例},
+							nvl(IGC.Rate,'0') as RATE{#费率},
+							IGC.AnnualRate ANNUALRATE{#年化费率},
+							IGC.Attribute1 as ATTRIBUTE1{#预留字段},
+							'{$ARE.businessOccurDate}' as OCCURDATE{#业务发生日期}                                                
+							from INIT_GUARANTEECONT IGC " />
+						<property name="com.amarsoft.app.datax.bcr.prepare.dataimport.BCRDataSourceProvider.columnConvertors" 
+							value="{BusinessType,datasource:db:bcr:select CTCODE,PBCODE from BCR_CODEMAP where ColName='BusinessType'}
+								   {GuarantyType,datasource:db:bcr:select CTCODE,PBCODE from BCR_CODEMAP where ColName='GuarantyType'}
+								   {CounterType,datasource:db:bcr:select CTCODE,PBCODE from BCR_CODEMAP where ColName='CounterType'}"/>
+						<property name="com.amarsoft.app.datax.bcr.prepare.dataimport.BCRUpdateHandler.table" value="BCR_GUARANTEECONT" />
+						<property name="com.amarsoft.app.datax.bcr.prepare.dataimport.BCRUpdateHandler.keyColumns" value="GBUSINESSNO" />
+						<property name="com.amarsoft.app.datax.bcr.prepare.dataimport.BCRUpdateHandler.updateColumns" 
+							value="INCREMENTFLAG,OCCURDATE,BUSINESSTYPE,GUARANTYTYPE,GUARANTYSUM,GSTARTDATE,GENDDATE,DEPOSITSCALE,COUNTERTYPE,COMPENSATION,RATE,ANNUALRATE,ATTRIBUTE1" />
+					</extendProperties>
+				</executeUnit>
+				
+				<executeUnit name="Insureds" describe="导入被担保人信息表" executeClass="com.amarsoft.app.datax.bcr.prepare.dataimport.BCRImportUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:bcr_data:select * from BCR_INSUREDS:etc/bcr_are.xml:,"/>
+						<property name="unit.handlers" value="com.amarsoft.app.datax.bcr.prepare.dataimport.BCRUpdateHandler"/>
+						<property name="com.amarsoft.app.datax.bcr.prepare.dataimport.BCRDataSourceProvider.dataSource" 
+							value="datasource:db:bcr:select 
+							II.GBusinessNo as GBUSINESSNO{#担保业务编号},
+							II.InsuredType as INSUREDTYPE{#被担保人类型},
+							II.InsuredName as INSUREDNAME{#被担保人名称},
+							II.CertType as CERTTYPE{#被担保人证件类型},
+							case when II.CertType='a' and length(II.CertId)=18 then substr(II.CertId,9,8)||'-'||substr(II.CertId,17,1) 
+								when II.CertType='a' and length(II.CertId)=9 then substr(II.CertId,1,8)||'-'||substr(II.CertId,9,1)  
+								else II.CertId end as CERTID{#被担保人证件号码},
+							II.InsuredState as INSUREDSTATE{#状态位},
+							'{$ARE.businessOccurDate}' as OCCURDATE{#业务发生日期}                                                
+							from INIT_INSUREDS II" />
+						<property name="com.amarsoft.app.datax.bcr.prepare.dataimport.BCRDataSourceProvider.columnConvertors" 
+							value="{InsuredType,datasource:db:bcr:select CTCODE,PBCODE from BCR_CODEMAP where ColName='InsuredType'}
+								   {CertType,datasource:db:bcr:select CTCODE,PBCODE from BCR_CODEMAP where ColName='CertType'}
+								   {InsuredState,datasource:db:bcr:select CTCODE,PBCODE from BCR_CODEMAP where ColName='InsuredState'}"/>
+						<property name="com.amarsoft.app.datax.bcr.prepare.dataimport.BCRUpdateHandler.table" value="BCR_INSUREDS" />
+						<property name="com.amarsoft.app.datax.bcr.prepare.dataimport.BCRUpdateHandler.keyColumns" value="GBUSINESSNO,CERTTYPE,CERTID" />
+						<property name="com.amarsoft.app.datax.bcr.prepare.dataimport.BCRUpdateHandler.updateColumns" 
+							value="INCREMENTFLAG,OCCURDATE,INSUREDTYPE,INSUREDNAME,CERTTYPE,CERTID,INSUREDSTATE" />
+					</extendProperties>
+				</executeUnit>
+				
+				<executeUnit name="CreditorInfo" describe="导入债权人及主合同信息表" executeClass="com.amarsoft.app.datax.bcr.prepare.dataimport.BCRImportUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:bcr_data:select * from BCR_CREDITORINFO:etc/bcr_are.xml:,"/>
+						<property name="unit.handlers" value="com.amarsoft.app.datax.bcr.prepare.dataimport.BCRUpdateHandler"/>
+						<property name="com.amarsoft.app.datax.bcr.prepare.dataimport.BCRDataSourceProvider.dataSource" 
+							value="datasource:db:bcr:select 
+							ICI.GBusinessNo as GBUSINESSNO{#担保业务编号},
+							ICI.GContractNo as GCONTRACTNO{#主合同号码},
+							ICI.CreditorType as CREDITORTYPE{#债权人类型},
+							ICI.CreditorName as CREDITORNAME{#债权人名称},
+							ICI.CertType as CERTTYPE{#债权人证件类型},
+							case when ICI.CertType='a' and length(ICI.CertId)=18 then substr(ICI.CertId,9,8)||'-'||substr(ICI.CertId,17,1) 
+								when ICI.CertType='a' and length(ICI.CertId)=9 then substr(ICI.CertId,1,8)||'-'||substr(ICI.CertId,9,1)  
+								else ICI.CertId end as CERTID{#债权人证件号码},
+							ICI.Way as WAY{#投向},
+							ICI.ContractFlag as CONTRACTFLAG{#状态位},
+							'{$ARE.businessOccurDate}' as OCCURDATE{#业务发生日期}                                                
+							from INIT_CREDITORINFO ICI " />
+						<property name="com.amarsoft.app.datax.bcr.prepare.dataimport.BCRDataSourceProvider.columnConvertors" 
+							value="{CreditorType,datasource:db:bcr:select CTCODE,PBCODE from BCR_CODEMAP where ColName='CreditorType'}
+								   {CertType,datasource:db:bcr:select CTCODE,PBCODE from BCR_CODEMAP where ColName='CertType'}
+								   {Way,datasource:db:bcr:select CTCODE,PBCODE from BCR_CODEMAP where ColName='Way'}
+								   {ContractFlag,datasource:db:bcr:select CTCODE,PBCODE from BCR_CODEMAP where ColName='ContractFlag'}"/>
+						<property name="com.amarsoft.app.datax.bcr.prepare.dataimport.BCRUpdateHandler.table" value="BCR_CREDITORINFO" />
+						<property name="com.amarsoft.app.datax.bcr.prepare.dataimport.BCRUpdateHandler.keyColumns" value="GBUSINESSNO,GCONTRACTNO,CREDITORTYPE,CERTTYPE,CERTID" />
+						<property name="com.amarsoft.app.datax.bcr.prepare.dataimport.BCRUpdateHandler.updateColumns" 
+							value="INCREMENTFLAG,OCCURDATE,CREDITORTYPE,CREDITORNAME,CERTTYPE,CERTID,WAY,CONTRACTFLAG" />
+					</extendProperties>
+				</executeUnit>
+				
+				<executeUnit name="CounterGuarantor" describe="导入反担保人信息表" executeClass="com.amarsoft.app.datax.bcr.prepare.dataimport.BCRImportUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:bcr_data:select * from BCR_COUNTERGUARANTOR:etc/bcr_are.xml:,"/>
+						<property name="unit.handlers" value="com.amarsoft.app.datax.bcr.prepare.dataimport.BCRUpdateHandler"/>
+						<property name="com.amarsoft.app.datax.bcr.prepare.dataimport.BCRDataSourceProvider.dataSource" 
+							value="datasource:db:bcr:select 
+							IC.GBusinessNo as GBUSINESSNO{#担保业务编号},
+							IC.CounterGType as COUNTERGTYPE{#反担保人类型},
+							IC.CounterGName as COUNTERGNAME{#反担保人名称},
+							IC.CertType as CERTTYPE{#反担保人证件类型},
+							case when IC.CertType='a' and length(IC.CertId)=18 then substr(IC.CertId,9,8)||'-'||substr(IC.CertId,17,1) 
+								when IC.CertType='a' and length(IC.CertId)=9 then substr(IC.CertId,1,8)||'-'||substr(IC.CertId,9,1)  
+								else IC.CertId end as CERTID{#反担保人证件号码},
+							IC.CounterGSum as COUNTERGSUM{#反担保责任金额},
+							IC.CounterGFlag as COUNTERGFLAG{#状态位},
+							'{$ARE.businessOccurDate}' as OCCURDATE{#业务发生日期}                                                
+							from INIT_COUNTERGUARANTOR IC where IC.CertId  is not null" />
+						<property name="com.amarsoft.app.datax.bcr.prepare.dataimport.BCRDataSourceProvider.columnConvertors" 
+							value="{CounterGType,datasource:db:bcr:select CTCODE,PBCODE from BCR_CODEMAP where ColName='CounterGType'}
+								   {CertType,datasource:db:bcr:select CTCODE,PBCODE from BCR_CODEMAP where ColName='CertType'}
+								   {CounterGFlag,datasource:db:bcr:select CTCODE,PBCODE from BCR_CODEMAP where ColName='CounterGFlag'}"/>
+						<property name="com.amarsoft.app.datax.bcr.prepare.dataimport.BCRUpdateHandler.table" value="BCR_COUNTERGUARANTOR" />
+						<property name="com.amarsoft.app.datax.bcr.prepare.dataimport.BCRUpdateHandler.keyColumns" value="GBUSINESSNO,COUNTERGTYPE,CERTTYPE,CERTID" />
+						<property name="com.amarsoft.app.datax.bcr.prepare.dataimport.BCRUpdateHandler.updateColumns" 
+							value="INCREMENTFLAG,OCCURDATE,COUNTERGTYPE,COUNTERGNAME,CERTTYPE,CERTID,COUNTERGSUM,COUNTERGFLAG" />
+					</extendProperties>
+				</executeUnit>
+				
+				<executeUnit name="GuaranteeDuty" describe="导入实际在保（代偿）责任信息表" executeClass="com.amarsoft.app.datax.bcr.prepare.dataimport.BCRImportUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:bcr_data:select * from BCR_GUARANTEEDUTY:etc/bcr_are.xml:,"/>
+						<property name="unit.handlers" value="com.amarsoft.app.datax.bcr.prepare.dataimport.BCRUpdateHandler"/>
+						<property name="com.amarsoft.app.datax.bcr.prepare.dataimport.BCRDataSourceProvider.dataSource" 
+							value="datasource:db:bcr:select 
+							IGD.GBusinessNo as GBUSINESSNO{#担保合同号码},
+							IGD.GContractFlag as GCONTRACTFLAG{#担保合同状态},
+							case when IGD.GContractFlag='1' then '' else greatest(replace(IGD.GContractEndDate,'-','/'),replace(IGD.BalanceChangeDate,'-','/')) end as GCONTRACTENDDATE{#担保责任解除日期,状态为正常时不抽取},
+							IGD.GContractBalance as GCONTRACTBALANCE{#在保余额},
+							case when IGD.GContractFlag='1' then nvl(IGD.BalanceChangeDate,'{$ARE.businessOccurDate}') else replace(IGD.BalanceChangeDate,'-','/') end as BALANCECHANGEDATE{#余额变化日期},
+							'{$ARE.businessOccurDate}' as OCCURDATE{#业务发生日期}                                                
+							from INIT_GUARANTEEDUTY IGD " />
+						<property name="com.amarsoft.app.datax.bcr.prepare.dataimport.BCRDataSourceProvider.columnConvertors" 
+							value="{GContractFlag,datasource:db:bcr:select CTCODE,PBCODE from BCR_CODEMAP where ColName='GContractFlag'}"/>
+						<property name="com.amarsoft.app.datax.bcr.prepare.dataimport.BCRUpdateHandler.table" value="BCR_GUARANTEEDUTY" />
+						<property name="com.amarsoft.app.datax.bcr.prepare.dataimport.BCRUpdateHandler.keyColumns" value="GBUSINESSNO" />
+						<property name="com.amarsoft.app.datax.bcr.prepare.dataimport.BCRUpdateHandler.updateColumns" 
+							value="INCREMENTFLAG,OCCURDATE,GCONTRACTFLAG,GCONTRACTENDDATE,GCONTRACTBALANCE,BALANCECHANGEDATE" />
+					</extendProperties>
+				</executeUnit>
+				
+				<executeUnit name="CompensatoryInfo" describe="导入代偿概况信息信息表" executeClass="com.amarsoft.app.datax.bcr.prepare.dataimport.BCRImportUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:bcr_data:select * from BCR_COMPENSATORYINFO:etc/bcr_are.xml:,"/>
+						<property name="unit.handlers" value="com.amarsoft.app.datax.bcr.prepare.dataimport.BCRUpdateHandler"/>
+						<property name="com.amarsoft.app.datax.bcr.prepare.dataimport.BCRDataSourceProvider.dataSource" 
+							value="datasource:db:bcr:select 
+							ISI.GBusinessNo as GBUSINESSNO{#担保合同号码},
+							ISI.BillingDate as BILLINGDATE{#记账日期},
+							ISI.RecoveryFlag as RECOVERYFLAG{#继续追偿标志},
+							ISI.LastCDate as LASTCDATE{#最近一次代偿日期},
+							ISI.CSum as CSUM{#累计代偿金额},
+							ISI.OwnCSum as OWNCSUM{#本机构承担代偿金额},
+							ISI.LastRecoveryDate as LASTRECOVERYDATE{#最近一次追偿日期},
+							ISI.CBalance as CBALANCE{#代偿余额},
+							ISI.OwnCBalance as OWNCBALANCE{#本机构承担代偿余额},
+							ISI.RecoverySum as RECOVERYSUM{#累计追偿金额},
+							ISI.LossSum as LOSSSUM{#累计损失金额},
+							ISI.Attribute1 as ATTRIBUTE1{#预留字段},							
+							'{$ARE.businessOccurDate}' as OCCURDATE{#业务发生日期}                                                
+							from INIT_COMPENSATORYINFO ISI " />
+						<property name="com.amarsoft.app.datax.bcr.prepare.dataimport.BCRDataSourceProvider.columnConvertors" 
+							value="{RecoveryFlag,datasource:db:bcr:select CTCODE,PBCODE from BCR_CODEMAP where ColName='RecoveryFlag'}"/>
+						<property name="com.amarsoft.app.datax.bcr.prepare.dataimport.BCRUpdateHandler.table" value="BCR_COMPENSATORYINFO" />
+						<property name="com.amarsoft.app.datax.bcr.prepare.dataimport.BCRUpdateHandler.keyColumns" value="GBUSINESSNO" />
+						<property name="com.amarsoft.app.datax.bcr.prepare.dataimport.BCRUpdateHandler.updateColumns" 
+							value="INCREMENTFLAG,OCCURDATE,BILLINGDATE,RECOVERYFLAG,LASTCDATE,CSUM,OWNCSUM,LASTRECOVERYDATE,CBALANCE,OWNCBALANCE,RECOVERYSUM,LOSSSUM,ATTRIBUTE1" />
+					</extendProperties>
+				</executeUnit>
+				
+				<executeUnit name="CompensatoryDetail" describe="导入代偿明细信息表" executeClass="com.amarsoft.app.datax.bcr.prepare.dataimport.BCRImportUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:bcr_data:select * from BCR_COMPENSATORYDETAIL:etc/bcr_are.xml:,"/>
+						<property name="unit.handlers" value="com.amarsoft.app.datax.bcr.prepare.dataimport.BCRUpdateHandler"/>
+						<property name="com.amarsoft.app.datax.bcr.prepare.dataimport.BCRDataSourceProvider.dataSource" 
+							value="datasource:db:bcr:select 
+							ICD.GBusinessNo as GBUSINESSNO{#担保合同号码},
+							ICD.CompensatorDate as COMPENSATORDATE{#代偿日期},
+							ICD.CompensatorySum as COMPENSATORYSUM{#代偿金额},							
+							'{$ARE.businessOccurDate}' as OCCURDATE{#业务发生日期}                                                
+							from INIT_COMPENSATORYDETAIL ICD" />
+						<property name="com.amarsoft.app.datax.bcr.prepare.dataimport.BCRUpdateHandler.table" value="BCR_COMPENSATORYDETAIL" />
+						<property name="com.amarsoft.app.datax.bcr.prepare.dataimport.BCRUpdateHandler.keyColumns" value="GBUSINESSNO,COMPENSATORDATE" />
+						<property name="com.amarsoft.app.datax.bcr.prepare.dataimport.BCRUpdateHandler.updateColumns" 
+							value="INCREMENTFLAG,OCCURDATE,COMPENSATORDATE,COMPENSATORYSUM" />
+					</extendProperties>
+				</executeUnit>
+				
+				<executeUnit name="RecoveryDetail" describe="导入追偿明细信息表" executeClass="com.amarsoft.app.datax.bcr.prepare.dataimport.BCRImportUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:bcr_data:select * from BCR_RECOVERYDETAIL:etc/bcr_are.xml:,"/>
+						<property name="unit.handlers" value="com.amarsoft.app.datax.bcr.prepare.dataimport.BCRUpdateHandler"/>
+						<property name="com.amarsoft.app.datax.bcr.prepare.dataimport.BCRDataSourceProvider.dataSource" 
+							value="datasource:db:bcr:select 
+							IRD.GBusinessNo as GBUSINESSNO{#担保合同号码},
+							IRD.RecoveryDate as RECOVERYDATE{#追偿日期},
+							IRD.RecoverySum as RECOVERYSUM{#追偿金额},							
+							'{$ARE.businessOccurDate}' as OCCURDATE{#业务发生日期}                                                
+							from INIT_RECOVERYDETAIL IRD " />
+						<property name="com.amarsoft.app.datax.bcr.prepare.dataimport.BCRUpdateHandler.table" value="BCR_RECOVERYDETAIL" />
+						<property name="com.amarsoft.app.datax.bcr.prepare.dataimport.BCRUpdateHandler.keyColumns" value="GBUSINESSNO,RECOVERYDATE" />
+						<property name="com.amarsoft.app.datax.bcr.prepare.dataimport.BCRUpdateHandler.updateColumns" 
+							value="INCREMENTFLAG,OCCURDATE,RECOVERYDATE,RECOVERYSUM" />
+					</extendProperties>
+				</executeUnit>
+				
+				<executeUnit name="PremiumInfo" describe="导入保费缴纳概况信息表" executeClass="com.amarsoft.app.datax.bcr.prepare.dataimport.BCRImportUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:bcr_data:select * from BCR_PREMIUMINFO:etc/bcr_are.xml:,"/>
+						<property name="unit.handlers" value="com.amarsoft.app.datax.bcr.prepare.dataimport.BCRUpdateHandler"/>
+						<property name="com.amarsoft.app.datax.bcr.prepare.dataimport.BCRDataSourceProvider.dataSource" 
+							value="datasource:db:bcr:select 
+							IPI.GBusinessNo as GBUSINESSNO{#担保合同号码},
+							IPI.PayType as PAYTYPE{#缴费类别},
+							IPI.BillingDate as BILLINGDATE{#记账日期},
+							IPI.PremiumSum as PREMIUMSUM{#金额},
+							IPI.PremiumMode as PREMIUMMODE{#缴纳方式},
+							IPI.PremiumFrequency as PREMIUMFREQUENCY{#缴纳频率},
+							IPI.ChargingStartDate as CHARGINGSTARTDATE{#计费起始日期},
+							IPI.PremiumState as PREMIUMSTATE{#保费缴纳状态},
+							IPI.ChargingEndDate as CHARGINGENDDATE{#缴纳结束日期},
+							IPI.PremiumBalance as PREMIUMBALANCE{#余额},
+							IPI.UnpaidSum as UNPAIDSUM{#累计欠缴金额},
+							IPI.Attribute1 as ATTRIBUTE1{#预留字段},							
+							'{$ARE.businessOccurDate}' as OCCURDATE{#业务发生日期}                                                
+							from INIT_PREMIUMINFO IPI " />
+						<property name="com.amarsoft.app.datax.bcr.prepare.dataimport.BCRDataSourceProvider.columnConvertors" 
+							value="{PayType,datasource:db:bcr:select CTCODE,PBCODE from BCR_CODEMAP where ColName='PayType'}
+								   {PremiumMode,datasource:db:bcr:select CTCODE,PBCODE from BCR_CODEMAP where ColName='PremiumMode'}
+								   {PremiumFrequency,datasource:db:bcr:select CTCODE,PBCODE from BCR_CODEMAP where ColName='PremiumFrequency'}
+								   {PremiumState,datasource:db:bcr:select CTCODE,PBCODE from BCR_CODEMAP where ColName='PremiumState'}"/>
+						<property name="com.amarsoft.app.datax.bcr.prepare.dataimport.BCRUpdateHandler.table" value="BCR_PREMIUMINFO" />
+						<property name="com.amarsoft.app.datax.bcr.prepare.dataimport.BCRUpdateHandler.keyColumns" value="GBUSINESSNO" />
+						<property name="com.amarsoft.app.datax.bcr.prepare.dataimport.BCRUpdateHandler.updateColumns" 
+							value="INCREMENTFLAG,OCCURDATE,PAYTYPE,BILLINGDATE,PREMIUMSUM,PREMIUMMODE,PREMIUMFREQUENCY,CHARGINGSTARTDATE,PREMIUMSTATE,CHARGINGENDDATE,PREMIUMBALANCE,UNPAIDSUM,ATTRIBUTE1" />
+					</extendProperties>
+				</executeUnit>
+				
+				<executeUnit name="PremiumDetail" describe="导入保费缴纳明细信息表" executeClass="com.amarsoft.app.datax.bcr.prepare.dataimport.BCRImportUnit" allowManualExecute="true">
+					<extendProperties>
+						<property name="unit.recordSet" value="datasource:ndb:bcr_data:select * from BCR_PREMIUMDETAIL:etc/bcr_are.xml:,"/>
+						<property name="unit.handlers" value="com.amarsoft.app.datax.bcr.prepare.dataimport.BCRUpdateHandler"/>
+						<property name="com.amarsoft.app.datax.bcr.prepare.dataimport.BCRDataSourceProvider.dataSource" 
+							value="datasource:db:bcr:select 
+							IPD.GBusinessNo as GBUSINESSNO{#担保合同号码},
+							IPD.PayableDate as PAYABLEDATE{#应缴日期},
+							IPD.PayableSum as PAYABLESUM{#应缴金额},
+							IPD.PaidDate as PAIDDATE{#实缴日期},
+							IPD.UnpaidSum as UNPAIDSUM{#欠缴金额},
+							IPD.PeriodPremiumState as PERIODPREMIUMSTATE{#本期保费缴纳状态},
+							IPD.Attribute1 as ATTRIBUTE1{#预留字段},													
+							'{$ARE.businessOccurDate}' as OCCURDATE{#业务发生日期}                                                
+							from INIT_PREMIUMDETAIL IPD " />
+						<property name="com.amarsoft.app.datax.bcr.prepare.dataimport.BCRDataSourceProvider.columnConvertors" 
+							value="{PeriodPremiumState,datasource:db:bcr:select CTCODE,PBCODE from BCR_CODEMAP where ColName='PeriodPremiumState'}"/>
+						<property name="com.amarsoft.app.datax.bcr.prepare.dataimport.BCRUpdateHandler.table" value="BCR_PREMIUMDETAIL" />
+						<property name="com.amarsoft.app.datax.bcr.prepare.dataimport.BCRUpdateHandler.keyColumns" value="GBUSINESSNO,PAYABLEDATE" />
+						<property name="com.amarsoft.app.datax.bcr.prepare.dataimport.BCRUpdateHandler.updateColumns" 
+							value="INCREMENTFLAG,OCCURDATE,PAYABLEDATE,PAYABLESUM,PAIDDATE,UNPAIDSUM,PERIODPREMIUMSTATE,ATTRIBUTE1" />
+					</extendProperties>
+				</executeUnit>
+				
+				<executeUnit name="updateIncrementFlag" describe="更新基础表信息操作类型" executeClass="com.amarsoft.task.units.dpx.SQLProcess" allowManualExecute="true" >
+					<extendProperties>
+						<property name="unit.onErrorAction" value="rollback_break"/>
+						<property name="unit.logLevel" value="debug"/>
+						<property name="unit.script" value="
+							{#准备工作}
+							connect to bcr;&#xA;
+							set autocommit false;&#xA;
+							update BCR_GUARANTEEINFO t set t.incrementflag='2',t.occurdate='{$ARE.businessOccurDate}',t.gatherdate='{$ARE.businessOccurDate}'
+								where t.incrementflag='8' and exists (select 1 from BCR_GUARANTEECONT where gbusinessno=t.gbusinessno and incrementflag='2')
+								or exists (select 1 from BCR_INSUREDS where gbusinessno=t.gbusinessno and incrementflag='2')
+								or exists (select 1 from BCR_CREDITORINFO where gbusinessno=t.gbusinessno and incrementflag='2')
+								or exists (select 1 from BCR_COUNTERGUARANTOR where gbusinessno=t.gbusinessno and incrementflag='2')
+								or exists (select 1 from BCR_GUARANTEEDUTY where gbusinessno=t.gbusinessno and incrementflag='2')
+								or exists (select 1 from BCR_COMPENSATORYINFO where gbusinessno=t.gbusinessno and incrementflag='2')
+								or exists (select 1 from BCR_COMPENSATORYDETAIL where gbusinessno=t.gbusinessno and incrementflag='2')
+								or exists (select 1 from BCR_RECOVERYDETAIL where gbusinessno=t.gbusinessno and incrementflag='2')
+								or exists (select 1 from BCR_PREMIUMINFO where gbusinessno=t.gbusinessno and incrementflag='2')
+								or exists (select 1 from BCR_PREMIUMDETAIL where gbusinessno=t.gbusinessno and incrementflag='2');&#xA;
+							{#不需要上报的数据更新为手工终结}
+							Update BCR_GUARANTEEINFO t set t.incrementflag='6' where exists (select 1 from bcr_unreportbusinessno a where t.gbusinessno=a.mainbusinessno);&#xA;
+							Update BCR_GUARANTEECONT t set t.incrementflag='6' where exists (select 1 from bcr_unreportbusinessno a where t.gbusinessno=a.mainbusinessno);&#xA;
+							Update BCR_INSUREDS t set t.incrementflag='6' where exists (select 1 from bcr_unreportbusinessno a where t.gbusinessno=a.mainbusinessno);&#xA;
+							Update BCR_CREDITORINFO t set t.incrementflag='6' where exists (select 1 from bcr_unreportbusinessno a where t.gbusinessno=a.mainbusinessno);&#xA;
+							Update BCR_COUNTERGUARANTOR t set t.incrementflag='6' where exists (select 1 from bcr_unreportbusinessno a where t.gbusinessno=a.mainbusinessno);&#xA;
+							Update BCR_GUARANTEEDUTY t set t.incrementflag='6' where exists (select 1 from bcr_unreportbusinessno a where t.gbusinessno=a.mainbusinessno);&#xA;
+							Update BCR_COMPENSATORYINFO t set t.incrementflag='6' where exists (select 1 from bcr_unreportbusinessno a where t.gbusinessno=a.mainbusinessno);&#xA;
+							Update BCR_COMPENSATORYDETAIL t set t.incrementflag='6' where exists (select 1 from bcr_unreportbusinessno a where t.gbusinessno=a.mainbusinessno);&#xA;
+							Update BCR_RECOVERYDETAIL t set t.incrementflag='6' where exists (select 1 from bcr_unreportbusinessno a where t.gbusinessno=a.mainbusinessno);&#xA;
+							Update BCR_PREMIUMINFO t set t.incrementflag='6' where exists (select 1 from bcr_unreportbusinessno a where t.gbusinessno=a.mainbusinessno);&#xA;
+							Update BCR_PREMIUMDETAIL t set t.incrementflag='6' where exists (select 1 from bcr_unreportbusinessno a where t.gbusinessno=a.mainbusinessno);&#xA;
+							commit;&#xA;
+							disconnect;"
+						/>
+					</extendProperties>
+				</executeUnit>
+			</executeUnits>	
+			<routeTable>
+				<route unit="GuaranteeInfo"					executeStatus="unexecute"  	  	  nextUnit="GuaranteeInfo"/>
+				<route unit="GuaranteeInfo"					executeStatus="successful"  	  nextUnit="GuaranteeCont"/>
+				<route unit="GuaranteeCont"					executeStatus="successful"  	  nextUnit="Insureds"/>
+				<route unit="Insureds"						executeStatus="successful"  	  nextUnit="CreditorInfo"/>
+				<route unit="CreditorInfo"					executeStatus="successful"  	  nextUnit="CounterGuarantor"/>
+				<route unit="CounterGuarantor"				executeStatus="successful"  	  nextUnit="GuaranteeDuty"/>
+				<route unit="GuaranteeDuty"					executeStatus="successful"  	  nextUnit="CompensatoryInfo"/>
+				<route unit="CompensatoryInfo"				executeStatus="successful"  	  nextUnit="CompensatoryDetail"/>
+				<route unit="CompensatoryDetail"			executeStatus="successful"  	  nextUnit="RecoveryDetail"/>
+				<route unit="RecoveryDetail"				executeStatus="successful"  	  nextUnit="PremiumInfo"/>
+				<route unit="PremiumInfo"					executeStatus="successful"  	  nextUnit="PremiumDetail"/>
+				<route unit="PremiumDetail"					executeStatus="successful"  	  nextUnit="updateIncrementFlag"/>
+			</routeTable>
+		</target>
+		
+	</targets>
+</task>

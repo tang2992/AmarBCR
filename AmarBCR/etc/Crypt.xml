@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="GB2312" ?>
+<configuration>
+	<head>
+	  <field name="isChecked" length="1" />
+	  <field name="version" length="3" />
+	  <field name="reserved"  length="10" />
+	</head>
+	
+	<!--/////////密钥管理器/////////////////////////////////-->
+    <!--keyStore-密钥库，解密操作只要配置该项即可-->
+    <!--publicKey-加密公钥，加密操作只要配置该项即可-->
+    <!--////////////////////////////////////////////////////-->
+    <KeyManager desc="RSA Key Pair Mananger">
+        <keyStore desc="Key store properties" alias="CU"/>    	
+    </KeyManager>
+    <!--password密钥库口令-->
+    <KeyStore password="credit"/>
+    
+    <!--password密钥库口令-->
+    <PrivateKey password="credit"/>
+</configuration>

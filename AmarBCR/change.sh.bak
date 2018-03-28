@@ -1,0 +1,7 @@
+#!/bin/sh
+ECR=./ecr.sh
+if [ $1="gui" ]
+then
+ECR=./ecrw.sh
+fi
+$ECR prepare

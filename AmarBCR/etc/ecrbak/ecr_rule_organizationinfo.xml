@@ -1,0 +1,517 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!--?	机构基本信息和家族成员信息校验规则文件  -->
+<!--?	校验规则说明：messageType 表示报文类型，recordType表示记录类型 segmentFlag表示段的类型（段的标识符）
+					  level 表示规则的类型（0 文件级1 报文级2 记录级3 段级4 字段级）
+					  checkType 表示校验的类型
+							D  日期
+							N  数值(顶多有两位小数)
+							DL 清单
+							DE 值相当
+							DR Data Range 数据范围
+							NA 非空
+							ID 身份证号码校验
+							SN 段的个数校验（即一条记录中只允许一条或指定数的几条段）
+							SD 重复段的校验（即同内容性质的段中某些字段不能重复，比如股票信息不允许有重复的股票代码）
+							SP 段的位置校验（即记录的第一个字段都是基础段，由于段的位置是由程序控置，故此校验默认真值
+							S  非汉字的字符串校验（即字符串中不能含有汉字）
+							DS 数据长度校验 datalength
+							ZD 组织机构代码校验
+							PC 邮编
+							DKK 贷款卡
+							M  金额型
+							AN 包括ASICII码中小于127的可见字符，即“空格”到“~”的所有可见字符
+							ANC 包括ASICII码中小于127的可见字符和所有GBK汉字
+							EMAIL 邮箱地址
+							DIC 数据字典
+							FI  金融机构代码校验
+							AP 判断开户许可证
+	  						CT 机构信用代码
+	  						LR 字符串长度校验,DataStartValue为最小长度，DataEndValue为最大长度
+					  checkedFieldName 表示欲校验的字段名
+					  errorMsg 表示校验后错误的提示信息，本信息会记录在ECR_HISTORY表中
+					  datalist 表示校验类型为DL时，校验字段的取值列表
+					  precondition 表示校验规则的前提条件，即满足前提条件时，规则有效
+  -->
+<configuration>
+	<rulemap Type="15">
+		<rulelist>
+		<!--机构基本信息报文规则 -->
+		
+			<!-- 基础段数据项报文规则 -->
+			<rule name="rule51-01" messageType="7" errorCode="1015" recordType="71" segmentFlag="B" checkType="NA" Level="4" checkedFieldName="CIFCustomerId"	errorMsg="客户号不能为空" >
+			</rule>
+			<rule name="rule51-02" messageType="7" errorCode="1012" recordType="71" segmentFlag="B" checkType="AN" Level="4" checkedFieldName="CIFCustomerId"	errorMsg="AN型数据项不符合以下规定：包含0－9的数字和不包括汉字在内的其他半角字符，其ASCII范围为0X20——0X7E" >
+			</rule>
+			<rule name="rule51-03" messageType="7" errorCode="1015" recordType="71" segmentFlag="B" checkType="NA" Level="4" checkedFieldName="FinanceId"	errorMsg="管理行代码(金融机构代码)不能为空" >
+			</rule>
+			<rule name="rule51-04" messageType="7" errorCode="1000" recordType="71" segmentFlag="B" checkType="FI" Level="4" checkedFieldName="FinanceId"	errorMsg="管理行代码(金融机构代码)不符合人行规范" >
+			</rule>
+			<rule name="rule51-05" messageType="7" errorCode="1017" recordType="71" segmentFlag="B" checkType="DIC" Level="4" checkedFieldName="CustomerType"	errorMsg="客户类型未按照数据字典中的内容填写"  dataList="客户类型">
+			</rule>
+			<rule name="rule51-06" messageType="7" errorCode="1027" recordType="71" segmentFlag="B" checkType="CT" Level="4" checkedFieldName="CreditCode" errorMsg="基础段：机构信用代码校验不通过">
+				<precondition>
+					<rule name="rule1" messageType="7" recordType="71" segmentFlag="B" checkType="NA" checkedFieldName="CreditCode" />
+				</precondition>
+			</rule>
+			<rule name="rule51-07" messageType="7" errorCode="1018" recordType="71" segmentFlag="B" checkType="ZD" Level="4" checkedFieldName="CorpId"	errorMsg="基础段：该机构的组织机构代码校验不通过" >
+				<precondition>
+					<rule name="rule1" messageType="7" recordType="71" segmentFlag="B" checkType="NA" checkedFieldName="CorpId" />
+				</precondition>
+			</rule>
+			<rule name="rule51-08" messageType="7" errorCode="1017" recordType="71" segmentFlag="B" checkType="DIC" Level="4" checkedFieldName="RegisterType"	errorMsg="基础段：登记注册号类型未按照数据字典中的内容填写"  dataList="登记注册号类型">
+				<precondition>
+					<rule name="rule1" messageType="7" recordType="71" segmentFlag="B" checkType="NA" checkedFieldName="RegisterType" />
+				</precondition>
+			</rule>
+			<rule name="rule51-09" messageType="7" errorCode="1023" recordType="71" segmentFlag="B" checkType="NA" Level="4" checkedFieldName="RegisterNo"	errorMsg="基础段：登记注册号类型和登记注册号未成对出现" >
+				<precondition>
+					<rule name="rule1" messageType="7" recordType="71" segmentFlag="B" checkType="NA" checkedFieldName="RegisterType" />
+				</precondition>
+			</rule>
+			<rule name="rule51-10" messageType="7" errorCode="1023" recordType="71" segmentFlag="B" checkType="NA" Level="4" checkedFieldName="RegisterType" errorMsg="基础段：登记注册号类型和登记注册号未成对出现" >
+			<precondition>
+					<rule name="rule1" messageType="7" recordType="71" segmentFlag="B" checkType="NA" checkedFieldName="RegisterNo" />
+				</precondition>
+			</rule>
+			<rule name="rule51-11" messageType="7" errorCode="1025" recordType="71" segmentFlag="B" checkType="NA" Level="4" checkedFieldName="CorpId"	errorMsg="基础段：组织机构代码、登记注册号不能同时为空" >
+				<precondition>
+					<rule name="rule1" messageType="7" recordType="71" segmentFlag="B" checkType="NA" checkedFieldName="RegisterNo" reverseCheck="true"/>
+				</precondition>
+			</rule>
+			<rule name="rule51-12" messageType="7" errorCode="1028" recordType="71" segmentFlag="B" checkType="NA" Level="4" checkedFieldName="AccountPermitNo" errorMsg="当客户类型为基本户且基本户状态不为(待审核)时,开户核准号未填写">
+				<precondition>
+					<rule name="rule1" messageType="7" recordType="71" segmentFlag="B" checkType="DL" checkedFieldName="CustomerType"  dataList="1;3;"/>
+					<rule name="rule2" messageType="7" recordType="71" segmentFlag="D" checkType="NA" checkedFieldName="{D.AccountStatus}"  />
+					<rule name="rule3" messageType="7" recordType="71" segmentFlag="D" checkType="DL" checkedFieldName="{D.AccountStatus}"  dataList="1;2;3;9;X"  />
+				</precondition>
+			</rule>
+			 <rule name="rule51-121" messageType="7" errorCode="1019" recordType="71" segmentFlag="B" checkType="AP" Level="4" checkedFieldName="AccountPermitNo"	errorMsg="开户许可证核准号校验不通过" >
+			 	<precondition>
+					<rule name="rule1" messageType="7" recordType="71" segmentFlag="B" checkType="NA" checkedFieldName="AccountPermitNo"/>
+				</precondition>
+			</rule>
+			<rule name="rule51-13" messageType="7" errorCode="1028" recordType="71" segmentFlag="B" checkType="NA" Level="4" checkedFieldName="LoancardNo" errorMsg="客户类型为信贷户,贷款卡编码不能为空">
+				<precondition>
+					<rule name="rule1" messageType="7" recordType="71" segmentFlag="B" checkType="DL" checkedFieldName="CustomerType"  dataList="2;3;"/>
+				</precondition>
+			</rule>
+			<rule name="rule51-14" messageType="7" errorCode="1020" recordType="71" segmentFlag="B" checkType="DKK" Level="4" checkedFieldName="LoancardNo"	errorMsg="贷款卡编码检验不通过" >
+				<precondition>
+					<rule name="rule1" messageType="7" recordType="71" segmentFlag="B" checkType="NA" checkedFieldName="LoancardNo"/>
+				</precondition>
+			</rule>
+			<rule name="rule51-15" messageType="7" errorCode="1016" recordType="71" segmentFlag="B" checkType="DR" Level="4" checkedFieldName="GatherDate" dataStartValue="19010101" errorMsg="数据提取日期出错" >
+				<precondition>
+					<rule name="rule1" messageType="7" recordType="71" segmentFlag="B" checkType="NA" checkedFieldName="GatherDate"/>
+				</precondition>
+			</rule>
+			<rule name="rule51-16" messageType="7" errorCode="1015" recordType="71" segmentFlag="B" checkType="NA" Level="4" checkedFieldName="GatherDate" errorMsg="数据提取日期不能为空" >
+			</rule>
+			<rule name="rule51-17" messageType="7" errorCode="1026" recordType="71" segmentFlag="B" checkType="LR"  dataStartValue="15" dataEndValue="20"  Level="4" checkedFieldName="NationalTaxNo" errorMsg="纳税人识别号（国税）必须是15-20位"  >
+				<precondition>
+					<rule name="rule1" messageType="7" recordType="71" segmentFlag="B" checkType="NA" checkedFieldName="NationalTaxNo"/>
+				</precondition>
+			</rule>
+			<rule name="rule51-18" messageType="7"  errorCode="1026" recordType="71" segmentFlag="B" checkType="LR" dataStartValue="15"  dataEndValue="20"  Level="4" checkedFieldName="LocalTaxNo" errorMsg="纳税人识别号（地税）必须是15-20位"  >
+                 <precondition>
+					<rule name="rule1" messageType="7" recordType="71" segmentFlag="B" checkType="NA" checkedFieldName="LocalTaxNo"/>
+				</precondition>
+			</rule>
+			<rule name="rule51-72" messageType="7" errorCode="1015" recordType="71" segmentFlag="B" checkType="check1031" Level="4" checkedFieldName="StockHodingRatio" dataStartValue="0" dataEndValue="100" errorMsg="同一报数机构报送的同一机构的股东持股比例之和不能大于100%">
+			</rule>
+			
+			<!-- 基本属性段数据项报文规则 -->
+			<rule name="rule51-19" messageType="7" errorCode="1015" recordType="71" segmentFlag="C" checkType="NA" Level="4" checkedFieldName="ChineseName"	errorMsg="境内机构中文名称不能为空" >
+				<precondition>
+					<rule name="rule1" messageType="7" recordType="71" segmentFlag="C" checkType="DL" checkedFieldName="RegisterCountry"  dataList="CHN;"/>
+				</precondition>
+			</rule>
+			<rule name="rule51-20" messageType="7" errorCode="1013" recordType="71" segmentFlag="C" checkType="ANC" Level="4" checkedFieldName="ChineseName"	errorMsg="机构中文名称不是ANC型数据项" >
+				<precondition>
+					<rule name="rule1" messageType="7" recordType="71" segmentFlag="C" checkType="NA" checkedFieldName="ChineseName"/>
+				</precondition>
+			</rule>
+			<rule name="rule51-21" messageType="7" errorCode="1015" recordType="71" segmentFlag="C" checkType="NA" Level="4" checkedFieldName="EnglishName"	errorMsg="机构中文名称和机构英文名称不能同时为空" >
+				<precondition>
+					<rule name="rule1" messageType="7" recordType="71" segmentFlag="C" checkType="NA" checkedFieldName="ChineseName" reverseCheck="true"/>
+				</precondition>
+			</rule>
+			<rule name="rule51-22" messageType="7" errorCode="1013" recordType="71" segmentFlag="C" checkType="ANC" Level="4" checkedFieldName="EnglishName"	errorMsg="机构英文名称不是ANC型数据项" >
+				<precondition>
+					<rule name="rule1" messageType="7" recordType="71" segmentFlag="C" checkType="NA" checkedFieldName="EnglishName"/>
+				</precondition>
+			</rule>
+			<rule name="rule51-23" messageType="7" errorCode="1017" recordType="71" segmentFlag="C" checkType="DIC" Level="4" checkedFieldName="RegisterCountry"	errorMsg="机构国别未按照数据字典中的内容填写"  dataList="借款人国别">
+				<precondition>
+					<rule name="rule1" messageType="7" recordType="71" segmentFlag="C" checkType="NA" checkedFieldName="RegisterCountry" />
+				</precondition>
+			</rule>
+			<rule name="rule51-24" messageType="7" errorCode="1017" recordType="71" segmentFlag="C" checkType="DIC" Level="4" checkedFieldName="RegisterAreaCode"	errorMsg="注册（登记）地行政区划未按照数据字典中的内容填写"  dataList="行政区划">
+				<precondition>
+					<rule name="rule1" messageType="7" recordType="71" segmentFlag="C" checkType="NA" checkedFieldName="RegisterAreaCode" />
+				</precondition>
+			</rule>
+			<rule name="rule51-25" messageType="7" errorCode="1016" recordType="71" segmentFlag="C" checkType="DR" Level="4" checkedFieldName="RegisterDate" dataStartValue="19010101" errorMsg="机构成立日期出错" >
+				<precondition>
+					<rule name="rule1" messageType="7" recordType="71" segmentFlag="C" checkType="NA" checkedFieldName="RegisterDate" />
+				</precondition>
+			</rule>
+			<!-- 
+			<rule name="rule51-26" messageType="7" errorCode="1016" recordType="71" segmentFlag="C" checkType="DR" Level="4" checkedFieldName="RegisterDueDate" dataStartValue="{$RegisterDate}" errorMsg="证书到期日出错" >
+				<precondition>
+					<rule name="rule1" messageType="7" recordType="71" segmentFlag="C" checkType="NA" checkedFieldName="RegisterDueDate" />
+				</precondition>
+			</rule> -->
+			<rule name="rule51-27" messageType="7" errorCode="1017" recordType="71" segmentFlag="C" checkType="DIC" Level="4" checkedFieldName="CapitalCurrency"	errorMsg="注册资本币种未按照数据字典中的内容填写"  dataList="币种">
+					<precondition>
+					<rule name="rule1" messageType="7" recordType="71" segmentFlag="C" checkType="NA" checkedFieldName="CapitalCurrency" />
+				</precondition>
+			</rule>
+			<!-- <rule name="rule51-28" messageType="7" errorCode="1014" recordType="71" segmentFlag="C" checkType="N" Level="4" checkedFieldName="CapitalFund"	errorMsg="注册资本（万元）必须填写有效数字" >
+				<precondition>
+					<rule name="rule1" messageType="7" recordType="71" segmentFlag="C" checkType="NA" checkedFieldName="CapitalFund" />
+				</precondition>
+			</rule> 
+			<rule name="rule51-29" messageType="7" errorCode="1000" recordType="71" segmentFlag="C" checkType="DR" Level="4" checkedFieldName="CapitalFund"	dataStartValue="0" errorMsg="注册资金必须大于零" >
+			</rule>-->
+			<rule name="rule51-30" messageType="7" errorCode="1024" recordType="71" segmentFlag="C" checkType="NA" Level="4" checkedFieldName="CapitalFund"	errorMsg="注册资金币种和注册资金金额未成对出现" >
+				<precondition>
+					<rule name="rule1" messageType="7" recordType="71" segmentFlag="C" checkType="NA" checkedFieldName="CapitalCurrency" />
+				</precondition>
+			</rule>
+			<rule name="rule51-31" messageType="7" errorCode="1024" recordType="71" segmentFlag="C" checkType="NA" Level="4" checkedFieldName="CapitalCurrency" errorMsg="注册资金币种和注册资金金额未成对出现" >
+				<precondition>
+					<rule name="rule1" messageType="7" recordType="71" segmentFlag="C" checkType="NA" checkedFieldName="CapitalFund" />
+				</precondition>
+			</rule>
+			<rule name="rule51-32" messageType="7" errorCode="1017" recordType="71" segmentFlag="C" checkType="DIC" Level="4" checkedFieldName="OrgType"	errorMsg="组织机构类别未按照数据字典中的内容填写"  dataList="组织机构类别">
+				<precondition>
+					<rule name="rule1" messageType="7" recordType="71" segmentFlag="C" checkType="NA" checkedFieldName="OrgType" />
+				</precondition>
+			</rule>
+			<rule name="rule51-33" messageType="7" errorCode="1017" recordType="71" segmentFlag="C" checkType="DIC" Level="4" checkedFieldName="OrgTypeSub"	errorMsg="组织机构类别细分未按照数据字典中的内容填写"  dataList="组织机构类别细分">
+				<precondition>
+					<rule name="rule1" messageType="7" recordType="71" segmentFlag="C" checkType="NA" checkedFieldName="OrgTypeSub" />
+				</precondition>
+			</rule>
+			<rule name="rule51-34" messageType="7" errorCode="1017" recordType="71" segmentFlag="C" checkType="DIC" Level="4" checkedFieldName="Industry"	errorMsg="经济行业分类未按照数据字典中的内容填写"  dataList="行业分类">
+				<precondition>
+					<rule name="rule1" messageType="7" recordType="71" segmentFlag="C" checkType="NA" checkedFieldName="Industry" />
+				</precondition>
+			</rule>
+			<rule name="rule51-35" messageType="7" errorCode="1017" recordType="71" segmentFlag="C" checkType="DIC" Level="4" checkedFieldName="OrgNature"	errorMsg="经济类型未按照数据字典中的内容填写"  dataList="经济类型">
+				<precondition>
+					<rule name="rule1" messageType="7" recordType="71" segmentFlag="C" checkType="NA" checkedFieldName="OrgNature" />
+				</precondition>
+			</rule>
+			<rule name="rule51-36" messageType="7" errorCode="1016" recordType="71" segmentFlag="C" checkType="DR" Level="4" checkedFieldName="UpdateDate" dataStartValue="19010101" errorMsg="属性段：信息更新日期出错" >
+				<precondition>
+					<rule name="rule1" messageType="7" recordType="71" segmentFlag="C" checkType="NA" checkedFieldName="UpdateDate" />
+				</precondition>
+			</rule>
+			<rule name="rule51-37" messageType="7" errorCode="1015" recordType="71" segmentFlag="C" checkType="NA" Level="4" checkedFieldName="UpdateDate" errorMsg="属性段：信息更新日期不能为空" >
+			</rule>
+			
+			<!-- 机构状态段数据项报文规则 -->
+			<rule name="rule51-38" messageType="7" errorCode="1015" recordType="71" segmentFlag="D" checkType="NA" Level="4" checkedFieldName="AccountStatus" errorMsg="基本户客户的基本户状态不能为空">
+				<precondition>
+					<rule name="rule1" messageType="7" recordType="71" segmentFlag="B" checkType="DL" checkedFieldName="{B.CustomerType}" dataList="1;"/>
+				</precondition>
+			</rule>
+			<rule name="rule51-39" messageType="7" errorCode="1017" recordType="71" segmentFlag="D" checkType="DIC" Level="4" checkedFieldName="AccountStatus"	errorMsg="基本户状态未按照数据字典中的内容填写"  dataList="基本户状态">
+				<precondition>
+					<rule name="rule1" messageType="7" recordType="71" segmentFlag="D" checkType="NA" checkedFieldName="AccountStatus" />
+				</precondition>
+			</rule>
+			<rule name="rule51-40" messageType="7" errorCode="1017" recordType="71" segmentFlag="D" checkType="DIC" Level="4" checkedFieldName="Scope" errorMsg="企业规模未按照数据字典中的内容填写"  dataList="企业规模">
+				<precondition>
+					<rule name="rule1" messageType="7" recordType="71" segmentFlag="D" checkType="NA" checkedFieldName="Scope" />
+				</precondition>
+			</rule>
+			<rule name="rule51-41" messageType="7" errorCode="1017" recordType="71" segmentFlag="D" checkType="DIC" Level="4" checkedFieldName="OrgStatus"	errorMsg="机构状态未按照数据字典中的内容填写"  dataList="机构状态">
+				<precondition>
+					<rule name="rule1" messageType="7" recordType="71" segmentFlag="D" checkType="NA" checkedFieldName="OrgStatus" />
+				</precondition>
+			</rule>
+			<rule name="rule51-42" messageType="7" errorCode="1016" recordType="71" segmentFlag="D" checkType="DR" Level="4" checkedFieldName="UpdateDate" dataStartValue="19010101" errorMsg="机构状态段：信息更新日期出错" >
+				<precondition>
+					<rule name="rule1" messageType="7" recordType="71" segmentFlag="D" checkType="NA" checkedFieldName="UpdateDate" />
+				</precondition>
+			</rule>
+			<rule name="rule51-43" messageType="7" errorCode="1015" recordType="71" segmentFlag="D" checkType="NA" Level="4" checkedFieldName="UpdateDate" errorMsg="机构状态段：信息更新日期不能为空" >
+			</rule>
+			
+			<!-- 联络信息段数据项报文规则 -->
+			<rule name="rule51-44" messageType="7" errorCode="1012" recordType="71" segmentFlag="E" checkType="AN" Level="4" checkedFieldName="OfficeContact" errorMsg="联系电话格式错误" >
+				<precondition>
+					<rule name="rule1" messageType="7" recordType="71" segmentFlag="E" checkType="NA" checkedFieldName="OfficeContact" />
+				</precondition>
+			</rule>
+			<rule name="rule51-45" messageType="7" errorCode="1012" recordType="71" segmentFlag="E" checkType="AN" Level="4" checkedFieldName="FinanceContact" errorMsg="财务部联系电话格式错误" >
+				<precondition>
+					<rule name="rule1" messageType="7" recordType="71" segmentFlag="E" checkType="NA" checkedFieldName="FinanceContact" />
+				</precondition>
+			</rule>
+			<rule name="rule51-46" messageType="7" errorCode="1016" recordType="71" segmentFlag="E" checkType="DR" Level="4" checkedFieldName="UpdateDate" dataStartValue="19010101" errorMsg="联络信息段：信息更新日期出错" >
+				<precondition>
+					<rule name="rule1" messageType="7" recordType="71" segmentFlag="E" checkType="NA" checkedFieldName="UpdateDate" />
+				</precondition>
+			</rule>
+			<rule name="rule51-47" messageType="7" errorCode="1015" recordType="71" segmentFlag="E" checkType="NA" Level="4" checkedFieldName="UpdateDate" errorMsg="联络信息段：信息更新日期不能为空" >
+			</rule>
+			
+			<!-- 高管及主要关系人段数据项报文规则 -->
+			<rule name="rule51-48" messageType="7" errorCode="1015" recordType="71" segmentFlag="F" checkType="NA" Level="4" checkedFieldName="ManagerType"	errorMsg="关系人类型不能为空" >
+			</rule>
+			<rule name="rule51-49" messageType="7" errorCode="1017" recordType="71" segmentFlag="F" checkType="DIC" Level="4" checkedFieldName="ManagerType" errorMsg="关系人类型未按照数据字典中的内容填写" dataList="关系人类型">
+				<precondition>
+					<rule name="rule1" messageType="7" recordType="71" segmentFlag="F" checkType="NA" checkedFieldName="ManagerType" />
+				</precondition>
+			</rule>
+			<rule name="rule51-50" messageType="7" errorCode="1015" recordType="71" segmentFlag="F" checkType="NA" Level="4" checkedFieldName="ManagerName" errorMsg="姓名不能为空" >
+			</rule> 
+			<rule name="rule51-51" messageType="7" errorCode="1015" recordType="71" segmentFlag="F" checkType="NA" Level="4" checkedFieldName="CertType" errorMsg="高管段：自然人证件类型不能为空" >
+			</rule> 
+			<rule name="rule51-52" messageType="7" errorCode="1017" recordType="71" segmentFlag="F" checkType="DIC" Level="4" checkedFieldName="CertType" errorMsg="高管段：自然人证件类型未按照数据字典中的内容填写" dataList="自然人证件类型">
+			</rule>
+			<rule name="rule51-53" messageType="7" errorCode="1022" recordType="71" segmentFlag="F" checkType="NA" Level="4" checkedFieldName="CertType" errorMsg="高管段：自然人证件类型和证件号码未成对出现" >
+				<precondition>
+					<rule name="rule1" messageType="7" recordType="71" segmentFlag="F" checkType="NA" checkedFieldName="CertId" />
+				</precondition>
+			</rule>
+			<rule name="rule51-54" messageType="7" errorCode="1022" recordType="71" segmentFlag="F" checkType="NA" Level="4" checkedFieldName="CertId" errorMsg="高管段：自然人证件类型和证件号码未成对出现" >
+				<precondition>
+					<rule name="rule1" messageType="7" recordType="71" segmentFlag="F" checkType="NA" checkedFieldName="CertType" />
+				</precondition>
+			</rule>
+			<rule name="rule51-55" messageType="7" errorCode="1021" recordType="71" segmentFlag="F" checkType="ID" Level="4" checkedFieldName="CertId" errorMsg="高管段：自然人身份证号码校验不通过">
+				<precondition>
+					<rule name="rule1" messageType="7" recordType="71" segmentFlag="F" checkType="DL" checkedFieldName="CertType"  dataList="0;"/>
+				</precondition>
+			</rule>
+			<rule name="rule51-56" messageType="7" errorCode="1016" recordType="71" segmentFlag="F" checkType="DR" Level="4" checkedFieldName="UpdateDate" dataStartValue="19010101" errorMsg="高管段：信息更新日期出错" >
+				<precondition>
+					<rule name="rule1" messageType="7" recordType="71" segmentFlag="F" checkType="NA" checkedFieldName="UpdateDate" />
+				</precondition>
+			</rule>
+			<rule name="rule51-57" messageType="7" errorCode="1015" recordType="71" segmentFlag="F" checkType="NA" Level="4" checkedFieldName="UpdateDate" errorMsg="高管段：信息更新日期不能为空" >
+			</rule>
+			
+			<!-- 重要股东段数据项报文规则 -->
+			<rule name="rule51-58" messageType="7" errorCode="1015" recordType="71" segmentFlag="G" checkType="NA" Level="4" checkedFieldName="StockHolderType" errorMsg="股东类型不能为空" >
+			</rule>
+			<rule name="rule51-59" messageType="7" errorCode="1017" recordType="71" segmentFlag="G" checkType="DIC" Level="4" checkedFieldName="StockHolderType"	errorMsg="股东类型未按照数据字典中的内容填写" dataList="股东类型">
+				<precondition>
+					<rule name="rule1" messageType="7" recordType="71" segmentFlag="G" checkType="NA" checkedFieldName="StockHolderType" />
+				</precondition>
+			</rule>
+			<rule name="rule51-60" messageType="7" errorCode="1015" recordType="71" segmentFlag="G" checkType="NA" Level="4" checkedFieldName="StockHolderName" errorMsg="股东名称不能为空" >
+			</rule>
+			<rule name="rule51-61" messageType="7" errorCode="1013" recordType="71" segmentFlag="G" checkType="ANC" Level="4" checkedFieldName="StockHolderName" errorMsg="股东名称不是ANC型数据项" >
+				<precondition>
+					<rule name="rule1" messageType="7" recordType="71" segmentFlag="G" checkType="NA" checkedFieldName="StockHolderName"/>
+				</precondition>
+			</rule>
+			<rule name="rule51-62" messageType="7" errorCode="1025" recordType="71" segmentFlag="G" checkType="NA" Level="4" checkedFieldName="CertId"	errorMsg="重要股东段：组织机构代码、登记注册号和机构信用代码不能同时为空" >
+				<precondition>
+					<rule name="rule1" messageType="7" recordType="71" segmentFlag="G" checkType="NA" checkedFieldName="CorpId"  reverseCheck="true"/>
+					<rule name="rule2" messageType="7" recordType="71" segmentFlag="G" checkType="NA" checkedFieldName="CreditCode"  reverseCheck="true"/>
+				</precondition>
+			</rule>
+			<rule name="rule51-63" messageType="7" errorCode="1017" recordType="71" segmentFlag="G" checkType="NA" Level="4" checkedFieldName="CertType"	errorMsg="重要股东段：自然人证件类型不能为空" >
+				<precondition>
+					<rule name="rule1" messageType="7" recordType="71" segmentFlag="G" checkType="DL" checkedFieldName="StockHolderType" dataList="1;"/>
+				</precondition>		
+			</rule>
+			<rule name="rule51-64" messageType="7" errorCode="1017" recordType="71" segmentFlag="G" checkType="DIC" Level="4" checkedFieldName="CertType"	errorMsg="重要股东段：登记注册号类型未按照数据字典中的内容填写" dataList="登记注册号类型">
+				<precondition>
+					<rule name="rule1" messageType="7" recordType="71" segmentFlag="G" checkType="DL" checkedFieldName="StockHolderType" dataList="2;"/>
+				</precondition>
+			</rule>
+			<rule name="rule51-65" messageType="7" errorCode="1022" recordType="71" segmentFlag="G" checkType="NA" Level="4" checkedFieldName="CertId"	errorMsg="重要股东段：自然人证件类型和证件号码未成对出现" >
+				<precondition>
+					<rule name="rule1" messageType="7" recordType="71" segmentFlag="G" checkType="DL" checkedFieldName="StockHolderType" dataList="1;"/>
+				</precondition>
+			</rule>
+			<rule name="rule51-66" messageType="7" errorCode="1023" recordType="71" segmentFlag="G" checkType="NA" Level="4" checkedFieldName="CertId"	errorMsg="重要股东段：登记注册号类型和登记注册号未成对出现" >
+				<precondition>
+					<rule name="rule1" messageType="7" recordType="71" segmentFlag="G" checkType="DL" checkedFieldName="StockHolderType" dataList="2;"/>
+				</precondition>
+			</rule>
+			<rule name="rule51-67" messageType="7" errorCode="1023" recordType="71" segmentFlag="G" checkType="NA" Level="4" checkedFieldName="StockHolderType"	errorMsg="重要股东段：登记注册号类型（自然人证件类型）和登记注册号（证件号码）未成对出现" >
+				<precondition>
+					<rule name="rule1" messageType="7" recordType="71" segmentFlag="G" checkType="NA" checkedFieldName="CertId"/>
+				</precondition>
+			</rule>
+			<rule name="rule51-68" messageType="7" errorCode="1021" recordType="71" segmentFlag="G" checkType="ID" Level="4" checkedFieldName="CertId"	errorMsg="重要股东段：自然人身份证号码校验不通过" >
+				<precondition>
+					<rule name="rule1" messageType="7" recordType="71" segmentFlag="G" checkType="DL" checkedFieldName="StockHolderType" dataList="1;"/>
+					<rule name="rule2" messageType="7" recordType="71" segmentFlag="G" checkType="DL" checkedFieldName="CertType" dataList="0;"/>
+				</precondition>
+			</rule>
+			<rule name="rule51-69" messageType="7" errorCode="1018" recordType="71" segmentFlag="G" checkType="ZD" Level="4" checkedFieldName="CorpId" errorMsg="重要股东段：组织机构代码校验不通过">
+				<precondition>
+					<rule name="rule1" messageType="7" recordType="71" segmentFlag="G" checkType="NA" checkedFieldName="CorpId"/>
+				</precondition>
+			</rule>
+			<rule name="rule51-70" messageType="7" errorCode="1027" recordType="71" segmentFlag="G" checkType="CT" Level="4" checkedFieldName="CreditCode" errorMsg="重要股东段:机构信用代码校验不通过">
+				<precondition>
+					<rule name="rule1" messageType="7" recordType="71" segmentFlag="G" checkType="NA" checkedFieldName="CreditCode" />
+				</precondition>
+			</rule> 
+			<!-- <rule name="rule51-71" messageType="7" errorCode="1015" recordType="71" segmentFlag="G" checkType="NA" Level="4" checkedFieldName="StockHodingRatio" errorMsg="持股比例不能为空" >
+			</rule> -->
+			<rule name="rule51-73" messageType="7" errorCode="1016" recordType="71" segmentFlag="G" checkType="DR" Level="4" checkedFieldName="UpdateDate" dataStartValue="19010101" errorMsg="重要股东段：信息更新日期出错" >
+				<precondition>
+					<rule name="rule1" messageType="7" recordType="71" segmentFlag="G" checkType="NA" checkedFieldName="UpdateDate" />
+				</precondition>
+			</rule>
+			<rule name="rule51-74" messageType="7" errorCode="1015" recordType="71" segmentFlag="G" checkType="NA" Level="4" checkedFieldName="UpdateDate" errorMsg="重要股东段：信息更新日期不能为空" >
+			</rule>
+			
+			<!-- 主要关联企业段数据项报文规则 -->
+			<rule name="rule51-75" messageType="7" errorCode="1015" recordType="71" segmentFlag="H" checkType="NA" Level="4" checkedFieldName="RelationShip" errorMsg="关联类型不能为空" >
+			</rule>
+			<rule name="rule51-76" messageType="7" errorCode="1017" recordType="71" segmentFlag="H" checkType="DIC" Level="4" checkedFieldName="RelationShip"	errorMsg="关联类型未按照数据字典中的内容填写" dataList="关联类型">
+				<precondition>
+					<rule name="rule1" messageType="7" recordType="71" segmentFlag="H" checkType="NA" checkedFieldName="RelationShip" />
+				</precondition>
+			</rule>
+			<rule name="rule51-77" messageType="7" errorCode="1015" recordType="71" segmentFlag="H" checkType="NA" Level="4" checkedFieldName="RelativeEntName" errorMsg="关联企业名称不能为空" >
+			</rule>
+			<rule name="rule51-78" messageType="7" errorCode="1013" recordType="71" segmentFlag="H" checkType="ANC" Level="4" checkedFieldName="RelativeEntName" errorMsg="关联企业名称不是ANC型数据项" >
+				<precondition>
+					<rule name="rule1" messageType="7" recordType="71" segmentFlag="H" checkType="NA" checkedFieldName="RelativeEntName"/>
+				</precondition>
+			</rule>
+			<rule name="rule51-79" messageType="7" errorCode="1017" recordType="71" segmentFlag="H" checkType="DIC" Level="4" checkedFieldName="RegisterType"	errorMsg="关联企业段：登记注册号类型未按照数据字典中的内容填写" dataList="登记注册号类型">
+				<precondition>
+					<rule name="rule1" messageType="7" recordType="71" segmentFlag="H" checkType="NA" checkedFieldName="RegisterType" />
+				</precondition>
+			</rule>
+			<rule name="rule51-80" messageType="7" errorCode="1023" recordType="71" segmentFlag="H" checkType="NA" Level="4" checkedFieldName="RegisterNo"	errorMsg="关联企业段：登记注册号类型和登记注册号未成对出现" >
+				<precondition>
+					<rule name="rule1" messageType="7" recordType="71" segmentFlag="H" checkType="NA" checkedFieldName="RegisterType" />
+				</precondition>
+			</rule>
+			<rule name="rule51-81" messageType="7" errorCode="1023" recordType="71" segmentFlag="H" checkType="NA" Level="4" checkedFieldName="RegisterType"	errorMsg="关联企业段：登记注册号类型和登记注册号未成对出现" >
+				<precondition>
+					<rule name="rule1" messageType="7" recordType="71" segmentFlag="H" checkType="NA" checkedFieldName="RegisterNo" />
+				</precondition>
+			</rule>
+			<rule name="rule51-82" messageType="7" errorCode="1025" recordType="71" segmentFlag="H" checkType="NA" Level="4" checkedFieldName="RegisterNo"	errorMsg="关联企业段：组织机构代码、登记注册号和机构信用代码不能同时为空" >
+				<precondition>
+					<rule name="rule1" messageType="7" recordType="71" segmentFlag="H" checkType="NA" checkedFieldName="CorpId" reverseCheck="true"/>
+					<rule name="rule2" messageType="7" recordType="71" segmentFlag="H" checkType="NA" checkedFieldName="CreditCode" reverseCheck="true"/>
+				</precondition>
+			</rule>
+			<rule name="rule51-83" messageType="7" errorCode="1018" recordType="71" segmentFlag="H" checkType="ZD" Level="4" checkedFieldName="CorpId"	errorMsg="关联企业段：组织机构代码校验不通过">
+				<precondition>
+					<rule name="rule1" messageType="7" recordType="71" segmentFlag="H" checkType="NA" checkedFieldName="CorpId" />
+				</precondition>
+			</rule>
+			<rule name="rule51-84" messageType="7" errorCode="1027" recordType="71" segmentFlag="H" checkType="CT" Level="4" checkedFieldName="CreditCode"	errorMsg="关联企业段：机构信用代码校验不通过">
+				<precondition>
+					<rule name="rule1" messageType="7" recordType="71" segmentFlag="H" checkType="NA" checkedFieldName="CreditCode" />
+				</precondition>
+			</rule>
+			<rule name="rule51-85" messageType="7" errorCode="1016" recordType="71" segmentFlag="H" checkType="DR" Level="4" checkedFieldName="UpdateDate" dataStartValue="19010101" errorMsg="关联企业段：信息更新日期出错" >
+				<precondition>
+					<rule name="rule1" messageType="7" recordType="71" segmentFlag="H" checkType="NA" checkedFieldName="UpdateDate" />
+				</precondition>
+			</rule>
+			<rule name="rule51-86" messageType="7" errorCode="1015" recordType="71" segmentFlag="H" checkType="NA" Level="4" checkedFieldName="UpdateDate" errorMsg="关联企业段：信息更新日期不能为空" >
+			</rule>
+			
+			<!-- 上级机构（主管单位）段数据项报文规则 -->
+			<rule name="rule51-87" messageType="7" errorCode="1015" recordType="71" segmentFlag="I" checkType="NA" Level="4" checkedFieldName="SuperiorName" errorMsg="上级机构名称不能为空" >
+			</rule>
+			<rule name="rule51-88" messageType="7" errorCode="1013" recordType="71" segmentFlag="I" checkType="ANC" Level="4" checkedFieldName="SuperiorName" errorMsg="上级机构名称不是ANC型数据项" >
+				<precondition>
+					<rule name="rule1" messageType="7" recordType="71" segmentFlag="I" checkType="NA" checkedFieldName="SuperiorName"/>
+				</precondition>
+			</rule>
+			<rule name="rule51-89" messageType="7" errorCode="1017" recordType="71" segmentFlag="I" checkType="DIC" Level="4" checkedFieldName="RegisterType"	errorMsg="上级机构段：登记注册号类型未按照数据字典中的内容填写" dataList="登记注册号类型">
+				<precondition>
+					<rule name="rule1" messageType="7" recordType="71" segmentFlag="I" checkType="NA" checkedFieldName="RegisterType" />
+				</precondition>
+			</rule>
+			<rule name="rule51-90" messageType="7" errorCode="1023" recordType="71" segmentFlag="I" checkType="NA" Level="4" checkedFieldName="RegisterNo"	errorMsg="上级机构段：登记注册号类型和登记注册号未成对出现" >
+				<precondition>
+					<rule name="rule1" messageType="7" recordType="71" segmentFlag="I" checkType="NA" checkedFieldName="RegisterType" />
+				</precondition>
+			</rule>
+			<rule name="rule51-91" messageType="7" errorCode="1023" recordType="71" segmentFlag="I" checkType="NA" Level="4" checkedFieldName="RegisterType"	errorMsg="上级机构段：登记注册号类型和登记注册号未成对出现" >
+				<precondition>
+					<rule name="rule1" messageType="7" recordType="71" segmentFlag="I" checkType="NA" checkedFieldName="RegisterNo" />
+				</precondition>
+			</rule>
+			<rule name="rule51-92" messageType="7" errorCode="1025" recordType="71" segmentFlag="I" checkType="NA" Level="4" checkedFieldName="RegisterNo"	errorMsg="上级机构段：组织机构代码、登记注册号和机构信用代码不能同时为空" >
+				<precondition>
+					<rule name="rule1" messageType="7" recordType="71" segmentFlag="I" checkType="NA" checkedFieldName="CorpId" reverseCheck="true"/>
+					<rule name="rule2" messageType="7" recordType="71" segmentFlag="I" checkType="NA" checkedFieldName="CreditCode" reverseCheck="true"/>
+				</precondition>
+			</rule>
+			<rule name="rule51-93" messageType="7" errorCode="1018" recordType="71" segmentFlag="I" checkType="ZD" Level="4" checkedFieldName="CorpId"	errorMsg="上级机构段：组织机构代码校验不通过">
+				<precondition>
+					<rule name="rule1" messageType="7" recordType="71" segmentFlag="I" checkType="NA" checkedFieldName="CorpId" />
+				</precondition>
+			</rule>
+			<rule name="rule51-94" messageType="7" errorCode="1027" recordType="71" segmentFlag="I" checkType="CT" Level="4" checkedFieldName="CreditCode"	errorMsg="上级机构段：机构信用代码校验不通过">
+				<precondition>
+					<rule name="rule1" messageType="7" recordType="71" segmentFlag="I" checkType="NA" checkedFieldName="CreditCode" />
+				</precondition>
+			</rule>
+			<rule name="rule51-95" messageType="7" errorCode="1016" recordType="71" segmentFlag="I" checkType="DR" Level="4" checkedFieldName="UpdateDate" dataStartValue="19010101" errorMsg="上级机构段：信息更新日期出错" >
+				<precondition>
+					<rule name="rule1" messageType="7" recordType="71" segmentFlag="I" checkType="NA" checkedFieldName="UpdateDate" />
+				</precondition>
+			</rule>
+			<rule name="rule51-96" messageType="7" errorCode="1015" recordType="71" segmentFlag="I" checkType="NA" Level="4" checkedFieldName="UpdateDate" errorMsg="上级机构段：信息更新日期不能为空" >
+			</rule>
+			
+			<!-- 家族成员信息采集报文规则 -->
+			<rule name="rule51-97" messageType="8" errorCode="1015" recordType="72" segmentFlag="B" checkType="NA" Level="4" checkedFieldName="ManagerName" errorMsg="家庭成员主要关系人姓名不能为空">
+			</rule>
+			<rule name="rule51-98" messageType="8" errorCode="1015" recordType="72" segmentFlag="B" checkType="NA" Level="4" checkedFieldName="ManagerCertType" errorMsg="家庭成员主要关系人证件类型不能为空" >
+			</rule>
+			<rule name="rule51-99" messageType="8" errorCode="1017" recordType="72" segmentFlag="B" checkType="DIC" Level="4" checkedFieldName="ManagerCertType" errorMsg="家庭成员主要关系人证件类型未按照数据字典中的内容填写" dataList="自然人证件类型">
+				<precondition>
+					<rule name="rule1" messageType="8" recordType="72" segmentFlag="B" checkType="NA" checkedFieldName="ManagerCertType" />
+				</precondition>
+			</rule>
+			<rule name="rule51-100" messageType="8" errorCode="1015" recordType="72" segmentFlag="B" checkType="NA" Level="4" checkedFieldName="ManagerCertId" errorMsg="家庭成员主要关系人证件号码不能为空" >
+			</rule>
+			<rule name="rule51-101" messageType="8" errorCode="1021" recordType="72" segmentFlag="B" checkType="ID" Level="4" checkedFieldName="ManagerCertId" errorMsg="家庭成员主要关系人身份证号码校验不通过" >
+				<precondition>
+					<rule name="rule1" messageType="8" recordType="72" segmentFlag="B" checkType="DL" checkedFieldName="ManagerCertType"  dataList="0;"/>
+				</precondition>
+			</rule>
+			<rule name="rule51-102" messageType="8" errorCode="1017" recordType="72" segmentFlag="B" checkType="DIC" Level="4" checkedFieldName="MemberRelaType" errorMsg="家族关系未按照数据字典中的内容填写" dataList="家族关系">
+			</rule>
+			<rule name="rule51-103" messageType="8" errorCode="1015" recordType="72" segmentFlag="B" checkType="NA" Level="4" checkedFieldName="MemberName" errorMsg="家族成员姓名不能为空" >
+			</rule>
+			<rule name="rule51-104" messageType="8" errorCode="1015" recordType="72" segmentFlag="B" checkType="NA" Level="4" checkedFieldName="MemberCertType" errorMsg="家族成员证件类型不能为空" >
+			</rule>
+			<rule name="rule51-105" messageType="8" errorCode="1017" recordType="72" segmentFlag="B" checkType="DIC" Level="4" checkedFieldName="MemberCertType" errorMsg="家族成员证件类型未按照数据字典中的内容填写" dataList="自然人证件类型">
+				<precondition>
+					<rule name="rule1" messageType="8" recordType="72" segmentFlag="B" checkType="NA" checkedFieldName="MemberCertType" />
+				</precondition>
+			</rule>
+			<rule name="rule51-106" messageType="8" errorCode="1015" recordType="72" segmentFlag="B" checkType="NA" Level="4" checkedFieldName="MemberCertId" errorMsg="家族成员证件号码不能为空" >
+			</rule>
+			<rule name="rule51-107" messageType="8" errorCode="1021" recordType="72" segmentFlag="B" checkType="ID" Level="4" checkedFieldName="MemberCertId" errorMsg="家族成员身份证号码校验不通过" >
+				<precondition>
+					<rule name="rule1" messageType="8" recordType="72" segmentFlag="B" checkType="DL" checkedFieldName="MemberCertType"  dataList="0;"/>
+				</precondition>
+			</rule>
+			<rule name="rule51-108" messageType="8" errorCode="1016" recordType="72" segmentFlag="B" checkType="DR" Level="4" checkedFieldName="UpdateDate" dataStartValue="19010101" errorMsg="信息更新日期出错" >
+				<precondition>
+					<rule name="rule1" messageType="8" recordType="72" segmentFlag="B" checkType="NA" checkedFieldName="UpdateDate" />
+				</precondition>
+			</rule>
+			<rule name="rule51-109" messageType="8" errorCode="1015" recordType="72" segmentFlag="B" checkType="NA" Level="4" checkedFieldName="UpdateDate" errorMsg="信息更新日期不能为空" >
+			</rule>
+		</rulelist>
+	</rulemap>
+</configuration>

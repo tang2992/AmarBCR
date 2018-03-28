@@ -1,0 +1,4 @@
+--==========start ftp :[2017-03-30--14:48:32]==========--
+--==========end ftp :[2017-03-30--14:50:49]==========--
+./ftp.sh: line 63: sqlplus: command not found
+./ftp.sh: line 67: imp: command not found
