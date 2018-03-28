@@ -36,7 +36,7 @@ public class MBRGuaranteeDelete extends DBMessageBodyReader{
 				Segment segS = r.createSegment("S");
 				segS.getField(2001).setString(rsRecord.getString("FinanceCode"));
 				segS.getField(2002).setString(GBusinessNo);
-				segS.getField(2003).setString(rsRecord.getString("DeleteType"));
+				segS.getField(2003).setString(rsRecord.getString("DeleteTypes"));
 				segS.getField(2004).setDate(rsRecord.getString("UpdateDate"));
 				segS.getField(9993).setDate(this.rsRecord.getString("UpdateDate"));
 			}
