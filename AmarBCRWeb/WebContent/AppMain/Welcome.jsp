@@ -81,6 +81,6 @@
 	</div>
 </div>-->
 </body>
-<script src="<%=sWebRootPath%>/AppMain/resources/js/welcome.js" type="text/javascript"></script>
+<script src="<%=sWebRootPath%>/AppMain/resources/js/welcome.js" charset="UTF-8" type="text/javascript"></script>
 </html>
 <%@ include file="/IncludeEnd.jsp"%>

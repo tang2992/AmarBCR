@@ -24,7 +24,7 @@ function quickMenu(sQuickId, menuId){
 }
 
 function selectMenu(){
-	var sParam = "SelectDialogUrl=/AppMain/SelectMenuDialog.jsp&SelectDialogTitle=�˵�ѡ�񴰿�";
+	var sParam = "SelectDialogUrl=/AppMain/SelectMenuDialog.jsp&SelectDialogTitle=菜单栏";
 	var sReturn = AsControl.PopPage("/Frame/page/tools/SelectDialog.jsp", sParam, "dialogWidth:350px;dialogHeight:400px;resizable:no;maximize:no;help:no;menubar:no;status:no;");
 	if(!sReturn || sReturn == "_CLEAR_") return;
 	sReturn = sReturn.split("@");
@@ -139,10 +139,14 @@ function editQuick(sQuickType, sQuickId){
 function deleteQuick(sQuickId, sQuickName){
 	var quick = document.getElementById(sQuickId);
 	if(!quick) return;
-	if(sQuickName && !confirm("ȷ��ɾ��������["+sQuickName+"]��")) return;
-	var sResult = AsControl.RunJavaMethodSqlca("com.amarsoft.app.awe.config.menu.action.QuickHrefAction", "deleteQuick", "QuickId="+sQuickId);
-	if(sResult == "SUCCESS") $(quick).remove();
-	else alert(sResult);
+	if(sQuickName && !confirm("确认要删除["+sQuickName+"]吗 ?")) return;
+	//	var sResult = RunJavaMethodSqlca("com.amarsoft.app.awe.config.menu.action.QuickHrefAction", "deleteQuick", "quickId="+sQuickId);
+	var sResult=AsControl.RunJavaMethod("com.amarsoft.app.awe.config.menu.action.QuickHrefAction","deleteQuick","quickId="+sQuickId);	
+	if(sResult == "SUCCESS"){
+		$(quick).remove();
+	}else{
+		alert(sResult);
+	}
 }
 
 var aem = {};
