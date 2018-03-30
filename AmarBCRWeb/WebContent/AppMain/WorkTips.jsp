@@ -83,8 +83,8 @@
 		WorkTips workTip = new WorkTips();
 		workTip.information.add(new WorkTip("待处理的校验错误<font color='red'> "+WorkTipUtil.getValidateErrCount(CurUser.getUserID(),CurUser.getRelativeOrgID())+" </font>条", "com.amarsoft.app.bcr.common.worktip.ValidateWorkTip@tableName=BCR_ERRHISTORY", "", false));
 		workTip.information.add(new WorkTip("待处理的反馈错误<font color='red'> "+WorkTipUtil.getFeedbackErrCount(CurUser.getUserID(),CurUser.getRelativeOrgID())+" </font>条", "com.amarsoft.app.bcr.common.worktip.ValidateWorkTip@tableName=BCR_FEEDBACK", "", false));
-		workTip.information.add(new WorkTip("待解析的反馈报文<font color='red'> "+WorkTipUtil.getFeedbackFileTotal(CurUser.getUserID(),CurUser.getRelativeOrgID())+" </font>件", "com.amarsoft.app.ecr.common.worktip.FeedbackWorkTip", "", false));
-		out.print(workTip.getInformation());%>, parent.aem?[parent.aem[self.name]]:null);
+/* 		workTip.information.add(new WorkTip("待解析的反馈报文<font color='red'> "+WorkTipUtil.getFeedbackFileTotal(CurUser.getUserID(),CurUser.getRelativeOrgID())+" </font>件", "com.amarsoft.app.ecr.common.worktip.FeedbackWorkTip", "", false));
+ */		out.print(workTip.getInformation());%>, parent.aem?[parent.aem[self.name]]:null);
 
 	function drawWorkTips(container, datas, ems){
 		//alert(JSON.stringify(datas));
