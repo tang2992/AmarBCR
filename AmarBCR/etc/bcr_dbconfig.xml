@@ -17,7 +17,7 @@
 		</resource>
 	<resource type="jdbc" encrypt="false" name="bcr" >
 			<driver>oracle.jdbc.driver.OracleDriver</driver>
-			<url>jdbc:oracle:thin:@127.0.0.1:1521:dyecr</url>
+			<url>jdbc:oracle:thin:@127.0.0.1:1521:orcl</url>
 			<user>bcr</user>
 			<password>bcr</password>
 			<logWriter>system.err</logWriter>

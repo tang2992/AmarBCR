@@ -26,7 +26,7 @@ public class AmarBCR
     ARE.setProperty("businessOccurDate", occurDate);
     ARE.setProperty("occurDate", occurDate);
 
-    String taskFile = ARE.getProperty(arg.getArgument("task", "report") + "TaskFile");
+    String taskFile = ARE.getProperty(arg.getArgument("task", "validate") + "TaskFile");
     boolean gui = arg.getArgument("gui", false);
 
     int exitCode = 0;

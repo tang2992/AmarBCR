@@ -6,7 +6,7 @@
 		<!-- 定义统一的APP_HOME，引用其他文件非常方便，默认为web平台程序根目录 -->
 		<!--<Property name="APP_HOME" value="." /> -->
 		<!--ECR_HOME 请设置为批量程序路径-->
-		<Property name="BCR_HOME"  value="F:/workspace/SVN/AmarBCR" />
+		<Property name="BCR_HOME"  value="F:/git/repository/AmarBCR" />
 		<Property name="ECR_HOME"  value="{$ARE.BCR_HOME}" />
 		<Property name="initTaskFile" value="{$ARE.BCR_HOME}/etc/bcr_task_init.xml" />
 		<Property name="prepareTaskFile" value="{$ARE.BCR_HOME}/etc/bcr_task_prepare.xml" />
